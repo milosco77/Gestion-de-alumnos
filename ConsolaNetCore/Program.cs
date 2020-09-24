@@ -20,6 +20,9 @@ namespace ConsolaNetCore
             //primero harcodeado
 
             //inicializando lista de alumnos
+
+            int parcial1, parcial2, final, promedio;
+
             List<string> alumnos = new List<string>();
 
             for (int i = 0; i < 20; i++)
@@ -54,6 +57,10 @@ namespace ConsolaNetCore
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("\nEl {0} promociono!", alumnos[i]);
+                }
+                else
+                {
+                    Console.WriteLine("\nEl {0} reprobo", alumnos[i]);
                 }
             }
 
