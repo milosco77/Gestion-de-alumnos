@@ -31,14 +31,33 @@ namespace ConsolaNetCore
 
             Console.ReadKey();
 
-
-            Console.WriteLine("TODO ingresar alumnos");
+            //TODO ingreso de alumnos por el usuario
+            Console.WriteLine("\nIngresar alumnos");
 
             for (int i = 0; i < 10; i++)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\nSu alumno es: " + alumnos[i]);
             }
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\nIngresando notas");
+
+            //ingresando notas del alumno
+            for (int i = 0; i < 10; i++)
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("\nLa nota de su {0} es: {1}", alumnos[i], i+5);
+
+                //indicando si promociono la materia
+                if (i+5 >= 13)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("\nEl {0} promociono!", alumnos[i]);
+                }
+            }
+
+
 
             Console.ForegroundColor = ConsoleColor.White;
 
