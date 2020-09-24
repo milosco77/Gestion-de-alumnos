@@ -22,6 +22,7 @@ namespace ConsolaNetCore
             //inicializando lista de alumnos
 
             int parcial1, parcial2, final, promedio;
+            Random rnd = new Random();
 
             List<string> alumnos = new List<string>();
 
@@ -43,17 +44,21 @@ namespace ConsolaNetCore
                 Console.WriteLine("\nSu alumno es: " + alumnos[i]);
             }
 
+            Console.ReadKey();
+
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("\nIngresando notas");
 
             //ingresando notas del alumno
             for (int i = 0; i < 10; i++)
             {
+                promedio = rnd.Next(0, 20);
+
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("\nLa nota de su {0} es: {1}", alumnos[i], i+5);
+                Console.WriteLine("\nLa nota de su {0} es: {1}", alumnos[i], promedio);
 
                 //indicando si promociono la materia
-                if (i+5 >= 13)
+                if (promedio >= 13)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("\nEl {0} promociono!", alumnos[i]);
@@ -63,7 +68,6 @@ namespace ConsolaNetCore
                     Console.WriteLine("\nEl {0} reprobo", alumnos[i]);
                 }
             }
-
 
 
             Console.ForegroundColor = ConsoleColor.White;
