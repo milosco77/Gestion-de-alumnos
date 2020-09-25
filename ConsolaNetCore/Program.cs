@@ -164,7 +164,6 @@ namespace ConsolaNetCore
                 total = parcial1 + parcial2;
 
                 //indicando si promociono la materia
-                //TODO agregar funcionalidad de si no tiene aprobado los 2 parciales, entonces recursa
                 if (total >= 13)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -203,40 +202,12 @@ namespace ConsolaNetCore
                         Console.WriteLine($"\nSu alumno {alumnos[i]} debe recursar la materia");
                         Console.ForegroundColor = ConsoleColor.White;
                     }
-
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"\nEl {alumnos[i]} obtuvo {total}, no alcanzo la nota para promocionar (13), va a instancia de final");
+                    Console.WriteLine($"\nSu alumno {alumnos[i]} no tiene los 2 parciales aprobados con minimo (4) para ingresar a instancia de final\ndebe recursar la materia");
                     Console.ForegroundColor = ConsoleColor.White;
-
-                    final = rnd.Next(0, 10);
-
-                    if (final >= 4)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("\n---INSTANCIA DE FINAL---");
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine($"\nLa nota del final del alumno {alumnos[i]} es: {final}");
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("\n-------------------------");
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine($"\nPromociono con promedio {final}!");
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("\n---INSTANCIA DE FINAL---");
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine($"\nLa nota del final del alumno {alumnos[i]} es: {final}");
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("\n-------------------------");
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"\nSu alumno {alumnos[i]} debe recursar la materia");
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
                 }
                 Console.ReadKey();
                 Console.Clear();
