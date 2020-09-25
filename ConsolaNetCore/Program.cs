@@ -46,6 +46,7 @@ namespace ConsolaNetCore
             }
 
             Console.ReadKey();
+            Console.Clear();
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("\nIngresando notas");
@@ -103,6 +104,7 @@ namespace ConsolaNetCore
                         Console.ReadKey();
                     }
                 }
+                Console.Clear();
             }
 
             //TODO agregar funcionalidad de recuperacion
