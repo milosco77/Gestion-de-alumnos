@@ -13,7 +13,7 @@ namespace ConsolaNetCore
 
             //Hacer un programa que ingrese una lista de alumnos, coloque sus notas de:
             //1er parcial, 2do parcial y final.
-            //Indicar si se promociona o reprueba. Se promociona con promedio 13, se aprueba con 4, la maxima discrepancia es un parcial 4 y otro parcial 9 o 10.
+            //Indicar si se promociona o reprueba. Se promociona con nota total 13, se aprueba con 4, la maxima discrepancia es un parcial 4 y otro parcial 9 o 10.
             //Se pueden recuperar los 2 parciales
             //Promedio menor a 13 se va a final.
             //TODO agregar mas consignas
@@ -22,7 +22,7 @@ namespace ConsolaNetCore
 
             //inicializando lista de alumnos
 
-            int parcial1, parcial2, final, promedio;
+            int parcial1, parcial2, final, total;
             bool parcial1Reprobado = false, parcial2Reprobado = false;
             Random rnd = new Random();
 
@@ -54,6 +54,13 @@ namespace ConsolaNetCore
 
             for (int i = 0; i < 10; i++)
             {
+                parcial1Reprobado = false;
+                parcial2Reprobado = false;
+                parcial1 = 0;
+                parcial2 = 0;
+                total = 0;
+                final = 0;
+
                 parcial1 = rnd.Next(0, 10);
                 parcial2 = rnd.Next(0, 10);
 
@@ -85,9 +92,15 @@ namespace ConsolaNetCore
                     if (parcial1 >= 4)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine($"\nEl {alumnos[i]} aprobo el recuperatorio");
+                        Console.WriteLine($"\nEl {alumnos[i]} aprobo el recuperatorio del primer parcial");
                         Console.ForegroundColor = ConsoleColor.White;
                         parcial1Reprobado = false;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"\nEl {alumnos[i]} reprobo el recuperatorio del primer parcial");
+                        Console.ForegroundColor = ConsoleColor.White;
                     }
                 }
 
@@ -98,32 +111,63 @@ namespace ConsolaNetCore
                     if (parcial2 >= 4)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine($"\nEl {alumnos[i]} aprobo el recuperatorio");
+                        Console.WriteLine($"\nEl {alumnos[i]} aprobo el recuperatorio del segundo parcial");
                         Console.ForegroundColor = ConsoleColor.White;
                         parcial2Reprobado = false;
                     }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"\nEl {alumnos[i]} reprobo el recuperatorio del segundo parcial");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                }
+
+                if (parcial1Reprobado == true || parcial2Reprobado == true)
+                {
+                    Console.WriteLine($"\nLa nota del primer parcial de su alumno {alumnos[i]} es: {parcial1}");
+                    Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumnos[i]} es: {parcial2}");
                 }
 
 
-                Console.ForegroundColor = ConsoleColor.White;
-
-                Console.WriteLine($"\nLa nota del primer parcial de su alumno {alumnos[i]} es: {parcial1}");
-                Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumnos[i]} es: {parcial2}");
-
-
-                promedio = parcial1 + parcial2;
+                total = parcial1 + parcial2;
 
                 //indicando si promociono la materia
-                if (promedio >= 13)
+                //TODO agregar funcionalidad de si no tiene aprobado los 2 parciales, entonces recursa
+                if (total >= 13)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"\nEl alumno {alumnos[i]} promociono con promedio {promedio / 2}!");
+                    Console.WriteLine($"\nEl alumno {alumnos[i]} promociono con promedio {total / 2}!");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
                 else if (parcial1Reprobado == false && parcial2Reprobado == false)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"\nEl {alumnos[i]} no alcanzo la nota para promocionar (13), va a instancia de final");
+                    Console.WriteLine($"\nEl {alumnos[i]} obtuvo {total}, no alcanzo la nota para promocionar (13), va a instancia de final");
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    final = rnd.Next(0, 10);
+
+                    if (final >= 4)
+                    {
+                        Console.WriteLine($"\nLa nota del final del alumno {alumnos[i]} es: {final}");
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine($"\nPromociono con promedio {final}!");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"\nLa nota del final del alumno {alumnos[i]} es: {final}");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine($"\nSu alumno {alumnos[i]} debe recursar la materia");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"\nEl {alumnos[i]} obtuvo {total}, no alcanzo la nota para promocionar (13), va a instancia de final");
                     Console.ForegroundColor = ConsoleColor.White;
 
                     final = rnd.Next(0, 10);
@@ -146,14 +190,6 @@ namespace ConsolaNetCore
                 Console.ReadKey();
                 Console.Clear();
             }
-
-            //TODO agregar funcionalidad de recuperacion
-            //if (parcial1 < 4)
-            //{
-            //    Console.WriteLine($"\nSu alumno {alumnos[i]} debe recuperar parcial 1");
-            //}
-
-            //Console.WriteLine("\nLa nota de su {0} es: {1}", alumnos[i], promedio);
 
             Console.ForegroundColor = ConsoleColor.White;
 
