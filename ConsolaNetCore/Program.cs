@@ -229,19 +229,33 @@ namespace ConsolaNetCore
                         Console.ResetColor();
 
                         Console.WriteLine("\nFin del programa\n\nPresione cualquier tecla para finalizar");
-
                         Console.ReadKey();
-
                         System.Environment.Exit(0);
                         break;
                     case 2:
                         Console.Clear();
                         Console.WriteLine("\nIngresar alumnos");
 
-                        Console.WriteLine("\nCuantos alumnos quiere ingresar? (0-100)");
-                        int ingresados = Convert.ToInt32(Console.ReadLine());
 
-                        for (int i = 1; i <= ingresados; i++)
+                        Console.WriteLine("\nCuantos alumnos quiere ingresar? (1-100)");
+                        //int ingresados = Convert.ToInt32(Console.ReadLine());
+
+                        //respuesta = Console.ReadLine();
+                        //Console.Clear();
+                        //convierte el valor respuesta que es string a un numero equivalente en int32 y devuelve la converion
+                        //en la variable input, si falla la conversion la variable es 0
+                        //int.TryParse(respuesta, out input);
+                        int inputAlumnos;
+                        string ingresados = Console.ReadLine();
+
+                        int.TryParse(ingresados, out inputAlumnos);
+
+                        while (inputAlumnos == 0 || inputAlumnos > 100)
+                        {
+                            //TODO continuar validacion de datos
+                        }
+
+                        for (int i = 1; i <= inputAlumnos; i++)
                         {
                             Console.WriteLine($"\nIngrese el nombre de su alumno Nº {i}:");
                             nombre = Console.ReadLine();
@@ -436,9 +450,7 @@ namespace ConsolaNetCore
                         Console.ResetColor();
 
                         Console.WriteLine("\nFin del programa\n\nPresione cualquier tecla para finalizar");
-
                         Console.ReadKey();
-
                         System.Environment.Exit(0);
                         break;
                     case 3:
