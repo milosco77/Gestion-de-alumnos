@@ -20,8 +20,6 @@ namespace ConsolaNetCore
             //Promedio menor a 13 se va a final. Se necesitan tener los 2 parciales aprobados para ir a final.
             //TODO agregar mas consignas
 
-            //--HARDCODEADO--
-
             //inicializando lista de alumnos
 
             int parcial1, parcial2, final, total;
@@ -47,8 +45,6 @@ namespace ConsolaNetCore
             //    default:
             //        break;
             //}
-
-            //TODO ingreso de datos manual, no hardcodeado
 
             Console.WriteLine("\nPrograma de gestion de notas y asistencia de alumnos\n\nA continuacion se le pedira agregar los alumnos y sus notas");
 
