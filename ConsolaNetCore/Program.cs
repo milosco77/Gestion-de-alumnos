@@ -23,7 +23,7 @@ namespace ConsolaNetCore
             //inicializando lista de alumnos
 
             int parcial1, parcial2, final, total;
-            string nombre, apellido;
+            string nombre, apellido, respuesta;
             bool parcial1Reprobado = false, parcial2Reprobado = false;
             Random rnd = new Random();
 
@@ -32,9 +32,12 @@ namespace ConsolaNetCore
             Console.WriteLine("\nQue desea hacer? Elija la opcion deseada:");
             Console.WriteLine("\n1 = Modo Automatico - 2 = Modo Manuel - 3 = Salir");
 
-            int respuesta = Convert.ToInt32(Console.ReadLine());
+            respuesta = Console.ReadLine();
+            //convierte el valor respuesta que es string a un numero equivalente en int32 y devuelve la converion
+            //en la variable input, si falla la conversion la variable es 0
+            int.TryParse(respuesta, out int input);
 
-            switch (respuesta)
+            switch (input)
             {
                 case 1:
                     Console.Clear();
