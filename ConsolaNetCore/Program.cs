@@ -25,12 +25,33 @@ namespace ConsolaNetCore
             //inicializando lista de alumnos
 
             int parcial1, parcial2, final, total;
+            string nombre, apellido;
             bool parcial1Reprobado = false, parcial2Reprobado = false;
             Random rnd = new Random();
 
             List<string> alumnos = new List<string>();
 
-            //TODO ingreso de alumnos por el usuario
+            //Console.WriteLine("\nQue desea hacer? Elija la opcion deseada:");
+            //Console.WriteLine("\n1 = Modo Automatico - 2 = Modo Manuel - 3 = Salir");
+
+            //int respuesta = Convert.ToInt32(Console.ReadLine());
+
+            //switch (respuesta)
+            //{
+            //    case 1:
+            //        break;
+            //    case 2:
+            //        break;
+            //    case 3:
+            //        break;
+            //    default:
+            //        break;
+            //}
+
+            //TODO ingreso de datos manual, no hardcodeado
+
+            Console.WriteLine("\nPrograma de gestion de notas y asistencia de alumnos\n\nA continuacion se le pedira agregar los alumnos y sus notas");
+
             Console.WriteLine("\nIngresar alumnos");
 
             Console.WriteLine("\nCuantos alumnos quiere ingresar? (0-100)");
@@ -38,15 +59,19 @@ namespace ConsolaNetCore
 
             for (int i = 1; i <= ingresados; i++)
             {
-                alumnos.Add("alumno" + i);
+                Console.WriteLine($"\nIngrese el nombre de su alumno Nº {i}:");
+                nombre = Console.ReadLine();
+                Console.WriteLine($"\nIngrese el apellido de su alumno Nº {i}:");
+                apellido = Console.ReadLine();
+
+                alumnos.Add($"Nº {i} - {nombre} {apellido}");
+                Console.Clear();
             }
-
-            Console.WriteLine("\nPrograma de gestion de notas y asistencia de alumnos\n\nA continuacion se le pedira agregar los alumnos y sus notas");
-
+            
             foreach (var alumno in alumnos)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"\nSu alumno es: " + alumno);
+                Console.WriteLine($"\nSu alumno es: {alumno}");
             }
 
             Console.ReadKey();
@@ -66,11 +91,15 @@ namespace ConsolaNetCore
                 total = 0;
                 final = 0;
 
-                parcial1 = rnd.Next(0, 10);
-                parcial2 = rnd.Next(0, 10);
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("\n---NOTAS DEL ALUMNO---");
+                Console.WriteLine($"\n---NOTAS DEL ALUMNO {alumno}---");
                 Console.ForegroundColor = ConsoleColor.White;
+
+                Console.WriteLine("\nIngrese la nota del primer parcial:");
+                parcial1 = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("\nIngrese la nota del segundo parcial:");
+                parcial2 = Convert.ToInt32(Console.ReadLine());
+
                 Console.WriteLine($"\nLa nota del primer parcial de su alumno {alumno} es: {parcial1}");
                 Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumno} es: {parcial2}");
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -100,8 +129,10 @@ namespace ConsolaNetCore
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("\n---INSTANCIA DE RECUPERATORIO---");
                     Console.ForegroundColor = ConsoleColor.White;
-                    parcial1 = rnd.Next(0, 10);
                     Console.WriteLine($"\nEl {alumno} recupera el primer parcial");
+                    Console.WriteLine("\nIngrese la nota del recuperatorio:");
+                    parcial1 = Convert.ToInt32(Console.ReadLine());
+
                     if (parcial1 >= 4)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
@@ -127,9 +158,10 @@ namespace ConsolaNetCore
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("\n---INSTANCIA DE RECUPERATORIO---");
                     Console.ForegroundColor = ConsoleColor.White;
-
-                    parcial2 = rnd.Next(0, 10);
                     Console.WriteLine($"\nEl {alumno} recupera el segundo parcial");
+                    Console.WriteLine("\nIngrese la nota del recuperatorio:");
+                    parcial2 = Convert.ToInt32(Console.ReadLine());
+
                     if (parcial2 >= 4)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
@@ -179,7 +211,8 @@ namespace ConsolaNetCore
                     Console.WriteLine($"\nEl {alumno} obtuvo {total}, no alcanzo la nota para promocionar (13), va a instancia de final");
                     Console.ForegroundColor = ConsoleColor.White;
 
-                    final = rnd.Next(0, 10);
+                    Console.WriteLine("\nIngrese la nota del final:");
+                    final = Convert.ToInt32(Console.ReadLine());
 
                     if (final >= 4)
                     {
@@ -218,7 +251,7 @@ namespace ConsolaNetCore
 
             Console.ForegroundColor = ConsoleColor.White;
 
-            Console.WriteLine("\nPresione cualquier tecla para continuar");
+            Console.WriteLine("\nFin del programa\n\nPresione cualquier tecla para finalizar");
 
             Console.ReadKey();
         }
