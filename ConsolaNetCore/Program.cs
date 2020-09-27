@@ -22,8 +22,8 @@ namespace ConsolaNetCore
 
             //inicializando variables
 
-            int parcial1, parcial2, final, total, input;
-            string nombre, apellido, respuesta;
+            int parcial1, parcial2, final, total, input, inputAlumnos, inputParcial1, inputParcial2, inputFinal;
+            string nombre, apellido, respuesta, alumnosIngresados, parcial1Ingresado, parcial2Ingresado;
             bool parcial1Reprobado = false, parcial2Reprobado = false;
             Random rnd = new Random();
             List<string> alumnos = new List<string>();
@@ -235,27 +235,23 @@ namespace ConsolaNetCore
                     case 2:
                         Console.Clear();
                         Console.WriteLine("\nIngresar alumnos");
-
-
-                        Console.WriteLine("\nCuantos alumnos quiere ingresar? (1-100)");
-                        //int ingresados = Convert.ToInt32(Console.ReadLine());
-
-                        //respuesta = Console.ReadLine();
-                        //Console.Clear();
-                        //convierte el valor respuesta que es string a un numero equivalente en int32 y devuelve la converion
-                        //en la variable input, si falla la conversion la variable es 0
-                        //int.TryParse(respuesta, out input);
-                        int inputAlumnos;
-                        string ingresados = Console.ReadLine();
-
-                        int.TryParse(ingresados, out inputAlumnos);
-
-                        while (inputAlumnos == 0 || inputAlumnos > 100)
+                        
+                        //se valida datos y se informa dato incorrecto
+                        do
                         {
-                            //TODO continuar validacion de datos
-                        }
+                            Console.WriteLine("\nCuantos alumnos quiere ingresar? (1-100)");
+                            alumnosIngresados = Console.ReadLine();
+                            int.TryParse(alumnosIngresados, out inputAlumnos);
+                            if (inputAlumnos == 0 || inputAlumnos > 100)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Clear();
+                                Console.WriteLine("\nUsted introdujo un valor que no esta entre 1 y 100");
+                                Console.ResetColor();
+                            }
+                        } while (inputAlumnos == 0 || inputAlumnos > 100);
 
-                        for (int i = 1; i <= inputAlumnos; i++)
+                            for (int i = 1; i <= inputAlumnos; i++)
                         {
                             Console.WriteLine($"\nIngrese el nombre de su alumno Nº {i}:");
                             nombre = Console.ReadLine();
@@ -292,11 +288,36 @@ namespace ConsolaNetCore
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine($"\n---NOTAS DEL ALUMNO {alumno}---");
                             Console.ResetColor();
+                            //se valida datos y se informa dato incorrecto
+                            do
+                            {
+                                Console.WriteLine("\nIngrese la nota del primer parcial (1-10):");
+                                parcial1Ingresado = Console.ReadLine();
+                                int.TryParse(parcial1Ingresado, out inputParcial1);
+                                if (inputParcial1 == 0 || inputParcial1 > 10)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.Clear();
+                                    Console.WriteLine("\nUsted introdujo un valor que no esta entre 1 y 100");
+                                    Console.ResetColor();
+                                }
+                            } while (inputParcial1 == 0 || inputParcial1 > 10);
 
-                            Console.WriteLine("\nIngrese la nota del primer parcial:");
-                            parcial1 = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine("\nIngrese la nota del segundo parcial:");
-                            parcial2 = Convert.ToInt32(Console.ReadLine());
+                            do
+                            {
+                                Console.WriteLine("\nIngrese la nota del segundo parcial (1-10):");
+                                parcial2Ingresado = Console.ReadLine();
+                                int.TryParse(parcial2Ingresado, out inputParcial2);
+                                if (inputParcial2 == 0 || inputParcial2 > 10)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.Clear();
+                                    Console.WriteLine("\nUsted introdujo un valor que no esta entre 1 y 100");
+                                    Console.ResetColor();
+                                }
+                            } while (inputParcial2 == 0 || inputParcial2 > 10);
+
+                            //TODO continuar validacion
 
                             Console.WriteLine($"\nLa nota del primer parcial de su alumno {alumno} es: {parcial1}");
                             Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumno} es: {parcial2}");
