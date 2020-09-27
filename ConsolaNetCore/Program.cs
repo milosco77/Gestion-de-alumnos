@@ -19,11 +19,13 @@ namespace ConsolaNetCore
             //Promedio menor a 13 se va a final. Se necesitan tener los 2 parciales aprobados para ir a final.
             //Indicar si se promociona o reprueba. Cada uno de los examanes y materia.
             //Generar validacion de datos para todos los input del usuario
+            //TODO implementar funciones para ordenar, y borrar codigo repetido
+            //TODO implementar manejo de excepciones
 
             //inicializando variables
 
-            int parcial1, parcial2, final, total, input, inputAlumnos, inputParcial1, inputParcial2, inputRecuperatorio1, inputRecuperatorio2, inputFinal;
-            string nombre, apellido, respuesta, alumnosIngresados, parcial1Ingresado, parcial2Ingresado, recuperatorio1Ingresado, recuperatorio2Ingresado, finalIngresado;
+            int parcial1, parcial2, final, total, inputOpcion, inputAlumnos, inputParcial1, inputParcial2, inputRecuperatorio1 = 0, inputRecuperatorio2 = 0, inputFinal;
+            string nombre, apellido, ingresoRespuesta, alumnosIngresados, parcial1Ingresado, parcial2Ingresado, recuperatorio1Ingresado, recuperatorio2Ingresado, finalIngresado;
             bool parcial1Reprobado = false, parcial2Reprobado = false;
             Random rnd = new Random();
             List<string> alumnos = new List<string>();
@@ -37,13 +39,13 @@ namespace ConsolaNetCore
             {
                 Console.WriteLine("\nQue desea hacer? Elija la opcion deseada:");
                 Console.WriteLine("\n1 = Modo Automatico - 2 = Modo Manuel - 3 = Salir");
-                respuesta = Console.ReadLine();
+                ingresoRespuesta = Console.ReadLine();
                 Console.Clear();
                 //convierte el valor respuesta que es string a un numero equivalente en int32 y devuelve la converion
                 //en la variable input, si falla la conversion la variable es 0
-                int.TryParse(respuesta, out input);
+                int.TryParse(ingresoRespuesta, out inputOpcion);
 
-                switch (input)
+                switch (inputOpcion)
                 {
                     case 1:
                         Console.Clear();
@@ -252,6 +254,7 @@ namespace ConsolaNetCore
                             }
                         } while (inputAlumnos == 0 || inputAlumnos > 100);
 
+                        //TODO hacer validacion de nombre y apellido
                             for (int i = 1; i <= inputAlumnos; i++)
                         {
                             Console.WriteLine($"\nIngrese el nombre de su alumno Nº {i}:");
@@ -281,10 +284,7 @@ namespace ConsolaNetCore
                         {
                             parcial1Reprobado = false;
                             parcial2Reprobado = false;
-                            parcial1 = 0;
-                            parcial2 = 0;
                             total = 0;
-                            final = 0;
 
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine($"\n---NOTAS DEL ALUMNO {alumno}---");
@@ -425,22 +425,20 @@ namespace ConsolaNetCore
                                 }
                             }
 
-                            //TODO resolver problema de que las variables inputParcial1 y inputParcial2 quedan fuera de scope
-
                             if (parcial1Reprobado == true || parcial2Reprobado == true)
                             {
                                 Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine("\n---NOTAS DEL ALUMNO---");
                                 Console.ResetColor();
-                                Console.WriteLine($"\nLa nota del primer parcial de su alumno {alumno} es: {parcial1}");
-                                Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumno} es: {parcial2}");
+                                Console.WriteLine($"\nLa nota del primer parcial de su alumno {alumno} es: {inputRecuperatorio1}");
+                                Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumno} es: {inputRecuperatorio2}");
                                 Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine("\n----------------------");
                                 Console.ResetColor();
                             }
 
 
-                            total = parcial1 + parcial2;
+                            total = inputRecuperatorio1 + inputRecuperatorio2;
 
                             //indicando si promociono la materia
                             if (total >= 13)
@@ -521,7 +519,7 @@ namespace ConsolaNetCore
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nUsted puso un caracter que no es 1, 2 o 3");
                 Console.ResetColor();
-            } while (input == 0 || input > 3);
+            } while (inputOpcion == 0 || inputOpcion > 3);
         }
     }
 }
