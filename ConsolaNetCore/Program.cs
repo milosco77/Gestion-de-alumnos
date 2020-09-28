@@ -1,10 +1,5 @@
-﻿using ClasesNetCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Security.Cryptography.X509Certificates;
-using System.Text.RegularExpressions;
-using System.Xml;
 
 namespace ConsolaNetCore
 {
@@ -28,15 +23,14 @@ namespace ConsolaNetCore
             //inicializando variables
 
             int parcial1, parcial2, final, notaTotal, inputOpcion, inputAlumnos, inputParcial1, inputParcial2, inputRecuperatorio1 = 0, inputRecuperatorio2 = 0, inputFinal;
-            string nombre, apellido, respuestaIngreso, alumnosIngresados, parcial1Ingresado, parcial2Ingresado, recuperatorio1Ingresado, recuperatorio2Ingresado, finalIngresado;
-            bool parcial1Reprobado = false, parcial2Reprobado = false;
+            string nombre, apellido, respuestaIngreso;
+            bool parcial1Reprobado, parcial2Reprobado;
             Random rnd = new Random();
             List<string> alumnos = new List<string>();
 
-            //se hace invisible el curso
-            Console.CursorVisible = false;
             //titulo en de la ventana
             Console.Title = "Programa de Gestion de Notas de Alumnos";
+
             //comienza programa
             do
             {
@@ -44,6 +38,7 @@ namespace ConsolaNetCore
                 Console.WriteLine("\n1 = Modo Automatico - 2 = Modo Manuel - 3 = Salir");
                 respuestaIngreso = Console.ReadLine();
                 Console.Clear();
+
                 //convierte el valor respuesta que es string a un numero equivalente en int32 y devuelve la converion
                 //en la variable input, si falla la conversion la variable es 0
                 int.TryParse(respuestaIngreso, out inputOpcion);
@@ -178,45 +173,16 @@ namespace ConsolaNetCore
                     //Opcion MODO MANUAL
                     case 2:
                         Console.Clear();
-                        Console.WriteLine("\nIngresar alumnos");
-                        
-                        //se valida datos y se informa dato incorrecto
-                        do
-                        {
-                            Console.WriteLine("\nCuantos alumnos quiere ingresar? (1-100)");
-                            alumnosIngresados = Console.ReadLine();
-                            int.TryParse(alumnosIngresados, out inputAlumnos);
+                        MensajeColor("\n---INGRESO DE ALUMNOS---", ConsoleColor.Green);
 
-                            if (inputAlumnos == 0 || inputAlumnos > 100)
-                            {
-                                Console.Clear();
-                                MensajeColor("\nUsted introdujo un valor que no esta entre 1 y 100", ConsoleColor.Red);
-                            }
-                        } while (inputAlumnos == 0 || inputAlumnos > 100);
+                        //se valida datos y se informa dato incorrecto
+                        inputAlumnos = ValidacionNumerica("\nCuantos alumnos quiere ingresar? (1-100)", "\nUsted introdujo un valor que no esta entre 1 y 100", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red, 100);
 
                             for (int i = 1; i <= inputAlumnos; i++)
                         {
-                            do
-                            {
-                                Console.WriteLine($"\nIngrese el nombre de su alumno Nº {i}:");
-                                nombre = Console.ReadLine();
-                                if (string.IsNullOrEmpty(nombre))
-                                {
-                                    Console.Clear();
-                                    MensajeColor("\nEl campo nombre no puede estar vacio, ingrese un nombre por favor", ConsoleColor.Red);
-                                }
-                            } while (string.IsNullOrEmpty(nombre));
+                            nombre = ValidacionTexto($"\nIngrese el nombre de su alumno Nº {i}:", "\nEl campo nombre no puede estar vacio, ingrese un nombre por favor", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red);
 
-                            do
-                            {
-                                Console.WriteLine($"\nIngrese el apellido de su alumno Nº {i}:");
-                                apellido = Console.ReadLine();
-                                if (string.IsNullOrEmpty(apellido))
-                                {
-                                    Console.Clear();
-                                    MensajeColor("\nEl campo apellido no puede estar vacio, ingrese un apellido por favor", ConsoleColor.Red);
-                                }
-                            } while (string.IsNullOrEmpty(apellido));
+                            apellido = ValidacionTexto($"\nIngrese el apellido de su alumno Nº {i}:", "\nEl campo nombre no puede estar vacio, ingrese un apellido por favor", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red);
 
                             alumnos.Add($"Nº {i} - {nombre} {apellido}");
                             Console.Clear();
@@ -224,12 +190,12 @@ namespace ConsolaNetCore
 
                         foreach (var alumno in alumnos)
                         {
+                            MensajeColor("\n---INGRESO DE ALUMNOS---", ConsoleColor.Green);
                             MensajeColor($"\nSu alumno es: {alumno}", ConsoleColor.Green);
                         }
 
                         Console.ReadKey();
                         Console.Clear();
-                        Console.WriteLine("\nIngresando notas...");
 
                         foreach (var alumno in alumnos)
                         {
@@ -238,36 +204,14 @@ namespace ConsolaNetCore
                             notaTotal = 0;
 
                             MensajeColor($"\n---NOTAS DEL ALUMNO {alumno}---", ConsoleColor.Green);
-                            //TODO verificar si se puede meter en un metodo el do-while, continuar
-                            //se valida datos y se informa dato incorrecto
-                            inputParcial1 = ValidacionInput("\nIngrese la nota del primer parcial (1-10):", "\nUsted introdujo un valor que no esta entre 1 y 10", ConsoleColor.Red);
-                            //do
-                            //{
-                            //    Console.WriteLine("\nIngrese la nota del primer parcial (1-10):");
-                            //    parcial1Ingresado = Console.ReadLine();
-                            //    int.TryParse(parcial1Ingresado, out inputParcial1);
-                            //    if (inputParcial1 == 0 || inputParcial1 > 10)
-                            //    {
-                            //        Console.Clear();
-                            //        MensajeColor("\nUsted introdujo un valor que no esta entre 1 y 10", ConsoleColor.Red);
-                            //    }
-                            //} while (inputParcial1 == 0 || inputParcial1 > 10);
-                            //se valida datos y se informa dato incorrecto
-                            do
-                            {
-                                Console.WriteLine("\nIngrese la nota del segundo parcial (1-10):");
-                                parcial2Ingresado = Console.ReadLine();
-                                int.TryParse(parcial2Ingresado, out inputParcial2);
-                                if (inputParcial2 == 0 || inputParcial2 > 10)
-                                {
-                                    Console.Clear();
-                                    MensajeColor("\nUsted introdujo un valor que no esta entre 1 y 10", ConsoleColor.Red);
-                                }
-                            } while (inputParcial2 == 0 || inputParcial2 > 10);
+                            //se valida datos del primer parcial
+                            inputParcial1 = ValidacionNumerica("\nIngrese la nota del primer parcial (1-10):", "\nUsted introdujo un valor que no esta entre 1 y 10", $"\n---NOTAS DEL ALUMNO {alumno}---", ConsoleColor.Red, 10);
+
+                            //se valida datos del segundo parcial
+                            inputParcial2 = ValidacionNumerica("\nIngrese la nota del segundo parcial (1-10):", "\nUsted introdujo un valor que no esta entre 1 y 10", $"\n---NOTAS DEL ALUMNO {alumno}---", ConsoleColor.Red, 10);
 
                             Console.WriteLine($"\nLa nota del primer parcial de su alumno {alumno} es: {inputParcial1}");
                             Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumno} es: {inputParcial2}");
-                            MensajeColor("\n----------------------", ConsoleColor.Green);
 
                             //se verifica si debe recuperar el parcial
                             if (inputParcial1 < 4)
@@ -281,70 +225,59 @@ namespace ConsolaNetCore
                                 parcial2Reprobado = true;
                             }
 
+                            Console.ReadKey();
+                            Console.Clear();
+
                             //se recupera el parcial
                             if (parcial1Reprobado == true)
                             {
                                 MensajeColor("\n---INSTANCIA DEL PRIMER RECUPERATORIO---", ConsoleColor.Green);
                                 Console.WriteLine($"\nEl {alumno} recupera el primer parcial");
 
-                                //se valida datos y se informa dato incorrecto
-                                do
-                                {
-                                    Console.WriteLine("\nIngrese la nota del recuperatorio del primer parcial (1-10):");
-                                    recuperatorio1Ingresado = Console.ReadLine();
-                                    int.TryParse(recuperatorio1Ingresado, out inputRecuperatorio1);
-                                    if (inputRecuperatorio1 == 0 || inputRecuperatorio1 > 10)
-                                    {
-                                        Console.Clear();
-                                        MensajeColor("\nUsted introdujo un valor que no esta entre 1 y 10", ConsoleColor.Red);
-                                    }
-                                } while (inputRecuperatorio1 == 0 || inputRecuperatorio1 > 10);
+                                //se valida datos del primer recuperatorio
+                                inputRecuperatorio1 = ValidacionNumerica("\nIngrese la nota del recuperatorio del primer parcial (1-10):", "\nUsted introdujo un valor que no esta entre 1 y 10", "\n---INSTANCIA DEL PRIMER RECUPERATORIO---", ConsoleColor.Red, 10);
 
                                 if (inputRecuperatorio1 >= 4)
                                 {
                                     parcial1Reprobado = false;
-                                    MensajeColor($"\nEl {alumno} aprobo el recuperatorio del primer parcial", ConsoleColor.Yellow, "\n--------------------------------", ConsoleColor.Green);
+                                    MensajeColor($"\nEl {alumno} aprobo el recuperatorio del primer parcial", ConsoleColor.Yellow);
                                 }
                                 else
                                 {
-                                    MensajeColor($"\nEl {alumno} reprobo el recuperatorio del primer parcial", ConsoleColor.Red, "\n--------------------------------", ConsoleColor.Green);
+                                    MensajeColor($"\nEl {alumno} reprobo el recuperatorio del primer parcial", ConsoleColor.Red);
                                 }
                             }
+
+                            Console.ReadKey();
+                            Console.Clear();
 
                             if (parcial2Reprobado == true)
                             {
                                 MensajeColor("\n---INSTANCIA DEL SEGUNDO RECUPERATORIO---", ConsoleColor.Green);
                                 Console.WriteLine($"\nEl {alumno} recupera el segundo parcial");
-                                //se valida datos y se informa dato incorrecto
-                                do
-                                {
-                                    Console.WriteLine("\nIngrese la nota del recuperatorio del segundo parcial (1-10):");
-                                    recuperatorio2Ingresado = Console.ReadLine();
-                                    int.TryParse(recuperatorio2Ingresado, out inputRecuperatorio2);
-                                    if (inputRecuperatorio2 == 0 || inputRecuperatorio2 > 10)
-                                    {
-                                        Console.Clear();
-                                        MensajeColor("\nUsted introdujo un valor que no esta entre 1 y 10", ConsoleColor.Red);
-                                    }
-                                } while (inputRecuperatorio2 == 0 || inputRecuperatorio2 > 10);
+
+                                //se valida datos del segundo recuperatorio
+                                inputRecuperatorio2 = ValidacionNumerica("\nIngrese la nota del recuperatorio del segundo parcial (1-10):", "\nUsted introdujo un valor que no esta entre 1 y 10", "\n---INSTANCIA DEL SEGUNDO RECUPERATORIO---", ConsoleColor.Red, 10);
 
                                 if (inputRecuperatorio2 >= 4)
                                 {
-                                    MensajeColor($"\nEl {alumno} aprobo el recuperatorio del segundo parcial", ConsoleColor.Yellow, "\n--------------------------------", ConsoleColor.Green);
+                                    MensajeColor($"\nEl {alumno} aprobo el recuperatorio del segundo parcial", ConsoleColor.Yellow);
                                     parcial2Reprobado = false;
                                 }
                                 else
                                 {
-                                    MensajeColor($"\nEl {alumno} reprobo el recuperatorio del segundo parcial", ConsoleColor.Red, "\n--------------------------------", ConsoleColor.Green);
+                                    MensajeColor($"\nEl {alumno} reprobo el recuperatorio del segundo parcial", ConsoleColor.Red);
                                 }
                             }
+
+                            Console.ReadKey();
+                            Console.Clear();
 
                             if (parcial1Reprobado == true || parcial2Reprobado == true)
                             {
                                 MensajeColor("\n---NOTAS DEL ALUMNO---", ConsoleColor.Green);
                                 Console.WriteLine($"\nLa nota del primer parcial de su alumno {alumno} es: {inputRecuperatorio1}");
                                 Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumno} es: {inputRecuperatorio2}");
-                                MensajeColor("\n----------------------", ConsoleColor.Green);
                             }
 
                             notaTotal = inputRecuperatorio1 + inputRecuperatorio2;
@@ -359,41 +292,30 @@ namespace ConsolaNetCore
                                 MensajeColor($"\nEl {alumno} obtuvo {notaTotal}, no alcanzo la nota para promocionar (13), va a instancia de final", ConsoleColor.Red);
 
                                 //se valida datos y se informa dato incorrecto
-                                do
-                                {
-                                    Console.WriteLine("\nIngrese la nota del final (1-10):");
-                                    finalIngresado = Console.ReadLine();
-                                    int.TryParse(finalIngresado, out inputFinal);
-                                    if (inputFinal == 0 || inputFinal > 10)
-                                    {
-                                        Console.Clear();
-                                        MensajeColor("\nUsted introdujo un valor que no esta entre 1 y 10", ConsoleColor.Red);
-                                    }
-                                } while (inputFinal == 0 || inputFinal > 10);
+                                inputFinal = ValidacionNumerica("\nIngrese la nota del final (1-10):", "\nUsted introdujo un valor que no esta entre 1 y 10", "\n---INSTANCIA DE FINAL---", ConsoleColor.Red, 10);
 
                                 if (inputFinal >= 4)
                                 {
                                     MensajeColor("\n---INSTANCIA DE FINAL---", ConsoleColor.Green);
                                     Console.WriteLine($"\nLa nota del final del alumno {alumno} es: {inputFinal}");
-                                    MensajeColor("\n-------------------------", ConsoleColor.Green, $"\nPromociono con promedio {inputFinal}!", ConsoleColor.Yellow);
+                                    MensajeColor($"\nPromociono con promedio {inputFinal}!", ConsoleColor.Yellow);
                                 }
                                 else
                                 {
                                     MensajeColor("\n---INSTANCIA DE FINAL---", ConsoleColor.Green);
                                     Console.WriteLine($"\nLa nota del final del alumno {alumno} es: {inputFinal}");
-                                    MensajeColor("\n-------------------------", ConsoleColor.Green, $"\nSu alumno {alumno} debe recursar la materia", ConsoleColor.Red);
+                                    MensajeColor($"\nSu alumno {alumno} debe recursar la materia", ConsoleColor.Red);
                                 }
                             }
                             else
                             {
                                 MensajeColor($"\nSu alumno {alumno} no tiene los 2 parciales aprobados con minimo (4) para ingresar a instancia de final\ndebe recursar la materia", ConsoleColor.Red);
                             }
+
                             Console.ReadKey();
                             Console.Clear();
                         }
-
                         Console.ResetColor();
-
                         Console.WriteLine("\nFin del programa\n\nPresione cualquier tecla para finalizar");
                         Console.ReadKey();
                         System.Environment.Exit(0);
@@ -409,7 +331,6 @@ namespace ConsolaNetCore
                 }
                 MensajeColor("\nUsted puso un caracter que no es 1, 2 o 3", ConsoleColor.Red);
             } while (inputOpcion == 0 || inputOpcion > 3);
-
         }
         //METODOS: FUNCIONES(RETURN) Y PROCEDIMIENTOS (VOID)
         //Console.ForegroundColor = ConsoleColor.Red;
@@ -428,6 +349,7 @@ namespace ConsolaNetCore
             Console.WriteLine($"{mensaje}");
             Console.ResetColor();
         }
+
         /// <summary>
         /// Muestra en pantalla los mensajes indicados, les cambia el color y reinicia el valor por defecto de color del texto de consola.
         /// </summary>
@@ -444,7 +366,16 @@ namespace ConsolaNetCore
             Console.ResetColor();
         }
 
-        public static int ValidacionInput(string mensajeIngreso, string mensajeError, ConsoleColor color)
+        /// <summary>
+        /// Valida si el ingreso es un numero y lo devuelve.
+        /// </summary>
+        /// <param name="mensajeIngreso"></param>
+        /// <param name="mensajeError"></param>
+        /// <param name="titulo"></param>
+        /// <param name="colorError"></param>
+        /// <param name="maximoValorInput"></param>
+        /// <returns></returns>
+        public static int ValidacionNumerica(string mensajeIngreso, string mensajeError, string titulo, ConsoleColor colorError, int maximoValorInput)
         {
             string validarIngreso;
             int outputIngreso;
@@ -453,14 +384,43 @@ namespace ConsolaNetCore
                 Console.WriteLine(mensajeIngreso);
                 validarIngreso = Console.ReadLine();
                 int.TryParse(validarIngreso, out outputIngreso);
-                if (outputIngreso == 0 || outputIngreso > 10)
+                if (outputIngreso == 0 || outputIngreso > maximoValorInput)
                 {
                     Console.Clear();
-                    MensajeColor(mensajeError, color);
+                    MensajeColor(titulo, ConsoleColor.Green);
+                    MensajeColor(mensajeError, colorError);
                 }
-            } while (outputIngreso == 0 || outputIngreso > 10);
+            } while (outputIngreso == 0 || outputIngreso > maximoValorInput);
             Console.Clear();
+            MensajeColor(titulo, ConsoleColor.Green);
             return outputIngreso;
+        }
+
+        /// <summary>
+        /// Valida si el ingreso es texto y lo devuelve.
+        /// </summary>
+        /// <param name="mensajeIngreso"></param>
+        /// <param name="mensajeError"></param>
+        /// <param name="titulo"></param>
+        /// <param name="colorError"></param>
+        /// <returns></returns>
+        public static string ValidacionTexto (string mensajeIngreso, string mensajeError, string titulo, ConsoleColor colorError)
+        {
+            string validarIngreso;
+            do
+            {
+                Console.WriteLine(mensajeIngreso);
+                validarIngreso = Console.ReadLine();
+                if (string.IsNullOrEmpty(validarIngreso))
+                {
+                    Console.Clear();
+                    MensajeColor(titulo, ConsoleColor.Green);
+                    MensajeColor(mensajeError, colorError);
+                }
+            } while (string.IsNullOrEmpty(validarIngreso));
+            Console.Clear();
+            MensajeColor(titulo, ConsoleColor.Green);
+            return validarIngreso;
         }
     }
 }
