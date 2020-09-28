@@ -1,6 +1,7 @@
 ﻿using ClasesNetCore;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -20,13 +21,14 @@ namespace ConsolaNetCore
             //Promedio menor a 13 se va a final. Se necesitan tener los 2 parciales aprobados para ir a final.
             //Indicar si se promociona o reprueba. Cada uno de los examanes y materia.
             //Generar validacion de datos para todos los input del usuario
-            //TODO implementar funciones para ordenar, y borrar codigo repetido
+            //TODO identificar codigo repetitivo, implementar metodos para ordenar, y borrar codigo repetido
+            //TODO implementar explicacion correcta de intellisense para los metodos
             //TODO implementar manejo de excepciones
 
             //inicializando variables
 
-            int parcial1, parcial2, final, total, inputOpcion, inputAlumnos, inputParcial1, inputParcial2, inputRecuperatorio1 = 0, inputRecuperatorio2 = 0, inputFinal;
-            string nombre, apellido, ingresoRespuesta, alumnosIngresados, parcial1Ingresado, parcial2Ingresado, recuperatorio1Ingresado, recuperatorio2Ingresado, finalIngresado;
+            int parcial1, parcial2, final, notaTotal, inputOpcion, inputAlumnos, inputParcial1, inputParcial2, inputRecuperatorio1 = 0, inputRecuperatorio2 = 0, inputFinal;
+            string nombre, apellido, respuestaIngreso, alumnosIngresados, parcial1Ingresado, parcial2Ingresado, recuperatorio1Ingresado, recuperatorio2Ingresado, finalIngresado;
             bool parcial1Reprobado = false, parcial2Reprobado = false;
             Random rnd = new Random();
             List<string> alumnos = new List<string>();
@@ -40,14 +42,15 @@ namespace ConsolaNetCore
             {
                 Console.WriteLine("\nQue desea hacer? Elija la opcion deseada:");
                 Console.WriteLine("\n1 = Modo Automatico - 2 = Modo Manuel - 3 = Salir");
-                ingresoRespuesta = Console.ReadLine();
+                respuestaIngreso = Console.ReadLine();
                 Console.Clear();
                 //convierte el valor respuesta que es string a un numero equivalente en int32 y devuelve la converion
                 //en la variable input, si falla la conversion la variable es 0
-                int.TryParse(ingresoRespuesta, out inputOpcion);
+                int.TryParse(respuestaIngreso, out inputOpcion);
 
                 switch (inputOpcion)
                 {
+                    //Opcion MODO AUTOMATICO
                     case 1:
                         Console.Clear();
                         for (int i = 0; i < 20; i++)
@@ -59,14 +62,12 @@ namespace ConsolaNetCore
 
                         for (int i = 0; i < 10; i++)
                         {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine($"\nSu alumno Nº {i} es: " + alumnos[i]);
+                            MensajeColor($"\nSu alumno Nº {i} es: {alumnos[i]}", ConsoleColor.Green);
                         }
 
                         Console.ReadKey();
                         Console.Clear();
 
-                        Console.ResetColor();
                         Console.WriteLine("\nIngresando notas...");
 
                         //ingresando notas del alumno
@@ -75,62 +76,39 @@ namespace ConsolaNetCore
                         {
                             parcial1Reprobado = false;
                             parcial2Reprobado = false;
-                            parcial1 = 0;
-                            parcial2 = 0;
-                            total = 0;
-                            final = 0;
-
                             parcial1 = rnd.Next(0, 10);
                             parcial2 = rnd.Next(0, 10);
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("\n---NOTAS DEL ALUMNO---");
-                            Console.ResetColor();
+                            MensajeColor("\n---NOTAS DEL ALUMNO---", ConsoleColor.Green);
                             Console.WriteLine($"\nLa nota del primer parcial de su alumno {alumnos[i]} es: {parcial1}");
                             Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumnos[i]} es: {parcial2}");
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("\n----------------------");
-                            Console.ResetColor();
+                            MensajeColor("\n----------------------", ConsoleColor.Green);
 
                             //se verifica si debe recuperar el parcial
                             if (parcial1 < 4)
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine($"\nEl alumno {alumnos[i]} debe recuperar el primer parcial");
-                                Console.ResetColor();
+                                MensajeColor($"El alumno {alumnos[i]} debe recuperar el primer parcial", ConsoleColor.Red);
                                 parcial1Reprobado = true;
                             }
                             if (parcial2 < 4)
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine($"\nEl alumno {alumnos[i]} debe recuperar el segundo parcial");
-                                Console.ResetColor();
+                                MensajeColor($"El alumno {alumnos[i]} debe recuperar el segundo parcial", ConsoleColor.Red);
                                 parcial2Reprobado = true;
                             }
 
-
-                            //se recupera el parcial
+                            //se recuperan parciales
                             if (parcial1Reprobado == true)
                             {
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("\n---INSTANCIA DE RECUPERATORIO---");
-                                Console.ResetColor();
+                                MensajeColor("\n---INSTANCIA DEL PRIMER RECUPERATORIO---", ConsoleColor.Green);
                                 parcial1 = rnd.Next(0, 10);
                                 Console.WriteLine($"\nEl {alumnos[i]} recupera el primer parcial");
                                 if (parcial1 >= 4)
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Yellow;
-                                    Console.WriteLine($"\nEl {alumnos[i]} aprobo el recuperatorio del primer parcial");
                                     parcial1Reprobado = false;
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("\n--------------------------------");
-                                    Console.ResetColor();
+                                    MensajeColor($"\nEl {alumnos[i]} aprobo el recuperatorio del primer parcial", ConsoleColor.Yellow, "\n--------------------------------", ConsoleColor.Green);
                                 }
                                 else
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine($"\nEl {alumnos[i]} reprobo el recuperatorio del primer parcial");
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("\n--------------------------------");
+                                    MensajeColor($"\nEl {alumnos[i]} reprobo el recuperatorio del primer parcial", ConsoleColor.Red, "\n--------------------------------", ConsoleColor.Green);
                                     Console.ResetColor();
 
                                 }
@@ -138,104 +116,66 @@ namespace ConsolaNetCore
 
                             if (parcial2Reprobado == true)
                             {
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("\n---INSTANCIA DE RECUPERATORIO---");
-                                Console.ResetColor();
-
+                                MensajeColor("\n---INSTANCIA DEL SEGUNDO RECUPERATORIO---", ConsoleColor.Green);
                                 parcial2 = rnd.Next(0, 10);
                                 Console.WriteLine($"\nEl {alumnos[i]} recupera el segundo parcial");
                                 if (parcial2 >= 4)
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Yellow;
-                                    Console.WriteLine($"\nEl {alumnos[i]} aprobo el recuperatorio del segundo parcial");
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("\n--------------------------------");
-                                    Console.ResetColor();
-
+                                    MensajeColor($"\nEl {alumnos[i]} aprobo el recuperatorio del segundo parcial", ConsoleColor.Yellow, "\n--------------------------------", ConsoleColor.Green);
                                     parcial2Reprobado = false;
                                 }
                                 else
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine($"\nEl {alumnos[i]} reprobo el recuperatorio del segundo parcial");
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("\n--------------------------------");
-                                    Console.ResetColor();
-
+                                    MensajeColor($"\nEl {alumnos[i]} reprobo el recuperatorio del segundo parcial", ConsoleColor.Red, "\n--------------------------------", ConsoleColor.Green);
                                 }
                             }
 
                             if (parcial1Reprobado == true || parcial2Reprobado == true)
                             {
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("\n---NOTAS DEL ALUMNO---");
-                                Console.ResetColor();
+                                MensajeColor("\n---NOTAS DEL ALUMNO---", ConsoleColor.Green);
                                 Console.WriteLine($"\nLa nota del primer parcial de su alumno {alumnos[i]} es: {parcial1}");
                                 Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumnos[i]} es: {parcial2}");
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("\n----------------------");
-                                Console.ResetColor();
+                                MensajeColor("\n----------------------", ConsoleColor.Green);
                             }
 
-
-                            total = parcial1 + parcial2;
+                            notaTotal = parcial1 + parcial2;
 
                             //indicando si promociono la materia
-                            if (total >= 13)
+                            if (notaTotal >= 13)
                             {
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.WriteLine($"\nEl alumno {alumnos[i]} promociono con promedio {total / 2}!");
-                                Console.ResetColor();
+                                MensajeColor($"\nEl alumno {alumnos[i]} promociono con promedio {notaTotal / 2}!", ConsoleColor.Yellow);
                             }
                             else if (parcial1Reprobado == false && parcial2Reprobado == false)
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine($"\nEl {alumnos[i]} obtuvo {total}, no alcanzo la nota para promocionar (13), va a instancia de final");
-                                Console.ResetColor();
-
+                                MensajeColor($"\nEl {alumnos[i]} obtuvo {notaTotal}, no alcanzo la nota para promocionar (13), va a instancia de final", ConsoleColor.Red);
                                 final = rnd.Next(0, 10);
 
                                 if (final >= 4)
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("\n---INSTANCIA DE FINAL---");
-                                    Console.ResetColor();
+                                    MensajeColor("\n---INSTANCIA DE FINAL---", ConsoleColor.Green);
                                     Console.WriteLine($"\nLa nota del final del alumno {alumnos[i]} es: {final}");
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("\n-------------------------");
-                                    Console.ForegroundColor = ConsoleColor.Yellow;
-                                    Console.WriteLine($"\nPromociono con promedio {final}!");
-                                    Console.ResetColor();
+                                    MensajeColor("\n-------------------------", ConsoleColor.Green, $"\nPromociono con promedio {final}!", ConsoleColor.Yellow);
                                 }
                                 else
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("\n---INSTANCIA DE FINAL---");
-                                    Console.ResetColor();
+                                    MensajeColor("\n---INSTANCIA DE FINAL---", ConsoleColor.Green);
                                     Console.WriteLine($"\nLa nota del final del alumno {alumnos[i]} es: {final}");
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("\n-------------------------");
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine($"\nSu alumno {alumnos[i]} debe recursar la materia");
-                                    Console.ResetColor();
+                                    MensajeColor("\n-------------------------", ConsoleColor.Green, $"\nSu alumno {alumnos[i]} debe recursar la materia", ConsoleColor.Red);
                                 }
                             }
                             else
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine($"\nSu alumno {alumnos[i]} no tiene los 2 parciales aprobados con minimo (4) para ingresar a instancia de final\ndebe recursar la materia");
-                                Console.ResetColor();
+                                MensajeColor($"\nSu alumno {alumnos[i]} no tiene los 2 parciales aprobados con minimo (4) para ingresar a instancia de final\ndebe recursar la materia", ConsoleColor.Red);
                             }
                             Console.ReadKey();
                             Console.Clear();
                         }
 
-                        Console.ResetColor();
-
                         Console.WriteLine("\nFin del programa\n\nPresione cualquier tecla para finalizar");
                         Console.ReadKey();
                         System.Environment.Exit(0);
                         break;
+                    //Opcion MODO MANUAL
                     case 2:
                         Console.Clear();
                         Console.WriteLine("\nIngresar alumnos");
@@ -246,12 +186,11 @@ namespace ConsolaNetCore
                             Console.WriteLine("\nCuantos alumnos quiere ingresar? (1-100)");
                             alumnosIngresados = Console.ReadLine();
                             int.TryParse(alumnosIngresados, out inputAlumnos);
+
                             if (inputAlumnos == 0 || inputAlumnos > 100)
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
                                 Console.Clear();
-                                Console.WriteLine("\nUsted introdujo un valor que no esta entre 1 y 100");
-                                Console.ResetColor();
+                                MensajeColor("\nUsted introdujo un valor que no esta entre 1 y 100", ConsoleColor.Red);
                             }
                         } while (inputAlumnos == 0 || inputAlumnos > 100);
 
@@ -263,10 +202,8 @@ namespace ConsolaNetCore
                                 nombre = Console.ReadLine();
                                 if (string.IsNullOrEmpty(nombre))
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
                                     Console.Clear();
-                                    Console.WriteLine("\nEl campo nombre no puede estar vacio, ingrese un nombre por favor");
-                                    Console.ResetColor();
+                                    MensajeColor("\nEl campo nombre no puede estar vacio, ingrese un nombre por favor", ConsoleColor.Red);
                                 }
                             } while (string.IsNullOrEmpty(nombre));
 
@@ -276,10 +213,8 @@ namespace ConsolaNetCore
                                 apellido = Console.ReadLine();
                                 if (string.IsNullOrEmpty(apellido))
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
                                     Console.Clear();
-                                    Console.WriteLine("\nEl campo apellido no puede estar vacio, ingrese un apellido por favor");
-                                    Console.ResetColor();
+                                    MensajeColor("\nEl campo apellido no puede estar vacio, ingrese un apellido por favor", ConsoleColor.Red);
                                 }
                             } while (string.IsNullOrEmpty(apellido));
 
@@ -289,41 +224,34 @@ namespace ConsolaNetCore
 
                         foreach (var alumno in alumnos)
                         {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine($"\nSu alumno es: {alumno}");
+                            MensajeColor($"\nSu alumno es: {alumno}", ConsoleColor.Green);
                         }
 
                         Console.ReadKey();
                         Console.Clear();
-
-                        Console.ResetColor();
                         Console.WriteLine("\nIngresando notas...");
-
-                        //ingresando notas del alumno
 
                         foreach (var alumno in alumnos)
                         {
                             parcial1Reprobado = false;
                             parcial2Reprobado = false;
-                            total = 0;
+                            notaTotal = 0;
 
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine($"\n---NOTAS DEL ALUMNO {alumno}---");
-                            Console.ResetColor();
+                            MensajeColor($"\n---NOTAS DEL ALUMNO {alumno}---", ConsoleColor.Green);
+                            //TODO verificar si se puede meter en un metodo el do-while, continuar
                             //se valida datos y se informa dato incorrecto
-                            do
-                            {
-                                Console.WriteLine("\nIngrese la nota del primer parcial (1-10):");
-                                parcial1Ingresado = Console.ReadLine();
-                                int.TryParse(parcial1Ingresado, out inputParcial1);
-                                if (inputParcial1 == 0 || inputParcial1 > 10)
-                                {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.Clear();
-                                    Console.WriteLine("\nUsted introdujo un valor que no esta entre 1 y 100");
-                                    Console.ResetColor();
-                                }
-                            } while (inputParcial1 == 0 || inputParcial1 > 10);
+                            inputParcial1 = ValidacionInput("\nIngrese la nota del primer parcial (1-10):", "\nUsted introdujo un valor que no esta entre 1 y 10", ConsoleColor.Red);
+                            //do
+                            //{
+                            //    Console.WriteLine("\nIngrese la nota del primer parcial (1-10):");
+                            //    parcial1Ingresado = Console.ReadLine();
+                            //    int.TryParse(parcial1Ingresado, out inputParcial1);
+                            //    if (inputParcial1 == 0 || inputParcial1 > 10)
+                            //    {
+                            //        Console.Clear();
+                            //        MensajeColor("\nUsted introdujo un valor que no esta entre 1 y 10", ConsoleColor.Red);
+                            //    }
+                            //} while (inputParcial1 == 0 || inputParcial1 > 10);
                             //se valida datos y se informa dato incorrecto
                             do
                             {
@@ -332,43 +260,33 @@ namespace ConsolaNetCore
                                 int.TryParse(parcial2Ingresado, out inputParcial2);
                                 if (inputParcial2 == 0 || inputParcial2 > 10)
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
                                     Console.Clear();
-                                    Console.WriteLine("\nUsted introdujo un valor que no esta entre 1 y 10");
-                                    Console.ResetColor();
+                                    MensajeColor("\nUsted introdujo un valor que no esta entre 1 y 10", ConsoleColor.Red);
                                 }
                             } while (inputParcial2 == 0 || inputParcial2 > 10);
 
                             Console.WriteLine($"\nLa nota del primer parcial de su alumno {alumno} es: {inputParcial1}");
                             Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumno} es: {inputParcial2}");
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("\n----------------------");
-                            Console.ResetColor();
+                            MensajeColor("\n----------------------", ConsoleColor.Green);
 
                             //se verifica si debe recuperar el parcial
                             if (inputParcial1 < 4)
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine($"\nEl alumno {alumno} debe recuperar el primer parcial");
-                                Console.ResetColor();
+                                MensajeColor($"\nEl alumno {alumno} debe recuperar el primer parcial", ConsoleColor.Red);
                                 parcial1Reprobado = true;
                             }
                             if (inputParcial2 < 4)
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine($"\nEl alumno {alumno} debe recuperar el segundo parcial");
-                                Console.ResetColor();
+                                MensajeColor($"\nEl alumno {alumno} debe recuperar el segundo parcial", ConsoleColor.Red);
                                 parcial2Reprobado = true;
                             }
-
 
                             //se recupera el parcial
                             if (parcial1Reprobado == true)
                             {
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("\n---INSTANCIA DE RECUPERATORIO---");
-                                Console.ResetColor();
+                                MensajeColor("\n---INSTANCIA DEL PRIMER RECUPERATORIO---", ConsoleColor.Green);
                                 Console.WriteLine($"\nEl {alumno} recupera el primer parcial");
+
                                 //se valida datos y se informa dato incorrecto
                                 do
                                 {
@@ -377,38 +295,25 @@ namespace ConsolaNetCore
                                     int.TryParse(recuperatorio1Ingresado, out inputRecuperatorio1);
                                     if (inputRecuperatorio1 == 0 || inputRecuperatorio1 > 10)
                                     {
-                                        Console.ForegroundColor = ConsoleColor.Red;
                                         Console.Clear();
-                                        Console.WriteLine("\nUsted introdujo un valor que no esta entre 1 y 10");
-                                        Console.ResetColor();
+                                        MensajeColor("\nUsted introdujo un valor que no esta entre 1 y 10", ConsoleColor.Red);
                                     }
                                 } while (inputRecuperatorio1 == 0 || inputRecuperatorio1 > 10);
 
                                 if (inputRecuperatorio1 >= 4)
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Yellow;
-                                    Console.WriteLine($"\nEl {alumno} aprobo el recuperatorio del primer parcial");
                                     parcial1Reprobado = false;
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("\n--------------------------------");
-                                    Console.ResetColor();
+                                    MensajeColor($"\nEl {alumno} aprobo el recuperatorio del primer parcial", ConsoleColor.Yellow, "\n--------------------------------", ConsoleColor.Green);
                                 }
                                 else
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine($"\nEl {alumno} reprobo el recuperatorio del primer parcial");
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("\n--------------------------------");
-                                    Console.ResetColor();
-
+                                    MensajeColor($"\nEl {alumno} reprobo el recuperatorio del primer parcial", ConsoleColor.Red, "\n--------------------------------", ConsoleColor.Green);
                                 }
                             }
 
                             if (parcial2Reprobado == true)
                             {
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("\n---INSTANCIA DE RECUPERATORIO---");
-                                Console.ResetColor();
+                                MensajeColor("\n---INSTANCIA DEL SEGUNDO RECUPERATORIO---", ConsoleColor.Green);
                                 Console.WriteLine($"\nEl {alumno} recupera el segundo parcial");
                                 //se valida datos y se informa dato incorrecto
                                 do
@@ -418,61 +323,41 @@ namespace ConsolaNetCore
                                     int.TryParse(recuperatorio2Ingresado, out inputRecuperatorio2);
                                     if (inputRecuperatorio2 == 0 || inputRecuperatorio2 > 10)
                                     {
-                                        Console.ForegroundColor = ConsoleColor.Red;
                                         Console.Clear();
-                                        Console.WriteLine("\nUsted introdujo un valor que no esta entre 1 y 10");
-                                        Console.ResetColor();
+                                        MensajeColor("\nUsted introdujo un valor que no esta entre 1 y 10", ConsoleColor.Red);
                                     }
                                 } while (inputRecuperatorio2 == 0 || inputRecuperatorio2 > 10);
 
                                 if (inputRecuperatorio2 >= 4)
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Yellow;
-                                    Console.WriteLine($"\nEl {alumno} aprobo el recuperatorio del segundo parcial");
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("\n--------------------------------");
-                                    Console.ResetColor();
-
+                                    MensajeColor($"\nEl {alumno} aprobo el recuperatorio del segundo parcial", ConsoleColor.Yellow, "\n--------------------------------", ConsoleColor.Green);
                                     parcial2Reprobado = false;
                                 }
                                 else
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine($"\nEl {alumno} reprobo el recuperatorio del segundo parcial");
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("\n--------------------------------");
-                                    Console.ResetColor();
-
+                                    MensajeColor($"\nEl {alumno} reprobo el recuperatorio del segundo parcial", ConsoleColor.Red, "\n--------------------------------", ConsoleColor.Green);
                                 }
                             }
 
                             if (parcial1Reprobado == true || parcial2Reprobado == true)
                             {
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("\n---NOTAS DEL ALUMNO---");
-                                Console.ResetColor();
+                                MensajeColor("\n---NOTAS DEL ALUMNO---", ConsoleColor.Green);
                                 Console.WriteLine($"\nLa nota del primer parcial de su alumno {alumno} es: {inputRecuperatorio1}");
                                 Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumno} es: {inputRecuperatorio2}");
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("\n----------------------");
-                                Console.ResetColor();
+                                MensajeColor("\n----------------------", ConsoleColor.Green);
                             }
 
-
-                            total = inputRecuperatorio1 + inputRecuperatorio2;
+                            notaTotal = inputRecuperatorio1 + inputRecuperatorio2;
 
                             //indicando si promociono la materia
-                            if (total >= 13)
+                            if (notaTotal >= 13)
                             {
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.WriteLine($"\nEl alumno {alumno} promociono con promedio {total / 2}!");
-                                Console.ResetColor();
+                                MensajeColor($"\nEl alumno {alumno} promociono con promedio {notaTotal / 2}!", ConsoleColor.Yellow);
                             }
                             else if (parcial1Reprobado == false && parcial2Reprobado == false)
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine($"\nEl {alumno} obtuvo {total}, no alcanzo la nota para promocionar (13), va a instancia de final");
-                                Console.ResetColor();
+                                MensajeColor($"\nEl {alumno} obtuvo {notaTotal}, no alcanzo la nota para promocionar (13), va a instancia de final", ConsoleColor.Red);
+
                                 //se valida datos y se informa dato incorrecto
                                 do
                                 {
@@ -481,43 +366,27 @@ namespace ConsolaNetCore
                                     int.TryParse(finalIngresado, out inputFinal);
                                     if (inputFinal == 0 || inputFinal > 10)
                                     {
-                                        Console.ForegroundColor = ConsoleColor.Red;
                                         Console.Clear();
-                                        Console.WriteLine("\nUsted introdujo un valor que no esta entre 1 y 10");
-                                        Console.ResetColor();
+                                        MensajeColor("\nUsted introdujo un valor que no esta entre 1 y 10", ConsoleColor.Red);
                                     }
                                 } while (inputFinal == 0 || inputFinal > 10);
 
                                 if (inputFinal >= 4)
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("\n---INSTANCIA DE FINAL---");
-                                    Console.ResetColor();
+                                    MensajeColor("\n---INSTANCIA DE FINAL---", ConsoleColor.Green);
                                     Console.WriteLine($"\nLa nota del final del alumno {alumno} es: {inputFinal}");
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("\n-------------------------");
-                                    Console.ForegroundColor = ConsoleColor.Yellow;
-                                    Console.WriteLine($"\nPromociono con promedio {inputFinal}!");
-                                    Console.ResetColor();
+                                    MensajeColor("\n-------------------------", ConsoleColor.Green, $"\nPromociono con promedio {inputFinal}!", ConsoleColor.Yellow);
                                 }
                                 else
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("\n---INSTANCIA DE FINAL---");
-                                    Console.ResetColor();
+                                    MensajeColor("\n---INSTANCIA DE FINAL---", ConsoleColor.Green);
                                     Console.WriteLine($"\nLa nota del final del alumno {alumno} es: {inputFinal}");
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("\n-------------------------");
-                                    Console.ForegroundColor = ConsoleColor.Red;
-                                    Console.WriteLine($"\nSu alumno {alumno} debe recursar la materia");
-                                    Console.ResetColor();
+                                    MensajeColor("\n-------------------------", ConsoleColor.Green, $"\nSu alumno {alumno} debe recursar la materia", ConsoleColor.Red);
                                 }
                             }
                             else
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine($"\nSu alumno {alumno} no tiene los 2 parciales aprobados con minimo (4) para ingresar a instancia de final\ndebe recursar la materia");
-                                Console.ResetColor();
+                                MensajeColor($"\nSu alumno {alumno} no tiene los 2 parciales aprobados con minimo (4) para ingresar a instancia de final\ndebe recursar la materia", ConsoleColor.Red);
                             }
                             Console.ReadKey();
                             Console.Clear();
@@ -529,6 +398,7 @@ namespace ConsolaNetCore
                         Console.ReadKey();
                         System.Environment.Exit(0);
                         break;
+                    //Opcion MODO SALIR
                     case 3:
                         Console.WriteLine("\nPresione cualquier tecla para salir del programa");
                         Console.ReadKey();
@@ -537,10 +407,60 @@ namespace ConsolaNetCore
                     default:
                         break;
                 }
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\nUsted puso un caracter que no es 1, 2 o 3");
-                Console.ResetColor();
+                MensajeColor("\nUsted puso un caracter que no es 1, 2 o 3", ConsoleColor.Red);
             } while (inputOpcion == 0 || inputOpcion > 3);
+
+        }
+        //METODOS: FUNCIONES(RETURN) Y PROCEDIMIENTOS (VOID)
+        //Console.ForegroundColor = ConsoleColor.Red;
+        //Console.WriteLine($"\nEl alumno {alumnos[i]} debe recuperar el segundo parcial");
+        //Console.ResetColor();
+        //los metodos tienen que pertenecer a una clase
+
+        /// <summary>
+        /// Muestra en pantalla el mensaje indicado, le cambia al color deseado y reinicia al valor por defecto de color del texto de consola.
+        /// </summary>
+        /// <param name="mensaje"></param>
+        /// <param name="color"></param>
+        public static void MensajeColor(string mensaje, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine($"{mensaje}");
+            Console.ResetColor();
+        }
+        /// <summary>
+        /// Muestra en pantalla los mensajes indicados, les cambia el color y reinicia el valor por defecto de color del texto de consola.
+        /// </summary>
+        /// <param name="primerMensaje"></param>
+        /// <param name="primerColor"></param>
+        /// <param name="segundoMensaje"></param>
+        /// <param name="segundoColor"></param>
+        public static void MensajeColor(string primerMensaje, ConsoleColor primerColor, string segundoMensaje, ConsoleColor segundoColor)
+        {
+            Console.ForegroundColor = primerColor;
+            Console.WriteLine($"{primerMensaje}");
+            Console.ForegroundColor = segundoColor;
+            Console.WriteLine($"{segundoMensaje}");
+            Console.ResetColor();
+        }
+
+        public static int ValidacionInput(string mensajeIngreso, string mensajeError, ConsoleColor color)
+        {
+            string validarIngreso;
+            int outputIngreso;
+            do
+            {
+                Console.WriteLine(mensajeIngreso);
+                validarIngreso = Console.ReadLine();
+                int.TryParse(validarIngreso, out outputIngreso);
+                if (outputIngreso == 0 || outputIngreso > 10)
+                {
+                    Console.Clear();
+                    MensajeColor(mensajeError, color);
+                }
+            } while (outputIngreso == 0 || outputIngreso > 10);
+            Console.Clear();
+            return outputIngreso;
         }
     }
 }
