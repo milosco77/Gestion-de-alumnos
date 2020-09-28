@@ -5,6 +5,11 @@ namespace ConsolaNetCore
 {
     public class Program
     {
+        enum MyEnum
+        {
+
+        }
+
         static void Main(string[] args)
         {
             //Programa de gestion de notas de alumnos
@@ -19,12 +24,14 @@ namespace ConsolaNetCore
             //TODO identificar codigo repetitivo, implementar metodos para ordenar, y borrar codigo repetido
             //TODO implementar explicacion correcta de intellisense para los metodos
             //TODO implementar manejo de excepciones
-
+            //TODO implementar asistencia de alumnos e ingreso de profesores/Ayudante de catedra
+            //TODO implementar enumeracion de opciones
             //inicializando variables
 
             int parcial1, parcial2, final, notaTotal, inputOpcion, inputAlumnos, inputParcial1, inputParcial2, inputRecuperatorio1 = 0, inputRecuperatorio2 = 0, inputFinal;
             string nombre, apellido, respuestaIngreso;
             bool parcial1Reprobado, parcial2Reprobado;
+
             Random rnd = new Random();
             List<string> alumnos = new List<string>();
 
@@ -333,9 +340,6 @@ namespace ConsolaNetCore
             } while (inputOpcion == 0 || inputOpcion > 3);
         }
         //METODOS: FUNCIONES(RETURN) Y PROCEDIMIENTOS (VOID)
-        //Console.ForegroundColor = ConsoleColor.Red;
-        //Console.WriteLine($"\nEl alumno {alumnos[i]} debe recuperar el segundo parcial");
-        //Console.ResetColor();
         //los metodos tienen que pertenecer a una clase
 
         /// <summary>
