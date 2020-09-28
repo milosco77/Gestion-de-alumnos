@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace ConsolaNetCore
@@ -254,13 +255,33 @@ namespace ConsolaNetCore
                             }
                         } while (inputAlumnos == 0 || inputAlumnos > 100);
 
-                        //TODO hacer validacion de nombre y apellido
                             for (int i = 1; i <= inputAlumnos; i++)
                         {
-                            Console.WriteLine($"\nIngrese el nombre de su alumno Nº {i}:");
-                            nombre = Console.ReadLine();
-                            Console.WriteLine($"\nIngrese el apellido de su alumno Nº {i}:");
-                            apellido = Console.ReadLine();
+                            do
+                            {
+                                Console.WriteLine($"\nIngrese el nombre de su alumno Nº {i}:");
+                                nombre = Console.ReadLine();
+                                if (string.IsNullOrEmpty(nombre))
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.Clear();
+                                    Console.WriteLine("\nEl campo nombre no puede estar vacio, ingrese un nombre por favor");
+                                    Console.ResetColor();
+                                }
+                            } while (string.IsNullOrEmpty(nombre));
+
+                            do
+                            {
+                                Console.WriteLine($"\nIngrese el apellido de su alumno Nº {i}:");
+                                apellido = Console.ReadLine();
+                                if (string.IsNullOrEmpty(apellido))
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.Clear();
+                                    Console.WriteLine("\nEl campo apellido no puede estar vacio, ingrese un apellido por favor");
+                                    Console.ResetColor();
+                                }
+                            } while (string.IsNullOrEmpty(apellido));
 
                             alumnos.Add($"Nº {i} - {nombre} {apellido}");
                             Console.Clear();
