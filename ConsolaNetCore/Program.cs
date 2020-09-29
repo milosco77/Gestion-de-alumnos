@@ -5,10 +5,12 @@ namespace ConsolaNetCore
 {
     public class Program
     {
-        enum MyEnum
-        {
-
-        }
+        //enum Opciones
+        //{
+        //    ModoAutomatico = 1,
+        //    ModoManual = 2,
+        //    Salir = 3
+        //}
 
         static void Main(string[] args)
         {
@@ -20,12 +22,13 @@ namespace ConsolaNetCore
             //Se pueden recuperar los 2 parciales.
             //Promedio menor a 13 se va a final. Se necesitan tener los 2 parciales aprobados para ir a final.
             //Indicar si se promociona o reprueba. Cada uno de los examanes y materia.
-            //Generar validacion de datos para todos los input del usuario
-            //TODO identificar codigo repetitivo, implementar metodos para ordenar, y borrar codigo repetido
-            //TODO implementar explicacion correcta de intellisense para los metodos
+
+            //TODO implementar explicacion correcta de intellisense para los metodos *POO*
+            //TODO implementar enumeracion de opciones *POO*
+            //TODO implementar asistencia de alumnos *POO*
+            //TODO ingreso de profesores/Ayudante de catedra *POO*
             //TODO implementar manejo de excepciones
-            //TODO implementar asistencia de alumnos e ingreso de profesores/Ayudante de catedra
-            //TODO implementar enumeracion de opciones
+
             //inicializando variables
 
             int parcial1, parcial2, final, notaTotal, inputOpcion, inputAlumnos, inputParcial1, inputParcial2, inputRecuperatorio1 = 0, inputRecuperatorio2 = 0, inputFinal;
@@ -42,11 +45,11 @@ namespace ConsolaNetCore
             do
             {
                 Console.WriteLine("\nQue desea hacer? Elija la opcion deseada:");
-                Console.WriteLine("\n1 = Modo Automatico - 2 = Modo Manuel - 3 = Salir");
+                Console.WriteLine("\n1 = Modo Automatico - 2 = Modo Manual - 3 = Salir");
                 respuestaIngreso = Console.ReadLine();
                 Console.Clear();
 
-                //convierte el valor respuesta que es string a un numero equivalente en int32 y devuelve la converion
+                //convierte el valor respuesta que es string a un numero equivalente en int32 y devuelve la conversion
                 //en la variable input, si falla la conversion la variable es 0
                 int.TryParse(respuestaIngreso, out inputOpcion);
 
@@ -191,7 +194,7 @@ namespace ConsolaNetCore
 
                             apellido = ValidacionTexto($"\nIngrese el apellido de su alumno Nº {i}:", "\nEl campo nombre no puede estar vacio, ingrese un apellido por favor", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red);
 
-                            alumnos.Add($"Nº {i} - {nombre} {apellido}");
+                            alumnos.Add($"Nº {i} - Nombre: {nombre} Apellido: {apellido}");
                             Console.Clear();
                         }
 
@@ -252,11 +255,10 @@ namespace ConsolaNetCore
                                 else
                                 {
                                     MensajeColor($"\nEl {alumno} reprobo el recuperatorio del primer parcial", ConsoleColor.Red);
+                                    Console.ReadKey();
+                                    Console.Clear();
                                 }
                             }
-
-                            Console.ReadKey();
-                            Console.Clear();
 
                             if (parcial2Reprobado == true)
                             {
@@ -274,11 +276,10 @@ namespace ConsolaNetCore
                                 else
                                 {
                                     MensajeColor($"\nEl {alumno} reprobo el recuperatorio del segundo parcial", ConsoleColor.Red);
+                                    Console.ReadKey();
+                                    Console.Clear();
                                 }
                             }
-
-                            Console.ReadKey();
-                            Console.Clear();
 
                             if (parcial1Reprobado == true || parcial2Reprobado == true)
                             {
@@ -286,8 +287,26 @@ namespace ConsolaNetCore
                                 Console.WriteLine($"\nLa nota del primer parcial de su alumno {alumno} es: {inputRecuperatorio1}");
                                 Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumno} es: {inputRecuperatorio2}");
                             }
+                            //TODO arreglar problema de que la nota total contemple si fue a recuperatorio o no
+                            //no esta bien resuelto por que no se contempla los casos que no va a recuperatorio
 
-                            notaTotal = inputRecuperatorio1 + inputRecuperatorio2;
+                            //esto no funciona, resolver
+                            if (parcial1Reprobado == false && parcial2Reprobado == false)
+                            {
+                                notaTotal = inputParcial1 + inputParcial2;
+                            }
+                            else if (parcial1Reprobado == true && parcial2Reprobado == true)
+                            {
+                                notaTotal = inputRecuperatorio1 + inputRecuperatorio2;
+                            }
+                            else if (parcial1Reprobado == true && parcial2Reprobado == false)
+                            {
+                                notaTotal = inputParcial1 + inputRecuperatorio2;
+                            }
+                            else if (parcial1Reprobado == true && parcial2Reprobado == false)
+                            {
+                                notaTotal = inputRecuperatorio1 + inputParcial1;
+                            }
 
                             //indicando si promociono la materia
                             if (notaTotal >= 13)
@@ -297,9 +316,8 @@ namespace ConsolaNetCore
                             else if (parcial1Reprobado == false && parcial2Reprobado == false)
                             {
                                 MensajeColor($"\nEl {alumno} obtuvo {notaTotal}, no alcanzo la nota para promocionar (13), va a instancia de final", ConsoleColor.Red);
-
                                 //se valida datos y se informa dato incorrecto
-                                inputFinal = ValidacionNumerica("\nIngrese la nota del final (1-10):", "\nUsted introdujo un valor que no esta entre 1 y 10", "\n---INSTANCIA DE FINAL---", ConsoleColor.Red, 10);
+                                inputFinal = ValidacionNumerica("\nIngrese la nota del final (1-10):", "\nUsted introdujo un valor que no esta entre 1 y 10", ConsoleColor.Red, 10);
 
                                 if (inputFinal >= 4)
                                 {
@@ -316,7 +334,7 @@ namespace ConsolaNetCore
                             }
                             else
                             {
-                                MensajeColor($"\nSu alumno {alumno} no tiene los 2 parciales aprobados con minimo (4) para ingresar a instancia de final\ndebe recursar la materia", ConsoleColor.Red);
+                                MensajeColor($"\nSu alumno {alumno}\n\nTiene nota total ({notaTotal}) y no tiene los 2 parciales aprobados con minimo (4) para ingresar a instancia de final debe recursar la materia", ConsoleColor.Red);
                             }
 
                             Console.ReadKey();
@@ -329,7 +347,7 @@ namespace ConsolaNetCore
                         break;
                     //Opcion MODO SALIR
                     case 3:
-                        Console.WriteLine("\nPresione cualquier tecla para salir del programa");
+                        Console.WriteLine("\nFin del programa\n\nPresione cualquier tecla para finalizar");
                         Console.ReadKey();
                         System.Environment.Exit(0);
                         break;
@@ -371,14 +389,41 @@ namespace ConsolaNetCore
         }
 
         /// <summary>
-        /// Valida si el ingreso es un numero y lo devuelve.
+        /// Valida si el ingreso es un numero.
+        /// </summary>
+        /// <param name="mensajeIngreso"></param>
+        /// <param name="mensajeError"></param>
+        /// <param name="colorError"></param>
+        /// <param name="maximoValorInput"></param>
+        /// <returns>El valor ingresado por el usuario</returns>
+        public static int ValidacionNumerica(string mensajeIngreso, string mensajeError, ConsoleColor colorError, int maximoValorInput)
+        {
+            string validarIngreso;
+            int outputIngreso;
+            do
+            {
+                Console.WriteLine(mensajeIngreso);
+                validarIngreso = Console.ReadLine();
+                int.TryParse(validarIngreso, out outputIngreso);
+                if (outputIngreso == 0 || outputIngreso > maximoValorInput)
+                {
+                    Console.Clear();
+                    MensajeColor(mensajeError, colorError);
+                }
+            } while (outputIngreso == 0 || outputIngreso > maximoValorInput);
+            Console.Clear();
+            return outputIngreso;
+        }
+
+        /// <summary>
+        /// Valida si el ingreso es un numero.
         /// </summary>
         /// <param name="mensajeIngreso"></param>
         /// <param name="mensajeError"></param>
         /// <param name="titulo"></param>
         /// <param name="colorError"></param>
         /// <param name="maximoValorInput"></param>
-        /// <returns></returns>
+        /// <returns>El valor ingresado por el usuario</returns>
         public static int ValidacionNumerica(string mensajeIngreso, string mensajeError, string titulo, ConsoleColor colorError, int maximoValorInput)
         {
             string validarIngreso;
@@ -399,15 +444,39 @@ namespace ConsolaNetCore
             MensajeColor(titulo, ConsoleColor.Green);
             return outputIngreso;
         }
+        //TODO validar que el texto solo sean letras
+        /// <summary>
+        /// Valida si el ingreso de texto esta vacio o nulo.
+        /// </summary>
+        /// <param name="mensajeIngreso"></param>
+        /// <param name="mensajeError"></param>
+        /// <param name="colorError"></param>
+        /// <returns>El valor ingresado por el usuario</returns>
+        public static string ValidacionTexto(string mensajeIngreso, string mensajeError, ConsoleColor colorError)
+        {
+            string validarIngreso;
+            do
+            {
+                Console.WriteLine(mensajeIngreso);
+                validarIngreso = Console.ReadLine();
+                if (string.IsNullOrEmpty(validarIngreso))
+                {
+                    Console.Clear();
+                    MensajeColor(mensajeError, colorError);
+                }
+            } while (string.IsNullOrEmpty(validarIngreso));
+            Console.Clear();
+            return validarIngreso;
+        }
 
         /// <summary>
-        /// Valida si el ingreso es texto y lo devuelve.
+        /// Valida si el ingreso de texto esta vacio o nulo.
         /// </summary>
         /// <param name="mensajeIngreso"></param>
         /// <param name="mensajeError"></param>
         /// <param name="titulo"></param>
         /// <param name="colorError"></param>
-        /// <returns></returns>
+        /// <returns>El valor ingresado por el usuario</returns>
         public static string ValidacionTexto (string mensajeIngreso, string mensajeError, string titulo, ConsoleColor colorError)
         {
             string validarIngreso;
