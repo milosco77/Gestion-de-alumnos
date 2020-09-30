@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ConsolaNetCore
 {
@@ -29,7 +31,8 @@ namespace ConsolaNetCore
             //TODO implementar asistencia de alumnos *POO*
             //TODO ingreso de profesores/Ayudante de catedra *POO*
             //TODO implementar manejo de excepciones
-            //TODO talvez implementar nota de AUSENTE*
+            //TODO talvez implementar nota de AUSENTE y DNI*
+            //TODO empezar Programacion Orientada a Objetos
 
             //inicializando variables
 
@@ -192,9 +195,9 @@ namespace ConsolaNetCore
 
                             for (int i = 1; i <= inputAlumnos; i++)
                         {
-                            nombre = ValidacionTexto($"\nIngrese el nombre de su alumno Nº {i}:", "\nEl campo nombre no puede estar vacio, ingrese un nombre por favor", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red);
+                            nombre = ValidacionTexto($"\nIngrese el nombre de su alumno Nº {i}:", "\nEl campo nombre debe contener solo letras y no puede estar vacio, ingrese un nombre por favor", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red);
 
-                            apellido = ValidacionTexto($"\nIngrese el apellido de su alumno Nº {i}:", "\nEl campo nombre no puede estar vacio, ingrese un apellido por favor", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red);
+                            apellido = ValidacionTexto($"\nIngrese el apellido de su alumno Nº {i}:", "\nEl campo nombre debe contener solo letras y no puede estar vacio, ingrese un apellido por favor", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red);
 
                             alumnos.Add($"Nº {i} - Nombre: {nombre} Apellido: {apellido}");
                             Console.Clear();
@@ -433,9 +436,9 @@ namespace ConsolaNetCore
             MensajeColor(titulo, ConsoleColor.Green);
             return outputIngreso;
         }
-        //TODO validar que el texto solo sean letras
+        //LINQ ES MAS RAPIDO QUE USAR REGEX https://stackoverflow.com/questions/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp/1181426
         /// <summary>
-        /// Valida si el ingreso de texto esta vacio o nulo.
+        /// Valida si el ingreso de texto esta vacio o nulo. Y si son solo letras.
         /// </summary>
         /// <param name="mensajeIngreso"></param>
         /// <param name="mensajeError"></param>
@@ -446,20 +449,31 @@ namespace ConsolaNetCore
             string validarIngreso;
             do
             {
-                Console.WriteLine(mensajeIngreso);
-                validarIngreso = Console.ReadLine();
-                if (string.IsNullOrEmpty(validarIngreso))
+                do
+                {
+                    Console.WriteLine(mensajeIngreso);
+                    validarIngreso = Console.ReadLine();
+                    if (string.IsNullOrEmpty(validarIngreso))
+                    {
+                        Console.Clear();
+                        MensajeColor(mensajeError, colorError);
+                    }
+                } while (string.IsNullOrEmpty(validarIngreso));
+
+                if (!validarIngreso.All(Char.IsLetter))
                 {
                     Console.Clear();
                     MensajeColor(mensajeError, colorError);
                 }
-            } while (string.IsNullOrEmpty(validarIngreso));
+
+            } while (!validarIngreso.All(Char.IsLetter));
+
             Console.Clear();
             return validarIngreso;
         }
 
         /// <summary>
-        /// Valida si el ingreso de texto esta vacio o nulo.
+        /// Valida si el ingreso de texto esta vacio o nulo. Y si son solo letras.
         /// </summary>
         /// <param name="mensajeIngreso"></param>
         /// <param name="mensajeError"></param>
@@ -471,15 +485,27 @@ namespace ConsolaNetCore
             string validarIngreso;
             do
             {
-                Console.WriteLine(mensajeIngreso);
-                validarIngreso = Console.ReadLine();
-                if (string.IsNullOrEmpty(validarIngreso))
+                do
+                {
+                    Console.WriteLine(mensajeIngreso);
+                    validarIngreso = Console.ReadLine();
+                    if (string.IsNullOrEmpty(validarIngreso))
+                    {
+                        Console.Clear();
+                        MensajeColor(titulo, ConsoleColor.Green);
+                        MensajeColor(mensajeError, colorError);
+                    }
+                } while (string.IsNullOrEmpty(validarIngreso));
+
+                if (!validarIngreso.All(Char.IsLetter))
                 {
                     Console.Clear();
                     MensajeColor(titulo, ConsoleColor.Green);
                     MensajeColor(mensajeError, colorError);
                 }
-            } while (string.IsNullOrEmpty(validarIngreso));
+
+            } while (!validarIngreso.All(Char.IsLetter));
+
             Console.Clear();
             MensajeColor(titulo, ConsoleColor.Green);
             return validarIngreso;
