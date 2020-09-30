@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ConsolaNetCore
 {
@@ -28,6 +29,7 @@ namespace ConsolaNetCore
             //TODO implementar asistencia de alumnos *POO*
             //TODO ingreso de profesores/Ayudante de catedra *POO*
             //TODO implementar manejo de excepciones
+            //TODO talvez implementar nota de AUSENTE*
 
             //inicializando variables
 
@@ -258,6 +260,7 @@ namespace ConsolaNetCore
                                     Console.ReadKey();
                                     Console.Clear();
                                 }
+                                inputParcial1 = inputRecuperatorio1;
                             }
 
                             if (parcial2Reprobado == true)
@@ -279,6 +282,7 @@ namespace ConsolaNetCore
                                     Console.ReadKey();
                                     Console.Clear();
                                 }
+                                inputParcial2 = inputRecuperatorio2;
                             }
 
                             if (parcial1Reprobado == true || parcial2Reprobado == true)
@@ -287,30 +291,15 @@ namespace ConsolaNetCore
                                 Console.WriteLine($"\nLa nota del primer parcial de su alumno {alumno} es: {inputRecuperatorio1}");
                                 Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumno} es: {inputRecuperatorio2}");
                             }
-                            //TODO arreglar problema de que la nota total contemple si fue a recuperatorio o no
-                            //no esta bien resuelto por que no se contempla los casos que no va a recuperatorio
 
-                            //esto no funciona, resolver
-                            if (parcial1Reprobado == false && parcial2Reprobado == false)
-                            {
-                                notaTotal = inputParcial1 + inputParcial2;
-                            }
-                            else if (parcial1Reprobado == true && parcial2Reprobado == true)
-                            {
-                                notaTotal = inputRecuperatorio1 + inputRecuperatorio2;
-                            }
-                            else if (parcial1Reprobado == true && parcial2Reprobado == false)
-                            {
-                                notaTotal = inputParcial1 + inputRecuperatorio2;
-                            }
-                            else if (parcial1Reprobado == true && parcial2Reprobado == false)
-                            {
-                                notaTotal = inputRecuperatorio1 + inputParcial1;
-                            }
+                            //se genera nota total con la nota del parcial, la cual puede estar reemplazada por la del recuperatorio
+                            notaTotal = inputParcial1 + inputParcial2;
 
                             //indicando si promociono la materia
                             if (notaTotal >= 13)
                             {
+                                Console.Clear();
+                                MensajeColor("\n---PROMOCION DE LA MATERIA---", ConsoleColor.Green);
                                 MensajeColor($"\nEl alumno {alumno} promociono con promedio {notaTotal / 2}!", ConsoleColor.Yellow);
                             }
                             else if (parcial1Reprobado == false && parcial2Reprobado == false)
