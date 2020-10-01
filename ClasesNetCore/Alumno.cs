@@ -3,11 +3,12 @@ using System;
 
 namespace ClasesNetCore
 {
-    public class Alumno
+    public class Alumno : Persona
     {
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
-        public int Edad { get; set; }
+        public override void Hola()
+        {
+            base.Hola();
+        }
         public int DNI { get; set; }
         public Notas notas { get; set; }
     }

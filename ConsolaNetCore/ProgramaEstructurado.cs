@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ConsolaNetCore
 {
-    public class Program
+    public class ProgramaEstructurado
     {
         //enum Opciones
         //{
@@ -28,10 +31,14 @@ namespace ConsolaNetCore
             //TODO implementar asistencia de alumnos *POO*
             //TODO ingreso de profesores/Ayudante de catedra *POO*
             //TODO implementar manejo de excepciones
+            //TODO talvez implementar nota de AUSENTE y DNI*
+            //TODO empezar Programacion Orientada a Objetos
+            //TODO cambiar variables a sus variables reducidas en espacio solo cuando empieze a usar DB*
 
             //inicializando variables
 
-            int parcial1, parcial2, final, notaTotal, inputOpcion, inputAlumnos, inputParcial1, inputParcial2, inputRecuperatorio1 = 0, inputRecuperatorio2 = 0, inputFinal;
+            int parcial1, parcial2, final, notaTotal, inputAlumnos, inputOpcion, inputParcial1, inputParcial2, inputRecuperatorio1 = 0, inputRecuperatorio2 = 0, inputFinal;
+
             string nombre, apellido, respuestaIngreso;
             bool parcial1Reprobado, parcial2Reprobado;
 
@@ -188,11 +195,11 @@ namespace ConsolaNetCore
                         //se valida datos y se informa dato incorrecto
                         inputAlumnos = ValidacionNumerica("\nCuantos alumnos quiere ingresar? (1-100)", "\nUsted introdujo un valor que no esta entre 1 y 100", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red, 100);
 
-                            for (int i = 1; i <= inputAlumnos; i++)
+                        for (int i = 1; i <= inputAlumnos; i++)
                         {
-                            nombre = ValidacionTexto($"\nIngrese el nombre de su alumno Nº {i}:", "\nEl campo nombre no puede estar vacio, ingrese un nombre por favor", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red);
+                            nombre = ValidacionTexto($"\nIngrese el nombre de su alumno Nº {i}:", "\nEl campo nombre debe contener solo letras y no puede estar vacio, ingrese un nombre por favor", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red);
 
-                            apellido = ValidacionTexto($"\nIngrese el apellido de su alumno Nº {i}:", "\nEl campo nombre no puede estar vacio, ingrese un apellido por favor", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red);
+                            apellido = ValidacionTexto($"\nIngrese el apellido de su alumno Nº {i}:", "\nEl campo nombre debe contener solo letras y no puede estar vacio, ingrese un apellido por favor", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red);
 
                             alumnos.Add($"Nº {i} - Nombre: {nombre} Apellido: {apellido}");
                             Console.Clear();
@@ -258,6 +265,7 @@ namespace ConsolaNetCore
                                     Console.ReadKey();
                                     Console.Clear();
                                 }
+                                inputParcial1 = inputRecuperatorio1;
                             }
 
                             if (parcial2Reprobado == true)
@@ -279,6 +287,7 @@ namespace ConsolaNetCore
                                     Console.ReadKey();
                                     Console.Clear();
                                 }
+                                inputParcial2 = inputRecuperatorio2;
                             }
 
                             if (parcial1Reprobado == true || parcial2Reprobado == true)
@@ -287,30 +296,15 @@ namespace ConsolaNetCore
                                 Console.WriteLine($"\nLa nota del primer parcial de su alumno {alumno} es: {inputRecuperatorio1}");
                                 Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumno} es: {inputRecuperatorio2}");
                             }
-                            //TODO arreglar problema de que la nota total contemple si fue a recuperatorio o no
-                            //no esta bien resuelto por que no se contempla los casos que no va a recuperatorio
 
-                            //esto no funciona, resolver
-                            if (parcial1Reprobado == false && parcial2Reprobado == false)
-                            {
-                                notaTotal = inputParcial1 + inputParcial2;
-                            }
-                            else if (parcial1Reprobado == true && parcial2Reprobado == true)
-                            {
-                                notaTotal = inputRecuperatorio1 + inputRecuperatorio2;
-                            }
-                            else if (parcial1Reprobado == true && parcial2Reprobado == false)
-                            {
-                                notaTotal = inputParcial1 + inputRecuperatorio2;
-                            }
-                            else if (parcial1Reprobado == true && parcial2Reprobado == false)
-                            {
-                                notaTotal = inputRecuperatorio1 + inputParcial1;
-                            }
+                            //se genera nota total con la nota del parcial, la cual puede estar reemplazada por la del recuperatorio
+                            notaTotal = inputParcial1 + inputParcial2;
 
                             //indicando si promociono la materia
                             if (notaTotal >= 13)
                             {
+                                Console.Clear();
+                                MensajeColor("\n---PROMOCION DE LA MATERIA---", ConsoleColor.Green);
                                 MensajeColor($"\nEl alumno {alumno} promociono con promedio {notaTotal / 2}!", ConsoleColor.Yellow);
                             }
                             else if (parcial1Reprobado == false && parcial2Reprobado == false)
@@ -444,9 +438,9 @@ namespace ConsolaNetCore
             MensajeColor(titulo, ConsoleColor.Green);
             return outputIngreso;
         }
-        //TODO validar que el texto solo sean letras
+        //LINQ ES MAS RAPIDO QUE USAR REGEX https://stackoverflow.com/questions/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp/1181426
         /// <summary>
-        /// Valida si el ingreso de texto esta vacio o nulo.
+        /// Valida si el ingreso de texto esta vacio o nulo. Y si son solo letras.
         /// </summary>
         /// <param name="mensajeIngreso"></param>
         /// <param name="mensajeError"></param>
@@ -457,40 +451,63 @@ namespace ConsolaNetCore
             string validarIngreso;
             do
             {
-                Console.WriteLine(mensajeIngreso);
-                validarIngreso = Console.ReadLine();
-                if (string.IsNullOrEmpty(validarIngreso))
+                do
+                {
+                    Console.WriteLine(mensajeIngreso);
+                    validarIngreso = Console.ReadLine();
+                    if (string.IsNullOrEmpty(validarIngreso))
+                    {
+                        Console.Clear();
+                        MensajeColor(mensajeError, colorError);
+                    }
+                } while (string.IsNullOrEmpty(validarIngreso));
+
+                if (!validarIngreso.All(Char.IsLetter))
                 {
                     Console.Clear();
                     MensajeColor(mensajeError, colorError);
                 }
-            } while (string.IsNullOrEmpty(validarIngreso));
+
+            } while (!validarIngreso.All(Char.IsLetter));
+
             Console.Clear();
             return validarIngreso;
         }
 
         /// <summary>
-        /// Valida si el ingreso de texto esta vacio o nulo.
+        /// Valida si el ingreso de texto esta vacio o nulo. Y si son solo letras.
         /// </summary>
         /// <param name="mensajeIngreso"></param>
         /// <param name="mensajeError"></param>
         /// <param name="titulo"></param>
         /// <param name="colorError"></param>
         /// <returns>El valor ingresado por el usuario</returns>
-        public static string ValidacionTexto (string mensajeIngreso, string mensajeError, string titulo, ConsoleColor colorError)
+        public static string ValidacionTexto(string mensajeIngreso, string mensajeError, string titulo, ConsoleColor colorError)
         {
             string validarIngreso;
             do
             {
-                Console.WriteLine(mensajeIngreso);
-                validarIngreso = Console.ReadLine();
-                if (string.IsNullOrEmpty(validarIngreso))
+                do
+                {
+                    Console.WriteLine(mensajeIngreso);
+                    validarIngreso = Console.ReadLine();
+                    if (string.IsNullOrEmpty(validarIngreso))
+                    {
+                        Console.Clear();
+                        MensajeColor(titulo, ConsoleColor.Green);
+                        MensajeColor(mensajeError, colorError);
+                    }
+                } while (string.IsNullOrEmpty(validarIngreso));
+
+                if (!validarIngreso.All(Char.IsLetter))
                 {
                     Console.Clear();
                     MensajeColor(titulo, ConsoleColor.Green);
                     MensajeColor(mensajeError, colorError);
                 }
-            } while (string.IsNullOrEmpty(validarIngreso));
+
+            } while (!validarIngreso.All(Char.IsLetter));
+
             Console.Clear();
             MensajeColor(titulo, ConsoleColor.Green);
             return validarIngreso;
