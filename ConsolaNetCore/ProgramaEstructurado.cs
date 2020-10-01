@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace ConsolaNetCore
 {
-    public class Program
+    public class ProgramaEstructurado
     {
         //enum Opciones
         //{
