@@ -3,7 +3,7 @@ using System;
 
 namespace ClasesNetCore
 {
-    public class Alumno
+    public class Alumno : Persona
     {
         public string Nombre { get; set; }
         public string Apellido { get; set; }

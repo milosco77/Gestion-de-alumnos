@@ -33,10 +33,12 @@ namespace ConsolaNetCore
             //TODO implementar manejo de excepciones
             //TODO talvez implementar nota de AUSENTE y DNI*
             //TODO empezar Programacion Orientada a Objetos
+            //TODO cambiar variables a sus variables reducidas en espacio solo cuando empieze a usar DB*
 
             //inicializando variables
 
-            int parcial1, parcial2, final, notaTotal, inputOpcion, inputAlumnos, inputParcial1, inputParcial2, inputRecuperatorio1 = 0, inputRecuperatorio2 = 0, inputFinal;
+            int parcial1, parcial2, final, notaTotal, inputAlumnos, inputOpcion, inputParcial1, inputParcial2, inputRecuperatorio1 = 0, inputRecuperatorio2 = 0, inputFinal;
+
             string nombre, apellido, respuestaIngreso;
             bool parcial1Reprobado, parcial2Reprobado;
 
@@ -193,7 +195,7 @@ namespace ConsolaNetCore
                         //se valida datos y se informa dato incorrecto
                         inputAlumnos = ValidacionNumerica("\nCuantos alumnos quiere ingresar? (1-100)", "\nUsted introdujo un valor que no esta entre 1 y 100", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red, 100);
 
-                            for (int i = 1; i <= inputAlumnos; i++)
+                        for (int i = 1; i <= inputAlumnos; i++)
                         {
                             nombre = ValidacionTexto($"\nIngrese el nombre de su alumno Nº {i}:", "\nEl campo nombre debe contener solo letras y no puede estar vacio, ingrese un nombre por favor", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red);
 
@@ -480,7 +482,7 @@ namespace ConsolaNetCore
         /// <param name="titulo"></param>
         /// <param name="colorError"></param>
         /// <returns>El valor ingresado por el usuario</returns>
-        public static string ValidacionTexto (string mensajeIngreso, string mensajeError, string titulo, ConsoleColor colorError)
+        public static string ValidacionTexto(string mensajeIngreso, string mensajeError, string titulo, ConsoleColor colorError)
         {
             string validarIngreso;
             do
