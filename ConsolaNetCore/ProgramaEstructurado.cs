@@ -8,34 +8,34 @@ namespace ConsolaNetCore
 {
     public class ProgramaEstructurado
     {
-        //enum Opciones
-        //{
-        //    ModoAutomatico = 1,
-        //    ModoManual = 2,
-        //    Salir = 3
-        //}
+        // enum Opciones
+        // {
+        //     ModoAutomatico = 1,
+        //     ModoManual = 2,
+        //     Salir = 3
+        // }
 
         static void Estructurado(string[] args)
         {
-            //Programa de gestion de notas de alumnos
+            // Programa de gestion de notas de alumnos
 
-            //Hacer un programa que pida el ingreso de una lista de alumnos con sus respectivas notas de:
-            //1er parcial, 2do parcial, recuperatorios y final.
-            //Se promociona con nota minima total 13, cada parcial se aprueba con 4, la maxima discrepancia es un parcial 4 y otro parcial 9 para promocionar.
-            //Se pueden recuperar los 2 parciales.
-            //Promedio menor a 13 se va a final. Se necesitan tener los 2 parciales aprobados para ir a final.
-            //Indicar si se promociona o reprueba. Cada uno de los examanes y materia.
+            // Hacer un programa que pida el ingreso de una lista de alumnos con sus respectivas notas de:
+            // 1er parcial, 2do parcial, recuperatorios y final.
+            // Se promociona con nota minima total 13, cada parcial se aprueba con 4, la maxima discrepancia es un parcial 4 y otro parcial 9 para promocionar.
+            // Se pueden recuperar los 2 parciales.
+            // Promedio menor a 13 se va a final. Se necesitan tener los 2 parciales aprobados para ir a final.
+            // Indicar si se promociona o reprueba. Cada uno de los examanes y materia.
 
-            //TODO implementar explicacion correcta de intellisense para los metodos *POO*
-            //TODO implementar enumeracion de opciones *POO*
-            //TODO implementar asistencia de alumnos *POO*
-            //TODO ingreso de profesores/Ayudante de catedra *POO*
-            //TODO implementar manejo de excepciones
-            //TODO talvez implementar nota de AUSENTE y DNI*
-            //TODO empezar Programacion Orientada a Objetos
-            //TODO cambiar variables a sus variables reducidas en espacio solo cuando empieze a usar DB*
+            // TODO implementar explicacion correcta de intellisense para los metodos *POO*
+            // TODO implementar enumeracion de opciones *POO*
+            // TODO implementar asistencia de alumnos *POO*
+            // TODO ingreso de profesores/Ayudante de catedra *POO*
+            // TODO implementar manejo de excepciones
+            // TODO talvez implementar nota de AUSENTE y DNI*
+            // TODO empezar Programacion Orientada a Objetos
+            // TODO cambiar variables a sus variables reducidas en espacio solo cuando empieze a usar DB*
 
-            //inicializando variables
+            // inicializando variables
 
             int parcial1, parcial2, final, notaTotal, inputAlumnos, inputOpcion, inputParcial1, inputParcial2, inputRecuperatorio1 = 0, inputRecuperatorio2 = 0, inputFinal;
 
@@ -45,10 +45,10 @@ namespace ConsolaNetCore
             Random rnd = new Random();
             List<string> alumnos = new List<string>();
 
-            //titulo en de la ventana
+            // titulo en de la ventana
             Console.Title = "Programa de Gestion de Notas de Alumnos";
 
-            //comienza programa
+            // comienza programa
             do
             {
                 Console.WriteLine("\nQue desea hacer? Elija la opcion deseada:");
@@ -56,13 +56,13 @@ namespace ConsolaNetCore
                 respuestaIngreso = Console.ReadLine();
                 Console.Clear();
 
-                //convierte el valor respuesta que es string a un numero equivalente en int32 y devuelve la conversion
-                //en la variable input, si falla la conversion la variable es 0
+                // convierte el valor respuesta que es string a un numero equivalente en int32 y devuelve la conversion
+                // en la variable input, si falla la conversion la variable es 0
                 int.TryParse(respuestaIngreso, out inputOpcion);
 
                 switch (inputOpcion)
                 {
-                    //Opcion MODO AUTOMATICO
+                    // Opcion MODO AUTOMATICO
                     case 1:
                         Console.Clear();
                         for (int i = 0; i < 20; i++)
@@ -82,7 +82,7 @@ namespace ConsolaNetCore
 
                         Console.WriteLine("\nIngresando notas...");
 
-                        //ingresando notas del alumno
+                        // ingresando notas del alumno
 
                         for (int i = 0; i < 10; i++)
                         {
@@ -95,7 +95,7 @@ namespace ConsolaNetCore
                             Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumnos[i]} es: {parcial2}");
                             MensajeColor("\n----------------------", ConsoleColor.Green);
 
-                            //se verifica si debe recuperar el parcial
+                            // se verifica si debe recuperar el parcial
                             if (parcial1 < 4)
                             {
                                 MensajeColor($"El alumno {alumnos[i]} debe recuperar el primer parcial", ConsoleColor.Red);
@@ -107,7 +107,7 @@ namespace ConsolaNetCore
                                 parcial2Reprobado = true;
                             }
 
-                            //se recuperan parciales
+                            // se recuperan parciales
                             if (parcial1Reprobado == true)
                             {
                                 MensajeColor("\n---INSTANCIA DEL PRIMER RECUPERATORIO---", ConsoleColor.Green);
@@ -152,7 +152,7 @@ namespace ConsolaNetCore
 
                             notaTotal = parcial1 + parcial2;
 
-                            //indicando si promociono la materia
+                            // indicando si promociono la materia
                             if (notaTotal >= 13)
                             {
                                 MensajeColor($"\nEl alumno {alumnos[i]} promociono con promedio {notaTotal / 2}!", ConsoleColor.Yellow);
@@ -187,12 +187,12 @@ namespace ConsolaNetCore
                         Console.ReadKey();
                         System.Environment.Exit(0);
                         break;
-                    //Opcion MODO MANUAL
+                    // Opcion MODO MANUAL
                     case 2:
                         Console.Clear();
                         MensajeColor("\n---INGRESO DE ALUMNOS---", ConsoleColor.Green);
 
-                        //se valida datos y se informa dato incorrecto
+                        // se valida datos y se informa dato incorrecto
                         inputAlumnos = ValidacionNumerica("\nCuantos alumnos quiere ingresar? (1-100)", "\nUsted introdujo un valor que no esta entre 1 y 100", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red, 100);
 
                         for (int i = 1; i <= inputAlumnos; i++)
@@ -221,16 +221,16 @@ namespace ConsolaNetCore
                             notaTotal = 0;
 
                             MensajeColor($"\n---NOTAS DEL ALUMNO {alumno}---", ConsoleColor.Green);
-                            //se valida datos del primer parcial
+                            // se valida datos del primer parcial
                             inputParcial1 = ValidacionNumerica("\nIngrese la nota del primer parcial (1-10):", "\nUsted introdujo un valor que no esta entre 1 y 10", $"\n---NOTAS DEL ALUMNO {alumno}---", ConsoleColor.Red, 10);
 
-                            //se valida datos del segundo parcial
+                            // se valida datos del segundo parcial
                             inputParcial2 = ValidacionNumerica("\nIngrese la nota del segundo parcial (1-10):", "\nUsted introdujo un valor que no esta entre 1 y 10", $"\n---NOTAS DEL ALUMNO {alumno}---", ConsoleColor.Red, 10);
 
                             Console.WriteLine($"\nLa nota del primer parcial de su alumno {alumno} es: {inputParcial1}");
                             Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumno} es: {inputParcial2}");
 
-                            //se verifica si debe recuperar el parcial
+                            // se verifica si debe recuperar el parcial
                             if (inputParcial1 < 4)
                             {
                                 MensajeColor($"\nEl alumno {alumno} debe recuperar el primer parcial", ConsoleColor.Red);
@@ -245,13 +245,13 @@ namespace ConsolaNetCore
                             Console.ReadKey();
                             Console.Clear();
 
-                            //se recupera el parcial
+                            // se recupera el parcial
                             if (parcial1Reprobado == true)
                             {
                                 MensajeColor("\n---INSTANCIA DEL PRIMER RECUPERATORIO---", ConsoleColor.Green);
                                 Console.WriteLine($"\nEl {alumno} recupera el primer parcial");
 
-                                //se valida datos del primer recuperatorio
+                                // se valida datos del primer recuperatorio
                                 inputRecuperatorio1 = ValidacionNumerica("\nIngrese la nota del recuperatorio del primer parcial (1-10):", "\nUsted introdujo un valor que no esta entre 1 y 10", "\n---INSTANCIA DEL PRIMER RECUPERATORIO---", ConsoleColor.Red, 10);
 
                                 if (inputRecuperatorio1 >= 4)
@@ -273,7 +273,7 @@ namespace ConsolaNetCore
                                 MensajeColor("\n---INSTANCIA DEL SEGUNDO RECUPERATORIO---", ConsoleColor.Green);
                                 Console.WriteLine($"\nEl {alumno} recupera el segundo parcial");
 
-                                //se valida datos del segundo recuperatorio
+                                // se valida datos del segundo recuperatorio
                                 inputRecuperatorio2 = ValidacionNumerica("\nIngrese la nota del recuperatorio del segundo parcial (1-10):", "\nUsted introdujo un valor que no esta entre 1 y 10", "\n---INSTANCIA DEL SEGUNDO RECUPERATORIO---", ConsoleColor.Red, 10);
 
                                 if (inputRecuperatorio2 >= 4)
@@ -297,10 +297,10 @@ namespace ConsolaNetCore
                                 Console.WriteLine($"\nLa nota del segundo parcial de su alumno {alumno} es: {inputRecuperatorio2}");
                             }
 
-                            //se genera nota total con la nota del parcial, la cual puede estar reemplazada por la del recuperatorio
+                            // se genera nota total con la nota del parcial, la cual puede estar reemplazada por la del recuperatorio
                             notaTotal = inputParcial1 + inputParcial2;
 
-                            //indicando si promociono la materia
+                            // indicando si promociono la materia
                             if (notaTotal >= 13)
                             {
                                 Console.Clear();
@@ -310,7 +310,7 @@ namespace ConsolaNetCore
                             else if (parcial1Reprobado == false && parcial2Reprobado == false)
                             {
                                 MensajeColor($"\nEl {alumno} obtuvo {notaTotal}, no alcanzo la nota para promocionar (13), va a instancia de final", ConsoleColor.Red);
-                                //se valida datos y se informa dato incorrecto
+                                // se valida datos y se informa dato incorrecto
                                 inputFinal = ValidacionNumerica("\nIngrese la nota del final (1-10):", "\nUsted introdujo un valor que no esta entre 1 y 10", ConsoleColor.Red, 10);
 
                                 if (inputFinal >= 4)
@@ -339,7 +339,7 @@ namespace ConsolaNetCore
                         Console.ReadKey();
                         System.Environment.Exit(0);
                         break;
-                    //Opcion MODO SALIR
+                    // Opcion MODO SALIR
                     case 3:
                         Console.WriteLine("\nFin del programa\n\nPresione cualquier tecla para finalizar");
                         Console.ReadKey();
@@ -351,8 +351,8 @@ namespace ConsolaNetCore
                 MensajeColor("\nUsted puso un caracter que no es 1, 2 o 3", ConsoleColor.Red);
             } while (inputOpcion == 0 || inputOpcion > 3);
         }
-        //METODOS: FUNCIONES(RETURN) Y PROCEDIMIENTOS (VOID)
-        //los metodos tienen que pertenecer a una clase
+        // METODOS: FUNCIONES(RETURN) Y PROCEDIMIENTOS (VOID)
+        // los metodos tienen que pertenecer a una clase
 
         /// <summary>
         /// Muestra en pantalla el mensaje indicado, le cambia al color deseado y reinicia al valor por defecto de color del texto de consola.
@@ -438,7 +438,7 @@ namespace ConsolaNetCore
             MensajeColor(titulo, ConsoleColor.Green);
             return outputIngreso;
         }
-        //LINQ ES MAS RAPIDO QUE USAR REGEX https://stackoverflow.com/questions/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp/1181426
+        // LINQ ES MAS RAPIDO QUE USAR REGEX https://stackoverflow.com/questions/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp/1181426
         /// <summary>
         /// Valida si el ingreso de texto esta vacio o nulo. Y si son solo letras.
         /// </summary>

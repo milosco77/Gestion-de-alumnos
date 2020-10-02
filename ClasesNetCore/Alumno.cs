@@ -11,5 +11,6 @@ namespace ClasesNetCore
         }
         public int DNI { get; set; }
         public Notas notas { get; set; }
+        public int Comision { get; set; }
     }
 }

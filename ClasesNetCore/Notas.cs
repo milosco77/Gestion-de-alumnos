@@ -6,7 +6,7 @@ namespace Entidades
 {
     public class Notas
     {
-        public int PrimerParcial { get; set; }
+        public int primerParcial { get; set; }
         public int SegundoParcial { get; set; }
         public int Final { get; set; }
     }
