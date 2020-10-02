@@ -2,8 +2,7 @@
 
 namespace Datos
 {
-    public class Modelo
+    public class Class1
     {
-
     }
 }
