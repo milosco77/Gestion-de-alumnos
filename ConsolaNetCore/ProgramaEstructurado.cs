@@ -15,7 +15,7 @@ namespace ConsolaNetCore
         //    Salir = 3
         //}
 
-        static void Main(string[] args)
+        static void Estructurado(string[] args)
         {
             //Programa de gestion de notas de alumnos
 
