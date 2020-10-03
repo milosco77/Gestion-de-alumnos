@@ -9,8 +9,9 @@ namespace ClasesNetCore
         {
             base.Hola();
         }
-        public int DNI { get; set; }
-        public Notas notas { get; set; }
+        public Notas Notas { get; set; }
         public int Comision { get; set; }
+        public Asignatura Materia { get; set; }
+
     }
 }

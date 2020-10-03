@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ClasesNetCore\Entidades.csproj" />
+    <ProjectReference Include="..\Datos\Datos.csproj" />
+  </ItemGroup>
+
 </Project>

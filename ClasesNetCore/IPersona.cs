@@ -9,6 +9,7 @@ namespace Entidades
         string Nombre { get; set; }
         string Apellido { get; set; }
         int Edad { get; set; }
+        int DNI { get; set; }
         void Hola();
     }
 }

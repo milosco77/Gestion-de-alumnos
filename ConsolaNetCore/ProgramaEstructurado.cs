@@ -8,13 +8,6 @@ namespace ConsolaNetCore
 {
     public class ProgramaEstructurado
     {
-        // enum Opciones
-        // {
-        //     ModoAutomatico = 1,
-        //     ModoManual = 2,
-        //     Salir = 3
-        // }
-
         static void Estructurado(string[] args)
         {
             // Programa de gestion de notas de alumnos
@@ -27,12 +20,9 @@ namespace ConsolaNetCore
             // Indicar si se promociona o reprueba. Cada uno de los examanes y materia.
 
             // TODO implementar explicacion correcta de intellisense para los metodos *POO*
-            // TODO implementar enumeracion de opciones *POO*
             // TODO implementar asistencia de alumnos *POO*
             // TODO ingreso de profesores/Ayudante de catedra *POO*
             // TODO implementar manejo de excepciones
-            // TODO talvez implementar nota de AUSENTE y DNI*
-            // TODO empezar Programacion Orientada a Objetos
             // TODO cambiar variables a sus variables reducidas en espacio solo cuando empieze a usar DB*
 
             // inicializando variables
@@ -63,7 +53,7 @@ namespace ConsolaNetCore
                 switch (inputOpcion)
                 {
                     // Opcion MODO AUTOMATICO
-                    case 1:
+                    case 1: 
                         Console.Clear();
                         for (int i = 0; i < 20; i++)
                         {

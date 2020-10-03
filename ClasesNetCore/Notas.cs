@@ -6,8 +6,10 @@ namespace Entidades
 {
     public class Notas
     {
-        public int primerParcial { get; set; }
-        public int SegundoParcial { get; set; }
-        public int Final { get; set; }
+        public float PrimerParcial { get; set; }
+        public float PrimerRecuperatorio { get; set; }
+        public float SegundoParcial { get; set; }
+        public float SegundoRecuperatorio { get; set; }
+        public float Final { get; set; }
     }
 }

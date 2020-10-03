@@ -9,6 +9,7 @@ namespace Entidades
         public string Nombre { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public string Apellido { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int Edad { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int DNI { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public virtual void Hola()
         {
