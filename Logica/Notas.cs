@@ -6,6 +6,6 @@ namespace Logica
 {
     public class Notas
     {
-
+        // TODO
     }
 }

@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Entidades
 {
-    public class Persona : IPersona
+    public abstract class Persona : IPersona
     {
-        public string Nombre { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Apellido { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int Edad { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int DNI { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public int Edad { get; set; }
+        public int DNI { get; set; }
 
         public virtual void Hola()
         {

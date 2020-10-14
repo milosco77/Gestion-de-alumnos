@@ -9,26 +9,29 @@ namespace ConsolaNetCore
 {
     public class Consola
     {
+        public static Logica.Alumno objLogica = new Logica.Alumno();
+
         static void Main(string[] args)
         {
+            
             // TODO incorporar capa logica.
             // Titulo en de la ventana.
             Console.Title = "Programa de Gestion de Notas de Alumnos";
             
             Bienvenida();
-            ElegirOpciones();
-            IngresoAlumnos();
+            //ElegirOpciones();
+            //IngresoAlumnos();
             InformarAlumnos();
-            RendirExamen();
-            AprobacionExamen();
-            InformarNotas();
-            Promocion();
+            //RendirExamen();
+            //AprobacionExamen();
+            //InformarNotas();
+            //Promocion();
             Salir();
         }
 
         public static void Bienvenida()
         {
-            Console.WriteLine("\nBienvenido al Programa de Gestion de Notas de Alumnos\n\nEste programa le permitira ingresar los datos de los alumnos de su clase. Permitiendole mantener un registro de los mismos, por ejemplo: saber si promocionaron la asignatura o no.\n\nPresione una tecla para continuar...");
+            Console.WriteLine("\nBienvenido al Programa de Gestion de Notas de Alumnos\n\nEste programa le permitira ingresar los datos de los alumnos de su clase. Permitiendole mantener un registro de los mismos.\n\nPresione una tecla para continuar...");
             Console.ReadKey();
         }
 
@@ -47,7 +50,11 @@ namespace ConsolaNetCore
 
         public static void InformarAlumnos()
         {
-            // TODO informar cantidad de alumnos y quienes.
+            foreach (Entidades.Alumno alumno in objLogica.ListarTodos() )
+            {
+                Console.WriteLine($"\nNombre: {alumno.Nombre} Apellido: {alumno.Apellido} Edad: {alumno.Edad} DNI: {alumno.DNI} Comision: {alumno.Carrera.Materias[1].Comision} Materia (codigo): {alumno.Carrera.Materias[1].Codigo} Materia (nombre): {alumno.Carrera.Materias[1].NombreAsignatura} Materia (horario): {alumno.Carrera.Materias[1].Horario}");
+            } // TODO
+            
         }
 
         public static void RendirExamen()

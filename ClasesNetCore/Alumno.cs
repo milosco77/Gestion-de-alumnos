@@ -1,7 +1,7 @@
 ﻿using Entidades;
 using System;
 
-namespace ClasesNetCore
+namespace Entidades
 {
     public class Alumno : Persona
     {
@@ -9,9 +9,15 @@ namespace ClasesNetCore
         {
             base.Hola();
         }
-        public Notas Notas { get; set; }
-        public int Comision { get; set; }
-        public Asignatura Materia { get; set; }
+        public Alumno(string _Nombre, string _Apellido, int _Edad, int _DNI, Carrera _Carrera)
+        {
+            Nombre = _Nombre;
+            Apellido = _Apellido;
+            Edad = _Edad;
+            DNI = _DNI;
+            Carrera = _Carrera;
+        }
+        public Carrera Carrera { get; set; }
 
     }
 }
