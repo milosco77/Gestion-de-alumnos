@@ -6,9 +6,9 @@ namespace Logica
     public class Alumno
     {
         Datos.Alumno objAlumno = new Datos.Alumno();
-        public List<Entidades.Alumno> Listar()
+        public Entidades.Alumno ListarUno(int DNI)
         {
-            return objAlumno.Listar();
+            return objAlumno.ListarUno(DNI);
         }
 
         public List<Entidades.Alumno> ListarTodos()

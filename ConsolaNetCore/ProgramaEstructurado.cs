@@ -19,12 +19,6 @@ namespace ConsolaNetCore
             // Promedio menor a 13 se va a final. Se necesitan tener los 2 parciales aprobados para ir a final.
             // Indicar si se promociona o reprueba. Cada uno de los examanes y materia.
 
-            // TODO implementar explicacion correcta de intellisense para los metodos *POO*
-            // TODO implementar asistencia de alumnos *POO*
-            // TODO ingreso de profesores/Ayudante de catedra *POO*
-            // TODO implementar manejo de excepciones
-            // TODO cambiar variables a sus variables reducidas en espacio solo cuando empieze a usar DB*
-
             // inicializando variables
 
             int parcial1, parcial2, final, notaTotal, inputAlumnos, inputOpcion, inputParcial1, inputParcial2, inputRecuperatorio1 = 0, inputRecuperatorio2 = 0, inputFinal;

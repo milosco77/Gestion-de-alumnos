@@ -5,6 +5,13 @@ using System.Net;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
+// TODO hacer la capa de Datos
+// TODO implementar explicacion correcta de intellisense para los metodos
+// TODO implementar asistencia de alumnos
+// TODO ingreso de profesores/Ayudante de catedra
+// TODO implementar manejo de excepciones
+// TODO cambiar variables a sus variables reducidas en espacio solo cuando empieze a usar DB
+
 namespace ConsolaNetCore
 {
     public class Consola
@@ -13,8 +20,6 @@ namespace ConsolaNetCore
 
         static void Main(string[] args)
         {
-            
-            // TODO incorporar capa logica.
             // Titulo en de la ventana.
             Console.Title = "Programa de Gestion de Notas de Alumnos";
             
@@ -31,8 +36,9 @@ namespace ConsolaNetCore
 
         public static void Bienvenida()
         {
-            Console.WriteLine("\nBienvenido al Programa de Gestion de Notas de Alumnos\n\nEste programa le permitira ingresar los datos de los alumnos de su clase. Permitiendole mantener un registro de los mismos.\n\nPresione una tecla para continuar...");
+            Console.WriteLine("\nBienvenido al Programa de Gestion de Notas de Alumnos\n\nEste programa le permitira ingresar los datos de los alumnos de su clase.\nPermitiendole mantener un registro de los mismos.\n\nPresione una tecla para continuar...");
             Console.ReadKey();
+            Console.Clear();
         }
 
         public static void Salir()
@@ -52,8 +58,8 @@ namespace ConsolaNetCore
         {
             foreach (Entidades.Alumno alumno in objLogica.ListarTodos() )
             {
-                Console.WriteLine($"\nNombre: {alumno.Nombre} Apellido: {alumno.Apellido} Edad: {alumno.Edad} DNI: {alumno.DNI} Comision: {alumno.Carrera.Materias[1].Comision} Materia (codigo): {alumno.Carrera.Materias[1].Codigo} Materia (nombre): {alumno.Carrera.Materias[1].NombreAsignatura} Materia (horario): {alumno.Carrera.Materias[1].Horario}");
-            } // TODO
+                Console.WriteLine($"\nNombre: {alumno.Nombre} Apellido: {alumno.Apellido} Edad: {alumno.Edad} DNI: {alumno.DNI} Comision: {alumno.Carrera.Materias[0].Comision} Materia (codigo): {alumno.Carrera.Materias[0].Codigo} Materia (nombre): {alumno.Carrera.Materias[0].NombreAsignatura} Materia (horario): {alumno.Carrera.Materias[0].Horario}");
+            }
             
         }
 
