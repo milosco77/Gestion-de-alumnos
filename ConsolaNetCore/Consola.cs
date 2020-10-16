@@ -56,6 +56,23 @@ namespace ConsolaNetCore
 
         public static void InformarAlumnos()
         {
+            Console.WriteLine("\nUn alumno");
+            Console.WriteLine(objLogica.ListarUno(1).Nombre);
+            Console.WriteLine("\nVarios alumnos usando 1 como DNI, devolviendo nombre");
+            foreach (Entidades.Alumno alumno in objLogica.ListarVarios(1))
+            {
+                Console.WriteLine(alumno.Nombre);
+            }
+            Console.ReadLine();
+
+            Console.WriteLine("\nVarios alumnos usando Jose como nombre, devolviendo DNI");
+            foreach (Entidades.Alumno alumno in objLogica.ListarVarios("Jose"))
+            {
+                Console.WriteLine(alumno.DNI);
+            }
+            Console.ReadLine();
+
+            Console.WriteLine("\nTodos los alumnos");
             foreach (Entidades.Alumno alumno in objLogica.ListarTodos() )
             {
                 Console.WriteLine($"\nNombre: {alumno.Nombre} Apellido: {alumno.Apellido} Edad: {alumno.Edad} DNI: {alumno.DNI} Comision: {alumno.Carrera.Materias[0].Comision} Materia (codigo): {alumno.Carrera.Materias[0].Codigo} Materia (nombre): {alumno.Carrera.Materias[0].NombreAsignatura} Materia (horario): {alumno.Carrera.Materias[0].Horario}");

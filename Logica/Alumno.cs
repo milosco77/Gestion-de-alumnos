@@ -6,9 +6,19 @@ namespace Logica
     public class Alumno
     {
         Datos.Alumno objAlumno = new Datos.Alumno();
-        public Entidades.Alumno ListarUno(int DNI)
+        public Entidades.Alumno ListarUno(int pDNI)
         {
-            return objAlumno.ListarUno(DNI);
+            return objAlumno.ListarUno(pDNI);
+        }
+
+        public List<Entidades.Alumno> ListarVarios(string pNombre)
+        {
+            return objAlumno.ListarVarios(pNombre);
+        }
+
+        public List<Entidades.Alumno> ListarVarios(int pEdad)
+        {
+            return objAlumno.ListarVarios(pEdad);
         }
 
         public List<Entidades.Alumno> ListarTodos()
@@ -16,19 +26,21 @@ namespace Logica
             return objAlumno.ListarTodos();
         }
 
-        public void Agregar()
+        public void Agregar(Entidades.Alumno palumno)
         {
-            objAlumno.Agregar();
+            objAlumno.Agregar(palumno);
         }
 
-        public void Eliminar()
+        public void Editar(Entidades.Alumno palumno)
         {
-            objAlumno.Eliminar();
+            objAlumno.Editar(palumno);
         }
 
-        public void Editar()
+        public void Eliminar(int pDNI)
         {
-            objAlumno.Editar();
+            objAlumno.Eliminar(pDNI);
         }
+
+
     }
 }
