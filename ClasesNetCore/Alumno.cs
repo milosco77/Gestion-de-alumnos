@@ -9,13 +9,13 @@ namespace Entidades
         {
             base.Hola();
         }
-        public Alumno(string _Nombre, string _Apellido, int _Edad, int _DNI, Carrera _Carrera)
+        public Alumno(string pNombre, string pApellido, int pEdad, int pDNI, Carrera pCarrera)
         {
-            Nombre = _Nombre;
-            Apellido = _Apellido;
-            Edad = _Edad;
-            DNI = _DNI;
-            Carrera = _Carrera;
+            Nombre = pNombre;
+            Apellido = pApellido;
+            Edad = pEdad;
+            DNI = pDNI;
+            Carrera = pCarrera;
         }
         public Carrera Carrera { get; set; }
 

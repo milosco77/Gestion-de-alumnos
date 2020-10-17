@@ -7,11 +7,11 @@ namespace Entidades
 {
     public class Carrera
     {
-        public Carrera(string _Titulo, List<Asignatura> _Materias, Facultades _Facultad)
+        public Carrera(string pTitulo, List<Asignatura> pMaterias, Facultades pFacultad)
         {
-            Titulo = _Titulo;
-            Materias = _Materias;
-            Facultad = _Facultad;
+            Titulo = pTitulo;
+            Materias = pMaterias;
+            Facultad = pFacultad;
         }
         public string Titulo { get; set; }
         public List<Asignatura> Materias { get; set; }

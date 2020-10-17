@@ -77,7 +77,36 @@ namespace ConsolaNetCore
             {
                 Console.WriteLine($"\nNombre: {alumno.Nombre} Apellido: {alumno.Apellido} Edad: {alumno.Edad} DNI: {alumno.DNI} Comision: {alumno.Carrera.Materias[0].Comision} Materia (codigo): {alumno.Carrera.Materias[0].Codigo} Materia (nombre): {alumno.Carrera.Materias[0].NombreAsignatura} Materia (horario): {alumno.Carrera.Materias[0].Horario}");
             }
-            
+            Entidades.Alumno alumno1 = new Entidades.Alumno(
+                pNombre: "puta",
+                pApellido: "trola",
+                pEdad: 14, pDNI: 123,
+                new Entidades.Carrera(
+                    pTitulo: "nada",
+                    pMaterias: new List<Entidades.Asignatura>() {
+                        new Entidades.Asignatura(
+                            pCodigo: 321,
+                            pComision: 343,
+                            pHorario: 2321,
+                            pNombreAsignatura: Enumeraciones.Materias.Ingles,
+                            pNota: new Entidades.Notas(
+                                pPrimerParcial: 1,
+                                pPrimerRecuperatorio: 2,
+                                pSegundoParcial: 3,
+                                pSegundoRecuperatorio: 4,
+                                pFinal: 5
+                                )
+                            )
+                    }, pFacultad: Enumeraciones.Facultades.Agronomia)
+                );
+            objLogica.Agregar(alumno1);
+            Console.WriteLine($"\nSe agrega alumno {alumno1.Nombre}, {alumno1.Apellido}, {alumno1.Carrera.Materias[0].Nota.Final}");
+            Entidades.Alumno alumno2 = alumno1;
+            alumno2.Apellido = "putasa";
+            objLogica.Editar(alumno2);
+            Console.WriteLine($"\nSe edita alumno {alumno1.Nombre}, {alumno1.Apellido}, {alumno1.Carrera.Materias[0].Nota.Final}");
+            objLogica.Eliminar(1);
+            Console.WriteLine("\nSe elimina alumno con DNI 1");
         }
 
         public static void RendirExamen()

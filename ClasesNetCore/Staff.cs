@@ -8,9 +8,9 @@ namespace Entidades
 {
     public class Staff : Persona
     {
-        public Staff(Cargos _Cargo)
+        public Staff(Cargos pCargo)
         {
-            Cargo = _Cargo;
+            Cargo = pCargo;
         }
         public Cargos Cargo { get; set; }
     }

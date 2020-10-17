@@ -6,13 +6,13 @@ namespace Entidades
 {
     public class Notas
     {
-        public Notas(float _PrimerParcial, float _PrimerRecuperatorio, float _SegundoParcial, float _SegundoRecuperatorio, float _Final)
+        public Notas(float pPrimerParcial, float pPrimerRecuperatorio, float pSegundoParcial, float pSegundoRecuperatorio, float pFinal)
         {
-            PrimerParcial = _PrimerParcial;
-            PrimerRecuperatorio = _PrimerRecuperatorio;
-            SegundoParcial = _SegundoParcial;
-            SegundoRecuperatorio = _SegundoRecuperatorio;
-            Final = _Final;
+            PrimerParcial = pPrimerParcial;
+            PrimerRecuperatorio = pPrimerRecuperatorio;
+            SegundoParcial = pSegundoParcial;
+            SegundoRecuperatorio = pSegundoRecuperatorio;
+            Final = pFinal;
         }
         public float PrimerParcial { get; set; }
         public float PrimerRecuperatorio { get; set; }

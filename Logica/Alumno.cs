@@ -26,14 +26,14 @@ namespace Logica
             return objAlumno.ListarTodos();
         }
 
-        public void Agregar(Entidades.Alumno palumno)
+        public void Agregar(Entidades.Alumno pAlumno)
         {
-            objAlumno.Agregar(palumno);
+            objAlumno.Agregar(pAlumno);
         }
 
-        public void Editar(Entidades.Alumno palumno)
+        public void Editar(Entidades.Alumno pAlumno)
         {
-            objAlumno.Editar(palumno);
+            objAlumno.Editar(pAlumno);
         }
 
         public void Eliminar(int pDNI)

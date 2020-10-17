@@ -7,13 +7,13 @@ namespace Entidades
 {
     public class Asignatura
     {
-        public Asignatura(int _Codigo, int _Comision, int _Horario, Materias _NombreAsignatura, Notas _Nota)
+        public Asignatura(int pCodigo, int pComision, int pHorario, Materias pNombreAsignatura, Notas pNota)
         {
-            Codigo = _Codigo;
-            Comision = _Comision;
-            Horario = _Horario;
-            NombreAsignatura = _NombreAsignatura;
-            Nota = _Nota;
+            Codigo = pCodigo;
+            Comision = pComision;
+            Horario = pHorario;
+            NombreAsignatura = pNombreAsignatura;
+            Nota = pNota;
         }
         public int Codigo { get; set; }
         public int Comision { get; set; }

@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 
 // TODO Hacer toda la capa de datos.
-// TODO Primero hardcodeado.
-// TODO Segundo con persistencia de datos.
-// TODO Tercero con base de datos.
+// TODO Primero hardcodeado.*
+// TODO Segundo no hardcodeado, es decir, con ingreso de datos por el usuario.
+// TODO Tercero con base de datos, es decir, persistencia de datos.
 // TODO implementar named arguments = callingMethod(Product = "", etc)
 
 namespace Datos
@@ -16,22 +16,22 @@ namespace Datos
     public class Alumno
     {
         // Hardcodeado.
-        private static Entidades.Notas notas = new Entidades.Notas(_PrimerParcial: 1, _PrimerRecuperatorio: 2, _SegundoParcial: 3, _SegundoRecuperatorio: 4, _Final: 5);
-        private static Asignatura asignatura = new Asignatura(_Codigo: 1, _Comision: 1, _Horario: 1, _NombreAsignatura: Materias.Algebra, _Nota: notas);
+        private static Entidades.Notas notas = new Entidades.Notas(pPrimerParcial: 1, pPrimerRecuperatorio: 2, pSegundoParcial: 3, pSegundoRecuperatorio: 4, pFinal: 5);
+        private static Asignatura asignatura = new Asignatura(pCodigo: 1, pComision: 1, pHorario: 1, pNombreAsignatura: Materias.Algebra, pNota: notas);
         private static List<Asignatura> materias = new List<Asignatura>(){ asignatura };
-        private static Carrera carrera = new Carrera(_Titulo: "Ingenieria", _Materias: materias, _Facultad: Facultades.Agronomia);
+        private static Carrera carrera = new Carrera(pTitulo: "Ingenieria", pMaterias: materias, pFacultad: Facultades.Agronomia);
 
         private static List<Entidades.Alumno> alumnos = new List<Entidades.Alumno>() {
-            new Entidades.Alumno( _Nombre: "Jose", _Apellido: "Perez", _Edad: 1, _DNI: 1, _Carrera: carrera),
-            new Entidades.Alumno( _Nombre: "Jose", _Apellido: "Perez", _Edad: 2, _DNI: 2, _Carrera: carrera),
-            new Entidades.Alumno( _Nombre: "Jose", _Apellido: "Perez", _Edad: 3, _DNI: 3, _Carrera: carrera),
-            new Entidades.Alumno( _Nombre: "Jose", _Apellido: "Perez", _Edad: 4, _DNI: 4, _Carrera: carrera),
-            new Entidades.Alumno( _Nombre: "Jose", _Apellido: "Perez", _Edad: 5, _DNI: 5, _Carrera: carrera),
-            new Entidades.Alumno( _Nombre: "Jose", _Apellido: "Perez", _Edad: 6, _DNI: 6, _Carrera: carrera),
-            new Entidades.Alumno( _Nombre: "Jose", _Apellido: "Perez", _Edad: 7, _DNI: 7, _Carrera: carrera),
-            new Entidades.Alumno( _Nombre: "Jose", _Apellido: "Perez", _Edad: 8, _DNI: 8, _Carrera: carrera),
-            new Entidades.Alumno( _Nombre: "Jose", _Apellido: "Perez", _Edad: 9, _DNI: 9, _Carrera: carrera),
-            new Entidades.Alumno( _Nombre: "Jose", _Apellido: "Perez", _Edad: 10, _DNI: 10, _Carrera: carrera),
+            new Entidades.Alumno( pNombre: "Jose", pApellido: "Perez", pEdad: 1, pDNI: 1, pCarrera: carrera),
+            new Entidades.Alumno( pNombre: "Jose", pApellido: "Perez", pEdad: 2, pDNI: 2, pCarrera: carrera),
+            new Entidades.Alumno( pNombre: "Jose", pApellido: "Perez", pEdad: 3, pDNI: 3, pCarrera: carrera),
+            new Entidades.Alumno( pNombre: "Jose", pApellido: "Perez", pEdad: 4, pDNI: 4, pCarrera: carrera),
+            new Entidades.Alumno( pNombre: "Jose", pApellido: "Perez", pEdad: 5, pDNI: 5, pCarrera: carrera),
+            new Entidades.Alumno( pNombre: "Jose", pApellido: "Perez", pEdad: 6, pDNI: 6, pCarrera: carrera),
+            new Entidades.Alumno( pNombre: "Jose", pApellido: "Perez", pEdad: 7, pDNI: 7, pCarrera: carrera),
+            new Entidades.Alumno( pNombre: "Jose", pApellido: "Perez", pEdad: 8, pDNI: 8, pCarrera: carrera),
+            new Entidades.Alumno( pNombre: "Jose", pApellido: "Perez", pEdad: 9, pDNI: 9, pCarrera: carrera),
+            new Entidades.Alumno( pNombre: "Jose", pApellido: "Perez", pEdad: 10, pDNI: 10, pCarrera: carrera),
         };
         private static Entidades.Alumno alumno;
 
