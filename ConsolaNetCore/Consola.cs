@@ -16,6 +16,7 @@ namespace ConsolaNetCore
 {
     public class Consola
     {
+        public Entidades.Contexto db = new Entidades.Contexto();
         public static Logica.Alumno objLogica = new Logica.Alumno();
 
         static void Main(string[] args)

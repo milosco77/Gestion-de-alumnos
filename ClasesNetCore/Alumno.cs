@@ -1,13 +1,14 @@
 ﻿using Entidades;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Entidades
 {
     public class Alumno : Persona
     {
-        public override void Hola()
+        public Alumno()
         {
-            base.Hola();
+
         }
         public Alumno(string pNombre, string pApellido, int pEdad, int pDNI, Carrera pCarrera)
         {
@@ -17,6 +18,8 @@ namespace Entidades
             DNI = pDNI;
             Carrera = pCarrera;
         }
+        [Key]
+        public int idAlumno { get; set; }
         public Carrera Carrera { get; set; }
 
     }

@@ -7,8 +7,7 @@ using System.Text;
 
 // TODO Hacer toda la capa de datos.
 // TODO Primero hardcodeado.*
-// TODO Segundo no hardcodeado, es decir, con ingreso de datos por el usuario.
-// TODO Tercero con base de datos, es decir, persistencia de datos.
+// TODO Segundo con base de datos, es decir, persistencia de datos y ORM.
 // TODO implementar named arguments = callingMethod(Product = "", etc)
 
 namespace Datos
