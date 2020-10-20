@@ -7,8 +7,9 @@ using System.Text;
 
 // TODO Hacer toda la capa de datos.
 // TODO Primero hardcodeado.*
-// TODO Segundo con base de datos, es decir, persistencia de datos y ORM.
-// TODO implementar named arguments = callingMethod(Product = "", etc)
+// TODO Segundo con base de datos, es decir, persistencia de datos y ORM.*
+// TODO Colocar DataAnnotations en las clases para la creacion mas correcta de las tablas.
+// TODO implementar named arguments = callingMethod(Product = "", etc)*
 
 namespace Datos
 {
