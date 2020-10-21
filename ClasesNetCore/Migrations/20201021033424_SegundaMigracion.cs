@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Entidades.Migrations
 {
-    public partial class PrimeraMigracion : Migration
+    public partial class SegundaMigracion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,14 +11,14 @@ namespace Entidades.Migrations
                 name: "Carreras",
                 columns: table => new
                 {
-                    idTitulo = table.Column<int>(nullable: false)
+                    idCarrera = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Titulo = table.Column<string>(nullable: true),
+                    Titulo = table.Column<string>(nullable: false),
                     Facultad = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Carreras", x => x.idTitulo);
+                    table.PrimaryKey("PK_Carreras", x => x.idCarrera);
                 });
 
             migrationBuilder.CreateTable(
@@ -26,11 +27,11 @@ namespace Entidades.Migrations
                 {
                     idNotas = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PrimerParcial = table.Column<float>(nullable: false),
-                    PrimerRecuperatorio = table.Column<float>(nullable: false),
-                    SegundoParcial = table.Column<float>(nullable: false),
-                    SegundoRecuperatorio = table.Column<float>(nullable: false),
-                    Final = table.Column<float>(nullable: false)
+                    PrimerParcial = table.Column<float>(maxLength: 2, nullable: false),
+                    PrimerRecuperatorio = table.Column<float>(maxLength: 2, nullable: false),
+                    SegundoParcial = table.Column<float>(maxLength: 2, nullable: false),
+                    SegundoRecuperatorio = table.Column<float>(maxLength: 2, nullable: false),
+                    Final = table.Column<float>(maxLength: 2, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,20 +39,20 @@ namespace Entidades.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Staffs",
+                name: "Staff",
                 columns: table => new
                 {
                     idStaff = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(nullable: true),
-                    Apellido = table.Column<string>(nullable: true),
-                    Edad = table.Column<int>(nullable: false),
+                    Nombre = table.Column<string>(maxLength: 50, nullable: false),
+                    Apellido = table.Column<string>(maxLength: 50, nullable: false),
+                    Edad = table.Column<int>(maxLength: 2, nullable: false),
                     DNI = table.Column<int>(nullable: false),
                     Cargo = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Staffs", x => x.idStaff);
+                    table.PrimaryKey("PK_Staff", x => x.idStaff);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,21 +61,22 @@ namespace Entidades.Migrations
                 {
                     idAlumno = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(nullable: true),
-                    Apellido = table.Column<string>(nullable: true),
-                    Edad = table.Column<int>(nullable: false),
-                    DNI = table.Column<int>(nullable: false),
-                    CarreraidTitulo = table.Column<int>(nullable: true)
+                    MarcaTemporal = table.Column<byte[]>(rowVersion: true, nullable: true),
+                    CarreraidCarrera = table.Column<int>(nullable: false),
+                    Nombre = table.Column<string>(maxLength: 50, nullable: false),
+                    Apellido = table.Column<string>(maxLength: 50, nullable: false),
+                    Edad = table.Column<int>(maxLength: 2, nullable: false),
+                    DNI = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Alumnos", x => x.idAlumno);
                     table.ForeignKey(
-                        name: "FK_Alumnos_Carreras_CarreraidTitulo",
-                        column: x => x.CarreraidTitulo,
+                        name: "FK_Alumnos_Carreras_CarreraidCarrera",
+                        column: x => x.CarreraidCarrera,
                         principalTable: "Carreras",
-                        principalColumn: "idTitulo",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "idCarrera",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,18 +88,18 @@ namespace Entidades.Migrations
                     Codigo = table.Column<int>(nullable: false),
                     Comision = table.Column<int>(nullable: false),
                     Horario = table.Column<int>(nullable: false),
-                    NombreAsignatura = table.Column<int>(nullable: false),
+                    Nombre = table.Column<int>(nullable: false),
                     NotaidNotas = table.Column<int>(nullable: true),
-                    CarreraidTitulo = table.Column<int>(nullable: true)
+                    CarreraidCarrera = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Asignaturas", x => x.idAsignatura);
                     table.ForeignKey(
-                        name: "FK_Asignaturas_Carreras_CarreraidTitulo",
-                        column: x => x.CarreraidTitulo,
+                        name: "FK_Asignaturas_Carreras_CarreraidCarrera",
+                        column: x => x.CarreraidCarrera,
                         principalTable: "Carreras",
-                        principalColumn: "idTitulo",
+                        principalColumn: "idCarrera",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Asignaturas_Notas_NotaidNotas",
@@ -108,14 +110,14 @@ namespace Entidades.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Alumnos_CarreraidTitulo",
+                name: "IX_Alumnos_CarreraidCarrera",
                 table: "Alumnos",
-                column: "CarreraidTitulo");
+                column: "CarreraidCarrera");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Asignaturas_CarreraidTitulo",
+                name: "IX_Asignaturas_CarreraidCarrera",
                 table: "Asignaturas",
-                column: "CarreraidTitulo");
+                column: "CarreraidCarrera");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Asignaturas_NotaidNotas",
@@ -132,7 +134,7 @@ namespace Entidades.Migrations
                 name: "Asignaturas");
 
             migrationBuilder.DropTable(
-                name: "Staffs");
+                name: "Staff");
 
             migrationBuilder.DropTable(
                 name: "Carreras");

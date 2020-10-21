@@ -10,6 +10,5 @@ namespace Entidades
         string Apellido { get; set; }
         int Edad { get; set; }
         int DNI { get; set; }
-        void Hola();
     }
 }

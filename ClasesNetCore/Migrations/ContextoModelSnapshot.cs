@@ -27,23 +27,34 @@ namespace Entidades.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Apellido")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
-                    b.Property<int?>("CarreraidTitulo")
+                    b.Property<int>("CarreraidCarrera")
                         .HasColumnType("int");
 
                     b.Property<int>("DNI")
                         .HasColumnType("int");
 
                     b.Property<int>("Edad")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnName("MarcaTemporal")
+                        .HasColumnType("rowversion");
 
                     b.HasKey("idAlumno");
 
-                    b.HasIndex("CarreraidTitulo");
+                    b.HasIndex("CarreraidCarrera");
 
                     b.ToTable("Alumnos");
                 });
@@ -55,7 +66,7 @@ namespace Entidades.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CarreraidTitulo")
+                    b.Property<int?>("CarreraidCarrera")
                         .HasColumnType("int");
 
                     b.Property<int>("Codigo")
@@ -68,6 +79,7 @@ namespace Entidades.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("NombreAsignatura")
+                        .HasColumnName("Nombre")
                         .HasColumnType("int");
 
                     b.Property<int?>("NotaidNotas")
@@ -75,7 +87,7 @@ namespace Entidades.Migrations
 
                     b.HasKey("idAsignatura");
 
-                    b.HasIndex("CarreraidTitulo");
+                    b.HasIndex("CarreraidCarrera");
 
                     b.HasIndex("NotaidNotas");
 
@@ -84,7 +96,7 @@ namespace Entidades.Migrations
 
             modelBuilder.Entity("Entidades.Carrera", b =>
                 {
-                    b.Property<int>("idTitulo")
+                    b.Property<int>("idCarrera")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -93,9 +105,10 @@ namespace Entidades.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Titulo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("idTitulo");
+                    b.HasKey("idCarrera");
 
                     b.ToTable("Carreras");
                 });
@@ -108,19 +121,24 @@ namespace Entidades.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<float>("Final")
-                        .HasColumnType("real");
+                        .HasColumnType("real")
+                        .HasMaxLength(2);
 
                     b.Property<float>("PrimerParcial")
-                        .HasColumnType("real");
+                        .HasColumnType("real")
+                        .HasMaxLength(2);
 
                     b.Property<float>("PrimerRecuperatorio")
-                        .HasColumnType("real");
+                        .HasColumnType("real")
+                        .HasMaxLength(2);
 
                     b.Property<float>("SegundoParcial")
-                        .HasColumnType("real");
+                        .HasColumnType("real")
+                        .HasMaxLength(2);
 
                     b.Property<float>("SegundoRecuperatorio")
-                        .HasColumnType("real");
+                        .HasColumnType("real")
+                        .HasMaxLength(2);
 
                     b.HasKey("idNotas");
 
@@ -135,7 +153,9 @@ namespace Entidades.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Apellido")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<int>("Cargo")
                         .HasColumnType("int");
@@ -144,28 +164,33 @@ namespace Entidades.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Edad")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("idStaff");
 
-                    b.ToTable("Staffs");
+                    b.ToTable("Staff");
                 });
 
             modelBuilder.Entity("Entidades.Alumno", b =>
                 {
                     b.HasOne("Entidades.Carrera", "Carrera")
                         .WithMany()
-                        .HasForeignKey("CarreraidTitulo");
+                        .HasForeignKey("CarreraidCarrera")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entidades.Asignatura", b =>
                 {
                     b.HasOne("Entidades.Carrera", null)
                         .WithMany("Materias")
-                        .HasForeignKey("CarreraidTitulo");
+                        .HasForeignKey("CarreraidCarrera");
 
                     b.HasOne("Entidades.Notas", "Nota")
                         .WithMany()

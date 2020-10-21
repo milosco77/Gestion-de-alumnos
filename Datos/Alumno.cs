@@ -9,6 +9,8 @@ using System.Text;
 // TODO Primero hardcodeado.*
 // TODO Segundo con base de datos, es decir, persistencia de datos y ORM.*
 // TODO Colocar DataAnnotations en las clases para la creacion mas correcta de las tablas.
+// Se agrega Key, Required, ComplexType, Timestamp, Column, DatabaseGenerated(DatabaseGeneratedOption.Computed).
+// TODO Poner correctamente scope de las propiedades de las clases.
 // TODO implementar named arguments = callingMethod(Product = "", etc)*
 
 namespace Datos
