@@ -20,16 +20,11 @@ namespace Entidades
             Final = pFinal;
         }
         [Key]
-        public int idNotas { get; set; }
-        [MinLength(1), MaxLength(2)]
+        public int IdNotas { get; set; }
         public float PrimerParcial { get; set; }
-        [MinLength(1), MaxLength(2)]
         public float PrimerRecuperatorio { get; set; }
-        [MinLength(1), MaxLength(2)]
         public float SegundoParcial { get; set; }
-        [MinLength(1), MaxLength(2)]
         public float SegundoRecuperatorio { get; set; }
-        [MinLength(1), MaxLength(2)]
         public float Final { get; set; }
     }
 }

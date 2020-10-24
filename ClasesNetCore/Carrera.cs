@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Entidades
@@ -16,7 +17,7 @@ namespace Entidades
             Facultad = pFacultad;
         }
         [Key]
-        public int idCarrera { get; set; }
+        public int IdCarrera { get; set; }
         [Required]
         public string Titulo { get; set; }
         [Required]

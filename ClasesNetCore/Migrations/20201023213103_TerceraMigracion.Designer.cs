@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entidades.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20201021033424_SegundaMigracion")]
-    partial class SegundaMigracion
+    [Migration("20201023213103_TerceraMigracion")]
+    partial class TerceraMigracion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace Entidades.Migrations
 
             modelBuilder.Entity("Entidades.Alumno", b =>
                 {
-                    b.Property<int>("idAlumno")
+                    b.Property<int>("IdAlumno")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -33,7 +33,7 @@ namespace Entidades.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<int>("CarreraidCarrera")
+                    b.Property<int>("CarreraIdCarrera")
                         .HasColumnType("int");
 
                     b.Property<int>("DNI")
@@ -48,27 +48,21 @@ namespace Entidades.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnName("MarcaTemporal")
-                        .HasColumnType("rowversion");
+                    b.HasKey("IdAlumno");
 
-                    b.HasKey("idAlumno");
-
-                    b.HasIndex("CarreraidCarrera");
+                    b.HasIndex("CarreraIdCarrera");
 
                     b.ToTable("Alumnos");
                 });
 
             modelBuilder.Entity("Entidades.Asignatura", b =>
                 {
-                    b.Property<int>("idAsignatura")
+                    b.Property<int>("IdAsignatura")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CarreraidCarrera")
+                    b.Property<int?>("CarreraIdCarrera")
                         .HasColumnType("int");
 
                     b.Property<int>("Codigo")
@@ -84,21 +78,21 @@ namespace Entidades.Migrations
                         .HasColumnName("Nombre")
                         .HasColumnType("int");
 
-                    b.Property<int?>("NotaidNotas")
+                    b.Property<int?>("NotaIdNotas")
                         .HasColumnType("int");
 
-                    b.HasKey("idAsignatura");
+                    b.HasKey("IdAsignatura");
 
-                    b.HasIndex("CarreraidCarrera");
+                    b.HasIndex("CarreraIdCarrera");
 
-                    b.HasIndex("NotaidNotas");
+                    b.HasIndex("NotaIdNotas");
 
                     b.ToTable("Asignaturas");
                 });
 
             modelBuilder.Entity("Entidades.Carrera", b =>
                 {
-                    b.Property<int>("idCarrera")
+                    b.Property<int>("IdCarrera")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -110,14 +104,14 @@ namespace Entidades.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("idCarrera");
+                    b.HasKey("IdCarrera");
 
                     b.ToTable("Carreras");
                 });
 
             modelBuilder.Entity("Entidades.Notas", b =>
                 {
-                    b.Property<int>("idNotas")
+                    b.Property<int>("IdNotas")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -142,14 +136,14 @@ namespace Entidades.Migrations
                         .HasColumnType("real")
                         .HasMaxLength(2);
 
-                    b.HasKey("idNotas");
+                    b.HasKey("IdNotas");
 
                     b.ToTable("Notas");
                 });
 
             modelBuilder.Entity("Entidades.Staff", b =>
                 {
-                    b.Property<int>("idStaff")
+                    b.Property<int>("IdStaff")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -174,7 +168,7 @@ namespace Entidades.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.HasKey("idStaff");
+                    b.HasKey("IdStaff");
 
                     b.ToTable("Staff");
                 });
@@ -183,7 +177,7 @@ namespace Entidades.Migrations
                 {
                     b.HasOne("Entidades.Carrera", "Carrera")
                         .WithMany()
-                        .HasForeignKey("CarreraidCarrera")
+                        .HasForeignKey("CarreraIdCarrera")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -192,11 +186,11 @@ namespace Entidades.Migrations
                 {
                     b.HasOne("Entidades.Carrera", null)
                         .WithMany("Materias")
-                        .HasForeignKey("CarreraidCarrera");
+                        .HasForeignKey("CarreraIdCarrera");
 
                     b.HasOne("Entidades.Notas", "Nota")
                         .WithMany()
-                        .HasForeignKey("NotaidNotas");
+                        .HasForeignKey("NotaIdNotas");
                 });
 #pragma warning restore 612, 618
         }

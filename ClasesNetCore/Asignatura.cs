@@ -19,7 +19,7 @@ namespace Entidades
             Nota = pNota;
         }
         [Key]
-        public int idAsignatura { get; set; }
+        public int IdAsignatura { get; set; }
         [Required]
         public int Codigo { get; set; }
         [Required]

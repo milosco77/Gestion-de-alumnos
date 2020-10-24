@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Entidades.Migrations
 {
-    public partial class SegundaMigracion : Migration
+    public partial class TerceraMigracion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,21 +10,21 @@ namespace Entidades.Migrations
                 name: "Carreras",
                 columns: table => new
                 {
-                    idCarrera = table.Column<int>(nullable: false)
+                    IdCarrera = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Titulo = table.Column<string>(nullable: false),
                     Facultad = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Carreras", x => x.idCarrera);
+                    table.PrimaryKey("PK_Carreras", x => x.IdCarrera);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Notas",
                 columns: table => new
                 {
-                    idNotas = table.Column<int>(nullable: false)
+                    IdNotas = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     PrimerParcial = table.Column<float>(maxLength: 2, nullable: false),
                     PrimerRecuperatorio = table.Column<float>(maxLength: 2, nullable: false),
@@ -35,14 +34,14 @@ namespace Entidades.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Notas", x => x.idNotas);
+                    table.PrimaryKey("PK_Notas", x => x.IdNotas);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Staff",
                 columns: table => new
                 {
-                    idStaff = table.Column<int>(nullable: false)
+                    IdStaff = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(maxLength: 50, nullable: false),
                     Apellido = table.Column<string>(maxLength: 50, nullable: false),
@@ -52,17 +51,16 @@ namespace Entidades.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Staff", x => x.idStaff);
+                    table.PrimaryKey("PK_Staff", x => x.IdStaff);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Alumnos",
                 columns: table => new
                 {
-                    idAlumno = table.Column<int>(nullable: false)
+                    IdAlumno = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MarcaTemporal = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    CarreraidCarrera = table.Column<int>(nullable: false),
+                    CarreraIdCarrera = table.Column<int>(nullable: false),
                     Nombre = table.Column<string>(maxLength: 50, nullable: false),
                     Apellido = table.Column<string>(maxLength: 50, nullable: false),
                     Edad = table.Column<int>(maxLength: 2, nullable: false),
@@ -70,12 +68,12 @@ namespace Entidades.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Alumnos", x => x.idAlumno);
+                    table.PrimaryKey("PK_Alumnos", x => x.IdAlumno);
                     table.ForeignKey(
-                        name: "FK_Alumnos_Carreras_CarreraidCarrera",
-                        column: x => x.CarreraidCarrera,
+                        name: "FK_Alumnos_Carreras_CarreraIdCarrera",
+                        column: x => x.CarreraIdCarrera,
                         principalTable: "Carreras",
-                        principalColumn: "idCarrera",
+                        principalColumn: "IdCarrera",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -83,46 +81,46 @@ namespace Entidades.Migrations
                 name: "Asignaturas",
                 columns: table => new
                 {
-                    idAsignatura = table.Column<int>(nullable: false)
+                    IdAsignatura = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Codigo = table.Column<int>(nullable: false),
                     Comision = table.Column<int>(nullable: false),
                     Horario = table.Column<int>(nullable: false),
                     Nombre = table.Column<int>(nullable: false),
-                    NotaidNotas = table.Column<int>(nullable: true),
-                    CarreraidCarrera = table.Column<int>(nullable: true)
+                    NotaIdNotas = table.Column<int>(nullable: true),
+                    CarreraIdCarrera = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Asignaturas", x => x.idAsignatura);
+                    table.PrimaryKey("PK_Asignaturas", x => x.IdAsignatura);
                     table.ForeignKey(
-                        name: "FK_Asignaturas_Carreras_CarreraidCarrera",
-                        column: x => x.CarreraidCarrera,
+                        name: "FK_Asignaturas_Carreras_CarreraIdCarrera",
+                        column: x => x.CarreraIdCarrera,
                         principalTable: "Carreras",
-                        principalColumn: "idCarrera",
+                        principalColumn: "IdCarrera",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Asignaturas_Notas_NotaidNotas",
-                        column: x => x.NotaidNotas,
+                        name: "FK_Asignaturas_Notas_NotaIdNotas",
+                        column: x => x.NotaIdNotas,
                         principalTable: "Notas",
-                        principalColumn: "idNotas",
+                        principalColumn: "IdNotas",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Alumnos_CarreraidCarrera",
+                name: "IX_Alumnos_CarreraIdCarrera",
                 table: "Alumnos",
-                column: "CarreraidCarrera");
+                column: "CarreraIdCarrera");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Asignaturas_CarreraidCarrera",
+                name: "IX_Asignaturas_CarreraIdCarrera",
                 table: "Asignaturas",
-                column: "CarreraidCarrera");
+                column: "CarreraIdCarrera");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Asignaturas_NotaidNotas",
+                name: "IX_Asignaturas_NotaIdNotas",
                 table: "Asignaturas",
-                column: "NotaidNotas");
+                column: "NotaIdNotas");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -5,40 +5,40 @@ namespace Logica
 {
     public class Alumno
     {
-        Datos.Alumno objAlumno = new Datos.Alumno();
+        Datos.Alumno objDatos = new Datos.Alumno();
         public Entidades.Alumno ListarUno(int pDNI)
         {
-            return objAlumno.ListarUno(pDNI);
+            return objDatos.ListarUno(pDNI);
         }
 
         public List<Entidades.Alumno> ListarVarios(string pNombre)
         {
-            return objAlumno.ListarVarios(pNombre);
+            return objDatos.ListarVarios(pNombre);
         }
 
         public List<Entidades.Alumno> ListarVarios(int pEdad)
         {
-            return objAlumno.ListarVarios(pEdad);
+            return objDatos.ListarVarios(pEdad);
         }
 
         public List<Entidades.Alumno> ListarTodos()
         {
-            return objAlumno.ListarTodos();
+            return objDatos.ListarTodos();
         }
 
         public void Agregar(Entidades.Alumno pAlumno)
         {
-            objAlumno.Agregar(pAlumno);
+            objDatos.Agregar(pAlumno);
         }
 
         public void Editar(Entidades.Alumno pAlumno)
         {
-            objAlumno.Editar(pAlumno);
+            objDatos.Editar(pAlumno);
         }
 
         public void Eliminar(int pDNI)
         {
-            objAlumno.Eliminar(pDNI);
+            objDatos.Eliminar(pDNI);
         }
 
 

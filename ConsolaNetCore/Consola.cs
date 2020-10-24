@@ -16,7 +16,12 @@ namespace ConsolaNetCore
 {
     public class Consola
     {
-        public Entidades.Contexto db = new Entidades.Contexto();
+        public static Entidades.Staff staff = new Entidades.Staff();
+        
+        public static Entidades.Carrera carrera = new Entidades.Carrera();
+        public static Entidades.Asignatura asignatura = new Entidades.Asignatura();
+        public static Entidades.Notas notas = new Entidades.Notas();
+        public static List<Entidades.Asignatura> asignaturas = new List<Entidades.Asignatura>();
         public static Logica.Alumno objLogica = new Logica.Alumno();
 
         static void Main(string[] args)
@@ -26,8 +31,12 @@ namespace ConsolaNetCore
             
             Bienvenida();
             //ElegirOpciones();
-            //IngresoAlumnos();
-            InformarAlumnos();
+            int cantidad = IngresoAlumnos();
+            for (int i = 0; i < cantidad; i++)
+            {
+                objLogica.Agregar( AgregarAlumno(cantidad) );
+            }
+            //InformarAlumnos();
             //RendirExamen();
             //AprobacionExamen();
             //InformarNotas();
@@ -38,7 +47,7 @@ namespace ConsolaNetCore
         public static void Bienvenida()
         {
             Console.WriteLine("\nBienvenido al Programa de Gestion de Notas de Alumnos\n\nEste programa le permitira ingresar los datos de los alumnos de su clase.\nPermitiendole mantener un registro de los mismos.\n\nPresione una tecla para continuar...");
-            Console.ReadKey();
+            Console.ReadKey(true);
             Console.Clear();
         }
 
@@ -51,9 +60,65 @@ namespace ConsolaNetCore
 
         public static int IngresoAlumnos()
         {
-            // TODO ingreso de alumnos.
-            return ValidacionNumerica("\nCuantos alumnos quiere ingresar? (1-100)", "\nUsted introdujo un valor que no esta entre 1 y 100", "\n---INGRESO DE ALUMNOS---", ConsoleColor.Red, 100);
+            return ValidacionNumerica(mensajeIngreso: "\nCuantos alumnos quiere ingresar? (1-100)", mensajeError: "\nUsted introdujo un valor que no esta entre 1 y 100", titulo: "\n---INGRESO DE ALUMNOS---", colorError: ConsoleColor.Red, minimoValorInput: 1, maximoValorInput: 100);
         }
+
+        // TODO Hacer un metodo que permita agregar 1 o mas alumnos
+        public static Entidades.Alumno AgregarAlumno()
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Entidades.Alumno AgregarAlumno(int pCantidad)
+        {
+            Entidades.Alumno alumno = new Entidades.Alumno();
+            alumno.Nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de su alumno: ", mensajeError: "\nIngrese un nombre solo con caracteres alfabeticos.");
+            alumno.Apellido = ValidacionTexto(mensajeIngreso: "\nIngrese el apellido de su alumno: ", mensajeError: "\nIngrese un apellido solo con caracteres alfabeticos.");
+            alumno.Edad = ValidacionNumerica(mensajeIngreso: "\nIngrese la edad de su alumno entre 13 y 99 años: ", mensajeError: "\nIngrese una edad solo con caracteres numericos entre 13 y 99.", minimoValorInput: 13, maximoValorInput: 99);
+            alumno.DNI = ValidacionNumerica(mensajeIngreso: "\nIngrese el DNI de su alumno: ", mensajeError: "\nIngrese un DNI solo con caracteres numericos entre 1 y 99.999.999", minimoValorInput: 1, maximoValorInput: 99999999);
+
+            switch (ValidacionNumerica(mensajeIngreso: "\nIngrese el numero de la facultad de su alumno (Ingenieria = 0, CienciasExactas = 1, Agronomia = 2): ", mensajeError: "\nIngrese una edad solo con caracteres numericos entre 0 y 2 (Ingenieria = 0, CienciasExactas = 1, Agronomia = 2)", minimoValorInput: 0, maximoValorInput: 2))
+            {
+                case 0:
+                    carrera.Facultad = Enumeraciones.Facultades.Ingenieria;
+                    break;
+                case 1:
+                    carrera.Facultad = Enumeraciones.Facultades.CienciasExactas;
+                    break;
+                case 2:
+                    carrera.Facultad = Enumeraciones.Facultades.Agronomia;
+                    break;
+                default:
+                    break;
+            }
+
+            carrera.Titulo = ValidacionTexto(mensajeIngreso: "\nIngrese el titulo de la carrera de su alumno: ", mensajeError: "\nIngrese un titulo solo con caracteres alfabeticos.");
+
+            switch (ValidacionNumerica(mensajeIngreso: "\nIngrese la materia de su alumno (Matematica = 0, Ingles = 1, Algebra = 2): ", mensajeError: "\nIngrese un valor solo con caracteres numericos entre 0 y 2 (Matematica = 0, Ingles = 1, Algebra = 2)", minimoValorInput: 0 ,maximoValorInput: 2))
+            {
+                case 0:
+                    asignatura.NombreAsignatura = Enumeraciones.Materias.Matematica;
+                    break;
+                case 1:
+                    asignatura.NombreAsignatura = Enumeraciones.Materias.Ingles;
+                    break;
+                case 2:
+                    asignatura.NombreAsignatura = Enumeraciones.Materias.Algebra;
+                    break;
+                default:
+                    break;
+            }
+            
+            asignatura.Codigo = ValidacionNumerica(mensajeIngreso: $"\nIngrese el codigo de la materia ({asignatura.NombreAsignatura}): ", mensajeError: "\nIngrese un codigo solo con caracteres numericos mayor a 0", minimoValorInput: 1);
+            asignatura.Comision = ValidacionNumerica(mensajeIngreso: $"\nIngrese la comision de la materia ({asignatura.NombreAsignatura}): ", mensajeError: "\nIngrese una comision solo con caracteres numericos mayor a 0", minimoValorInput: 1);
+            asignatura.Horario = ValidacionNumerica(mensajeIngreso: $"\nIngrese el horario de la materia ({asignatura.NombreAsignatura}): ", mensajeError: "\nIngrese una horario solo con caracteres numericos mayor a 0", minimoValorInput: 1);
+            asignaturas.Add(asignatura);
+            carrera.Materias = asignaturas;
+            alumno.Carrera = carrera;
+
+            return alumno;
+        }
+
 
         public static void InformarAlumnos()
         {
@@ -163,7 +228,7 @@ namespace ConsolaNetCore
                         break;
                 }
             } while (inputOpcion == 0 || inputOpcion > 3);
-            Console.ReadLine();
+            Console.ReadKey(true);
         }
 
         /// <summary>
@@ -202,7 +267,7 @@ namespace ConsolaNetCore
         /// <param name="colorError"></param>
         /// <param name="maximoValorInput"></param>
         /// <returns>El valor ingresado por el usuario</returns>
-        public static int ValidacionNumerica(string mensajeIngreso, string mensajeError, ConsoleColor colorError, int maximoValorInput)
+        public static int ValidacionNumerica(string mensajeIngreso, string mensajeError, ConsoleColor colorError = ConsoleColor.Red, int minimoValorInput = int.MinValue, int maximoValorInput = int.MaxValue)
         {
             string validarIngreso;
             int outputIngreso;
@@ -211,12 +276,12 @@ namespace ConsolaNetCore
                 Console.WriteLine(mensajeIngreso);
                 validarIngreso = Console.ReadLine();
                 int.TryParse(validarIngreso, out outputIngreso);
-                if (outputIngreso == 0 || outputIngreso > maximoValorInput)
+                if (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput)
                 {
                     Console.Clear();
                     MensajeColor(mensajeError, colorError);
                 }
-            } while (outputIngreso == 0 || outputIngreso > maximoValorInput);
+            } while (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput);
             Console.Clear();
             return outputIngreso;
         }
@@ -230,7 +295,7 @@ namespace ConsolaNetCore
         /// <param name="colorError"></param>
         /// <param name="maximoValorInput"></param>
         /// <returns>El valor ingresado por el usuario</returns>
-        public static int ValidacionNumerica(string mensajeIngreso, string mensajeError, string titulo, ConsoleColor colorError, int maximoValorInput)
+        public static int ValidacionNumerica(string mensajeIngreso, string mensajeError, string titulo, ConsoleColor colorError = ConsoleColor.Red, int minimoValorInput = int.MinValue, int maximoValorInput = int.MaxValue)
         {
             string validarIngreso;
             int outputIngreso;
@@ -239,13 +304,13 @@ namespace ConsolaNetCore
                 Console.WriteLine(mensajeIngreso);
                 validarIngreso = Console.ReadLine();
                 int.TryParse(validarIngreso, out outputIngreso);
-                if (outputIngreso == 0 || outputIngreso > maximoValorInput)
+                if (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput)
                 {
                     Console.Clear();
                     MensajeColor(titulo, ConsoleColor.Green);
                     MensajeColor(mensajeError, colorError);
                 }
-            } while (outputIngreso == 0 || outputIngreso > maximoValorInput);
+            } while (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput);
             Console.Clear();
             MensajeColor(titulo, ConsoleColor.Green);
             return outputIngreso;
@@ -258,7 +323,7 @@ namespace ConsolaNetCore
         /// <param name="mensajeError"></param>
         /// <param name="colorError"></param>
         /// <returns>El valor ingresado por el usuario</returns>
-        public static string ValidacionTexto(string mensajeIngreso, string mensajeError, ConsoleColor colorError)
+        public static string ValidacionTexto(string mensajeIngreso, string mensajeError, ConsoleColor colorError = ConsoleColor.Red)
         {
             string validarIngreso;
             do
@@ -294,7 +359,7 @@ namespace ConsolaNetCore
         /// <param name="titulo"></param>
         /// <param name="colorError"></param>
         /// <returns>El valor ingresado por el usuario</returns>
-        public static string ValidacionTexto(string mensajeIngreso, string mensajeError, string titulo, ConsoleColor colorError)
+        public static string ValidacionTexto(string mensajeIngreso, string mensajeError, string titulo, ConsoleColor colorError = ConsoleColor.Red)
         {
             string validarIngreso;
             do
