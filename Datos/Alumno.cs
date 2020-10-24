@@ -7,7 +7,8 @@ using System.Text;
 
 // TODO Hacer toda la capa de datos.
 // TODO Poner correctamente scope de las propiedades de las clases.
-// TODO Implementar named arguments = callingMethod(Product = "", etc) y parametros opcionales int callingMethod(int valor = 2), en todas las llamadas de todos los metodos.
+// TODO Hacer todos los metodos de la capa de datos.
+// TODO Implementar validacion en la capa de datos.
 // TODO Modificar la propiedad Horario para que sea correcta. Solucionar problema de que en la base de datos se almacena el numero de la enumeracion pero no el nombre.
 
 namespace Datos
@@ -67,7 +68,7 @@ namespace Datos
 
         public void Agregar(Entidades.Alumno pAlumno)
         {
-            db.Add(pAlumno);
+            db.Add(entity: pAlumno);
             db.SaveChanges();
         }
 
@@ -92,7 +93,7 @@ namespace Datos
         public void Eliminar(int pDNI)
         {
             //alumnos.Remove( alumnos.First(a => a.DNI == pDNI) );
-            db.Remove(pDNI);
+            db.Remove(entity: pDNI);
             db.SaveChanges();
         }
 

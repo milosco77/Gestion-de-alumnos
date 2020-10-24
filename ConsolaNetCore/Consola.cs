@@ -5,7 +5,6 @@ using System.Net;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
-// TODO hacer la capa de Datos
 // TODO implementar explicacion correcta de intellisense para los metodos
 // TODO implementar asistencia de alumnos
 // TODO ingreso de profesores/Ayudante de catedra
@@ -17,7 +16,7 @@ namespace ConsolaNetCore
     public class Consola
     {
         public static Entidades.Staff staff = new Entidades.Staff();
-        
+        public static Entidades.Alumno alumno = new Entidades.Alumno();
         public static Entidades.Carrera carrera = new Entidades.Carrera();
         public static Entidades.Asignatura asignatura = new Entidades.Asignatura();
         public static Entidades.Notas notas = new Entidades.Notas();
@@ -28,13 +27,12 @@ namespace ConsolaNetCore
         {
             // Titulo en de la ventana.
             Console.Title = "Programa de Gestion de Notas de Alumnos";
-            
             Bienvenida();
             //ElegirOpciones();
             int cantidad = IngresoAlumnos();
             for (int i = 0; i < cantidad; i++)
             {
-                objLogica.Agregar( AgregarAlumno(cantidad) );
+                objLogica.Agregar(pAlumno: AgregarAlumno(cantidad) );
             }
             //InformarAlumnos();
             //RendirExamen();
@@ -46,16 +44,16 @@ namespace ConsolaNetCore
 
         public static void Bienvenida()
         {
-            Console.WriteLine("\nBienvenido al Programa de Gestion de Notas de Alumnos\n\nEste programa le permitira ingresar los datos de los alumnos de su clase.\nPermitiendole mantener un registro de los mismos.\n\nPresione una tecla para continuar...");
-            Console.ReadKey(true);
+            Console.WriteLine(value: "\nBienvenido al Programa de Gestion de Notas de Alumnos\n\nEste programa le permitira ingresar los datos de los alumnos de su clase.\nPermitiendole mantener un registro de los mismos.\n\nPresione una tecla para continuar...");
+            Console.ReadKey(intercept: true);
             Console.Clear();
         }
 
         public static void Salir()
         {
-            Console.WriteLine("\nFin del programa\n\nPresione cualquier tecla para finalizar");
-            Console.ReadKey();
-            System.Environment.Exit(0);
+            Console.WriteLine(value: "\nFin del programa\n\nPresione cualquier tecla para finalizar");
+            Console.ReadKey(intercept: true);
+            System.Environment.Exit(exitCode: 0);
         }
 
         public static int IngresoAlumnos()
@@ -71,7 +69,9 @@ namespace ConsolaNetCore
 
         public static Entidades.Alumno AgregarAlumno(int pCantidad)
         {
-            Entidades.Alumno alumno = new Entidades.Alumno();
+            // Se pone alumno.IdAlumno = 0 en este scope ya que la instancia static de alumno en la clase Consola, los datos ingresados la primera vez permanecen, haciendo que la 2da, vez el id pasado a la base de datos sea el mismo que el primero. Dando una excepcion de: sqlexception: no se puede insertar un valor explícito en la columna de identidad de la tabla '' cuando identity_insert es off.
+
+            alumno.IdAlumno = 0;
             alumno.Nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de su alumno: ", mensajeError: "\nIngrese un nombre solo con caracteres alfabeticos.");
             alumno.Apellido = ValidacionTexto(mensajeIngreso: "\nIngrese el apellido de su alumno: ", mensajeError: "\nIngrese un apellido solo con caracteres alfabeticos.");
             alumno.Edad = ValidacionNumerica(mensajeIngreso: "\nIngrese la edad de su alumno entre 13 y 99 años: ", mensajeError: "\nIngrese una edad solo con caracteres numericos entre 13 y 99.", minimoValorInput: 13, maximoValorInput: 99);
@@ -112,7 +112,7 @@ namespace ConsolaNetCore
             asignatura.Codigo = ValidacionNumerica(mensajeIngreso: $"\nIngrese el codigo de la materia ({asignatura.NombreAsignatura}): ", mensajeError: "\nIngrese un codigo solo con caracteres numericos mayor a 0", minimoValorInput: 1);
             asignatura.Comision = ValidacionNumerica(mensajeIngreso: $"\nIngrese la comision de la materia ({asignatura.NombreAsignatura}): ", mensajeError: "\nIngrese una comision solo con caracteres numericos mayor a 0", minimoValorInput: 1);
             asignatura.Horario = ValidacionNumerica(mensajeIngreso: $"\nIngrese el horario de la materia ({asignatura.NombreAsignatura}): ", mensajeError: "\nIngrese una horario solo con caracteres numericos mayor a 0", minimoValorInput: 1);
-            asignaturas.Add(asignatura);
+            asignaturas.Add(item: asignatura);
             carrera.Materias = asignaturas;
             alumno.Carrera = carrera;
 
@@ -122,57 +122,58 @@ namespace ConsolaNetCore
 
         public static void InformarAlumnos()
         {
-            Console.WriteLine("\nUn alumno");
-            Console.WriteLine(objLogica.ListarUno(1).Nombre);
-            Console.WriteLine("\nVarios alumnos usando 1 como DNI, devolviendo nombre");
-            foreach (Entidades.Alumno alumno in objLogica.ListarVarios(1))
-            {
-                Console.WriteLine(alumno.Nombre);
-            }
-            Console.ReadLine();
+            //Console.WriteLine(value: "\nUn alumno");
+            //Console.WriteLine(value: objLogica.ListarUno(1).Nombre);
+            //Console.WriteLine(value: "\nVarios alumnos usando 1 como DNI, devolviendo nombre");
+            //foreach (Entidades.Alumno alumno in objLogica.ListarVarios(1))
+            //{
+            //    Console.WriteLine(value: alumno.Nombre);
+            //}
+            //Console.ReadLine();
 
-            Console.WriteLine("\nVarios alumnos usando Jose como nombre, devolviendo DNI");
-            foreach (Entidades.Alumno alumno in objLogica.ListarVarios("Jose"))
-            {
-                Console.WriteLine(alumno.DNI);
-            }
-            Console.ReadLine();
+            //Console.WriteLine(value: "\nVarios alumnos usando Jose como nombre, devolviendo DNI");
+            //foreach (Entidades.Alumno alumno in objLogica.ListarVarios("Jose"))
+            //{
+            //    Console.WriteLine(value: alumno.DNI);
+            //}
+            //Console.ReadLine();
 
-            Console.WriteLine("\nTodos los alumnos");
-            foreach (Entidades.Alumno alumno in objLogica.ListarTodos() )
-            {
-                Console.WriteLine($"\nNombre: {alumno.Nombre} Apellido: {alumno.Apellido} Edad: {alumno.Edad} DNI: {alumno.DNI} Comision: {alumno.Carrera.Materias[0].Comision} Materia (codigo): {alumno.Carrera.Materias[0].Codigo} Materia (nombre): {alumno.Carrera.Materias[0].NombreAsignatura} Materia (horario): {alumno.Carrera.Materias[0].Horario}");
-            }
-            Entidades.Alumno alumno1 = new Entidades.Alumno(
-                pNombre: "puta",
-                pApellido: "trola",
-                pEdad: 14, pDNI: 123,
-                new Entidades.Carrera(
-                    pTitulo: "nada",
-                    pMaterias: new List<Entidades.Asignatura>() {
-                        new Entidades.Asignatura(
-                            pCodigo: 321,
-                            pComision: 343,
-                            pHorario: 2321,
-                            pNombreAsignatura: Enumeraciones.Materias.Ingles,
-                            pNota: new Entidades.Notas(
-                                pPrimerParcial: 1,
-                                pPrimerRecuperatorio: 2,
-                                pSegundoParcial: 3,
-                                pSegundoRecuperatorio: 4,
-                                pFinal: 5
-                                )
-                            )
-                    }, pFacultad: Enumeraciones.Facultades.Agronomia)
-                );
-            objLogica.Agregar(alumno1);
-            Console.WriteLine($"\nSe agrega alumno {alumno1.Nombre}, {alumno1.Apellido}, {alumno1.Carrera.Materias[0].Nota.Final}");
-            Entidades.Alumno alumno2 = alumno1;
-            alumno2.Apellido = "putasa";
-            objLogica.Editar(alumno2);
-            Console.WriteLine($"\nSe edita alumno {alumno1.Nombre}, {alumno1.Apellido}, {alumno1.Carrera.Materias[0].Nota.Final}");
-            objLogica.Eliminar(1);
-            Console.WriteLine("\nSe elimina alumno con DNI 1");
+            //Console.WriteLine(value: "\nTodos los alumnos");
+            //foreach (Entidades.Alumno alumno in objLogica.ListarTodos() )
+            //{
+            //    Console.WriteLine(value: $"\nNombre: {alumno.Nombre} Apellido: {alumno.Apellido} Edad: {alumno.Edad} DNI: {alumno.DNI} Comision: {alumno.Carrera.Materias[0].Comision} Materia (codigo): {alumno.Carrera.Materias[0].Codigo} Materia (nombre): {alumno.Carrera.Materias[0].NombreAsignatura} Materia (horario): {alumno.Carrera.Materias[0].Horario}");
+            //}
+            //Entidades.Alumno alumno1 = new Entidades.Alumno(
+            //    pNombre: "puta",
+            //    pApellido: "trola",
+            //    pEdad: 14, pDNI: 123,
+            //    new Entidades.Carrera(
+            //        pTitulo: "nada",
+            //        pMaterias: new List<Entidades.Asignatura>() {
+            //            new Entidades.Asignatura(
+            //                pCodigo: 321,
+            //                pComision: 343,
+            //                pHorario: 2321,
+            //                pNombreAsignatura: Enumeraciones.Materias.Ingles,
+            //                pNota: new Entidades.Notas(
+            //                    pPrimerParcial: 1,
+            //                    pPrimerRecuperatorio: 2,
+            //                    pSegundoParcial: 3,
+            //                    pSegundoRecuperatorio: 4,
+            //                    pFinal: 5
+            //                    )
+            //                )
+            //        }, pFacultad: Enumeraciones.Facultades.Agronomia)
+            //    );
+            //objLogica.Agregar(alumno1);
+            //Console.WriteLine(value: $"\nSe agrega alumno {alumno1.Nombre}, {alumno1.Apellido}, {alumno1.Carrera.Materias[0].Nota.Final}");
+            //Entidades.Alumno alumno2 = alumno1;
+            //alumno2.Apellido = "putasa";
+            //objLogica.Editar(alumno2);
+            //Console.WriteLine(value: $"\nSe edita alumno {alumno1.Nombre}, {alumno1.Apellido}, {alumno1.Carrera.Materias[0].Nota.Final}");
+            //objLogica.Eliminar(1);
+            //Console.WriteLine(value: "\nSe elimina alumno con DNI 1");
+            throw new NotImplementedException();
         }
 
         public static void RendirExamen()
@@ -199,8 +200,8 @@ namespace ConsolaNetCore
         {
             string respuestaIngreso;
             int inputOpcion;
-            Console.WriteLine("\nQue desea hacer? Elija la opcion deseada:");
-            Console.WriteLine("\n1 = Modo Automatico - 2 = Modo Manual - 3 = Salir");
+            Console.WriteLine(value: "\nQue desea hacer? Elija la opcion deseada:");
+            Console.WriteLine(value: "\n1 = Modo Automatico - 2 = Modo Manual - 3 = Salir");
             do
             {
                 respuestaIngreso = Console.ReadLine();
@@ -208,7 +209,7 @@ namespace ConsolaNetCore
 
                 // Convierte el valor respuesta que es string a un numero equivalente en int32 y devuelve la conversion
                 // en la variable input, si falla la conversion la variable es 0.
-                int.TryParse(respuestaIngreso, out inputOpcion);
+                int.TryParse(s: respuestaIngreso, result: out inputOpcion);
 
                 switch (inputOpcion)
                 {
@@ -228,7 +229,7 @@ namespace ConsolaNetCore
                         break;
                 }
             } while (inputOpcion == 0 || inputOpcion > 3);
-            Console.ReadKey(true);
+            Console.ReadKey(intercept: true);
         }
 
         /// <summary>
@@ -236,10 +237,10 @@ namespace ConsolaNetCore
         /// </summary>
         /// <param name="mensaje"></param>
         /// <param name="color"></param>
-        public static void MensajeColor(string mensaje, ConsoleColor color)
+        public static void MensajeColor(string mensaje, ConsoleColor color = ConsoleColor.Green)
         {
             Console.ForegroundColor = color;
-            Console.WriteLine($"{mensaje}");
+            Console.WriteLine(value: $"{mensaje}");
             Console.ResetColor();
         }
 
@@ -250,12 +251,12 @@ namespace ConsolaNetCore
         /// <param name="primerColor"></param>
         /// <param name="segundoMensaje"></param>
         /// <param name="segundoColor"></param>
-        public static void MensajeColor(string primerMensaje, ConsoleColor primerColor, string segundoMensaje, ConsoleColor segundoColor)
+        public static void MensajeColor(string primerMensaje, string segundoMensaje, ConsoleColor primerColor = ConsoleColor.Green, ConsoleColor segundoColor = ConsoleColor.Green)
         {
             Console.ForegroundColor = primerColor;
-            Console.WriteLine($"{primerMensaje}");
+            Console.WriteLine(value: $"{primerMensaje}");
             Console.ForegroundColor = segundoColor;
-            Console.WriteLine($"{segundoMensaje}");
+            Console.WriteLine(value: $"{segundoMensaje}");
             Console.ResetColor();
         }
 
@@ -273,13 +274,13 @@ namespace ConsolaNetCore
             int outputIngreso;
             do
             {
-                Console.WriteLine(mensajeIngreso);
+                Console.WriteLine(value: mensajeIngreso);
                 validarIngreso = Console.ReadLine();
-                int.TryParse(validarIngreso, out outputIngreso);
+                int.TryParse(s: validarIngreso, result: out outputIngreso);
                 if (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput)
                 {
                     Console.Clear();
-                    MensajeColor(mensajeError, colorError);
+                    MensajeColor(mensaje: mensajeError, color: colorError);
                 }
             } while (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput);
             Console.Clear();
@@ -301,21 +302,21 @@ namespace ConsolaNetCore
             int outputIngreso;
             do
             {
-                Console.WriteLine(mensajeIngreso);
+                Console.WriteLine(value: mensajeIngreso);
                 validarIngreso = Console.ReadLine();
-                int.TryParse(validarIngreso, out outputIngreso);
+                int.TryParse(s: validarIngreso, result: out outputIngreso);
                 if (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput)
                 {
                     Console.Clear();
-                    MensajeColor(titulo, ConsoleColor.Green);
-                    MensajeColor(mensajeError, colorError);
+                    MensajeColor(mensaje: titulo, color: ConsoleColor.Green);
+                    MensajeColor(mensaje: mensajeError, color: colorError);
                 }
             } while (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput);
             Console.Clear();
-            MensajeColor(titulo, ConsoleColor.Green);
+            MensajeColor(mensaje: titulo, color: ConsoleColor.Green);
             return outputIngreso;
         }
-        // LINQ ES MAS RAPIDO QUE USAR REGEX https://stackoverflow.com/questions/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp/1181426
+        // Linq es mas rapido que usar RegEx https://stackoverflow.com/questions/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp/1181426.
         /// <summary>
         /// Valida si el ingreso de texto esta vacio o nulo. Y si son solo letras.
         /// </summary>
@@ -330,22 +331,22 @@ namespace ConsolaNetCore
             {
                 do
                 {
-                    Console.WriteLine(mensajeIngreso);
+                    Console.WriteLine(value: mensajeIngreso);
                     validarIngreso = Console.ReadLine();
-                    if (string.IsNullOrEmpty(validarIngreso))
+                    if (string.IsNullOrEmpty(value: validarIngreso))
                     {
                         Console.Clear();
-                        MensajeColor(mensajeError, colorError);
+                        MensajeColor(mensaje: mensajeError, color: colorError);
                     }
-                } while (string.IsNullOrEmpty(validarIngreso));
+                } while (string.IsNullOrEmpty(value: validarIngreso));
 
-                if (!validarIngreso.All(Char.IsLetter))
+                if (!validarIngreso.All(predicate: Char.IsLetter))
                 {
                     Console.Clear();
-                    MensajeColor(mensajeError, colorError);
+                    MensajeColor(mensaje: mensajeError, color: colorError);
                 }
 
-            } while (!validarIngreso.All(Char.IsLetter));
+            } while (!validarIngreso.All(predicate: Char.IsLetter));
 
             Console.Clear();
             return validarIngreso;
@@ -366,27 +367,27 @@ namespace ConsolaNetCore
             {
                 do
                 {
-                    Console.WriteLine(mensajeIngreso);
+                    Console.WriteLine(value: mensajeIngreso);
                     validarIngreso = Console.ReadLine();
-                    if (string.IsNullOrEmpty(validarIngreso))
+                    if (string.IsNullOrEmpty(value: validarIngreso))
                     {
                         Console.Clear();
-                        MensajeColor(titulo, ConsoleColor.Green);
-                        MensajeColor(mensajeError, colorError);
+                        MensajeColor(mensaje: titulo, color: ConsoleColor.Green);
+                        MensajeColor(mensaje: mensajeError, color: colorError);
                     }
-                } while (string.IsNullOrEmpty(validarIngreso));
+                } while (string.IsNullOrEmpty(value: validarIngreso));
 
-                if (!validarIngreso.All(Char.IsLetter))
+                if (!validarIngreso.All(predicate: Char.IsLetter))
                 {
                     Console.Clear();
-                    MensajeColor(titulo, ConsoleColor.Green);
-                    MensajeColor(mensajeError, colorError);
+                    MensajeColor(mensaje: titulo, color: ConsoleColor.Green);
+                    MensajeColor(mensaje: mensajeError, color: colorError);
                 }
 
-            } while (!validarIngreso.All(Char.IsLetter));
+            } while (!validarIngreso.All(predicate: Char.IsLetter));
 
             Console.Clear();
-            MensajeColor(titulo, ConsoleColor.Green);
+            MensajeColor(mensaje: titulo, color: ConsoleColor.Green);
             return validarIngreso;
         }
     }

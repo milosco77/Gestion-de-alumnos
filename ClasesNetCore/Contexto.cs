@@ -14,7 +14,7 @@ namespace Entidades
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=.\SQLEXPRESS;Database=Alumnos;Integrated Security=True");
+            optionsBuilder.UseSqlServer(connectionString: @"Server=.\SQLEXPRESS;Database=Alumnos;Integrated Security=True");
         }
         public DbSet<Alumno> Alumnos { get; set; }
         public DbSet<Asignatura> Asignaturas { get; set; }
