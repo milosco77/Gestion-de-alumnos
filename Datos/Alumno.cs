@@ -10,6 +10,7 @@ using System.Text;
 // TODO Hacer todos los metodos de la capa de datos.
 // TODO Implementar validacion en la capa de datos.
 // TODO Modificar la propiedad Horario para que sea correcta. Solucionar problema de que en la base de datos se almacena el numero de la enumeracion pero no el nombre.
+// TODO Verificar como conviene eliminar un registro, ya que el siguiente registro que se agrega no ocupa el mismo primary key(id).
 
 namespace Datos
 {
@@ -39,21 +40,21 @@ namespace Datos
         //};
         //private static Entidades.Alumno alumno;
 
-        public Entidades.Alumno ListarUno(int pDNI)
+        public Entidades.Alumno ListarUno(int dni)
         {
             //alumno = alumnos.Find( a => a.DNI == pDNI);
             //return alumno;
             throw new NotImplementedException();
         }
 
-        public List<Entidades.Alumno> ListarVarios(string pNombre)
+        public List<Entidades.Alumno> ListarVarios(string nombre)
         {
             //var al = alumnos.Where(a => a.Nombre == pNombre);
             //return al.ToList();
             throw new NotImplementedException();
         }
 
-        public List<Entidades.Alumno> ListarVarios(int pEdad)
+        public List<Entidades.Alumno> ListarVarios(int edad)
         {
             //var al = alumnos.Where(a => a.Edad == pEdad);
             //return al.ToList();
@@ -66,13 +67,13 @@ namespace Datos
             throw new NotImplementedException();
         }
 
-        public void Agregar(Entidades.Alumno pAlumno)
+        public void Agregar(Entidades.Alumno alumno)
         {
-            db.Add(entity: pAlumno);
+            db.Alumnos.Add(entity: alumno);
             db.SaveChanges();
         }
 
-        public void Editar(Entidades.Alumno pAlumno)
+        public void Editar(Entidades.Alumno alumno)
         {
             //var al = alumnos.Find(a => a.DNI == alumno.DNI);
             //al.Nombre = alumno.Nombre;
@@ -90,10 +91,9 @@ namespace Datos
             //    alumnos[index] = al;
         }
 
-        public void Eliminar(int pDNI)
+        public void Eliminar(int id)
         {
-            //alumnos.Remove( alumnos.First(a => a.DNI == pDNI) );
-            db.Remove(entity: pDNI);
+            db.Alumnos.Remove( db.Alumnos.Find(id) );
             db.SaveChanges();
         }
 

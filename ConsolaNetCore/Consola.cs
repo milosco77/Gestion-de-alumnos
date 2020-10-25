@@ -32,8 +32,10 @@ namespace ConsolaNetCore
             int cantidad = IngresoAlumnos();
             for (int i = 0; i < cantidad; i++)
             {
-                objLogica.Agregar(pAlumno: AgregarAlumno(cantidad) );
+                objLogica.Agregar(alumno: AgregarAlumno(cantidad) );
             }
+            
+
             //InformarAlumnos();
             //RendirExamen();
             //AprobacionExamen();
@@ -67,7 +69,7 @@ namespace ConsolaNetCore
             throw new NotImplementedException();
         }
 
-        public static Entidades.Alumno AgregarAlumno(int pCantidad)
+        public static Entidades.Alumno AgregarAlumno(int cantidad)
         {
             // Se pone alumno.IdAlumno = 0 en este scope ya que la instancia static de alumno en la clase Consola, los datos ingresados la primera vez permanecen, haciendo que la 2da, vez el id pasado a la base de datos sea el mismo que el primero. Dando una excepcion de: sqlexception: no se puede insertar un valor explícito en la columna de identidad de la tabla '' cuando identity_insert es off.
 
@@ -119,6 +121,10 @@ namespace ConsolaNetCore
             return alumno;
         }
 
+        public static void EliminarAlumno(int id)
+        {
+            objLogica.Eliminar(id: id);
+        }
 
         public static void InformarAlumnos()
         {

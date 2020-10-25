@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entidades;
+using System;
 using System.Collections.Generic;
 
 namespace Logica
@@ -6,19 +7,19 @@ namespace Logica
     public class Alumno
     {
         Datos.Alumno objDatos = new Datos.Alumno();
-        public Entidades.Alumno ListarUno(int pDNI)
+        public Entidades.Alumno ListarUno(int dni)
         {
-            return objDatos.ListarUno(pDNI: pDNI);
+            return objDatos.ListarUno(dni: dni);
         }
 
-        public List<Entidades.Alumno> ListarVarios(string pNombre)
+        public List<Entidades.Alumno> ListarVarios(string nombre)
         {
-            return objDatos.ListarVarios(pNombre: pNombre);
+            return objDatos.ListarVarios(nombre: nombre);
         }
 
-        public List<Entidades.Alumno> ListarVarios(int pEdad)
+        public List<Entidades.Alumno> ListarVarios(int edad)
         {
-            return objDatos.ListarVarios(pEdad: pEdad);
+            return objDatos.ListarVarios(edad: edad);
         }
 
         public List<Entidades.Alumno> ListarTodos()
@@ -26,19 +27,19 @@ namespace Logica
             return objDatos.ListarTodos();
         }
 
-        public void Agregar(Entidades.Alumno pAlumno)
+        public void Agregar(Entidades.Alumno alumno)
         {
-            objDatos.Agregar(pAlumno: pAlumno);
+            objDatos.Agregar(alumno: alumno);
         }
 
-        public void Editar(Entidades.Alumno pAlumno)
+        public void Editar(Entidades.Alumno alumno)
         {
-            objDatos.Editar(pAlumno: pAlumno);
+            objDatos.Editar(alumno: alumno);
         }
 
-        public void Eliminar(int pDNI)
+        public void Eliminar(int id)
         {
-            objDatos.Eliminar(pDNI: pDNI);
+            objDatos.Eliminar(id: id);
         }
 
 
