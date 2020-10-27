@@ -7,15 +7,19 @@ namespace Logica
     public class Alumno
     {
         Datos.Alumno objDatos = new Datos.Alumno();
-        public Entidades.Alumno ListarUno(int dni)
+        public Entidades.Alumno ListarUno(int id)
         {
-            return objDatos.ListarUno(dni: dni);
+            return objDatos.ListarUno(id: id);
         }
 
-        public List<Entidades.Alumno> ListarVarios(string nombre)
+#nullable enable
+
+        public List<Entidades.Alumno> ListarVarios(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
         {
             return objDatos.ListarVarios(nombre: nombre);
         }
+
+#nullable disable
 
         public List<Entidades.Alumno> ListarVarios(int edad)
         {

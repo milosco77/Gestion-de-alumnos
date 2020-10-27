@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+#nullable enable
+
 // TODO Hacer toda la capa de datos.
 // TODO Poner correctamente scope de las propiedades de las clases.
 // TODO Hacer todos los metodos de la capa de datos.
@@ -40,22 +42,35 @@ namespace Datos
         //};
         //private static Entidades.Alumno alumno;
 
-        public Entidades.Alumno ListarUno(int dni)
+        public Entidades.Alumno ListarUno(int id)
         {
-            Entidades.Alumno alumno = db.Alumnos.Where(a => a.DNI == dni).First();
+            Entidades.Alumno alumno = db.Alumnos.Where(a => a.IdAlumno == id).FirstOrDefault();
 
             return alumno;
         }
 
-        public List<Entidades.Alumno> ListarVarios(string nombre)
+        public List<Entidades.Alumno> ListarVarios(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
         {
-            //var al = alumnos.Where(a => a.Nombre == pNombre);
-            //return al.ToList();
+            if (nombre != null)
+            {
+                return db.Alumnos.Where(a => a.Nombre == nombre).ToList();
+            }
+            else if (apellido != null)
+            {
+                return db.Alumnos.Where(a => a.Apellido == apellido).ToList();
 
-            //var alumno = from a in db.Alumnos
-            //             where a.DNI == dni
-            //             select a;
-            throw new NotImplementedException();
+            }
+            else if (id != null)
+            {
+                return db.Alumnos.Where(a => a.IdAlumno == id).ToList();
+
+            }
+            else if (edad != null)
+            {
+                return db.Alumnos.Where(a => a.Edad == edad).ToList();
+
+            }
+            return db.Alumnos.Where(a => a.DNI == dni).ToList();
         }
 
         public List<Entidades.Alumno> ListarVarios(int edad)
@@ -67,8 +82,7 @@ namespace Datos
 
         public List<Entidades.Alumno> ListarTodos()
         {
-            //return alumnos;
-            throw new NotImplementedException();
+            return db.Alumnos.ToList();
         }
 
         public void Agregar(Entidades.Alumno alumno)
