@@ -29,14 +29,14 @@ namespace ConsolaNetCore
             Console.Title = "Programa de Gestion de Notas de Alumnos";
             Bienvenida();
             //ElegirOpciones();
-            int cantidad = IngresoAlumnos();
-            for (int i = 0; i < cantidad; i++)
-            {
-                objLogica.Agregar(alumno: AgregarAlumno(cantidad) );
-            }
+            //int cantidad = IngresoAlumnos();
+            //for (int i = 0; i < cantidad; i++)
+            //{
+            //    objLogica.Agregar(alumno: AgregarAlumno(cantidad) );
+            //}
             
 
-            //InformarAlumnos();
+            InformarAlumnos();
             //RendirExamen();
             //AprobacionExamen();
             //InformarNotas();
@@ -128,8 +128,26 @@ namespace ConsolaNetCore
 
         public static void InformarAlumnos()
         {
-            //Console.WriteLine(value: "\nUn alumno");
-            //Console.WriteLine(value: objLogica.ListarUno(1).Nombre);
+            Console.WriteLine(value: "\nUn alumno");
+            var a = objLogica.ListarUno(13);
+            Console.WriteLine(value: alumno.Nombre);
+            //var alumnoList = objLogica.ListarUno(dni: 1);
+            //foreach (Entidades.Alumno alumno in alumnoList)
+            //{
+            //    if (alumno == null)
+            //    {
+            //        Console.WriteLine("el alumno no existe");
+            //        Console.ReadLine();
+
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine(value: alumno.Nombre);
+            //        Console.ReadLine();
+
+            //    }
+            //}
+            // TODO Terminar de probar todos los metodos de GET.
             //Console.WriteLine(value: "\nVarios alumnos usando 1 como DNI, devolviendo nombre");
             //foreach (Entidades.Alumno alumno in objLogica.ListarVarios(1))
             //{
@@ -179,7 +197,6 @@ namespace ConsolaNetCore
             //Console.WriteLine(value: $"\nSe edita alumno {alumno1.Nombre}, {alumno1.Apellido}, {alumno1.Carrera.Materias[0].Nota.Final}");
             //objLogica.Eliminar(1);
             //Console.WriteLine(value: "\nSe elimina alumno con DNI 1");
-            throw new NotImplementedException();
         }
 
         public static void RendirExamen()

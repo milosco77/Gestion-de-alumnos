@@ -42,15 +42,19 @@ namespace Datos
 
         public Entidades.Alumno ListarUno(int dni)
         {
-            //alumno = alumnos.Find( a => a.DNI == pDNI);
-            //return alumno;
-            throw new NotImplementedException();
+            Entidades.Alumno alumno = db.Alumnos.Where(a => a.DNI == dni).First();
+
+            return alumno;
         }
 
         public List<Entidades.Alumno> ListarVarios(string nombre)
         {
             //var al = alumnos.Where(a => a.Nombre == pNombre);
             //return al.ToList();
+
+            //var alumno = from a in db.Alumnos
+            //             where a.DNI == dni
+            //             select a;
             throw new NotImplementedException();
         }
 
