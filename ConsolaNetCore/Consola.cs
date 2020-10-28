@@ -91,7 +91,7 @@ namespace ConsolaNetCore
 
         // TODO Hacer un metodo que permita agregar 1 o mas alumnos.
 
-        public static Entidades.Alumno AgregarAlumno()
+        public static void AgregarAlumno()
         {
             // Se pone alumno.IdAlumno = 0 en este scope ya que la instancia static de alumno en la clase Consola, los datos ingresados la primera vez permanecen, haciendo que la 2da, vez el id pasado a la base de datos sea el mismo que el primero. Dando una excepcion de: sqlexception: no se puede insertar un valor explícito en la columna de identidad de la tabla '' cuando identity_insert es off.
 
@@ -140,7 +140,7 @@ namespace ConsolaNetCore
             carrera.Materias = asignaturas;
             alumno.Carrera = carrera;
 
-            return alumno;
+            objLogica.Agregar(alumno);
         }
 
         public static void EliminarAlumno(int id)
@@ -372,7 +372,7 @@ namespace ConsolaNetCore
             {
                 foreach (Entidades.Alumno alumno in alumnos)
                 {
-                    Console.WriteLine(value: $"\nID: {alumno.IdAlumno} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.DNI} | Carrera: {alumno.Carrera.Titulo} | Facultad: {alumno.Carrera.Facultad}");
+                    Console.WriteLine(value: $"\nID: {alumno.IdAlumno} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.DNI} | Carrera:  | Facultad: ");
                 }
             }
         }
@@ -398,7 +398,7 @@ namespace ConsolaNetCore
 
         public static void ElegirOpciones()
         {
-            switch (ValidacionNumerica(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada:\n\n1 = Mostrar todos los alumnos.\n\n2 = Mostrar alumnos segun parametro.\n\n3 = Mostrar un alumno.\n\n4 = Editar un alumno.\n\n5 = Eliminar un alumno.\n\n0 = Salir.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 0 y 5", minimoValorInput: 0, maximoValorInput: 5))
+            switch (ValidacionNumerica(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada:\n\n1 = Mostrar todos los alumnos.\n\n2 = Mostrar alumnos segun parametro.\n\n3 = Mostrar un alumno.\n\n4 = Agregrar un alumno\n\n5 = Editar un alumno.\n\n6 = Eliminar un alumno.\n\n0 = Salir.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 0 y 5", minimoValorInput: 0, maximoValorInput: 5))
             {
                 case 1:
                     InformarTodosAlumnos();
@@ -410,10 +410,13 @@ namespace ConsolaNetCore
                     InformarUnAlumno();
                     break;
                 case 4:
+                    AgregarAlumno();
+                    break;
+                case 5:
                     //Entidades.Alumno alumno = new Entidades.Alumno();
                     //EditarAlumno(alumno);
                     break;
-                case 5:
+                case 6:
                     //EliminarAlumno();
                     break;
                 case 0:
@@ -510,6 +513,7 @@ namespace ConsolaNetCore
             return outputIngreso;
         }
         // Linq es mas rapido que usar RegEx https://stackoverflow.com/questions/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp/1181426.
+        // TODO Arreglar problema de que toma el espacio como caracter no valido.
         /// <summary>
         /// Valida si el ingreso de texto esta vacio o nulo. Y si son solo letras.
         /// </summary>
