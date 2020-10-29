@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -379,21 +380,25 @@ namespace ConsolaNetCore
         public static void RendirExamen()
         {
             // TODO mesa de examen parcial, recuperatorio y final. Validar inout de nota de examen.
+            throw new NotImplementedException();
         }
 
         public static void AprobacionExamen()
         {
             // TODO indicar si se aprueba o no examen.
+            throw new NotImplementedException();
         }
 
         public static void InformarNotas()
         {
             // TODO informar notas.
+            throw new NotImplementedException();
         }
 
         public static void Promocion()
         {
             // TODO indicar si promociono la materia.
+            throw new NotImplementedException();
         }
 
         public static void ElegirOpciones()
@@ -513,15 +518,14 @@ namespace ConsolaNetCore
             return outputIngreso;
         }
         // Linq es mas rapido que usar RegEx https://stackoverflow.com/questions/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp/1181426.
-        // TODO Arreglar problema de que toma el espacio como caracter no valido.
         /// <summary>
-        /// Valida si el ingreso de texto esta vacio o nulo. Y si son solo letras.
+        /// Valida el texto ingresado verificando si es nulo, contiene numeros, si empieza o termina con espacio vacio. O si es enteramente espacio vacio.
         /// </summary>
         /// <param name="mensajeIngreso"></param>
         /// <param name="mensajeError"></param>
         /// <param name="colorError"></param>
         /// <returns>El valor ingresado por el usuario</returns>
-        public static string ValidacionTexto(string mensajeIngreso, string mensajeError = "El valor ingresado esta vacio o no es un caracter alfabetico", ConsoleColor colorError = ConsoleColor.Red)
+        public static string ValidacionTexto(string mensajeIngreso, string mensajeError = "El valor ingresado esta vacio, empieza o termina con un espacio o contiene un caracter no alfabetico", ConsoleColor colorError = ConsoleColor.Red)
         {
             string validarIngreso;
             do
@@ -537,27 +541,27 @@ namespace ConsolaNetCore
                     }
                 } while (string.IsNullOrEmpty(value: validarIngreso));
 
-                if (!validarIngreso.All(predicate: Char.IsLetter))
+                if (validarIngreso.All(predicate: char.IsWhiteSpace) || validarIngreso.Any(predicate: char.IsDigit) || validarIngreso.StartsWith(value: " ") || validarIngreso.EndsWith(value: " "))
                 {
                     Console.Clear();
                     MensajeColor(mensaje: mensajeError, color: colorError);
                 }
 
-            } while (!validarIngreso.All(predicate: Char.IsLetter));
+            } while (validarIngreso.All(predicate: char.IsWhiteSpace) || validarIngreso.Any(predicate: char.IsDigit) || validarIngreso.StartsWith(value: " ") || validarIngreso.EndsWith(value: " "));
 
             Console.Clear();
             return validarIngreso;
         }
 
         /// <summary>
-        /// Valida si el ingreso de texto esta vacio o nulo. Y si son solo letras.
+        /// Valida el texto ingresado verificando si es nulo, contiene numeros, si empieza o termina con espacio vacio. O si es enteramente espacio vacio.
         /// </summary>
         /// <param name="mensajeIngreso"></param>
         /// <param name="mensajeError"></param>
         /// <param name="titulo"></param>
         /// <param name="colorError"></param>
         /// <returns>El valor ingresado por el usuario</returns>
-        public static string ValidacionTexto(string mensajeIngreso, string titulo, string mensajeError = "El valor ingresado esta vacio o no es un caracter alfabetico", ConsoleColor colorError = ConsoleColor.Red)
+        public static string ValidacionTexto(string mensajeIngreso, string titulo, string mensajeError = "El valor ingresado esta vacio, empieza o termina con un espacio o contiene un caracter no alfabetico", ConsoleColor colorError = ConsoleColor.Red)
         {
             string validarIngreso;
             do
@@ -574,14 +578,14 @@ namespace ConsolaNetCore
                     }
                 } while (string.IsNullOrEmpty(value: validarIngreso));
 
-                if (!validarIngreso.All(predicate: Char.IsLetter))
+                if (validarIngreso.All(predicate: char.IsWhiteSpace) || validarIngreso.Any(predicate: char.IsDigit) || validarIngreso.StartsWith(value: " ") || validarIngreso.EndsWith(value: " "))
                 {
                     Console.Clear();
                     MensajeColor(mensaje: titulo, color: ConsoleColor.Green);
                     MensajeColor(mensaje: mensajeError, color: colorError);
                 }
 
-            } while (!validarIngreso.All(predicate: Char.IsLetter));
+            } while (validarIngreso.All(predicate: char.IsWhiteSpace) || validarIngreso.Any(predicate: char.IsDigit) || validarIngreso.StartsWith(value: " ") || validarIngreso.EndsWith(value: " "));
 
             Console.Clear();
             MensajeColor(mensaje: titulo, color: ConsoleColor.Green);
