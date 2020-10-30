@@ -16,11 +16,11 @@ using System.Text;
 
 namespace Datos
 {
-    public class Alumno
+    public static class Alumno
     {
         public static Entidades.Contexto db = new Entidades.Contexto();
 #nullable enable
-        public Entidades.Alumno ListarUno(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
+        public static Entidades.Alumno ListarUno(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
         {
             if (nombre != null)
             {
@@ -44,7 +44,7 @@ namespace Datos
             return db.Alumnos.Where(a => a.DNI == dni).FirstOrDefault();
         }
 
-        public List<Entidades.Alumno> ListarVarios(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
+        public static List<Entidades.Alumno> ListarVarios(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
         {
             if (nombre != null)
             {
@@ -68,18 +68,18 @@ namespace Datos
             return db.Alumnos.Where(a => a.DNI == dni).ToList();
         }
 #nullable disable
-        public List<Entidades.Alumno> ListarTodos()
+        public static List<Entidades.Alumno> ListarTodos()
         {
             return db.Alumnos.ToList();
         }
 
-        public void Agregar(Entidades.Alumno alumno)
+        public static void Agregar(Entidades.Alumno alumno)
         {
             db.Alumnos.Add(entity: alumno);
             db.SaveChanges();
         }
 
-        public void Editar(Entidades.Alumno alumno)
+        public static void Editar(Entidades.Alumno alumno)
         {
             Entidades.Alumno unAlumno = db.Alumnos.Where(a => a.IdAlumno == alumno.IdAlumno).SingleOrDefault();
 
@@ -91,10 +91,11 @@ namespace Datos
                 unAlumno.DNI = alumno.DNI;
             }
 
+            db.Add(entity: unAlumno);
             db.SaveChanges();
         }
 
-        public void Eliminar(int id)
+        public static void Eliminar(int id)
         {
             db.Alumnos.Remove( db.Alumnos.Find(id) );
             db.SaveChanges();

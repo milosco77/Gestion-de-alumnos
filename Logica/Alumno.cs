@@ -4,83 +4,82 @@ using System.Collections.Generic;
 
 namespace Logica
 {
-    public class Alumno
+    public static class Alumno
     {
-        Datos.Alumno objDatos = new Datos.Alumno();
 #nullable enable
-        public Entidades.Alumno ListarUno(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
+        public static Entidades.Alumno ListarUno(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
         {
             if (nombre != null)
             {
-                return objDatos.ListarUno(nombre: nombre);
+                return Datos.Alumno.ListarUno(nombre: nombre);
             }
             else if (apellido != null)
             {
-                return objDatos.ListarUno(apellido: apellido);
+                return Datos.Alumno.ListarUno(apellido: apellido);
 
             }
             else if (id != null)
             {
-                return objDatos.ListarUno(id: id);
+                return Datos.Alumno.ListarUno(id: id);
 
             }
             else if (edad != null)
             {
-                return objDatos.ListarUno(edad: edad);
+                return Datos.Alumno.ListarUno(edad: edad);
 
             }
-            return objDatos.ListarUno(dni: dni);
+            return Datos.Alumno.ListarUno(dni: dni);
         }
 
-        public List<Entidades.Alumno> ListarVarios(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
+        public static List<Entidades.Alumno> ListarVarios(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
         {
             if (nombre != null)
             {
-                return objDatos.ListarVarios(nombre: nombre);
+                return Datos.Alumno.ListarVarios(nombre: nombre);
             }
             else if (apellido != null)
             {
-                return objDatos.ListarVarios(apellido: apellido);
+                return Datos.Alumno.ListarVarios(apellido: apellido);
 
             }
             else if (id != null)
             {
-                return objDatos.ListarVarios(id: id);
+                return Datos.Alumno.ListarVarios(id: id);
 
             }
             else if (edad != null)
             {
-                return objDatos.ListarVarios(edad: edad);
+                return Datos.Alumno.ListarVarios(edad: edad);
 
             }
-            return objDatos.ListarVarios(dni: dni);
+            return Datos.Alumno.ListarVarios(dni: dni);
         }
 
 #nullable disable
 
-        public List<Entidades.Alumno> ListarVarios(int edad)
+        public static List<Entidades.Alumno> ListarVarios(int edad)
         {
-            return objDatos.ListarVarios(edad: edad);
+            return Datos.Alumno.ListarVarios(edad: edad);
         }
 
-        public List<Entidades.Alumno> ListarTodos()
+        public static List<Entidades.Alumno> ListarTodos()
         {
-            return objDatos.ListarTodos();
+            return Datos.Alumno.ListarTodos();
         }
 
-        public void Agregar(Entidades.Alumno alumno)
+        public static void Agregar(Entidades.Alumno alumno)
         {
-            objDatos.Agregar(alumno: alumno);
+            Datos.Alumno.Agregar(alumno: alumno);
         }
 
-        public void Editar(Entidades.Alumno alumno)
+        public static void Editar(Entidades.Alumno alumno)
         {
-            objDatos.Editar(alumno: alumno);
+            Datos.Alumno.Editar(alumno: alumno);
         }
 
-        public void Eliminar(int id)
+        public static void Eliminar(int id)
         {
-            objDatos.Eliminar(id: id);
+            Datos.Alumno.Eliminar(id: id);
         }
 
 
