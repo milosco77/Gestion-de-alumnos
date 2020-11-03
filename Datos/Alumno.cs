@@ -3,6 +3,7 @@ using Enumeraciones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 // alt+shift+ ` para elegir todas las coincidencias editar.incluirsimbolosdeinsercionentodaslascoincidencias
@@ -13,6 +14,7 @@ using System.Text;
 // TODO Modificar la propiedad Horario para que sea correcta. Solucionar problema de que en la base de datos se almacena el numero de la enumeracion pero no el nombre.
 // TODO Verificar como conviene eliminar un registro, ya que el siguiente registro que se agrega no ocupa el mismo primary key(id).
 // TODO Implementar SQLite.
+// TODO Resolver problema de los metodos no devuelven los valores de carrera y queda como null.
 
 namespace Datos
 {
@@ -89,10 +91,12 @@ namespace Datos
                 unAlumno.Apellido = alumno.Apellido;
                 unAlumno.Edad = alumno.Edad;
                 unAlumno.DNI = alumno.DNI;
+                db.SaveChanges();
             }
-
-            db.Add(entity: unAlumno);
-            db.SaveChanges();
+            else
+            {
+                Console.WriteLine("\nNo hay resultados con ese ID");
+            }
         }
 
         public static void Eliminar(int id)
