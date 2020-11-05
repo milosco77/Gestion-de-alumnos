@@ -19,29 +19,6 @@ namespace ConsolaNetCore
     {
         public static List<Entidades.Asignatura> asignaturas = new List<Entidades.Asignatura>();
 
-        //Entidades.Alumno alumno1 = new Entidades.Alumno(
-        //    pNombre: "puta",
-        //    pApellido: "trola",
-        //    pEdad: 14, pDNI: 123,
-        //    new Entidades.Carrera(
-        //        pTitulo: "nada",
-        //        pMaterias: new List<Entidades.Asignatura>() {
-        //            new Entidades.Asignatura(
-        //                pCodigo: 321,
-        //                pComision: 343,
-        //                pHorario: 2321,
-        //                pNombreAsignatura: Enumeraciones.Materias.Ingles,
-        //                pNota: new Entidades.Notas(
-        //                    pPrimerParcial: 1,
-        //                    pPrimerRecuperatorio: 2,
-        //                    pSegundoParcial: 3,
-        //                    pSegundoRecuperatorio: 4,
-        //                    pFinal: 5
-        //                    )
-        //                )
-        //        }, pFacultad: Enumeraciones.Facultades.Agronomia)
-        //    );
-
         static void Main(string[] args)
         {
             Console.Title = "Programa de Gestion de Notas de Alumnos";
