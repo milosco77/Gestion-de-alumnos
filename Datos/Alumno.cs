@@ -15,6 +15,7 @@ using System.Text;
 // TODO Verificar como conviene eliminar un registro, ya que el siguiente registro que se agrega no ocupa el mismo primary key(id).
 // TODO Implementar SQLite.
 // TODO Resolver problema de los metodos no devuelven los valores de carrera y queda como null.
+// TODO Realizar capa de dato en DataBaseFirst
 
 namespace Datos
 {
