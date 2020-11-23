@@ -7,7 +7,6 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
 // TODO implementar explicacion correcta de intellisense para los metodos.
-// TODO implementar asistencia de alumno.
 // TODO ingreso de profesores/Ayudante de catedra.
 // TODO implementar manejo de excepciones.
 // TODO cambiar variables a sus variables reducidas en espacio solo cuando empieze a usar DB.
@@ -58,7 +57,7 @@ namespace ConsolaNetCore
 
                 asignatura.Nota = notas;
                 asignaturas.Add(item: asignatura);
-                carrera.Materias = asignaturas;
+                carrera.MateriasId = asignaturas;
                 alumno.Carrera = carrera;
 
                 Logica.Alumno.Agregar(alumno: alumno);
@@ -142,7 +141,7 @@ namespace ConsolaNetCore
         {
             if (pAlumno != null)
             {
-                pAlumno.Carrera.Materias.Add(AgregarDatosAsignatura());
+                pAlumno.Carrera.MateriasId.Add(AgregarDatosAsignatura());
             }
             return pAlumno;
         }
@@ -201,7 +200,7 @@ namespace ConsolaNetCore
                     notas = ModificarDatosNotas(notas);
                     asignatura.Nota = notas;
                     asignaturas.Add(item: asignatura);
-                    carrera.Materias = asignaturas;
+                    carrera.MateriasId = asignaturas;
                     alumno.Carrera = carrera;
                     Logica.Alumno.Editar(alumno);
                     break;
@@ -212,7 +211,7 @@ namespace ConsolaNetCore
                     notas = ModificarDatosNotas(notas);
                     asignatura.Nota = notas;
                     asignaturas.Add(item: asignatura);
-                    carrera.Materias = asignaturas;
+                    carrera.MateriasId = asignaturas;
                     alumno.Carrera = carrera;
                     Logica.Alumno.Editar(alumno);
                     break;

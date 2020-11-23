@@ -17,8 +17,4 @@
     <ProjectReference Include="..\Enumeraciones\Enumeraciones.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

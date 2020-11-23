@@ -13,7 +13,7 @@ namespace Entidades
         public Carrera(string pTitulo, List<Asignatura> pMaterias, Facultades pFacultad)
         {
             Titulo = pTitulo;
-            Materias = pMaterias;
+            MateriasId = pMaterias;
             Facultad = pFacultad;
         }
         [Key]
@@ -21,7 +21,7 @@ namespace Entidades
         [Required]
         public string Titulo { get; set; }
         [Required]
-        public List<Asignatura> Materias { get; set; }
+        public List<Asignatura> MateriasId { get; set; }
         [Required]
         public Facultades Facultad { get; set; }
     }
