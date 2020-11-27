@@ -7,7 +7,7 @@ namespace Logica
     public static class Alumno
     {
 #nullable enable
-        public static Entidades.Alumno ListarUno(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
+        public static Entidades.Alumnos ListarUno(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
         {
             if (nombre != null)
             {
@@ -31,7 +31,7 @@ namespace Logica
             return Datos.Alumno.ListarUno(dni: dni);
         }
 
-        public static List<Entidades.Alumno> ListarVarios(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
+        public static List<Entidades.Alumnos> ListarVarios(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
         {
             if (nombre != null)
             {
@@ -57,22 +57,22 @@ namespace Logica
 
 #nullable disable
 
-        public static List<Entidades.Alumno> ListarVarios(int edad)
+        public static List<Entidades.Alumnos> ListarVarios(int edad)
         {
             return Datos.Alumno.ListarVarios(edad: edad);
         }
 
-        public static List<Entidades.Alumno> ListarTodos()
+        public static List<Entidades.Alumnos> ListarTodos()
         {
             return Datos.Alumno.ListarTodos();
         }
 
-        public static void Agregar(Entidades.Alumno alumno)
+        public static void Agregar(Entidades.Alumnos alumno)
         {
             Datos.Alumno.Agregar(alumno: alumno);
         }
 
-        public static void Editar(Entidades.Alumno alumno)
+        public static void Editar(Entidades.Alumnos alumno)
         {
             Datos.Alumno.Editar(alumno: alumno);
         }
@@ -83,5 +83,13 @@ namespace Logica
         }
 
 
+    }
+
+    public static class Materia
+    {
+        public static List<Entidades.Materias> ListarMaterias()
+        {
+            return Datos.Materia.ListarMaterias();
+        }
     }
 }

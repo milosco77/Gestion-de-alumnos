@@ -7,10 +7,10 @@ using System.Text;
 
 namespace Entidades
 {
-    public class Asignatura
+    public class CFAsignatura
     {
-        public Asignatura(){}
-        public Asignatura(int pCodigo, int pComision, int pHorario, Materias pNombreAsignatura, Notas pNota)
+        public CFAsignatura(){}
+        public CFAsignatura(int pCodigo, int pComision, int pHorario, Materias pNombreAsignatura, CFNotas pNota)
         {
             Codigo = pCodigo;
             Comision = pComision;
@@ -28,6 +28,6 @@ namespace Entidades
         public int Horario { get; set; }
         [Required, Column("Nombre")]
         public Materias NombreAsignatura { get; set; }
-        public Notas Nota { get; set; }
+        public CFNotas Nota { get; set; }
     }
 }

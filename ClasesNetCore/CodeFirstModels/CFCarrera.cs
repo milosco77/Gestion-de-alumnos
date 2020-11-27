@@ -7,10 +7,10 @@ using System.Text;
 
 namespace Entidades
 {
-    public class Carrera
+    public class CFCarrera
     {
-        public Carrera(){}
-        public Carrera(string pTitulo, List<Asignatura> pMaterias, Facultades pFacultad)
+        public CFCarrera(){}
+        public CFCarrera(string pTitulo, List<CFAsignatura> pMaterias, Facultades pFacultad)
         {
             Titulo = pTitulo;
             MateriasId = pMaterias;
@@ -21,7 +21,7 @@ namespace Entidades
         [Required]
         public string Titulo { get; set; }
         [Required]
-        public List<Asignatura> MateriasId { get; set; }
+        public List<CFAsignatura> MateriasId { get; set; }
         [Required]
         public Facultades Facultad { get; set; }
     }

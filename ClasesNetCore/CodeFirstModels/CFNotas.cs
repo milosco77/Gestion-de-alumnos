@@ -8,10 +8,10 @@ using System.Text;
 namespace Entidades
 {
     [ComplexType]
-    public class Notas
+    public class CFNotas
     {
-        public Notas(){}
-        public Notas(float pPrimerParcial, float pPrimerRecuperatorio, float pSegundoParcial, float pSegundoRecuperatorio, float pFinal)
+        public CFNotas(){}
+        public CFNotas(float pPrimerParcial, float pPrimerRecuperatorio, float pSegundoParcial, float pSegundoRecuperatorio, float pFinal)
         {
             PrimerParcial = pPrimerParcial;
             PrimerRecuperatorio = pPrimerRecuperatorio;

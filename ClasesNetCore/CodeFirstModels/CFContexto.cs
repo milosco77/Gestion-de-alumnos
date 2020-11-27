@@ -10,16 +10,16 @@ using System.Text;
 // se hara manualmente temporalmente.
 namespace Entidades
 {
-    public class Contexto : DbContext
+    public class CFContexto : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(connectionString: @"Server=.\SQLEXPRESS;Database=Alumnos;Integrated Security=True");
         }
-        public DbSet<Alumno> Alumnos { get; set; }
-        public DbSet<Asignatura> Asignaturas { get; set; }
-        public DbSet<Carrera> Carreras { get; set; }
-        public DbSet<Notas> Notas { get; set; }
-        public DbSet<Staff> Staffs { get; set; }
+        public DbSet<CFAlumno> Alumnos { get; set; }
+        public DbSet<CFAsignatura> Asignaturas { get; set; }
+        public DbSet<CFCarrera> Carreras { get; set; }
+        public DbSet<CFNotas> Notas { get; set; }
+        public DbSet<CFStaff> Staffs { get; set; }
     }
 }

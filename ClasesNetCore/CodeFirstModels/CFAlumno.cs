@@ -1,23 +1,25 @@
-﻿using Enumeraciones;
+﻿using Entidades;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
-using System.Threading;
 
 namespace Entidades
 {
-    [Table("Staff")]
-    public class Staff : Persona
+    public class CFAlumno : CFPersona
     {
-        public Staff(){}
-        public Staff(Cargos pCargo)
+        public CFAlumno(){}
+        public CFAlumno(string pNombre, string pApellido, int pEdad, int pDNI, CFCarrera pCarrera)
         {
-            Cargo = pCargo;
+            Nombre = pNombre;
+            Apellido = pApellido;
+            Edad = pEdad;
+            DNI = pDNI;
+            Carrera = pCarrera;
         }
         [Key]
-        public int IdStaff { get; set; }
+        public int IdAlumno { get; set; }
+        [Required]
+        public CFCarrera Carrera { get; set; }
         [Required, MaxLength(50), MinLength(2)]
         public override string Nombre { get; set; }
         [Required, MaxLength(50), MinLength(2)]
@@ -26,7 +28,5 @@ namespace Entidades
         public override int Edad { get; set; }
         [Required]
         public override int DNI { get; set; }
-        [Required]
-        public Cargos Cargo { get; set; }
     }
 }

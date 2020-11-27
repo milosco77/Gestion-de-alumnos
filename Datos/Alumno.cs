@@ -21,9 +21,9 @@ namespace Datos
 {
     public static class Alumno
     {
-        public static Entidades.Contexto db = new Entidades.Contexto();
+        public static Entidades.AlumnosContext db = new AlumnosContext();
 #nullable enable
-        public static Entidades.Alumno ListarUno(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
+        public static Entidades.Alumnos ListarUno(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
         {
             if (nombre != null)
             {
@@ -36,7 +36,7 @@ namespace Datos
             }
             else if (id != null)
             {
-                return db.Alumnos.Where(a => a.IdAlumno == id).SingleOrDefault();
+                return db.Alumnos.Where(a => a.AlumnoId == id).SingleOrDefault();
 
             }
             else if (edad != null)
@@ -44,10 +44,10 @@ namespace Datos
                 return db.Alumnos.Where(a => a.Edad == edad).FirstOrDefault();
 
             }
-            return db.Alumnos.Where(a => a.DNI == dni).FirstOrDefault();
+            return db.Alumnos.Where(a => a.Dni == dni).FirstOrDefault();
         }
 
-        public static List<Entidades.Alumno> ListarVarios(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
+        public static List<Entidades.Alumnos> ListarVarios(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
         {
             if (nombre != null)
             {
@@ -60,7 +60,7 @@ namespace Datos
             }
             else if (id != null)
             {
-                return db.Alumnos.Where(a => a.IdAlumno == id).ToList();
+                return db.Alumnos.Where(a => a.AlumnoId == id).ToList();
 
             }
             else if (edad != null)
@@ -68,30 +68,30 @@ namespace Datos
                 return db.Alumnos.Where(a => a.Edad == edad).ToList();
 
             }
-            return db.Alumnos.Where(a => a.DNI == dni).ToList();
+            return db.Alumnos.Where(a => a.Dni == dni).ToList();
         }
 #nullable disable
-        public static List<Entidades.Alumno> ListarTodos()
+        public static List<Entidades.Alumnos> ListarTodos()
         {
             return db.Alumnos.ToList();
         }
 
-        public static void Agregar(Entidades.Alumno alumno)
+        public static void Agregar(Entidades.Alumnos alumno)
         {
             db.Alumnos.Add(entity: alumno);
             db.SaveChanges();
         }
 
-        public static void Editar(Entidades.Alumno alumno)
+        public static void Editar(Entidades.Alumnos alumno)
         {
-            Entidades.Alumno unAlumno = db.Alumnos.Where(a => a.IdAlumno == alumno.IdAlumno).SingleOrDefault();
+            Entidades.Alumnos unAlumno = db.Alumnos.Where(a => a.AlumnoId == alumno.AlumnoId).SingleOrDefault();
 
             if (unAlumno != null)
             {
                 unAlumno.Nombre = alumno.Nombre;
                 unAlumno.Apellido = alumno.Apellido;
                 unAlumno.Edad = alumno.Edad;
-                unAlumno.DNI = alumno.DNI;
+                unAlumno.Dni = alumno.Dni;
                 db.SaveChanges();
             }
             else
@@ -105,6 +105,25 @@ namespace Datos
             db.Alumnos.Remove( db.Alumnos.Find(id) );
             db.SaveChanges();
         }
+    }
 
+    public static class Carrera
+    {
+        public static Entidades.AlumnosContext db = new AlumnosContext();
+
+        public static List<Entidades.Carreras> ListarCarreras()
+        {
+            throw new NotImplementedException(); // TODO Hacer e implementar en AgregarDatosAlumno()
+        }
+    }
+
+    public static class Materia
+    {
+        public static Entidades.AlumnosContext db = new AlumnosContext();
+
+        public static List<Entidades.Materias> ListarMaterias()
+        {
+            return db.Materias.ToList();
+        }
     }
 }
