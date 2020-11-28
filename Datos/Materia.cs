@@ -14,6 +14,12 @@ namespace Datos
         {
             return db.Materias.Where(m => m.MateriaId == ID).SingleOrDefault();
         }
+
+        public static List<Entidades.Materias> ListarVarias(int ID)
+        {
+            return db.Materias.Where(a => a.MateriaId == ID).ToList();
+        }
+
         public static List<Entidades.Materias> ListarTodas()
         {
             return db.Materias.ToList();
