@@ -84,12 +84,4 @@ namespace Logica
 
 
     }
-
-    public static class Materia
-    {
-        public static List<Entidades.Materias> ListarMaterias()
-        {
-            return Datos.Materia.ListarMaterias();
-        }
-    }
 }

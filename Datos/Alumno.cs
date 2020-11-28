@@ -102,28 +102,8 @@ namespace Datos
 
         public static void Eliminar(int id)
         {
-            db.Alumnos.Remove( db.Alumnos.Find(id) );
+            db.Alumnos.Remove(db.Alumnos.Find(id));
             db.SaveChanges();
-        }
-    }
-
-    public static class Carrera
-    {
-        public static Entidades.AlumnosContext db = new AlumnosContext();
-
-        public static List<Entidades.Carreras> ListarCarreras()
-        {
-            throw new NotImplementedException(); // TODO Hacer e implementar en AgregarDatosAlumno()
-        }
-    }
-
-    public static class Materia
-    {
-        public static Entidades.AlumnosContext db = new AlumnosContext();
-
-        public static List<Entidades.Materias> ListarMaterias()
-        {
-            return db.Materias.ToList();
         }
     }
 }

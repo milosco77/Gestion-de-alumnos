@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DataBaseFistModels\**" />
+    <EmbeddedResource Remove="DataBaseFistModels\**" />
+    <None Remove="DataBaseFistModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
@@ -15,10 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Enumeraciones\Enumeraciones.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DataBaseFistModels\" />
   </ItemGroup>
 
 </Project>

@@ -28,14 +28,14 @@ namespace ConsolaNetCore
 
         public static void Bienvenida()
         {
-            Console.WriteLine(value: "\nBienvenido al Programa de Gestion de Notas de Alumnos\n\nEste programa le permitira ingresar los datos de los alumnos de su clase.\nPermitiendole mantener un registro de los mismos.\n\nPresione una tecla para continuar...");
+            Console.WriteLine("\nBienvenido al Programa de Gestion de Notas de Alumnos\n\nEste programa le permitira ingresar los datos de los alumnos de su clase.\nPermitiendole mantener un registro de los mismos.\n\nPresione una tecla para continuar...");
             Console.ReadKey(intercept: true);
             Console.Clear();
         }
 
         public static void Salir()
         {
-            Console.WriteLine(value: "\nFin del programa\n\nPresione cualquier tecla para finalizar");
+            Console.WriteLine("\nFin del programa\n\nPresione cualquier tecla para finalizar");
             Console.ReadKey(intercept: true);
             System.Environment.Exit(exitCode: 0);
         }
@@ -46,21 +46,10 @@ namespace ConsolaNetCore
             for (int i = 0; i < cantidad; i++)
             {
                 Entidades.Alumnos alumno = new Entidades.Alumnos();
-                Entidades.Asignaturas asignatura;
-                Entidades.Carreras carrera = new Entidades.Carreras();
-                Entidades.Notas notas = new Entidades.Notas();
 
                 alumno = AgregarDatosAlumno(alumno);
-                carrera = AgregarDatosCarrera(carrera);
-                asignatura = AgregarDatosAsignatura();
-                notas = AgregarDatosNotas(notas);
+                Logica.Alumno.Agregar(alumno);
 
-                asignatura.Nota = notas;
-                asignaturas.Add(item: asignatura);
-                carrera.MateriasId = asignaturas;
-                alumno.Carrera = carrera;
-
-                Logica.Alumno.Agregar(alumno: alumno);
             }
         }
 
@@ -70,7 +59,12 @@ namespace ConsolaNetCore
             pAlumno.Apellido = ValidacionTexto(mensajeIngreso: "\nIngrese el apellido de su alumno: ", mensajeError: "\nIngrese un apellido solo con caracteres alfabeticos.");
             pAlumno.Edad = (byte)ValidacionNumerica(mensajeIngreso: "\nIngrese la edad de su alumno entre 13 y 99 años: ", mensajeError: "\nIngrese una edad solo con caracteres numericos entre 13 y 99.", minimoValorInput: 13, maximoValorInput: 99);
             pAlumno.Dni = ValidacionNumerica(mensajeIngreso: "\nIngrese el DNI de su alumno: ", mensajeError: "\nIngrese un DNI solo con caracteres numericos entre 1 y 99.999.999.", minimoValorInput: 1, maximoValorInput: 99999999);
-            pAlumno.CarreraId = ValidacionNumerica(mensajeIngreso: "\nIngrese la carrera de su alumno (Ingeniería Civil = 0 | Ingeniería en Alimentos = 1 | Ingeniería Electricista = 2 | Ingeniería Electrónica = 3 | Ingeniería en Agrimensura = 4 | Ingeniería en Informática = 5 | Ingeniería en Petróleo = 6 | Ingeniería Industrial = 7):", mensajeError: "\nIngrese una carrera con caracteres numericos entre 0 y 7 (Ingeniería Civil = 0 | Ingeniería en Alimentos = 1 | Ingeniería Electricista = 2 | Ingeniería Electrónica = 3 | Ingeniería en Agrimensura = 4 | Ingeniería en Informática = 5 | Ingeniería en Petróleo = 6 | Ingeniería Industrial = 7):", minimoValorInput: 0, maximoValorInput: 7);
+            foreach (Entidades.Carreras carreras in Logica.Carrera.ListarTodas())
+            {
+                MensajeColor(mensaje: $"\nID: {carreras.CarreraId} | Nombre: {carreras.Nombre} | Titulo: {carreras.Titulo} | Duracion estimada: {carreras.DuracionEstimadaAnios} años");
+            }
+            pAlumno.CarreraId = ValidacionNumerica(mensajeIngreso: "\nIngrese la carrera de su alumno:", mensajeError: "\nIngrese una carrera con caracteres numericos entre 0 y 7:", minimoValorInput: 0, maximoValorInput: 7, BorrarInformacion: false);
+
             return pAlumno;
         }
 
@@ -84,19 +78,35 @@ namespace ConsolaNetCore
 
             return pAlumno;
         }
-        
-        public static Entidades.Asignaturas AgregarDatosAsignatura()
+
+        public static void AgregarAsignatura()
         {
+            InformarTodosAlumnos();
+
+            int alumnoID = ValidacionNumerica(mensajeIngreso: "\nIndique el ID del alumno del cual quiere ingresar una o varias asignaturas:", minimoValorInput: 1, mensajeError: "\nEl valor debe ser 1 o mayor.", BorrarInformacion: false);
+
+            int cantidad = ValidacionNumerica(mensajeIngreso: "\nCuantos asignaturas quiere ingresar (1-50):", mensajeError: "Valor no comprendido entre 1 y 50", minimoValorInput: 1, maximoValorInput: 50);
             Entidades.Asignaturas asignatura = new Entidades.Asignaturas();
 
-            asignatura.MateriaId = ValidacionNumerica(mensajeIngreso: "\nIngrese la materia de su alumno: ");
-
-            foreach (Entidades.Materias materias in Logica.Materia.ListarMaterias())
+            for (int i = 0; i < cantidad; i++)
             {
-                Console.WriteLine($"\nCodigo: {materias.Codigo} Nombre: {materias.Nombre} Creditos: {materias.Creditos} Horas: {materias.Horas} Correlativas: {materias.Creditos} Categoria: {materias.Categoria}");
+                asignatura = AgregarDatosAsignatura(alumnoID, asignatura);
+                Logica.Asignatura.Agregar(asignatura);
+            }
+        }
+
+        public static Entidades.Asignaturas AgregarDatosAsignatura(int alumnoID, Entidades.Asignaturas pAsignatura)
+        {
+            foreach (Entidades.Materias materias in Logica.Materia.ListarTodas())
+            {
+                MensajeColor(mensaje: $"\nID: {materias.MateriaId} | Codigo: {materias.Codigo} | Nombre: {materias.Nombre} | Creditos: {materias.Creditos} Horas: {materias.Horas} | Correlativas: {materias.Creditos} | Categoria: {materias.Categoria}");
             }
 
-            asignatura.Comision = ValidacionNumerica(mensajeIngreso: $"\nIngrese la comision de la materia (nombre): ", mensajeError: "\nIngrese una comision solo con caracteres numericos mayor a 0", minimoValorInput: 1);
+            pAsignatura.MateriaId = ValidacionNumerica(mensajeIngreso: "\nIngrese el ID de la materia de su alumno: ", mensajeError: $"\nValor no comprendido entre 1 y 109", minimoValorInput: 1, maximoValorInput: 109, BorrarInformacion: false);
+
+            pAsignatura.AlumnoId = alumnoID;
+
+            pAsignatura.Comision = ValidacionNumerica(mensajeIngreso: $"\nIngrese la comision de la materia (nombre): ", mensajeError: "\nIngrese una comision solo con caracteres numericos mayor a 0", minimoValorInput: 1);
 
             Console.WriteLine("\nIngrese el horario de entrada de la materia");
 
@@ -105,7 +115,7 @@ namespace ConsolaNetCore
             int Minutos = ValidacionNumerica(mensajeIngreso: "\nIngrese los minutos entre 0 y 59:", mensajeError: "\nIngrese un valor entre 0 y 59", minimoValorInput: 0, maximoValorInput: 59);
 
 
-            asignatura.HorarioEntrada = new TimeSpan(hours: Horas, minutes: Minutos, 0);
+            pAsignatura.HorarioEntrada = new TimeSpan(hours: Horas, minutes: Minutos, seconds: 0);
 
             Console.WriteLine("\nIngrese el horario de salida de la materia");
 
@@ -113,38 +123,48 @@ namespace ConsolaNetCore
 
             Minutos = ValidacionNumerica(mensajeIngreso: "\nIngrese los minutos entre 0 y 59:", mensajeError: "\nIngrese un valor entre 0 y 59", minimoValorInput: 0, maximoValorInput: 59);
 
-            asignatura.HorarioSalida = new TimeSpan(hours: Horas, minutes: Minutos, 0);
+            pAsignatura.HorarioSalida = new TimeSpan(hours: Horas, minutes: Minutos, seconds: 0);
 
-            asignatura.Dias = ValidacionTexto(mensajeIngreso: "\nIngrese los dias de cursada de la materia (Ej: Lunes-Miercoles-Viernes):");
-
-            return asignatura;
+            pAsignatura.Dias = ValidacionTexto(mensajeIngreso: "\nIngrese los dias de cursada de la materia (Ej: Lunes-Miercoles-Viernes):");
+            // TODO Mejorar ingreso de dias.
+            return pAsignatura;
         }
 
-        public static Entidades.Alumnos ModificarDatosAsignatura(Entidades.Alumnos pAlumno = null)
+        public static Entidades.Asignaturas ModificarDatosAsignatura(int alumnoID, Entidades.Asignaturas pAsignatura = null)
         {
-            if (pAlumno != null)
+            if (pAsignatura != null)
             {
-                pAlumno.Carrera.MateriasId.Add(AgregarDatosAsignatura());
+                pAsignatura = AgregarDatosAsignatura(alumnoID, pAsignatura);
             }
-            return pAlumno;
+            return pAsignatura;
         }
 
-        public static Entidades.Notas AgregarDatosNotas(Entidades.Notas pNotas)
+        public static void AgregarNota(Entidades.Asignaturas pAsignatura)
         {
-            pNotas.PrimerParcial = ValidacionNumerica(mensajeIngreso: $"\nIngrese la nota del primer parcial de la materia ():", mensajeError: "\nEl valor de nota debe estar comprendido entre 0 y 10.", minimoValorInput: 0, maximoValorInput: 10);
-            pNotas.PrimerRecuperatorio = ValidacionNumerica(mensajeIngreso: $"\nIngrese la nota del primer recuperatorio de la materia ():", mensajeError: "\nEl valor de nota debe estar comprendido entre 0 y 10.", minimoValorInput: 0, maximoValorInput: 10);
-            pNotas.SegundoParcial = ValidacionNumerica(mensajeIngreso: $"\nIngrese la nota del segundo parcial de la materia ():", mensajeError: "\nEl valor de nota debe estar comprendido entre 0 y 10.", minimoValorInput: 0, maximoValorInput: 10);
-            pNotas.SegundoRecuperatorio = ValidacionNumerica(mensajeIngreso: $"\nIngrese la nota del segundo recuperatorio de la materia ():", mensajeError: "\nEl valor de nota debe estar comprendido entre 0 y 10.", minimoValorInput: 0, maximoValorInput: 10);
-            pNotas.Final = ValidacionNumerica(mensajeIngreso: $"\nIngrese la nota del final de la materia ():", mensajeError: "\nEl valor de nota debe estar comprendido entre 0 y 10.", minimoValorInput: 0, maximoValorInput: 10);
+            Entidades.Notas nota = new Entidades.Notas();
+
+            nota = AgregarDatosNotas(nota, pAsignatura);
+            Logica.Nota.Agregar(nota);
+        }
+
+        // TODO Desglosar que nota agregar si primer parcial, segundo, recuperatorio, etc.
+        public static Entidades.Notas AgregarDatosNotas(Entidades.Notas pNotas, Entidades.Asignaturas pAsignatura)
+        {
+            pNotas.AsignaturaId = pAsignatura.AsignaturaId;
+            pNotas.PrimerParcial = ValidacionNumerica(mensajeIngreso: $"\nIngrese la nota del primer parcial:", mensajeError: "\nEl valor de nota debe estar comprendido entre 0 y 10.", minimoValorInput: 0, maximoValorInput: 10);
+            pNotas.PrimerRecuperatorio = ValidacionNumerica(mensajeIngreso: $"\nIngrese la nota del primer recuperatorio:", mensajeError: "\nEl valor de nota debe estar comprendido entre 0 y 10.", minimoValorInput: 0, maximoValorInput: 10);
+            pNotas.SegundoParcial = ValidacionNumerica(mensajeIngreso: $"\nIngrese la nota del segundo parcial:", mensajeError: "\nEl valor de nota debe estar comprendido entre 0 y 10.", minimoValorInput: 0, maximoValorInput: 10);
+            pNotas.SegundoRecuperatorio = ValidacionNumerica(mensajeIngreso: $"\nIngrese la nota del segundo recuperatorio:", mensajeError: "\nEl valor de nota debe estar comprendido entre 0 y 10.", minimoValorInput: 0, maximoValorInput: 10);
+            pNotas.Final = ValidacionNumerica(mensajeIngreso: $"\nIngrese la nota del final:", mensajeError: "\nEl valor de nota debe estar comprendido entre 0 y 10.", minimoValorInput: 0, maximoValorInput: 10);
             return pNotas;
         }
 
-        public static Entidades.Notas ModificarDatosNotas(Entidades.Notas pNotas = null)
+        public static Entidades.Notas ModificarDatosNotas(Entidades.Notas pNotas = null, Entidades.Asignaturas pAsignatura = null)
         {
             
             if (pNotas != null)
             {
-                pNotas = AgregarDatosNotas(pNotas: pNotas);
+                pNotas = AgregarDatosNotas(pNotas, pAsignatura);
             }
             return pNotas;
         }
@@ -157,64 +177,62 @@ namespace ConsolaNetCore
         // TODO Verificar correcciones en caso de ser NULL.
         public static void EditarAlumno()
         {
-            Entidades.Asignaturas asignatura = new Entidades.Asignaturas();
-            Entidades.Notas notas = new Entidades.Notas();
-            Entidades.Carreras carrera = new Entidades.Carreras();
-            InformarTodosAlumnos();
-            int id = ValidacionNumerica(mensajeIngreso: "\nColoque el ID del alumno a editar", mensajeError: "El valor ingresado no puede ser 0 o menor", minimoValorInput: 0);
-            Entidades.Alumnos alumno = Logica.Alumno.ListarUno(id: id);
-            switch (ValidacionNumerica(mensajeIngreso: "\nElija que parametros quiere editar (Alumno = 1 | Carrera = 2 | Asignatura = 3 | Notas = 4 | Todos = 0)"))
-            {
-                case 1:
-                    Console.WriteLine($"\nLos datos del alumno son Nombre: {alumno.Nombre} Apellido: {alumno.Apellido} Edad: {alumno.Edad} DNI: {alumno.DNI}");
-                    alumno = ModificarDatosAlumno(alumno);
-                    Logica.Alumno.Editar(alumno);
-                    break;
-                case 2:
-                    Console.WriteLine("");
-                    alumno = ModicarDatosCarrera(alumno);
-                    Logica.Alumno.Editar(alumno);
-                    break;
-                case 3:
-                    alumno = ModificarDatosAsignatura(alumno);
-                    Logica.Alumno.Editar(alumno);
-                    break;
-                case 4:
-                    notas = ModificarDatosNotas(notas);
-                    asignatura.Nota = notas;
-                    asignaturas.Add(item: asignatura);
-                    carrera.MateriasId = asignaturas;
-                    alumno.Carrera = carrera;
-                    Logica.Alumno.Editar(alumno);
-                    break;
-                case 5:
-                    alumno = ModificarDatosAlumno(alumno);
-                    alumno = ModicarDatosCarrera(alumno);
-                    alumno = ModificarDatosAsignatura();
-                    notas = ModificarDatosNotas(notas);
-                    asignatura.Nota = notas;
-                    asignaturas.Add(item: asignatura);
-                    carrera.MateriasId = asignaturas;
-                    alumno.Carrera = carrera;
-                    Logica.Alumno.Editar(alumno);
-                    break;
-                default:
-                    break;
-            }
+            //Entidades.Asignaturas asignatura = new Entidades.Asignaturas();
+            //Entidades.Notas notas = new Entidades.Notas();
+            //Entidades.Carreras carrera = new Entidades.Carreras();
+            //InformarTodosAlumnos();
+            //int id = ValidacionNumerica(mensajeIngreso: "\nColoque el ID del alumno a editar", mensajeError: "El valor ingresado no puede ser 0 o menor", minimoValorInput: 0);
+            //Entidades.Alumnos alumno = Logica.Alumno.ListarUno(id: id);
+            //switch (ValidacionNumerica(mensajeIngreso: "\nElija que parametros quiere editar (Alumno = 1 | Carrera = 2 | Asignatura = 3 | Notas = 4 | Todos = 0)"))
+            //{
+            //    case 1:
+            //        Console.WriteLine($"\nLos datos del alumno son Nombre: {alumno.Nombre} Apellido: {alumno.Apellido} Edad: {alumno.Edad} DNI: {alumno.DNI}");
+            //        alumno = ModificarDatosAlumno(alumno);
+            //        Logica.Alumno.Editar(alumno);
+            //        break;
+            //    case 2:
+            //        Console.WriteLine("");
+            //        alumno = ModicarDatosCarrera(alumno);
+            //        Logica.Alumno.Editar(alumno);
+            //        break;
+            //    case 3:
+            //        alumno = ModificarDatosAsignatura(alumno);
+            //        Logica.Alumno.Editar(alumno);
+            //        break;
+            //    case 4:
+            //        notas = ModificarDatosNotas(notas);
+            //        asignatura.Nota = notas;
+            //        asignaturas.Add(item: asignatura);
+            //        carrera.MateriasId = asignaturas;
+            //        alumno.Carrera = carrera;
+            //        Logica.Alumno.Editar(alumno);
+            //        break;
+            //    case 5:
+            //        alumno = ModificarDatosAlumno(alumno);
+            //        alumno = ModicarDatosCarrera(alumno);
+            //        alumno = ModificarDatosAsignatura();
+            //        notas = ModificarDatosNotas(notas);
+            //        asignatura.Nota = notas;
+            //        asignaturas.Add(item: asignatura);
+            //        carrera.MateriasId = asignaturas;
+            //        alumno.Carrera = carrera;
+            //        Logica.Alumno.Editar(alumno);
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
         public static void InformarUnAlumno()
         {
-            string nombre, apellido;
-            int id, edad, dni;
+            int id, dni;
             Entidades.Alumnos alumno;
-            switch (ValidacionNumerica(mensajeIngreso: "\nIndique por cual tipo de valor quiere buscar (ID = 1 | Nombre = 2 | Apellido = 3 | Edad = 4 | DNI = 5)", mensajeError: "\nEl valor no esta dentro de 1 y 5.", minimoValorInput: 1, maximoValorInput: 5))
+            switch (ValidacionNumerica(mensajeIngreso: "\nIndique por cual tipo de valor quiere buscar el alumno (ID = 1 | DNI = 2)", mensajeError: "\nEl valor no esta dentro de 1 y 2.", minimoValorInput: 1, maximoValorInput: 2))
             {
                 case 1:
                     id = ValidacionNumerica(mensajeIngreso: "\nIngrese el id por el cual quiere buscar:", mensajeError: "El valor no puede ser 0 o menor.", minimoValorInput: 1);
 
                     alumno = Logica.Alumno.ListarUno(id: id);
-                    Console.WriteLine(value: $"\nEl alumno con id {id} es\n");
-
+                    Console.WriteLine($"\nEl alumno con id {id} es\n");
                     if (alumno == null)
                     {
                         Console.WriteLine("No se encuentra el alumno con ese valor.");
@@ -222,64 +240,14 @@ namespace ConsolaNetCore
                     }
                     else
                     {
-                        Console.WriteLine(value: $"\nID: {alumno.IdAlumno} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.DNI} | Carrera: {alumno.Carrera.Titulo} | Facultad: {alumno.Carrera.Facultad}");
+                        Console.WriteLine($"\nID: {alumno.AlumnoId} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.Dni} | Carrera: {Logica.Carrera.ListarUna(alumno.AlumnoId).Nombre}");
                     }
                     break;
                 case 2:
-                    nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre por el cual quiere buscar:");
-
-                    alumno = Logica.Alumno.ListarUno(nombre: nombre);
-                    Console.WriteLine(value: $"\nEl alumno con nombre {nombre} es\n");
-
-                    if (alumno == null)
-                    {
-                        Console.WriteLine("No se encuentra el alumno con ese valor.");
-                        Console.ReadLine();
-                    }
-                    else
-                    {
-                        Console.WriteLine(value: $"\nID: {alumno.IdAlumno} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.DNI} | Carrera: {alumno.Carrera.Titulo} | Facultad: {alumno.Carrera.Facultad}");
-                    }
-                    break;
-                case 3:
-                    apellido = ValidacionTexto(mensajeIngreso: "\nIngrese el apellido por el cual quiere buscar:");
-
-                    alumno = Logica.Alumno.ListarUno(apellido: apellido);
-                    Console.WriteLine(value: $"\nEl alumno con apellido {apellido} es\n");
-
-                    if (alumno == null)
-                    {
-                        Console.WriteLine("No se encuentra el alumno con ese valor.");
-                        Console.ReadLine();
-                    }
-                    else
-                    {
-                        Console.WriteLine(value: $"\nID: {alumno.IdAlumno} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.DNI} | Carrera: {alumno.Carrera.Titulo} | Facultad: {alumno.Carrera.Facultad}");
-                    }
-                    break;
-                case 4:
-                    edad = ValidacionNumerica(mensajeIngreso: "\nIngrese el edad por el cual quiere buscar:", mensajeError: "El valor no puede ser 12 o menor.", minimoValorInput: 12);
-
-                    alumno = Logica.Alumno.ListarUno(edad: edad);
-                    Console.WriteLine(value: $"\nEl alumno con edad {edad} es\n");
-
-                    if (alumno == null)
-                    {
-                        Console.WriteLine("No se encuentra el alumno con ese valor.");
-                        Console.ReadLine();
-                    }
-                    else
-                    {
-                        Console.WriteLine(value: $"\nID: {alumno.IdAlumno} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.DNI} | Carrera: {alumno.Carrera.Titulo} | Facultad: {alumno.Carrera.Facultad}");
-                    }
-
-                    break;
-                case 5:
                     dni = ValidacionNumerica(mensajeIngreso: "\nIngrese el dni por el cual quiere buscar:", mensajeError: "El valor no puede ser 0 o menor.", minimoValorInput: 1);
 
                     alumno = Logica.Alumno.ListarUno(dni: dni);
-                    Console.WriteLine(value: $"\nEl alumno con dni {dni} es\n");
-
+                    Console.WriteLine($"\nEl alumno con dni {dni} es\n");
                     if (alumno == null)
                     {
                         Console.WriteLine("No se encuentra el alumno con ese valor.");
@@ -287,7 +255,7 @@ namespace ConsolaNetCore
                     }
                     else
                     {
-                        Console.WriteLine(value: $"\nID: {alumno.IdAlumno} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.DNI} | Carrera: {alumno.Carrera.Titulo} | Facultad: {alumno.Carrera.Facultad}");
+                        Console.WriteLine($"\nID: {alumno.AlumnoId} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.Dni} | Carrera: {Logica.Carrera.ListarUna(alumno.AlumnoId).Nombre}");
                     }
                     break;
                 default:
@@ -300,13 +268,13 @@ namespace ConsolaNetCore
             string nombre, apellido;
             int id, edad, dni;
             List<Entidades.Alumnos> alumnos;
-            switch (ValidacionNumerica(mensajeIngreso: "\nIndique por cual tipo de valor quiere buscar (ID = 1 | Nombre = 2 | Apellido = 3 | Edad = 4 | DNI = 5)", mensajeError: "\nEl valor no esta dentro de 1 y 5.", minimoValorInput: 1, maximoValorInput: 5))
+            switch (ValidacionNumerica(mensajeIngreso: "\nIndique por cual tipo de valor quiere buscar (ID = 1 | Carrera = 2 | Nombre = 3 | Apellido = 4 | Edad = 5 | DNI = 6)", mensajeError: "\nEl valor no esta dentro de 1 y 6.", minimoValorInput: 1, maximoValorInput: 6))
             {
                 case 1:
-                    id = ValidacionNumerica(mensajeIngreso: "\nIngrese el id por el cual quiere buscar:", mensajeError: "El valor no puede ser 0 o menor.", minimoValorInput: 1);
+                    id = ValidacionNumerica(mensajeIngreso: "\nIngrese el ID por el cual quiere buscar:", mensajeError: "El valor no puede ser 0 o menor.", minimoValorInput: 1);
 
                     alumnos = Logica.Alumno.ListarVarios(id: id);
-                    Console.WriteLine(value: $"\nLos alumno con id {id} son\n");
+                    Console.WriteLine($"\nLos alumno con ID {id} son:\n");
 
                     if (alumnos.Count == 0)
                     {
@@ -317,15 +285,20 @@ namespace ConsolaNetCore
                     {
                         foreach (Entidades.Alumnos alumno in alumnos)
                         {
-                            Console.WriteLine(value: $"\nID: {alumno.IdAlumno} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.DNI} | Carrera: {alumno.Carrera.Titulo} | Facultad: {alumno.Carrera.Facultad}");
+                            Console.WriteLine($"\nID: {alumno.AlumnoId} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.Dni} | Carrera: {Logica.Carrera.ListarUna(alumno.CarreraId).Nombre}");
                         }
                     }
                     break;
                 case 2:
-                    nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre por el cual quiere buscar:");
+                    foreach (Entidades.Carreras ca in Logica.Carrera.ListarTodas())
+                    {
+                        MensajeColor(mensaje: $"\nID: {ca.CarreraId} | Nombre: {ca.Nombre} | Titulo: {ca.Titulo} | Duracion estimada: {ca.DuracionEstimadaAnios} años");
+                    }
 
-                    alumnos = Logica.Alumno.ListarVarios(nombre: nombre);
-                    Console.WriteLine(value: $"\nLos alumno con nombre {nombre} son\n");
+                    id = ValidacionNumerica(mensajeIngreso: "\nIngrese el ID de la carrera por la cual quiere buscar:", mensajeError: "El valor debe estar comprendido entre 1 y 12", minimoValorInput: 1, maximoValorInput: 12, BorrarInformacion: false);
+
+                    alumnos = Logica.Alumno.ListarVarios(id: id);
+                    Console.WriteLine($"\nLos alumno con carrera {id} son:\n");
 
                     if (alumnos.Count == 0)
                     {
@@ -336,15 +309,15 @@ namespace ConsolaNetCore
                     {
                         foreach (Entidades.Alumnos alumno in alumnos)
                         {
-                            Console.WriteLine(value: $"\nID: {alumno.IdAlumno} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.DNI} | Carrera: {alumno.Carrera.Titulo} | Facultad: {alumno.Carrera.Facultad}");
+                            Console.WriteLine($"\nID: {alumno.AlumnoId} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.Dni} | Carrera: {Logica.Carrera.ListarUna(alumno.CarreraId).Nombre}");
                         }
                     }
                     break;
                 case 3:
-                    apellido = ValidacionTexto(mensajeIngreso: "\nIngrese el apellido por el cual quiere buscar:");
+                    nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre por el cual quiere buscar:");
 
-                    alumnos = Logica.Alumno.ListarVarios(apellido: apellido);
-                    Console.WriteLine(value: $"\nLos alumno con apellido {apellido} son\n");
+                    alumnos = Logica.Alumno.ListarVarios(nombre: nombre);
+                    Console.WriteLine($"\nLos alumno con nombre {nombre} son:\n");
 
                     if (alumnos.Count == 0)
                     {
@@ -355,15 +328,15 @@ namespace ConsolaNetCore
                     {
                         foreach (Entidades.Alumnos alumno in alumnos)
                         {
-                            Console.WriteLine(value: $"\nID: {alumno.IdAlumno} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.DNI} | Carrera: {alumno.Carrera.Titulo} | Facultad: {alumno.Carrera.Facultad}");
+                            Console.WriteLine($"\nID: {alumno.AlumnoId} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.Dni} | Carrera: {Logica.Carrera.ListarUna(alumno.CarreraId).Nombre}");
                         }
                     }
                     break;
                 case 4:
-                    edad = ValidacionNumerica(mensajeIngreso: "\nIngrese el edad por el cual quiere buscar:", mensajeError: "El valor no puede ser 12 o menor.", minimoValorInput: 12);
+                    apellido = ValidacionTexto(mensajeIngreso: "\nIngrese el apellido por el cual quiere buscar:");
 
-                    alumnos = Logica.Alumno.ListarVarios(edad: edad);
-                    Console.WriteLine(value: $"\nLos alumno con edad {edad} son\n");
+                    alumnos = Logica.Alumno.ListarVarios(apellido: apellido);
+                    Console.WriteLine($"\nLos alumno con apellido {apellido} son:\n");
 
                     if (alumnos.Count == 0)
                     {
@@ -374,16 +347,35 @@ namespace ConsolaNetCore
                     {
                         foreach (Entidades.Alumnos alumno in alumnos)
                         {
-                            Console.WriteLine(value: $"\nID: {alumno.IdAlumno} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.DNI} | Carrera: {alumno.Carrera.Titulo} | Facultad: {alumno.Carrera.Facultad}");
+                            Console.WriteLine($"\nID: {alumno.AlumnoId} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.Dni} | Carrera: {Logica.Carrera.ListarUna(alumno.CarreraId).Nombre}");
+                        }
+                    }
+                    break;
+                case 5:
+                    edad = ValidacionNumerica(mensajeIngreso: "\nIngrese el edad por el cual quiere buscar:", mensajeError: "El valor no puede ser 12 o menor.", minimoValorInput: 12);
+
+                    alumnos = Logica.Alumno.ListarVarios(edad: edad);
+                    Console.WriteLine($"\nLos alumno con edad {edad} son:\n");
+
+                    if (alumnos.Count == 0)
+                    {
+                        Console.WriteLine("La lista de alumno esta vacia");
+                        Console.ReadLine();
+                    }
+                    else
+                    {
+                        foreach (Entidades.Alumnos alumno in alumnos)
+                        {
+                            Console.WriteLine($"\nID: {alumno.AlumnoId} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.Dni} | Carrera: {Logica.Carrera.ListarUna(alumno.CarreraId).Nombre}");
                         }
                     }
 
                     break;
-                case 5:
+                case 6:
                     dni = ValidacionNumerica(mensajeIngreso: "\nIngrese el dni por el cual quiere buscar:", mensajeError: "El valor no puede ser 0 o menor.", minimoValorInput: 1);
 
                     alumnos = Logica.Alumno.ListarVarios(dni: dni);
-                    Console.WriteLine(value: $"\nLos alumno con dni {dni} son\n");
+                    Console.WriteLine($"\nLos alumno con dni {dni} son:\n");
 
                     if (alumnos.Count == 0)
                     {
@@ -394,7 +386,7 @@ namespace ConsolaNetCore
                     {
                         foreach (Entidades.Alumnos alumno in alumnos)
                         {
-                            Console.WriteLine(value: $"\nID: {alumno.IdAlumno} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.DNI} | Carrera: {alumno.Carrera.Titulo} | Facultad: {alumno.Carrera.Facultad}");
+                            Console.WriteLine($"\nID: {alumno.AlumnoId} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.Dni} | Carrera: {Logica.Carrera.ListarUna(alumno.CarreraId).Nombre}");
                         }
                     }
                     break;
@@ -406,7 +398,8 @@ namespace ConsolaNetCore
         public static void InformarTodosAlumnos()
         {
             List<Entidades.Alumnos> alumnos = Logica.Alumno.ListarTodos();
-            Console.WriteLine(value: "\nTodos los alumnos");
+            Entidades.Notas nota;
+            Console.WriteLine("\nTodos los alumnos:");
 
             if (alumnos.Count == 0)
             {
@@ -417,15 +410,24 @@ namespace ConsolaNetCore
             {
                 foreach (Entidades.Alumnos alumno in alumnos)
                 {
-                    Console.WriteLine(value: $"\nID: {alumno.IdAlumno} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.DNI} | Carrera:  | Facultad: ");
 
-                    Console.WriteLine("\nMaterias:");
+                    MensajeColor(mensaje: $"\nID: {alumno.AlumnoId} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.Dni} | Carrera: {Logica.Carrera.ListarUna(alumno.AlumnoId).Nombre}");
 
-                    foreach (var materia in asignaturas)
+                    Console.WriteLine("\nAsignaturas del alumno:");
+                    foreach (Entidades.Asignaturas asignatura in Logica.Asignatura.ListarVarias(alumno.AlumnoId))
                     {
-                        Console.WriteLine(value: $"\nNombre: {materia.NombreAsignatura} | Codigo : {materia.Codigo} | Comision: {materia.Comision} | Horario: {materia.Horario}");
-                        Console.WriteLine($"\nNotas de la materia {materia.NombreAsignatura}:");
-                        Console.WriteLine($"\nPrimer parcial: {materia.Nota.PrimerParcial} | Primer recuperatorio: {materia.Nota.PrimerRecuperatorio} | Segundo parcial: {materia.Nota.SegundoParcial} | Segundo recuperatorio: {materia.Nota.SegundoRecuperatorio} | Final: {materia.Nota.Final}");
+                        MensajeColor(mensaje: $"\nNombre: {Logica.Materia.ListarUna(asignatura.MateriaId).Nombre} | Comision: {asignatura.Comision} | Horario de entrada: {asignatura.HorarioEntrada} | Horario de salida: {asignatura.HorarioSalida} | Dias: {asignatura.Dias}");
+
+                        Console.WriteLine($"\nNotas de la asignatura:");
+                        nota = Logica.Nota.ListarUna(asignatura.AsignaturaId);
+                        if (nota == null)
+                        {
+                            MensajeColor(mensaje: "\nNo hay notas para esta asignatura.", color: ConsoleColor.Red);
+                        }
+                        else
+                        {
+                            MensajeColor(mensaje: $"\nPrimer parcial: {nota.PrimerParcial} | Primer recuperatorio: {nota.PrimerRecuperatorio} | Segundo parcial: {nota.SegundoParcial} | Segundo recuperatorio: {nota.SegundoRecuperatorio} | Final: {nota.Final}");
+                        }
                     }
                 }
             }
@@ -456,32 +458,50 @@ namespace ConsolaNetCore
 
         public static void ElegirOpciones()
         {
-            switch (ValidacionNumerica(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada:\n\n1 = Mostrar todos los alumnos.\n\n2 = Mostrar alumnos segun parametro.\n\n3 = Mostrar un alumno.\n\n4 = Agregrar un alumno\n\n5 = Editar un alumno.\n\n6 = Eliminar un alumno.\n\n0 = Salir.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 0 y 5", minimoValorInput: 0, maximoValorInput: 5))
+            bool salir = true;
+            bool primeraVez = false;
+            do
             {
-                case 1:
-                    InformarTodosAlumnos();
-                    break;
-                case 2:
-                    InformarVariosAlumnos();
-                    break;
-                case 3:
-                    InformarUnAlumno();
-                    break;
-                case 4:
-                    AgregarAlumno();
-                    break;
-                case 5:
-                    EditarAlumno();
-                    break;
-                case 6:
-                    //EliminarAlumno();
-                    break;
-                case 0:
-                    Salir();
-                    break;
-                default:
-                    break;
-            }
+                if (primeraVez)
+                {
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+                primeraVez = true;
+                switch (ValidacionNumerica(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada:\n\n1 = Mostrar todos los alumnos.\n\n2 = Mostrar alumnos segun parametro.\n\n3 = Mostrar un alumno.\n\n4 = Agregrar un alumno\n\n5 = Agregar asignatura\n\n6 = Agregar nota\n\n7 = Editar un alumno.\n\n8 = Eliminar un alumno.\n\n9 = Salir.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 0 y 7", minimoValorInput: 1, maximoValorInput: 9))
+                {
+                    case 1:
+                        InformarTodosAlumnos();
+                        break;
+                    case 2:
+                        InformarVariosAlumnos();
+                        break;
+                    case 3:
+                        InformarUnAlumno();
+                        break;
+                    case 4:
+                        AgregarAlumno();
+                        break;
+                    case 5:
+                        AgregarAsignatura();
+                        break;
+                    case 6:
+                        AgregarNota(); // TODO Implementar junto a los metodos de la capa Datos y Logica.
+                        break;
+                    case 7:
+                        EditarAlumno();
+                        break;
+                    case 8:
+                        //EliminarAlumno();
+                        break;
+                    case 9:
+                        salir = false;
+                        break;
+                    default:
+                        break;
+                }
+
+            } while (salir);
         }
 
         /// <summary>
@@ -492,7 +512,7 @@ namespace ConsolaNetCore
         public static void MensajeColor(string mensaje, ConsoleColor color = ConsoleColor.Green)
         {
             Console.ForegroundColor = color;
-            Console.WriteLine(value: $"{mensaje}");
+            Console.WriteLine($"{mensaje}");
             Console.ResetColor();
         }
 
@@ -506,9 +526,9 @@ namespace ConsolaNetCore
         public static void MensajeColor(string primerMensaje, string segundoMensaje, ConsoleColor primerColor = ConsoleColor.Green, ConsoleColor segundoColor = ConsoleColor.Green)
         {
             Console.ForegroundColor = primerColor;
-            Console.WriteLine(value: $"{primerMensaje}");
+            Console.WriteLine($"{primerMensaje}");
             Console.ForegroundColor = segundoColor;
-            Console.WriteLine(value: $"{segundoMensaje}");
+            Console.WriteLine($"{segundoMensaje}");
             Console.ResetColor();
         }
 
@@ -520,22 +540,28 @@ namespace ConsolaNetCore
         /// <param name="colorError"></param>
         /// <param name="maximoValorInput"></param>
         /// <returns>El valor ingresado por el usuario</returns>
-        public static int ValidacionNumerica(string mensajeIngreso, string mensajeError = "Valor no comprendido entre -2147483648 y 2147483647", ConsoleColor colorError = ConsoleColor.Red, int minimoValorInput = int.MinValue, int maximoValorInput = int.MaxValue)
+        public static int ValidacionNumerica(string mensajeIngreso, string mensajeError = "Valor no comprendido entre -2147483648 y 2147483647", ConsoleColor colorError = ConsoleColor.Red, int minimoValorInput = int.MinValue, int maximoValorInput = int.MaxValue, bool BorrarInformacion = true)
         {
             string validarIngreso;
             int outputIngreso;
             do
             {
-                Console.WriteLine(value: mensajeIngreso);
+                Console.WriteLine(mensajeIngreso);
                 validarIngreso = Console.ReadLine();
                 int.TryParse(s: validarIngreso, result: out outputIngreso);
                 if (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput)
                 {
-                    Console.Clear();
+                    if (BorrarInformacion)
+                    {
+                        Console.Clear();
+                    }
                     MensajeColor(mensaje: mensajeError, color: colorError);
                 }
             } while (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput);
-            Console.Clear();
+            if (BorrarInformacion)
+            {
+                Console.Clear();
+            }
             return outputIngreso;
         }
 
@@ -554,7 +580,7 @@ namespace ConsolaNetCore
             int outputIngreso;
             do
             {
-                Console.WriteLine(value: mensajeIngreso);
+                Console.WriteLine(mensajeIngreso);
                 validarIngreso = Console.ReadLine();
                 int.TryParse(s: validarIngreso, result: out outputIngreso);
                 if (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput)
@@ -583,10 +609,10 @@ namespace ConsolaNetCore
             do
             {
                 invalido = false;
-                Console.WriteLine(value: mensajeIngreso);
+                Console.WriteLine(mensajeIngreso);
                 validarIngreso = Console.ReadLine();
 
-                if (validarIngreso.All(predicate: char.IsWhiteSpace) || validarIngreso.Any(predicate: char.IsDigit) || validarIngreso.StartsWith(value: " ") || validarIngreso.EndsWith(value: " ") || string.IsNullOrEmpty(value: validarIngreso) || (!validarIngreso.Any(char.IsLetter) && !validarIngreso.Any(char.IsWhiteSpace)))
+                if (validarIngreso.All(predicate: char.IsWhiteSpace) || validarIngreso.Any(predicate: char.IsDigit) || validarIngreso.StartsWith(" ") || validarIngreso.EndsWith(" ") || string.IsNullOrEmpty(validarIngreso) || (!validarIngreso.Any(char.IsLetter) && !validarIngreso.Any(char.IsWhiteSpace)))
                 {
                     Console.Clear();
                     MensajeColor(mensaje: mensajeError, color: colorError);
@@ -614,10 +640,10 @@ namespace ConsolaNetCore
             do
             {
                 invalido = false;
-                Console.WriteLine(value: mensajeIngreso);
+                Console.WriteLine(mensajeIngreso);
                 validarIngreso = Console.ReadLine();
 
-                if (validarIngreso.All(predicate: char.IsWhiteSpace) || validarIngreso.Any(predicate: char.IsDigit) || validarIngreso.StartsWith(value: " ") || validarIngreso.EndsWith(value: " ") || string.IsNullOrEmpty(value: validarIngreso) || (!validarIngreso.Any(char.IsLetter) && !validarIngreso.Any(char.IsWhiteSpace)))
+                if (validarIngreso.All(predicate: char.IsWhiteSpace) || validarIngreso.Any(predicate: char.IsDigit) || validarIngreso.StartsWith(" ") || validarIngreso.EndsWith(" ") || string.IsNullOrEmpty(validarIngreso) || (!validarIngreso.Any(char.IsLetter) && !validarIngreso.Any(char.IsWhiteSpace)))
                 {
                     Console.Clear();
                     MensajeColor(mensaje: titulo);

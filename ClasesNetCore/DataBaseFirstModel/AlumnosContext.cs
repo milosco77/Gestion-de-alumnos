@@ -54,11 +54,20 @@ namespace Entidades
 
             modelBuilder.Entity<Asignaturas>(entity =>
             {
-                entity.HasKey(e => new { e.MateriaId, e.AlumnoId });
+                entity.HasKey(e => new { e.MateriaId, e.AlumnoId })
+                    .HasName("PK_Asignaturas_1");
+
+                entity.HasIndex(e => e.AsignaturaId)
+                    .HasName("UK_Asignaturas")
+                    .IsUnique();
 
                 entity.Property(e => e.MateriaId).HasColumnName("MateriaID");
 
                 entity.Property(e => e.AlumnoId).HasColumnName("AlumnoID");
+
+                entity.Property(e => e.AsignaturaId)
+                    .HasColumnName("AsignaturaID")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Dias)
                     .IsRequired()
@@ -68,8 +77,6 @@ namespace Entidades
 
                 entity.Property(e => e.HorarioSalida).HasColumnType("time(0)");
 
-                entity.Property(e => e.NotasId).HasColumnName("NotasID");
-
                 entity.HasOne(d => d.Alumno)
                     .WithMany(p => p.Asignaturas)
                     .HasForeignKey(d => d.AlumnoId);
@@ -77,11 +84,6 @@ namespace Entidades
                 entity.HasOne(d => d.Materia)
                     .WithMany(p => p.Asignaturas)
                     .HasForeignKey(d => d.MateriaId);
-
-                entity.HasOne(d => d.Notas)
-                    .WithMany(p => p.Asignaturas)
-                    .HasForeignKey(d => d.NotasId)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             modelBuilder.Entity<Carreras>(entity =>
@@ -139,6 +141,13 @@ namespace Entidades
             modelBuilder.Entity<Notas>(entity =>
             {
                 entity.Property(e => e.NotasId).HasColumnName("NotasID");
+
+                entity.Property(e => e.AsignaturaId).HasColumnName("AsignaturaID");
+
+                entity.HasOne(d => d.Asignatura)
+                    .WithMany(p => p.Notas)
+                    .HasPrincipalKey(p => p.AsignaturaId)
+                    .HasForeignKey(d => d.AsignaturaId);
             });
 
             OnModelCreatingPartial(modelBuilder);
