@@ -32,33 +32,34 @@ namespace Datos
     {
         public static Entidades.AlumnosContext db = new AlumnosContext();
 #nullable enable
-        public static Entidades.Alumnos ListarUno(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
+        public static Entidades.Alumnos ListarUno(int? alumnoID = null, string ? nombre = null, string? apellido = null, int? edad = null, int? dni = null)
         {
-            if (nombre != null)
+            if (alumnoID != null)
+            {
+                return db.Alumnos.Where(a => a.AlumnoId == alumnoID).SingleOrDefault();
+            }
+            else if (nombre != null)
             {
                 return db.Alumnos.Where(a => a.Nombre == nombre).FirstOrDefault();
             }
             else if (apellido != null)
             {
                 return db.Alumnos.Where(a => a.Apellido == apellido).FirstOrDefault();
-
-            }
-            else if (id != null)
-            {
-                return db.Alumnos.Where(a => a.AlumnoId == id).SingleOrDefault();
-
             }
             else if (edad != null)
             {
                 return db.Alumnos.Where(a => a.Edad == edad).FirstOrDefault();
-
             }
             return db.Alumnos.Where(a => a.Dni == dni).FirstOrDefault();
         }
 
-        public static List<Entidades.Alumnos> ListarVarios(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
+        public static List<Entidades.Alumnos> ListarVarios(int? alumnoID = null, string? nombre = null, string? apellido = null, int? edad = null, int? dni = null)
         {
-            if (nombre != null)
+            if (alumnoID != null)
+            {
+                return db.Alumnos.Where(a => a.AlumnoId == alumnoID).ToList();
+            }
+            else if (nombre != null)
             {
                 return db.Alumnos.Where(a => a.Nombre == nombre).ToList();
             }
@@ -67,17 +68,13 @@ namespace Datos
                 return db.Alumnos.Where(a => a.Apellido == apellido).ToList();
 
             }
-            else if (id != null)
-            {
-                return db.Alumnos.Where(a => a.AlumnoId == id).ToList();
-
-            }
             else if (edad != null)
             {
                 return db.Alumnos.Where(a => a.Edad == edad).ToList();
 
             }
             return db.Alumnos.Where(a => a.Dni == dni).ToList();
+
         }
 #nullable disable
         public static List<Entidades.Alumnos> ListarTodos()

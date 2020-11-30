@@ -11,7 +11,7 @@ namespace Datos
         public static Entidades.AlumnosContext db = new AlumnosContext();
         public static void Agregar(Entidades.Notas nota)
         {
-            db.Notas.Add(entity: nota);
+            db.Notas.Add(nota);
             db.SaveChanges();
         }
 

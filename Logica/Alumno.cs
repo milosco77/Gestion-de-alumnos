@@ -7,32 +7,35 @@ namespace Logica
     public static class Alumno
     {
 #nullable enable
-        public static Entidades.Alumnos ListarUno(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
+        public static Entidades.Alumnos ListarUno(int? alumnoID = null, string? nombre = null, string? apellido = null, int? edad = null, int? dni = null)
         {
-            if (nombre != null)
+            if (alumnoID != null)
+            {
+                return Datos.Alumno.ListarUno(alumnoID: alumnoID);
+            }
+            else if (nombre != null)
             {
                 return Datos.Alumno.ListarUno(nombre: nombre);
             }
             else if (apellido != null)
             {
                 return Datos.Alumno.ListarUno(apellido: apellido);
-
-            }
-            else if (id != null)
-            {
-                return Datos.Alumno.ListarUno(id: id);
-
             }
             else if (edad != null)
             {
                 return Datos.Alumno.ListarUno(edad: edad);
-
             }
             return Datos.Alumno.ListarUno(dni: dni);
         }
 
-        public static List<Entidades.Alumnos> ListarVarios(string? nombre = null, string? apellido = null, int? id = null, int? edad = null, int? dni = null)
+        public static List<Entidades.Alumnos> ListarVarios(int? alumnoID = null, string ? nombre = null, string? apellido = null, int? edad = null, int? dni = null)
         {
+
+            if (alumnoID != null)
+            {
+                return Datos.Alumno.ListarVarios(alumnoID: alumnoID);
+
+            }
             if (nombre != null)
             {
                 return Datos.Alumno.ListarVarios(nombre: nombre);
@@ -42,11 +45,7 @@ namespace Logica
                 return Datos.Alumno.ListarVarios(apellido: apellido);
 
             }
-            else if (id != null)
-            {
-                return Datos.Alumno.ListarVarios(id: id);
 
-            }
             else if (edad != null)
             {
                 return Datos.Alumno.ListarVarios(edad: edad);
@@ -56,11 +55,6 @@ namespace Logica
         }
 
 #nullable disable
-
-        public static List<Entidades.Alumnos> ListarVarios(int edad)
-        {
-            return Datos.Alumno.ListarVarios(edad: edad);
-        }
 
         public static List<Entidades.Alumnos> ListarTodos()
         {
