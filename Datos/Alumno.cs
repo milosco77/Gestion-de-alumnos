@@ -36,7 +36,7 @@ namespace Datos
         {
             if (alumnoID != null)
             {
-                return db.Alumnos.Where(a => a.AlumnoId == alumnoID).SingleOrDefault();
+                return db.Alumnos.Where(a => a.AlumnoId == alumnoID).FirstOrDefault();
             }
             else if (nombre != null)
             {
@@ -84,7 +84,7 @@ namespace Datos
 
         public static void Agregar(Entidades.Alumnos alumno)
         {
-            db.Alumnos.Add(entity: alumno);
+            db.Alumnos.Add(alumno);
             db.SaveChanges();
         }
 
@@ -106,9 +106,9 @@ namespace Datos
             }
         }
 
-        public static void Eliminar(int id)
+        public static void Eliminar(int alumnoID)
         {
-            db.Alumnos.Remove(db.Alumnos.Find(id));
+            db.Alumnos.Remove(db.Alumnos.Find(alumnoID));
             db.SaveChanges();
         }
     }

@@ -6,24 +6,83 @@ namespace Logica
 {
     public static class Nota
     {
+#nullable enable
+        public static Entidades.Notas ListarUna(int? notasID = null, int? asignaturasID = null, int? primerParcial = null, int? primerRecuperatorio = null, int? segundoParcial = null, int? segundoRecuperatorio = null, int? final = null)
+        {
+            if (notasID != null)
+            {
+                return Datos.Nota.ListarUna(notasID: notasID);
+            }
+            else if (asignaturasID != null)
+            {
+                return Datos.Nota.ListarUna(asignaturasID: asignaturasID);
+            }
+            else if (primerParcial != null)
+            {
+                return Datos.Nota.ListarUna(primerParcial: primerParcial);
+            }
+            else if (primerRecuperatorio != null)
+            {
+                return Datos.Nota.ListarUna(primerRecuperatorio: primerRecuperatorio);
+            }
+            else if (segundoParcial != null)
+            {
+                return Datos.Nota.ListarUna(segundoParcial: segundoParcial);
+            }
+            else if (segundoRecuperatorio != null)
+            {
+                return Datos.Nota.ListarUna(segundoRecuperatorio: segundoRecuperatorio);
+            }
+            return Datos.Nota.ListarUna(final: final);
+        }
+
+        public static List<Entidades.Notas> ListarVarias(int? notasID = null, int? asignaturasID = null, int? primerParcial = null, int? primerRecuperatorio = null, int? segundoParcial = null, int? segundoRecuperatorio = null, int? final = null)
+        {
+            if (notasID != null)
+            {
+                return Datos.Nota.ListarVarias(notasID: notasID);
+            }
+            else if (asignaturasID != null)
+            {
+                return Datos.Nota.ListarVarias(asignaturasID: asignaturasID);
+            }
+            else if (primerParcial != null)
+            {
+                return Datos.Nota.ListarVarias(primerParcial: primerParcial);
+            }
+            else if (primerRecuperatorio != null)
+            {
+                return Datos.Nota.ListarVarias(primerRecuperatorio: primerRecuperatorio);
+            }
+            else if (segundoParcial != null)
+            {
+                return Datos.Nota.ListarVarias(segundoParcial: segundoParcial);
+            }
+            else if (segundoRecuperatorio != null)
+            {
+                return Datos.Nota.ListarVarias(segundoRecuperatorio: segundoRecuperatorio);
+            }
+            return Datos.Nota.ListarVarias(final: final);
+        }
+#nullable disable
+        public static List<Entidades.Notas> ListarTodas()
+        {
+            return Datos.Nota.ListarTodas();
+        }
+
         public static void Agregar(Entidades.Notas nota)
         {
             Datos.Nota.Agregar(nota);
         }
 
-        public static Entidades.Notas ListarUna(int ID)
+        public static void Editar(Entidades.Notas nota)
         {
-            return Datos.Nota.ListarUna(ID);
+            Datos.Nota.Editar(nota);
         }
 
-        public static List<Entidades.Notas> ListarVarias(int ID)
+        public static void Eliminar(int notaID)
         {
-            return Datos.Nota.ListarVarias(ID);
-        }
-
-        public static List<Entidades.Notas> ListarTodas()
-        {
-            return Datos.Nota.ListarTodas();
+            Datos.Nota.Eliminar(notaID);
         }
     }
 }

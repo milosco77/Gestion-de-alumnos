@@ -10,19 +10,56 @@ namespace Datos
     {
         public static Entidades.AlumnosContext db = new AlumnosContext();
 
-        public static Entidades.Carreras ListarUna(int ID)
+        public static Entidades.Carreras ListarUna(int? carreraID = null, int? alumnoID = null, int? listadoCarrerasID = null)
         {
-            return db.Carreras.Where(c => c.CarreraId == ID).SingleOrDefault();
+            if (carreraID != null)
+            {
+                return db.Carreras.Where(c => c.CarreraId == carreraID).SingleOrDefault();
+            }
+            else if (alumnoID != null)
+            {
+                return db.Carreras.Where(c => c.AlumnoId == alumnoID).SingleOrDefault();
+            }
+            return db.Carreras.Where(c => c.ListadoCarrerasId == listadoCarrerasID).SingleOrDefault();
         }
 
-        public static List<Entidades.Carreras> ListarVarias(int ID)
+        public static List<Entidades.Carreras> ListarVarias(int? carreraID = null, int? alumnoID = null, int? listadoCarrerasID = null)
         {
-            return db.Carreras.Where(a => a.CarreraId == ID).ToList();
+            if (carreraID != null)
+            {
+                return db.Carreras.Where(c => c.CarreraId == carreraID).ToList();
+            }
+            else if (alumnoID != null)
+            {
+                return db.Carreras.Where(c => c.AlumnoId == alumnoID).ToList();
+            }
+            return db.Carreras.Where(c => c.ListadoCarrerasId == listadoCarrerasID).ToList();
         }
 
         public static List<Entidades.Carreras> ListarTodas()
         {
             return db.Carreras.ToList();
+        }
+
+        public static void Agregar(Entidades.Carreras carrera)
+        {
+            db.Carreras.Add(carrera);
+            db.SaveChanges();
+        }
+
+        public static void Editar(Entidades.Carreras pCarrera)
+        {
+            Entidades.Carreras carrera = db.Carreras.Where(c => c.CarreraId == pCarrera.CarreraId).SingleOrDefault();
+            carrera.CarreraId = pCarrera.CarreraId;
+            carrera.AlumnoId = pCarrera.AlumnoId;
+            carrera.ListadoCarrerasId = pCarrera.ListadoCarrerasId;
+            db.SaveChanges();
+        }
+
+        public static void Eliminar(int carreraID)
+        {
+            db.Carreras.Remove(db.Carreras.Find(carreraID));
+            db.SaveChanges();
         }
     }
 }

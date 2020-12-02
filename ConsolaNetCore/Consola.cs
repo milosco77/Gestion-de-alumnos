@@ -204,9 +204,9 @@ namespace ConsolaNetCore
             return pNotas;
         }
 
-        public static void EliminarAlumno(int id)
+        public static void EliminarAlumno(int alumnoID)
         {
-            Logica.Alumno.Eliminar(id: id);
+            Logica.Alumno.Eliminar(alumnoID);
         }
         // TODO Completar completamente todos los otros metodos antes de este, sin hardcodear.
         // TODO Verificar correcciones en caso de ser NULL.

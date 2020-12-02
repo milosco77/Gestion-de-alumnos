@@ -63,19 +63,17 @@ namespace Logica
 
         public static void Agregar(Entidades.Alumnos alumno)
         {
-            Datos.Alumno.Agregar(alumno: alumno);
+            Datos.Alumno.Agregar(alumno);
         }
 
         public static void Editar(Entidades.Alumnos alumno)
         {
-            Datos.Alumno.Editar(alumno: alumno);
+            Datos.Alumno.Editar(alumno);
         }
 
-        public static void Eliminar(int id)
+        public static void Eliminar(int alumnoID)
         {
-            Datos.Alumno.Eliminar(id: id);
+            Datos.Alumno.Eliminar(alumnoID);
         }
-
-
     }
 }
