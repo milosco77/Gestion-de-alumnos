@@ -423,7 +423,6 @@ namespace ConsolaNetCore
                     Console.WriteLine($"\nAlumno Nº {(contador++)+1}");
 
                     MensajeColor(mensaje: $"\nID: {alumno.AlumnoId} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.Dni} | Carrera: {Logica.ListadoCarrera.ListarUna(alumno.AlumnoId).Nombre}");
-                    InformarVariasAsignaturas(alumno);
                 }
             }
         }
@@ -488,7 +487,21 @@ namespace ConsolaNetCore
 
         public static void InformarTodasNotas()
         {
-            throw new NotImplementedException();
+            List<Entidades.Notas> notas = Logica.Nota.ListarTodas();
+            Console.WriteLine("\nTodos las notas:");
+
+            if (notas.Count == 0)
+            {
+                MensajeColor(mensaje: "\nLa lista de notas esta vacia", color: ConsoleColor.Red);
+                Continuar();
+            }
+            else
+            {
+                foreach (Entidades.Notas nota in notas)
+                {
+                    MensajeColor(mensaje: $"\nNotaID: {nota.NotasId} | AsignaturaID: {nota.AsignaturaId} | Primer parcial: {nota.PrimerParcial} | Primer recuperatorio: {nota.PrimerRecuperatorio} | Segundo parcial: {nota.SegundoParcial} | Segundo recuperatorio: {nota.SegundoRecuperatorio} | Final: {nota.Final}");
+                }
+            }
         }
 
         public static void InformarUnaCarrera()
@@ -503,7 +516,93 @@ namespace ConsolaNetCore
 
         public static void InformarTodasCarreras()
         {
-            throw new NotImplementedException();
+            List<Entidades.Carreras> carreras = Logica.Carrera.ListarTodas();
+            Console.WriteLine("\nTodos las carreras:");
+
+            if (carreras.Count == 0)
+            {
+                MensajeColor(mensaje: "\nLa lista de carreras esta vacia", color: ConsoleColor.Red);
+                Continuar();
+            }
+            else
+            {
+                foreach (Entidades.Carreras carrera in carreras)
+                {
+                    MensajeColor(mensaje: $"\nCarreraID: {carrera.CarreraId} | AlumnoID: {carrera.AlumnoId} | ListadoCarrerasID: {carrera.ListadoCarrerasId}");
+                }
+            }
+        }
+
+        public static void InformarTodasFacultades()
+        {
+            List<Entidades.Facultades> facultades = Logica.Facultad.ListarTodas();
+            Console.WriteLine("\nTodos las facultades:");
+
+            if (facultades.Count == 0)
+            {
+                MensajeColor(mensaje: "\nLa lista de facultades esta vacia", color: ConsoleColor.Red);
+                Continuar();
+            }
+            else
+            {
+                foreach (Entidades.Facultades facultad in facultades)
+                {
+                    MensajeColor(mensaje: $"\nFacultadID: {facultad.FacultadId} | Nombre: {facultad.Nombre} | Direccion: {facultad.Direccion} | Telefono: {facultad.Telefono} | Departamento de Alumnos: {facultad.DepartamentoAlumnos} | Facebook: {facultad.Facebook} | Instagram: {facultad.Instagram} | Twitter: {facultad.Twitter} | Pagina Web: {facultad.PaginaWeb} | Email: {facultad.Email} | Recorrido Virtual: {facultad.RecorridoVirtual}");
+                }
+            }
+        }
+
+        public static void InformarListadoCarreras()
+        {
+            List<Entidades.ListadoCarreras> carreras = Logica.ListadoCarrera.ListarTodas();
+            Console.WriteLine("\nListado de carreras:");
+
+            if (carreras.Count == 0)
+            {
+                MensajeColor(mensaje: "\nEl listado de carreras esta vacio", color: ConsoleColor.Red);
+                Continuar();
+            }
+            else
+            {
+                foreach (Entidades.ListadoCarreras carrera in carreras)
+                {
+                    MensajeColor(mensaje: $"\nListadoCarrerasID: {carrera.ListadoCarrerasId} | FacultadID: {carrera.FacultadId} | Nombre: {carrera.Nombre} | Titulo: {carrera.Titulo} | Duracion Estimada en Años: {carrera.DuracionEstimadaAnios}");
+                }
+            }
+        }
+
+        public static void InformarListadoAsignaturas()
+        {
+            List<Entidades.ListadoAsignaturas> asignaturas = Logica.ListadoAsignatura.ListarTodas();
+            Console.WriteLine("\nListado de asignaturas:");
+
+            if (asignaturas.Count == 0)
+            {
+                MensajeColor(mensaje: "\nEl listado de asignaturas esta vacio", color: ConsoleColor.Red);
+                Continuar();
+            }
+            else
+            {
+                foreach (Entidades.ListadoAsignaturas asignatura in asignaturas)
+                {
+                    MensajeColor(mensaje: $"\nListadoAsignaturasID: {asignatura.ListadoAsignaturasId} | Codigo: {asignatura.Codigo} | Nombre: {asignatura.Nombre} | Creditos: {asignatura.Creditos} | Horas: {asignatura.Horas} | Correlativas: {asignatura.Correlativas} | Categoria: {asignatura.Categoria} | ListadoCarrerasID: {asignatura.ListadoCarrerasId}");
+                }
+            }
+        }
+
+        public static void AgregarFacultad()
+        {
+
+        }
+
+        public static void AgregarAsignaturaListado()
+        {
+
+        }
+
+        public static void AgregarCarreraListado()
+        {
+
         }
 
         public static void RendirExamen()
@@ -542,46 +641,193 @@ namespace ConsolaNetCore
                     Console.Clear();
                 }
                 primeraVez = true;
-                switch (ValidacionNumerica(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada:\n\n1 = Agregar alumno.\n\n2 = Mostrar todos los alumnos.\n\n3 = Mostrar alumnos segun parametro.\n\n4 = Mostrar un alumno.\n\n5 = Agregar asignatura.\n\n6 = Mostrar todas las asignaturas.\n\n7 = Agregar nota.\n\n8 = Mostrar todas las notas.\n\n9 = Editar un alumno.\n\n10 = Eliminar un alumno.\n\n11 = Salir.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 11.", minimoValorInput: 1, maximoValorInput: 11))
+                switch (ValidacionNumerica(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada:\n\n1 = Agregar.\n\n2 = Editar.\n\n3 = Eliminar.\n\n4 = Mostrar.\n\n5 = Salir.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 55.", minimoValorInput: 1, maximoValorInput: 5))
                 {
                     case 1:
-                        AgregarAlumno();
+                        switch (ValidacionNumerica(mensajeIngreso: "\nQue desea agregar? Elija la opcion deseada:\n\n1 = Alumno.\n\n2 = Asignatura.\n\n3 = Carrera.\n\n4 = Facultad.\n\n5 = Asignatura al listado.\n\n6 = Carrera al listado.\n\n7 = Nota.\n\n8 = Salir.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
+                            {
+                            case 1:
+                                AgregarAlumno();
+                                break;
+                            case 2:
+                                AgregarAsignatura();
+                                break;
+                            case 3:
+                                AgregarCarrera();
+                                break;
+                            case 4:
+                                AgregarFacultad();
+                                break;
+                            case 5:
+                                AgregarAsignaturaListado();
+                                break;
+                            case 6:
+                                AgregarCarreraListado();
+                                break;
+                            case 7:
+                                //AgregarNota();
+                                break;
+                            default:
+                                break;
+                        }
                         break;
                     case 2:
-                        InformarTodosAlumnos();                        
+                        switch (ValidacionNumerica(mensajeIngreso: "\nQue desea editar? Elija la opcion deseada:\n\n1 = Alumno.\n\n2 = Asignatura.\n\n3 = Carrera.\n\n4 = Facultad.\n\n5 = Asignatura del listado.\n\n6 = Carrera del listado.\n\n7 = Nota.\n\n8 = Salir.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
+                        {
+                            case 1:
+                                EditarAlumno();
+                                break;
+                            case 2:
+                                EditarAsignatura();
+                                break;
+                            case 3:
+                                EditarCarrera();
+                                break;
+                            case 4:
+                                EditarFacultad();
+                                break;
+                            case 5:
+                                EditarAsignaturaListado();
+                                break;
+                            case 6:
+                                EditarCarreraListado();
+                                break;
+                            case 7:
+                                EditarNota();
+                                break;
+                            default:
+                                break;
+                        }
                         break;
                     case 3:
-                        InformarVariosAlumnos();
+                        switch (ValidacionNumerica(mensajeIngreso: "\nQue desea eliminar? Elija la opcion deseada:\n\n1 = Alumno.\n\n2 = Asignatura.\n\n3 = Carrera.\n\n4 = Facultad.\n\n5 = Asignatura del listado.\n\n6 = Carrera del listado.\n\n7 = Nota.\n\n8 = Salir.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
+                        {
+                            case 1:
+                                EliminarAlumno();
+                                break;
+                            case 2:
+                                EliminarAsignatura();
+                                break;
+                            case 3:
+                                EliminarCarrera();
+                                break;
+                            case 4:
+                                EliminarFacultad();
+                                break;
+                            case 5:
+                                EliminarAsignaturaListado();
+                                break;
+                            case 6:
+                                EliminarCarreraListado();
+                                break;
+                            case 7:
+                                EliminarNota();
+                                break;
+                            default:
+                                break;
+                        }
                         break;
                     case 4:
-                        //InformarUnAlumno(); remover
+                        switch (ValidacionNumerica(mensajeIngreso: "\nQue desea mostrar? Elija la opcion deseada:\n\n1 = Alumnos.\n\n2 = Asignaturas.\n\n3 = Carreras.\n\n4 = Facultades.\n\n5 = Asignaturas del listado.\n\n6 = Carreras del listado.\n\n7 = Notas.\n\n8 = Salir.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
+                        {
+                            case 1:
+                                InformarTodosAlumnos();
+                                break;
+                            case 2:
+                                InformarTodasAsignaturas();
+                                break;
+                            case 3:
+                                InformarTodasCarreras();
+                                break;
+                            case 4:
+                                InformarTodasFacultades();
+                                break;
+                            case 5:
+                                InformarListadoAsignaturas();
+                                break;
+                            case 6:
+                                InformarListadoCarreras();
+                                break;
+                            case 7:
+                                InformarTodasNotas();
+                                break;
+                            default:
+                                break;
+                        }
                         break;
                     case 5:
-                        AgregarAsignatura();
-                        break;
-                    case 6:
-                        InformarTodasAsignaturas();
-                        break;
-                    case 7:
-                        //AgregarNota();  TODO Implementar junto a los metodos de la capa Datos y Logica.
-                        break;
-                    case 8:
-                        InformarTodasNotas();
-                        break;
-                    case 9:
-                        EditarAlumno();
-                        break;
-                    case 10:
-                        //EliminarAlumno();
-                        break;
-                    case 11:
-                        salir = false;
+                        Salir();
                         break;
                     default:
                         break;
                 }
 
             } while (salir);
+        }
+
+        private static void EditarNota()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void EditarCarreraListado()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void EditarAsignaturaListado()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void EditarFacultad()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void EditarCarrera()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void EditarAsignatura()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void EliminarNota()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void EliminarCarreraListado()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void EliminarAsignaturaListado()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void EliminarFacultad()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void EliminarCarrera()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void EliminarAsignatura()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void EliminarAlumno()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
