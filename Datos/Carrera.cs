@@ -56,10 +56,27 @@ namespace Datos
             db.SaveChanges();
         }
 
-        public static void Eliminar(int carreraID)
+        public static void Eliminar(int ID, Enumeraciones.DatosCarreras eliminarSegun)
         {
-            db.Carreras.Remove(db.Carreras.Find(carreraID));
-            db.SaveChanges();
+            switch (eliminarSegun)
+            {
+                case Enumeraciones.DatosCarreras.CarreraID:
+                    
+                    db.Carreras.Remove(db.Carreras.Where(c => c.CarreraId == ID).SingleOrDefault());
+                    db.SaveChanges();
+                    break;
+                case Enumeraciones.DatosCarreras.AlumnoID:
+                    db.Carreras.Remove(db.Carreras.Where(c => c.AlumnoId == ID).SingleOrDefault());
+                    db.SaveChanges();
+                    break;
+                case Enumeraciones.DatosCarreras.ListadoCarrerasID:
+                    db.Carreras.Remove(db.Carreras.Where(c => c.ListadoCarrerasId == ID).SingleOrDefault());
+                    db.SaveChanges();
+                    break;
+                default:
+                    break;
+            }
+            
         }
     }
 }

@@ -111,7 +111,7 @@ namespace Datos
         
         public static void Eliminar(int asignaturaID)
         {
-            db.Asignaturas.Remove(db.Asignaturas.Find(asignaturaID));
+            db.Asignaturas.Remove(db.Asignaturas.Where(a => a.AsignaturaId == asignaturaID).SingleOrDefault());
             db.SaveChanges();
         }
     }

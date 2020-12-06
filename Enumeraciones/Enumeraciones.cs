@@ -2,30 +2,21 @@
 
 namespace Enumeraciones
 {
-    public enum Cargos
+    public enum Tablas
     {
-        TitularCatedra = 0,
-        AyudanteCatedra = 1
+        Alumnos = 0,
+        Asignaturas = 1,
+        Carreras = 2,
+        Facultades = 3,
+        ListadoAsignaturas = 4,
+        ListadoCarreras = 5,
+        Notas = 6
     }
 
-    public enum Materias
-    {
-        Matematica = 0,
-        Ingles = 1,
-        Algebra = 2
-    }
-
-    public enum Facultades
-    {
-        Ingenieria = 0,
-        CienciasExactas = 1,
-        Agronomia = 2
-    }
-
-    public enum Opciones
-    {
-        ModoAutomatico = 1,
-        ModoManual = 2,
-        Salir = 3
+    public enum DatosCarreras
+    { 
+        CarreraID = 0,
+        AlumnoID = 1,
+        ListadoCarrerasID = 2
     }
 }

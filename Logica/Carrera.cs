@@ -47,9 +47,9 @@ namespace Logica
             Datos.Carrera.Editar(carrera);
         }
 
-        public static void Eliminar(int carreraID)
+        public static void Eliminar(int ID, Enumeraciones.DatosCarreras eliminarSegun)
         {
-            Datos.Carrera.Eliminar(carreraID);
+            Datos.Carrera.Eliminar(ID, eliminarSegun);
         }
     }
 }
