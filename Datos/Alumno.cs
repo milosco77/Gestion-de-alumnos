@@ -106,10 +106,18 @@ namespace Datos
             }
         }
 
-        public static void Eliminar(int alumnoID)
+        public static string Eliminar(int alumnoID)
         {
-            db.Alumnos.Remove(db.Alumnos.Find(alumnoID));
-            db.SaveChanges();
+            try
+            {
+                db.Alumnos.Remove(db.Alumnos.Find(alumnoID));
+                db.SaveChanges();
+                return $"Alumno con ID {alumnoID} eliminado.";
+            }
+            catch (ArgumentNullException e)
+            {
+                return e.ToString();
+            }
         }
     }
 }

@@ -71,9 +71,9 @@ namespace Logica
             Datos.Alumno.Editar(alumno);
         }
 
-        public static void Eliminar(int alumnoID)
+        public static string Eliminar(int alumnoID)
         {
-            Datos.Alumno.Eliminar(alumnoID);
+            return Datos.Alumno.Eliminar(alumnoID);
         }
     }
 }

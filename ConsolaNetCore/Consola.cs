@@ -802,17 +802,16 @@ namespace ConsolaNetCore
             {
                 case Enumeraciones.Tablas.Alumnos:
                     InformarTodosAlumnos();
-                    respuesta = ValidacionNumerica(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar.ToString()} a eliminar", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, BorrarInformacion: false);
+                    respuesta = ValidacionNumerica(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, BorrarInformacion: false);
                     if (tablaAsociada != null)
                     {
-                        MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada.ToString()}.", color: ConsoleColor.Red);
+                        MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
                     }
-                    alerta = ValidacionNumerica(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar.ToString()} con ID: {respuesta} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).", BorrarInformacion: false);
+                    alerta = ValidacionNumerica(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {respuesta} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).", BorrarInformacion: false);
                     if (alerta == 1)
                     {
                         Logica.Carrera.Eliminar(respuesta, Enumeraciones.DatosCarreras.AlumnoID);
-                        Logica.Alumno.Eliminar(respuesta);
-                        MensajeColor(mensaje: "\nSe ha eliminado correctamente.");
+                        MensajeColor(mensaje: $"\n{Logica.Alumno.Eliminar(respuesta)}");
                     }
                     else
                     {
@@ -821,12 +820,12 @@ namespace ConsolaNetCore
                     break;
                 case Enumeraciones.Tablas.Asignaturas:
                     InformarTodasAsignaturas();
-                    respuesta = ValidacionNumerica(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar.ToString()} a eliminar", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, BorrarInformacion: false);
+                    respuesta = ValidacionNumerica(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, BorrarInformacion: false);
                     if (tablaAsociada != null)
                     {
-                        MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada.ToString()}.", color: ConsoleColor.Red);
+                        MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
                     }
-                    alerta = ValidacionNumerica(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar.ToString()} con ID: {respuesta} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
+                    alerta = ValidacionNumerica(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {respuesta} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
                         Logica.Asignatura.Eliminar(respuesta);
@@ -839,9 +838,9 @@ namespace ConsolaNetCore
                     break;
                 case Enumeraciones.Tablas.Carreras:
                     InformarTodasCarreras();
-                    respuesta = ValidacionNumerica(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar.ToString()} a eliminar", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, BorrarInformacion: false);
-                    MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada.ToString()}.", color: ConsoleColor.Red);
-                    alerta = ValidacionNumerica(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar.ToString()} con ID: {respuesta} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
+                    respuesta = ValidacionNumerica(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, BorrarInformacion: false);
+                    MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
+                    alerta = ValidacionNumerica(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {respuesta} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
                         Logica.Carrera.Eliminar(respuesta, Enumeraciones.DatosCarreras.CarreraID);
@@ -854,9 +853,9 @@ namespace ConsolaNetCore
                     break;
                 case Enumeraciones.Tablas.Facultades:
                     InformarTodasFacultades();
-                    respuesta = ValidacionNumerica(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar.ToString()} a eliminar", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, BorrarInformacion: false);
-                    MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada.ToString()}.", color: ConsoleColor.Red);
-                    alerta = ValidacionNumerica(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar.ToString()} con ID: {respuesta} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
+                    respuesta = ValidacionNumerica(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, BorrarInformacion: false);
+                    MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
+                    alerta = ValidacionNumerica(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {respuesta} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
                         Logica.Facultad.Eliminar(respuesta);
@@ -869,9 +868,9 @@ namespace ConsolaNetCore
                     break;
                 case Enumeraciones.Tablas.ListadoAsignaturas:
                     InformarListadoAsignaturas();
-                    respuesta = ValidacionNumerica(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar.ToString()} a eliminar", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, BorrarInformacion: false);
-                    MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada.ToString()}.", color: ConsoleColor.Red);
-                    alerta = ValidacionNumerica(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar.ToString()} con ID: {respuesta} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
+                    respuesta = ValidacionNumerica(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, BorrarInformacion: false);
+                    MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
+                    alerta = ValidacionNumerica(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {respuesta} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
                         Logica.ListadoAsignatura.Eliminar(respuesta);
@@ -884,9 +883,9 @@ namespace ConsolaNetCore
                     break;
                 case Enumeraciones.Tablas.ListadoCarreras:
                     InformarListadoCarreras();
-                    respuesta = ValidacionNumerica(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar.ToString()} a eliminar", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, BorrarInformacion: false);
-                    MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada.ToString()}.", color: ConsoleColor.Red);
-                    alerta = ValidacionNumerica(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar.ToString()} con ID: {respuesta} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
+                    respuesta = ValidacionNumerica(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, BorrarInformacion: false);
+                    MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
+                    alerta = ValidacionNumerica(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {respuesta} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
                         Logica.ListadoCarrera.Eliminar(respuesta);
@@ -899,9 +898,9 @@ namespace ConsolaNetCore
                     break;
                 case Enumeraciones.Tablas.Notas:
                     InformarTodasNotas();
-                    respuesta = ValidacionNumerica(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar.ToString()} a eliminar", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, BorrarInformacion: false);
-                    MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada.ToString()}.", color: ConsoleColor.Red);
-                    alerta = ValidacionNumerica(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar.ToString()} con ID: {respuesta} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
+                    respuesta = ValidacionNumerica(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, BorrarInformacion: false);
+                    MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
+                    alerta = ValidacionNumerica(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {respuesta} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
                         Logica.Nota.Eliminar(respuesta);
