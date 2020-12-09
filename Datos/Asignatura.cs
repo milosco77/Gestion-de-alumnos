@@ -115,15 +115,15 @@ namespace Datos
             {
                 db.Asignaturas.Remove(db.Asignaturas.Where(a => a.AsignaturaId == asignaturaID).SingleOrDefault());
                 db.SaveChanges();
-                return $"Asignatura con ID {asignaturaID} eliminado.";
+                return $"El elemento Asignatura con ID {asignaturaID} ha sido borrado correctamente.";
             }
             catch (ArgumentNullException e)
             {
-                return e.Message;
+                return $"El elemento Asignatura con ID {asignaturaID} no ha sido eliminado debido a excepcion: {e.Message} que indica que no se encontro el elemento para poder eliminarlo.";
             }
             catch (Exception e)
             {
-                return e.Message;
+                return $"El elemento Asignatura con ID {asignaturaID} no ha sido eliminado debido a excepcion: {e.Message}";
             }
         }
     }

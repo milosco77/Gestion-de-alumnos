@@ -134,15 +134,15 @@ namespace Datos
             {
                 db.Facultades.Remove(db.Facultades.Where(f => f.FacultadId == facultadID).SingleOrDefault());
                 db.SaveChanges();
-                return $"Facultad con ID {facultadID} eliminado.";
+                return $"El elemento Facultad con ID {facultadID} ha sido borrado correctamente.";
             }
             catch (ArgumentNullException e)
             {
-                return e.Message;
+                return $"El elemento Facultad con ID {facultadID} no ha sido eliminado debido a excepcion: {e.Message} que indica que no se encontro el elemento para poder eliminarlo.";
             }
             catch (Exception e)
             {
-                return e.Message;
+                return $"El elemento Facultad con ID {facultadID} no ha sido eliminado debido a excepcion: {e.Message}";
             }
         }
     }

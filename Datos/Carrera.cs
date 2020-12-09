@@ -41,10 +41,18 @@ namespace Datos
             return db.Carreras.ToList();
         }
 
-        public static void Agregar(Entidades.Carreras carrera)
+        public static string Agregar(Entidades.Carreras carrera)
         {
-            db.Carreras.Add(carrera);
-            db.SaveChanges();
+            try
+            {
+                db.Carreras.Add(carrera);
+                db.SaveChanges();
+                return $"La carrera con AlumnoID: {carrera.AlumnoId} ListadoCarrerasID: {carrera.ListadoCarrerasId} ha sido agregado.";
+            }
+            catch (Exception e)
+            {
+                return $"La carrera con AlumnoID: {carrera.AlumnoId} ListadoCarrerasID: {carrera.ListadoCarrerasId} no ha sido agregado debido a excepcion: {e.Message}";
+            }
         }
 
         public static void Editar(Entidades.Carreras pCarrera)
@@ -62,15 +70,15 @@ namespace Datos
             {
                 db.Carreras.Remove(db.Carreras.Where(c => c.AlumnoId == carreraID).SingleOrDefault());
                 db.SaveChanges();
-                return $"Carrera con ID {carreraID} eliminado.";
+                return $"El elemento Carrera con ID {carreraID} ha sido borrado correctamente.";
             }
             catch (ArgumentNullException e)
             {
-                return e.Message;
+                return $"El elemento Carrera con ID {carreraID} no ha sido eliminado debido a excepcion: {e.Message} que indica que no se encontro el elemento para poder eliminarlo.";
             }
             catch (Exception e)
             {
-                return e.Message;
+                return $"El elemento Carrera con ID {carreraID} no ha sido eliminado debido a excepcion: {e.Message}";
             }
         }
     }

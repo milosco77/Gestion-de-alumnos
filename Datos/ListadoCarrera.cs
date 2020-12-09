@@ -80,15 +80,15 @@ namespace Datos
             {
                 db.ListadoCarreras.Remove(db.ListadoCarreras.Where(lc => lc.ListadoCarrerasId == listadoCarrerasID).SingleOrDefault());
                 db.SaveChanges();
-                return $"ListadoCarrera con ID {listadoCarrerasID} eliminado.";
+                return $"El elemento del ListadoCarreras con ID {listadoCarrerasID} ha sido borrado correctamente.";
             }
             catch (ArgumentNullException e)
             {
-                return e.Message;
+                return $"El elemento del ListadoCarreras con ID {listadoCarrerasID} no ha sido eliminado debido a excepcion: {e.Message} que indica que no se encontro el elemento para poder eliminarlo.";
             }
             catch (Exception e)
             {
-                return e.Message;
+                return $"El elemento del ListadoCarreras con ID {listadoCarrerasID} no ha sido eliminado debido a excepcion: {e.Message}";
             }
         }
     }

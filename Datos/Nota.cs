@@ -98,15 +98,15 @@ namespace Datos
             {
                 db.Notas.Remove(db.Notas.Where(lc => lc.NotasId == notaID).SingleOrDefault());
                 db.SaveChanges();
-                return $"Nota con ID {notaID} eliminado.";
+                return $"El elemento Nota con ID {notaID} ha sido borrado correctamente.";
             }
             catch (ArgumentNullException e)
             {
-                return e.Message;
+                return $"El elemento Nota con ID {notaID} no ha sido eliminado debido a excepcion: {e.Message} que indica que no se encontro el elemento para poder eliminarlo.";
             }
             catch (Exception e)
             {
-                return e.Message;
+                return $"El elemento Nota con ID {notaID} no ha sido eliminado debido a excepcion: {e.Message}";
             }
         }
     }

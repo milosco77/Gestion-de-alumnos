@@ -84,11 +84,11 @@ namespace Datos
             {
                 db.Alumnos.Add(alumno);
                 db.SaveChanges();
-                return $"El alumno Nombre: {alumno.Nombre} Apellido: {alumno.Apellido} ha sido agregado.";
+                return $"El alumno con Nombre: {alumno.Nombre} Apellido: {alumno.Apellido} ha sido agregado.";
             }
             catch (Exception e)
             {
-                return e.Message;
+                return $"El alumno con Nombre: {alumno.Nombre} Apellido: {alumno.Apellido} no ha sido agregado debido a excepcion: {e.Message}";
             }
         }
 
@@ -120,7 +120,7 @@ namespace Datos
             }
             catch (ArgumentNullException e)
             {
-                return $"El elemento Alumno con ID {alumnoID} no ha sido eliminado debido a excepcion: {e.Message}";
+                return $"El elemento Alumno con ID {alumnoID} no ha sido eliminado debido a excepcion: {e.Message} que indica que no se encontro el elemento para poder eliminarlo.";
             }
             catch (Exception e)
             {

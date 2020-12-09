@@ -107,15 +107,15 @@ namespace Datos
             {
                 db.ListadoAsignaturas.Remove(db.ListadoAsignaturas.Where(la => la.ListadoAsignaturasId == listadoAsignaturasID).SingleOrDefault());
                 db.SaveChanges();
-                return $"ListadoAsignatura con ID {listadoAsignaturasID} eliminado.";
+                return $"El elemento del ListadoAsignaturas con ID {listadoAsignaturasID} ha sido borrado correctamente.";
             }
             catch (ArgumentNullException e)
             {
-                return e.Message;
+                return $"El elemento del ListadoAsignaturas con ID {listadoAsignaturasID} no ha sido eliminado debido a excepcion: {e.Message} que indica que no se encontro el elemento para poder eliminarlo.";
             }
             catch (Exception e)
             {
-                return e.Message;
+                return $"El elemento del ListadoAsignaturas con ID {listadoAsignaturasID} no ha sido eliminado debido a excepcion: {e.Message}";
             }
         }
     }

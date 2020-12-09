@@ -37,9 +37,9 @@ namespace Logica
             return Datos.Carrera.ListarTodas();
         }
 
-        public static void Agregar(Entidades.Carreras carrera)
+        public static string Agregar(Entidades.Carreras carrera)
         {
-            Datos.Carrera.Agregar(carrera);
+            return Datos.Carrera.Agregar(carrera);
         }
 
         public static void Editar(Entidades.Carreras carrera)
