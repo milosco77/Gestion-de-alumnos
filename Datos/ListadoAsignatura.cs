@@ -101,10 +101,22 @@ namespace Datos
             db.SaveChanges();
         }
 
-        public static void Eliminar(int listadoAsignaturasID)
+        public static string Eliminar(int listadoAsignaturasID)
         {
-            db.ListadoAsignaturas.Remove(db.ListadoAsignaturas.Find(listadoAsignaturasID));
-            db.SaveChanges();
+            try
+            {
+                db.ListadoAsignaturas.Remove(db.ListadoAsignaturas.Where(la => la.ListadoAsignaturasId == listadoAsignaturasID).SingleOrDefault());
+                db.SaveChanges();
+                return $"ListadoAsignatura con ID {listadoAsignaturasID} eliminado.";
+            }
+            catch (ArgumentNullException e)
+            {
+                return e.Message;
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
     }
 }

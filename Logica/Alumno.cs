@@ -61,9 +61,9 @@ namespace Logica
             return Datos.Alumno.ListarTodos();
         }
 
-        public static void Agregar(Entidades.Alumnos alumno)
+        public static string Agregar(Entidades.Alumnos alumno)
         {
-            Datos.Alumno.Agregar(alumno);
+            return Datos.Alumno.Agregar(alumno);
         }
 
         public static void Editar(Entidades.Alumnos alumno)

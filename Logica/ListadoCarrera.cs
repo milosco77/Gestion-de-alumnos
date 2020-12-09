@@ -64,9 +64,9 @@ namespace Logica
             Datos.ListadoCarrera.Editar(listadoCarrera);
         }
 
-        public static void Eliminar(int listadoCarreraID)
+        public static string Eliminar(int listadoCarreraID)
         {
-            Datos.ListadoCarrera.Eliminar(listadoCarreraID);
+            return Datos.ListadoCarrera.Eliminar(listadoCarreraID);
         }
     }
 

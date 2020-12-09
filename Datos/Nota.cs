@@ -92,10 +92,22 @@ namespace Datos
             db.SaveChanges();
         }
 
-        public static void Eliminar(int notaID)
+        public static string Eliminar(int notaID)
         {
-            db.Notas.Remove(db.Notas.Find(notaID));
-            db.SaveChanges();
+            try
+            {
+                db.Notas.Remove(db.Notas.Where(lc => lc.NotasId == notaID).SingleOrDefault());
+                db.SaveChanges();
+                return $"Nota con ID {notaID} eliminado.";
+            }
+            catch (ArgumentNullException e)
+            {
+                return e.Message;
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
     }
 }

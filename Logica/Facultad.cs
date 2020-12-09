@@ -112,9 +112,9 @@ namespace Logica
             Datos.Facultad.Editar(facultad);
         }
 
-        public static void Eliminar(int facultadID)
+        public static string Eliminar(int facultadID)
         {
-            Datos.Facultad.Eliminar(facultadID);
+            return Datos.Facultad.Eliminar(facultadID);
         }
     }
 }

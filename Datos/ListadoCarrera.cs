@@ -74,10 +74,22 @@ namespace Datos
             db.SaveChanges();
         }
 
-        public static void Eliminar(int listadoCarrerasID)
+        public static string Eliminar(int listadoCarrerasID)
         {
-            db.ListadoCarreras.Remove(db.ListadoCarreras.Find(listadoCarrerasID));
-            db.SaveChanges();
+            try
+            {
+                db.ListadoCarreras.Remove(db.ListadoCarreras.Where(lc => lc.ListadoCarrerasId == listadoCarrerasID).SingleOrDefault());
+                db.SaveChanges();
+                return $"ListadoCarrera con ID {listadoCarrerasID} eliminado.";
+            }
+            catch (ArgumentNullException e)
+            {
+                return e.Message;
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
     }
 }

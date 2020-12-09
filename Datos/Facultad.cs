@@ -128,10 +128,22 @@ namespace Datos
             db.SaveChanges();
         }
 
-        public static void Eliminar(int facultadID)
+        public static string Eliminar(int facultadID)
         {
-            db.Facultades.Remove(db.Facultades.Find(facultadID));
-            db.SaveChanges();
+            try
+            {
+                db.Facultades.Remove(db.Facultades.Where(f => f.FacultadId == facultadID).SingleOrDefault());
+                db.SaveChanges();
+                return $"Facultad con ID {facultadID} eliminado.";
+            }
+            catch (ArgumentNullException e)
+            {
+                return e.Message;
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
     }
 }

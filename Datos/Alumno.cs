@@ -11,11 +11,7 @@ using System.Text;
 // TODO Poner correctamente scope de las propiedades de las clases.
 // TODO Hacer todos los metodos de la capa de datos.
 // TODO Implementar validacion en la capa de datos.
-// TODO Modificar la propiedad Horario para que sea correcta. Solucionar problema de que en la base de datos se almacena el numero de la enumeracion pero no el nombre.
-// TODO Verificar como conviene eliminar un registro, ya que el siguiente registro que se agrega no ocupa el mismo primary key(id).
 // TODO Implementar SQLite.
-// TODO Resolver problema de los metodos no devuelven los valores de carrera y queda como null.
-// TODO Realizar capa de dato en DataBaseFirst
 // Para mapear base de datos
 // Scaffold-DbContext "Server=.\SQLExpress;Database=Alumnos;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DatabaseFirstModel
 // select * from Alumnos;
@@ -82,10 +78,18 @@ namespace Datos
             return db.Alumnos.ToList();
         }
 
-        public static void Agregar(Entidades.Alumnos alumno)
+        public static string Agregar(Entidades.Alumnos alumno)
         {
-            db.Alumnos.Add(alumno);
-            db.SaveChanges();
+            try
+            {
+                db.Alumnos.Add(alumno);
+                db.SaveChanges();
+                return $"El alumno Nombre: {alumno.Nombre} Apellido: {alumno.Apellido} ha sido agregado.";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
         }
 
         public static void Editar(Entidades.Alumnos alumno)
@@ -110,13 +114,17 @@ namespace Datos
         {
             try
             {
-                db.Alumnos.Remove(db.Alumnos.Find(alumnoID));
+                db.Alumnos.Remove(db.Alumnos.Where(a => a.AlumnoId == alumnoID).SingleOrDefault());
                 db.SaveChanges();
-                return $"Alumno con ID {alumnoID} eliminado.";
+                return $"El elemento Alumno con ID {alumnoID} ha sido borrado correctamente.";
             }
             catch (ArgumentNullException e)
             {
-                return e.ToString();
+                return $"El elemento Alumno con ID {alumnoID} no ha sido eliminado debido a excepcion: {e.Message}";
+            }
+            catch (Exception e)
+            {
+                return $"El elemento Alumno con ID {alumnoID} no ha sido eliminado debido a excepcion: {e.Message}";
             }
         }
     }

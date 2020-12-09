@@ -88,9 +88,9 @@ namespace Logica
             Datos.ListadoAsignatura.Editar(listadoAsignatura);
         }
 
-        public static void Eliminar(int listadoAsignaturaID)
+        public static string Eliminar(int listadoAsignaturaID)
         {
-            Datos.ListadoAsignatura.Eliminar(listadoAsignaturaID);
+            return Datos.ListadoAsignatura.Eliminar(listadoAsignaturaID);
         }
     }
 }

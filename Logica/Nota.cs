@@ -80,9 +80,9 @@ namespace Logica
             Datos.Nota.Editar(nota);
         }
 
-        public static void Eliminar(int notaID)
+        public static string Eliminar(int notaID)
         {
-            Datos.Nota.Eliminar(notaID);
+            return Datos.Nota.Eliminar(notaID);
         }
     }
 }

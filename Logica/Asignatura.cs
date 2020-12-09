@@ -100,9 +100,9 @@ namespace Logica
             Datos.Asignatura.Editar(asignatura);
         }
 
-        public static void Eliminar(int asignaturaID)
+        public static string Eliminar(int asignaturaID)
         {
-            Datos.Asignatura.Eliminar(asignaturaID);
+            return Datos.Asignatura.Eliminar(asignaturaID);
         }
     }
 }
