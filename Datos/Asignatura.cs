@@ -1,4 +1,5 @@
 ﻿using Entidades;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -81,10 +82,22 @@ namespace Datos
             return db.Asignaturas.ToList();
         }
 
-        public static void Agregar(Entidades.Asignaturas asignatura)
+        public static string Agregar(Entidades.Asignaturas asignatura)
         {
-            db.Asignaturas.Add(asignatura);
-            db.SaveChanges();
+            try
+            {
+                db.Asignaturas.Add(asignatura);
+                db.SaveChanges();
+                return $"La asignatura con AsignaturaID: {asignatura.AsignaturaId} ListadoCarrerasID: {asignatura.AlumnoId} ha sido agregado.";
+            }
+            catch (DbUpdateException e)
+            {
+                return $"La asignatura con AsignaturaID: {asignatura.AsignaturaId} ListadoCarrerasID: {asignatura.AlumnoId} no ha sido agregado debido a excepcion:\n{e}\n\nIndicando que se realizo una infraccion a una de las restricciones de la tabla. Lea el detalle de la excepcion.";
+            }
+            catch (Exception e)
+            {
+                return $"La asignatura con AsignaturaID: {asignatura.AsignaturaId} ListadoCarrerasID: {asignatura.AlumnoId} no ha sido agregado debido a excepcion:\n{e}";
+            }
         }
 
         public static void Editar(Entidades.Asignaturas pAsignatura)

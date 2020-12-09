@@ -11,25 +11,25 @@ namespace Logica
         {
             if (carreraID != null)
             {
-                return Logica.Carrera.ListarUna(carreraID: carreraID);
+                return Datos.Carrera.ListarUna(carreraID: carreraID);
             }
             else if (alumnoID != null)
             {
-                return Logica.Carrera.ListarUna(alumnoID: alumnoID);
+                return Datos.Carrera.ListarUna(alumnoID: alumnoID);
             }
-            return Logica.Carrera.ListarUna(listadoCarrerasID: listadoCarrerasID);
+            return Datos.Carrera.ListarUna(listadoCarrerasID: listadoCarrerasID);
         }
         public static List<Entidades.Carreras> ListarVarias(int? carreraID = null, int? alumnoID = null, int? listadoCarrerasID = null)
         {
             if (carreraID != null)
             {
-                return Logica.Carrera.ListarVarias(carreraID: carreraID);
+                return Datos.Carrera.ListarVarias(carreraID: carreraID);
             }
             else if (alumnoID != null)
             {
-                return Logica.Carrera.ListarVarias(alumnoID: alumnoID);
+                return Datos.Carrera.ListarVarias(alumnoID: alumnoID);
             }
-            return Logica.Carrera.ListarVarias(listadoCarrerasID: listadoCarrerasID);
+            return Datos.Carrera.ListarVarias(listadoCarrerasID: listadoCarrerasID);
         }
 #nullable disable
         public static List<Entidades.Carreras> ListarTodas()

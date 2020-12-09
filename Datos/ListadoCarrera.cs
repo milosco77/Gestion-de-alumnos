@@ -57,10 +57,18 @@ namespace Datos
             return db.ListadoCarreras.ToList();
         }
 
-        public static void Agregar(Entidades.ListadoCarreras listadoCarrera)
+        public static string Agregar(Entidades.ListadoCarreras listadoCarrera)
         {
-            db.ListadoCarreras.Add(listadoCarrera);
-            db.SaveChanges();
+            try
+            {
+                db.ListadoCarreras.Add(listadoCarrera);
+                db.SaveChanges();
+                return $"El listadoCarrera con ListadoCarrerasID: {listadoCarrera.ListadoCarrerasId} Nombre: {listadoCarrera.Nombre} ha sido agregado.";
+            }
+            catch (Exception e)
+            {
+                return $"El listadoCarrera con ListadoCarrerasID: {listadoCarrera.ListadoCarrerasId} Nombre: {listadoCarrera.Nombre} no ha sido agregado debido a excepcion: {e.Message}";
+            }
         }
 
         public static void Editar(Entidades.ListadoCarreras pListadoCarrera)

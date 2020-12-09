@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Internal;
+﻿using Entidades;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,25 +47,184 @@ namespace ConsolaNetCore
             System.Environment.Exit(exitCode: 0);
         }
 
-        public static void AgregarAlumno()
+        public static void AgregarRegistro(Enumeraciones.Tablas elementoAgregar)
         {
-            int cantidad = ValidacionNumerica(mensajeIngreso: "\nCuantos alumnos quiere ingresar (1-50):", mensajeError: "Valor no comprendido entre 1 y 50", minimoValorInput: 1, maximoValorInput: 50);
+            int cantidad = ValidacionNumerica(mensajeIngreso: $"\nCuantos elementos de {elementoAgregar} quiere ingresar (1-50):", mensajeError: "Valor no comprendido entre 1 y 50", minimoValorInput: 1, maximoValorInput: 50);
             string devolucionAgregar;
-            Entidades.Alumnos alumno;
-            for (int i = 0; i < cantidad; i++)
+            switch (elementoAgregar)
             {
-                alumno = new Entidades.Alumnos();
-                alumno = AgregarDatosAlumno(alumno);
-                devolucionAgregar = Logica.Alumno.Agregar(alumno);
-                if (devolucionAgregar.Contains("agregado"))
-                {
-                    MensajeColor(mensaje: $"\n{devolucionAgregar}");
-                }
-                else
-                {
-                    MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
-                }
+                case Enumeraciones.Tablas.Alumnos:
+                    Entidades.Alumnos alumno;
+                    for (int i = 0; i < cantidad; i++)
+                    {
+                        alumno = new Entidades.Alumnos();
+                        alumno = AgregarDatosAlumno(alumno);
+                        devolucionAgregar = Logica.Alumno.Agregar(alumno);
+                        if (!devolucionAgregar.Contains("no ha sido agregado"))
+                        {
+                            MensajeColor(mensaje: $"\n{devolucionAgregar}");
+                        }
+                        else
+                        {
+                            MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                        }
+                    }
+                    break;
+                case Enumeraciones.Tablas.Asignaturas:
+                    Entidades.Asignaturas asignatura;
+                    for (int i = 0; i < cantidad; i++)
+                    {
+                        asignatura = new Entidades.Asignaturas();
+                        asignatura = AgregarDatosAsignatura(asignatura);
+                        devolucionAgregar = Logica.Asignatura.Agregar(asignatura);
+                        if (!devolucionAgregar.Contains("no ha sido agregado"))
+                        {
+                            MensajeColor(mensaje: $"\n{devolucionAgregar}");
+                        }
+                        else
+                        {
+                            MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                        }
+                    }
+                    break;
+                case Enumeraciones.Tablas.Carreras:
+                    Entidades.Carreras carrera;
+                    for (int i = 0; i < cantidad; i++)
+                    {
+                        carrera = new Entidades.Carreras();
+                        carrera = AgregarDatosCarrera(carrera);
+                        devolucionAgregar = Logica.Carrera.Agregar(carrera);
+                        if (!devolucionAgregar.Contains("no ha sido agregado"))
+                        {
+                            MensajeColor(mensaje: $"\n{devolucionAgregar}");
+                        }
+                        else
+                        {
+                            MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                        }
+                    }
+                    break;
+                case Enumeraciones.Tablas.Facultades:
+                    Entidades.Facultades facultad;
+                    for (int i = 0; i < cantidad; i++)
+                    {
+                        facultad = new Entidades.Facultades();
+                        facultad = AgregarDatosFacultad(facultad);
+                        devolucionAgregar = Logica.Facultad.Agregar(facultad);
+                        if (!devolucionAgregar.Contains("no ha sido agregado"))
+                        {
+                            MensajeColor(mensaje: $"\n{devolucionAgregar}");
+                        }
+                        else
+                        {
+                            MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                        }
+                    }
+                    break;
+                case Enumeraciones.Tablas.ListadoAsignaturas:
+                    Entidades.ListadoAsignaturas listadoAsignatura;
+                    for (int i = 0; i < cantidad; i++)
+                    {
+                        listadoAsignatura = new Entidades.ListadoAsignaturas();
+                        listadoAsignatura = AgregarDatosListadoAsignatura(listadoAsignatura);
+                        devolucionAgregar = Logica.ListadoAsignatura.Agregar(listadoAsignatura);
+                        if (!devolucionAgregar.Contains("no ha sido agregado"))
+                        {
+                            MensajeColor(mensaje: $"\n{devolucionAgregar}");
+                        }
+                        else
+                        {
+                            MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                        }
+                    }
+                    break;
+                case Enumeraciones.Tablas.ListadoCarreras:
+                    Entidades.ListadoCarreras listadoCarrera;
+                    for (int i = 0; i < cantidad; i++)
+                    {
+                        listadoCarrera = new Entidades.ListadoCarreras();
+                        listadoCarrera = AgregarDatosListadoCarrera(listadoCarrera);
+                        devolucionAgregar = Logica.ListadoCarrera.Agregar(listadoCarrera);
+                        if (!devolucionAgregar.Contains("no ha sido agregado"))
+                        {
+                            MensajeColor(mensaje: $"\n{devolucionAgregar}");
+                        }
+                        else
+                        {
+                            MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                        }
+                    }
+                    break;
+                case Enumeraciones.Tablas.Notas:
+                    Entidades.Notas nota;
+                    for (int i = 0; i < cantidad; i++)
+                    {
+                        nota = new Entidades.Notas();
+                        nota = AgregarDatosNota(nota);
+                        devolucionAgregar = Logica.Nota.Agregar(nota);
+                        if (!devolucionAgregar.Contains("no ha sido agregado"))
+                        {
+                            MensajeColor(mensaje: $"\n{devolucionAgregar}");
+                        }
+                        else
+                        {
+                            MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
+        }
+
+        public static Notas AgregarDatosNota(Notas pNota)
+        {
+            InformarTodasAsignaturas();
+            pNota.AsignaturaId = ValidacionNumerica(mensajeIngreso: "\nIngrese el ID de la asignatura de la cual desea agregar la nota:", minimoValorInput: 1, mensajeError: "\nEl valor debe ser 1 o mayor.", BorrarInformacion: false);
+            pNota.PrimerParcial = ValidacionNumerica(mensajeIngreso: "\nIngrese la nota del primer parcial (1-10):", minimoValorInput: 1, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10.", BorrarInformacion: false);
+            pNota.PrimerRecuperatorio = ValidacionNumerica(mensajeIngreso: "\nIngrese la nota del primer recuperatorio (1-10):", minimoValorInput: 1, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10.", BorrarInformacion: false);
+            pNota.SegundoParcial = ValidacionNumerica(mensajeIngreso: "\nIngrese la nota del segundo parcial (1-10):", minimoValorInput: 1, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10.", BorrarInformacion: false);
+            pNota.SegundoRecuperatorio = ValidacionNumerica(mensajeIngreso: "\nIngrese la nota del segundo recuperatorio (1-10):", minimoValorInput: 1, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10.", BorrarInformacion: false);
+            pNota.Final = ValidacionNumerica(mensajeIngreso: "\nIngrese la nota del final (1-10):", minimoValorInput: 1, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10.", BorrarInformacion: false);
+            return pNota;
+        }
+
+        public static ListadoCarreras AgregarDatosListadoCarrera(ListadoCarreras pListadoCarrera)
+        {
+            InformarTodasFacultades();
+            pListadoCarrera.FacultadId = ValidacionNumerica(mensajeIngreso: "\nIngrese el ID de la facultad de la carrera", minimoValorInput: 1, maximoValorInput: 13, mensajeError: "\nEl valor debe estar comprendido entre 1 y 13.", BorrarInformacion: false);
+            pListadoCarrera.Nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de la carrera:");
+            pListadoCarrera.Titulo = ValidacionTexto(mensajeIngreso: "\nIngrese el titulo de la carrera:");
+            pListadoCarrera.DuracionEstimadaAnios = ValidacionNumerica(mensajeIngreso: "\nIngrese la duracion estimada en años en formato decimal:", maximoValorInput: 1, mensajeError: "\nEl valor debe ser mayor a 0 y en formato decimal Ej: 5.5.");
+            return pListadoCarrera;
+        }
+
+        public static ListadoAsignaturas AgregarDatosListadoAsignatura(ListadoAsignaturas pListadoAsignatura)
+        {
+            InformarTodasCarreras();
+            pListadoAsignatura.ListadoCarrerasId = ValidacionNumerica(mensajeIngreso: "\nIngrese el ID de la carrera a la cual pertenece la asignatura:", mensajeError: "\nEl valor debe ser mayor a 0.", BorrarInformacion: false);
+            pListadoAsignatura.Codigo = ValidacionTexto(mensajeIngreso: "\nIngrese el codigo de la asignatura:");
+            pListadoAsignatura.Nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de la asignatura:");
+            pListadoAsignatura.Creditos = (byte)ValidacionNumerica(mensajeIngreso: "\nIngrese los creditos de la asignatura:", minimoValorInput: 0, maximoValorInput: 255, mensajeError: "\nEl valor debe estar comprendido entre 0 y 255.");
+            pListadoAsignatura.Horas = (short)ValidacionNumerica(mensajeIngreso: "\nIngrese la cantidad de horas de la asignatura:", minimoValorInput: 1, maximoValorInput: 32767, mensajeError: "\nEl valor debe estar comprendido entre 1 y 32767.");
+            pListadoAsignatura.Correlativas = ValidacionTexto(mensajeIngreso: "\nIngrese los codigos de las asignaturas correlativas (ej: 75.10):");
+            pListadoAsignatura.Categoria = ValidacionTexto(mensajeIngreso: "\nIngrese la categoria de la asignatura (ej: Segundo Ciclo):");
+            return pListadoAsignatura;
+        }
+
+        public static Facultades AgregarDatosFacultad(Facultades pFacultad)
+        {
+            pFacultad.Nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de la facultad:");
+            pFacultad.Direccion = ValidacionTexto(mensajeIngreso: "\nIngrese la direccion de la facultad:");
+            pFacultad.Telefono = ValidacionNumerica(mensajeIngreso: "\nIngrese el telefono de la facultad:", minimoValorInput: 111111, mensajeError: "\nEl valor debe ser mayor que 111111");
+            pFacultad.DepartamentoAlumnos = ValidacionTexto(mensajeIngreso: "\nIngrese el email del departamento de alumnos de la facultad:");
+            pFacultad.Facebook = ValidacionTexto(mensajeIngreso: "\nIngrese el la pagina web del Facebook de la facultad:");
+            pFacultad.Instagram = ValidacionTexto(mensajeIngreso: "\nIngrese el la pagina web del Instagram de la facultad:");
+            pFacultad.Twitter = ValidacionTexto(mensajeIngreso: "\nIngrese el la pagina web del Twitter de la facultad:");
+            pFacultad.PaginaWeb = ValidacionTexto(mensajeIngreso: "\nIngrese la pagina web de la facultad:");
+            pFacultad.Email = ValidacionTexto(mensajeIngreso: "\nIngrese el email de la facultad:");
+            pFacultad.RecorridoVirtual = ValidacionTexto(mensajeIngreso: "\nIngrese la pagina web del recorrido virtual de la facultad:");
+            return pFacultad;
         }
 
         public static Entidades.Alumnos AgregarDatosAlumno(Entidades.Alumnos pAlumno)
@@ -89,23 +249,23 @@ namespace ConsolaNetCore
 
         public static void AgregarCarrera()
         {
-            int cantidad = ValidacionNumerica(mensajeIngreso: "\nCuantas carreras quiere ingresar (1-50):", mensajeError: "\nValor no comprendido entre 1 y 50", minimoValorInput: 1, maximoValorInput: 50);
-            string devolucionAgregar;
-            Entidades.Carreras carrera;
-            for (int i = 0; i < cantidad; i++)
-            {
-                carrera = new Entidades.Carreras();
-                carrera = AgregarDatosCarrera(carrera);
-                devolucionAgregar = Logica.Carrera.Agregar(carrera);
-                if (devolucionAgregar.Contains("agregado"))
-                {
-                    MensajeColor(mensaje: $"\n{devolucionAgregar}");
-                }
-                else
-                {
-                    MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
-                }
-            }
+            //int cantidad = ValidacionNumerica(mensajeIngreso: "\nCuantas carreras quiere ingresar (1-50):", mensajeError: "\nValor no comprendido entre 1 y 50", minimoValorInput: 1, maximoValorInput: 50);
+            //string devolucionAgregar;
+            //Entidades.Carreras carrera;
+            //for (int i = 0; i < cantidad; i++)
+            //{
+            //    carrera = new Entidades.Carreras();
+            //    carrera = AgregarDatosCarrera(carrera);
+            //    devolucionAgregar = Logica.Carrera.Agregar(carrera);
+            //    if (devolucionAgregar.Contains("agregado"))
+            //    {
+            //        MensajeColor(mensaje: $"\n{devolucionAgregar}");
+            //    }
+            //    else
+            //    {
+            //        MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+            //    }
+            //}
         }
 
         public static Entidades.Carreras AgregarDatosCarrera(Entidades.Carreras pCarrera)
@@ -119,33 +279,32 @@ namespace ConsolaNetCore
 
         public static void AgregarAsignatura()
         {
-            InformarTodosAlumnos();
+            //InformarTodosAlumnos();
 
-            int alumnoID = ValidacionNumerica(mensajeIngreso: "\nIndique el ID del alumno del cual quiere ingresar una o varias asignaturas:", minimoValorInput: 1, mensajeError: "\nEl valor debe ser 1 o mayor.", BorrarInformacion: false);
+            //int cantidad = ValidacionNumerica(mensajeIngreso: "\nCuantos asignaturas quiere ingresar (1-50):", mensajeError: "Valor no comprendido entre 1 y 50", minimoValorInput: 1, maximoValorInput: 50);
+            //Entidades.Asignaturas asignatura = new Entidades.Asignaturas();
 
-            int cantidad = ValidacionNumerica(mensajeIngreso: "\nCuantos asignaturas quiere ingresar (1-50):", mensajeError: "Valor no comprendido entre 1 y 50", minimoValorInput: 1, maximoValorInput: 50);
-            Entidades.Asignaturas asignatura = new Entidades.Asignaturas();
-
-            for (int i = 0; i < cantidad; i++)
-            {
-                asignatura = AgregarDatosAsignatura(alumnoID, asignatura);
-                Logica.Asignatura.Agregar(asignatura);
-                AgregarNota(asignatura, notaNula: true);
-            }
+            //for (int i = 0; i < cantidad; i++)
+            //{
+            //    asignatura = AgregarDatosAsignatura(asignatura);
+            //    Logica.Asignatura.Agregar(asignatura);
+            //    AgregarNota(asignatura, notaNula: true);
+            //}
         }
 
-        public static Entidades.Asignaturas AgregarDatosAsignatura(int alumnoID, Entidades.Asignaturas pAsignatura)
+        public static Entidades.Asignaturas AgregarDatosAsignatura(Entidades.Asignaturas pAsignatura)
         {
-            foreach (Entidades.ListadoAsignaturas asignatura in Logica.ListadoAsignatura.ListarTodas())
-            {
-                MensajeColor(mensaje: $"\nID: {asignatura.ListadoAsignaturasId} | Codigo: {asignatura.Codigo} | Nombre: {asignatura.Nombre} | Creditos: {asignatura.Creditos} Horas: {asignatura.Horas} | Correlativas: {asignatura.Creditos} | Categoria: {asignatura.Categoria}");
-            }
+            InformarTodasCarreras();
 
-            pAsignatura.ListadoAsignaturasId = ValidacionNumerica(mensajeIngreso: "\nIngrese el ID de la materia de su alumno: ", mensajeError: $"\nValor no comprendido entre 1 y 109", minimoValorInput: 1, maximoValorInput: 109, BorrarInformacion: false);
+            pAsignatura.CarreraId = ValidacionNumerica(mensajeIngreso: "\nIngrese el ID de la carrera de su alumno: ", mensajeError: $"\nValor debe ser mayor a 1.", minimoValorInput: 1, BorrarInformacion: false);
+            // TODO Atrapar NullReferenceException de todos los metodos GET de todas las clases y atrapar en todos los metodos Agregar de todas las clases DbUpdateException.
+            pAsignatura.AlumnoId = Logica.Carrera.ListarUna(carreraID: pAsignatura.CarreraId).AlumnoId;
 
-            pAsignatura.AlumnoId = alumnoID;
+            InformarListadoAsignaturas();
 
-            pAsignatura.Comision = ValidacionNumerica(mensajeIngreso: $"\nIngrese la comision de la materia (nombre): ", mensajeError: "\nIngrese una comision solo con caracteres numericos mayor a 0", minimoValorInput: 1);
+            pAsignatura.ListadoAsignaturasId = ValidacionNumerica(mensajeIngreso: "\nIngrese el ID de la asignatura de su alumno: ", mensajeError: $"\nValor no comprendido entre 1 y 109", minimoValorInput: 1, maximoValorInput: 109, BorrarInformacion: false);
+
+            pAsignatura.Comision = ValidacionNumerica(mensajeIngreso: $"\nIngrese la comision de la asignatura {Logica.ListadoAsignatura.ListarUna(pAsignatura.ListadoAsignaturasId).Nombre}: ", mensajeError: "\nIngrese una comision solo con caracteres numericos mayor a 0", minimoValorInput: 1);
 
             Console.WriteLine("\nIngrese el horario de entrada de la materia");
 
@@ -172,7 +331,7 @@ namespace ConsolaNetCore
         {
             if (pAsignatura != null)
             {
-                pAsignatura = AgregarDatosAsignatura(alumnoID, pAsignatura);
+                pAsignatura = AgregarDatosAsignatura(pAsignatura);
             }
             return pAsignatura;
         }
@@ -666,25 +825,25 @@ namespace ConsolaNetCore
                         switch (ValidacionNumerica(mensajeIngreso: "\nQue desea agregar? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas:\n\n1 = Alumno.\n\n2 = Asignatura.\n\n3 = Carrera.\n\n4 = Facultad.\n\n5 = Asignatura al listado.\n\n6 = Carrera al listado.\n\n7 = Nota.\n\n8 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
                             {
                             case 1:
-                                AgregarAlumno();
+                                AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.Alumnos);
                                 break;
                             case 2:
-                                AgregarAsignatura();
+                                AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.Asignaturas);
                                 break;
                             case 3:
-                                AgregarCarrera();
+                                AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.Carreras);
                                 break;
                             case 4:
-                                AgregarFacultad();
+                                AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.Facultades);
                                 break;
                             case 5:
-                                AgregarAsignaturaListado();
+                                AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.ListadoAsignaturas);
                                 break;
                             case 6:
-                                AgregarCarreraListado();
+                                AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.ListadoCarreras);
                                 break;
                             case 7:
-                                //AgregarNota();
+                                AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.Notas);
                                 break;
                             default:
                                 primeraVez = false;
@@ -1038,7 +1197,7 @@ namespace ConsolaNetCore
             Console.WriteLine($"{segundoMensaje}");
             Console.ResetColor();
         }
-
+        // TODO Arreglar inclusion de float en el metodo
         /// <summary>
         /// Valida si el ingreso es un numero.
         /// </summary>

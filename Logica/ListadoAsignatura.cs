@@ -78,9 +78,9 @@ namespace Logica
             return Datos.ListadoAsignatura.ListarTodas();
         }
 
-        public static void Agregar(Entidades.ListadoAsignaturas listadoAsignatura)
+        public static string Agregar(Entidades.ListadoAsignaturas listadoAsignatura)
         {
-            Datos.ListadoAsignatura.Agregar(listadoAsignatura);
+            return Datos.ListadoAsignatura.Agregar(listadoAsignatura);
         }
 
         public static void Editar(Entidades.ListadoAsignaturas listadoAsignatura)

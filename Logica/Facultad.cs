@@ -102,9 +102,9 @@ namespace Logica
             return Datos.Facultad.ListarTodas();
         }
 
-        public static void Agregar(Entidades.Facultades facultad)
+        public static string Agregar(Entidades.Facultades facultad)
         {
-            Datos.Facultad.Agregar(facultad);
+            return Datos.Facultad.Agregar(facultad);
         }
 
         public static void Editar(Entidades.Facultades facultad)

@@ -54,9 +54,9 @@ namespace Logica
             return Datos.ListadoCarrera.ListarTodas();
         }
 
-        public static void Agregar(Entidades.ListadoCarreras listadoCarrera)
+        public static string Agregar(Entidades.ListadoCarreras listadoCarrera)
         {
-            Datos.ListadoCarrera.Agregar(listadoCarrera);
+            return Datos.ListadoCarrera.Agregar(listadoCarrera);
         }
 
         public static void Editar(Entidades.ListadoCarreras listadoCarrera)

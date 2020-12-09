@@ -81,10 +81,18 @@ namespace Datos
             return db.ListadoAsignaturas.ToList();
         }
 
-        public static void Agregar(Entidades.ListadoAsignaturas listadoAsignatura)
+        public static string Agregar(Entidades.ListadoAsignaturas listadoAsignatura)
         {
-            db.ListadoAsignaturas.Add(listadoAsignatura);
-            db.SaveChanges();
+            try
+            {
+                db.ListadoAsignaturas.Add(listadoAsignatura);
+                db.SaveChanges();
+                return $"La listadoAsignatura con AlumnoID: {listadoAsignatura.ListadoAsignaturasId} Nombre: {listadoAsignatura.Nombre} ha sido agregado.";
+            }
+            catch (Exception e)
+            {
+                return $"La listadoAsignatura con AlumnoID: {listadoAsignatura.ListadoAsignaturasId} Nombre: {listadoAsignatura.Nombre} no ha sido agregado debido a excepcion: {e.Message}";
+            }
         }
 
         public static void Editar(Entidades.ListadoAsignaturas pListadoAsignatura)

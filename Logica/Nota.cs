@@ -70,9 +70,9 @@ namespace Logica
             return Datos.Nota.ListarTodas();
         }
 
-        public static void Agregar(Entidades.Notas nota)
+        public static string Agregar(Entidades.Notas nota)
         {
-            Datos.Nota.Agregar(nota);
+            return Datos.Nota.Agregar(nota);
         }
 
         public static void Editar(Entidades.Notas nota)

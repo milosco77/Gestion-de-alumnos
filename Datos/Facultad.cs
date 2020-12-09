@@ -105,10 +105,18 @@ namespace Datos
             return db.Facultades.ToList();
         }
 
-        public static void Agregar(Entidades.Facultades facultad)
+        public static string Agregar(Entidades.Facultades facultad)
         {
-            db.Facultades.Add(facultad);
-            db.SaveChanges();
+            try
+            {
+                db.Facultades.Add(facultad);
+                db.SaveChanges();
+                return $"La facultad con FacultadID: {facultad.FacultadId} Nombre: {facultad.Nombre} ha sido agregado.";
+            }
+            catch (Exception e)
+            {
+                return $"La facultad con FacultadID: {facultad.FacultadId} Nombre: {facultad.Nombre} no ha sido agregado debido a excepcion: {e.Message}";
+            }
         }
 
         public static void Editar(Entidades.Facultades pFacultad)

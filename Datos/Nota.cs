@@ -73,10 +73,18 @@ namespace Datos
             return db.Notas.ToList();
         }
 
-        public static void Agregar(Entidades.Notas nota)
+        public static string Agregar(Entidades.Notas nota)
         {
-            db.Notas.Add(nota);
-            db.SaveChanges();
+            try
+            {
+                db.Notas.Add(nota);
+                db.SaveChanges();
+                return $"La nota con NotasID: {nota.NotasId} ListadoCarrerasID: {nota.AsignaturaId} ha sido agregado.";
+            }
+            catch (Exception e)
+            {
+                return $"La nota con NotasID: {nota.NotasId} ListadoCarrerasID: {nota.AsignaturaId} no ha sido agregado debido a excepcion: {e.Message}";
+            }
         }
 
         public static void Editar(Entidades.Notas pNota)
