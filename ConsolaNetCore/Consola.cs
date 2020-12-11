@@ -256,21 +256,6 @@ namespace ConsolaNetCore
             return pCarrera;
         }
 
-        public static void AgregarAsignatura()
-        {
-            //InformarTodosAlumnos();
-
-            //int cantidad = ValidacionNumerica(mensajeIngreso: "\nCuantos asignaturas quiere ingresar (1-50):", mensajeError: "Valor no comprendido entre 1 y 50", minimoValorInput: 1, maximoValorInput: 50);
-            //Entidades.Asignaturas asignatura = new Entidades.Asignaturas();
-
-            //for (int i = 0; i < cantidad; i++)
-            //{
-            //    asignatura = AgregarDatosAsignatura(asignatura);
-            //    Logica.Asignatura.Agregar(asignatura);
-            //    AgregarNota(asignatura, notaNula: true);
-            //}
-        }
-
         public static Entidades.Asignaturas AgregarDatosAsignatura(Entidades.Asignaturas pAsignatura)
         {
             InformarTodasCarreras();

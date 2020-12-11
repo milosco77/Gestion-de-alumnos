@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entidades
+namespace ConsolaNetCore.DatabaseFirstModel
 {
     public partial class ListadoCarreras
     {
@@ -15,7 +15,7 @@ namespace Entidades
         public int FacultadId { get; set; }
         public string Nombre { get; set; }
         public string Titulo { get; set; }
-        public double DuracionEstimadaAnios { get; set; }
+        public double? DuracionEstimadaAnios { get; set; }
 
         public virtual Facultades Facultad { get; set; }
         public virtual ICollection<Carreras> Carreras { get; set; }

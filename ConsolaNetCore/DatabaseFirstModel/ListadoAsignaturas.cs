@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Entidades
+namespace ConsolaNetCore.DatabaseFirstModel
 {
     public partial class ListadoAsignaturas
     {

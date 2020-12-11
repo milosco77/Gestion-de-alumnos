@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Entidades
+namespace ConsolaNetCore.DatabaseFirstModel
 {
     public partial class AlumnosContext : DbContext
     {
@@ -121,6 +121,10 @@ namespace Entidades
                 entity.HasKey(e => e.FacultadId);
 
                 entity.Property(e => e.FacultadId).HasColumnName("FacultadID");
+
+                entity.Property(e => e.Direccion).IsRequired();
+
+                entity.Property(e => e.Nombre).IsRequired();
             });
 
             modelBuilder.Entity<ListadoAsignaturas>(entity =>
@@ -129,7 +133,9 @@ namespace Entidades
 
                 entity.Property(e => e.Categoria).IsRequired();
 
-                entity.Property(e => e.Codigo).HasMaxLength(5);
+                entity.Property(e => e.Codigo)
+                    .IsRequired()
+                    .HasMaxLength(5);
 
                 entity.Property(e => e.Correlativas).HasMaxLength(50);
 
@@ -173,7 +179,8 @@ namespace Entidades
                 entity.HasOne(d => d.Asignatura)
                     .WithMany(p => p.Notas)
                     .HasPrincipalKey(p => p.AsignaturaId)
-                    .HasForeignKey(d => d.AsignaturaId);
+                    .HasForeignKey(d => d.AsignaturaId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
             OnModelCreatingPartial(modelBuilder);
