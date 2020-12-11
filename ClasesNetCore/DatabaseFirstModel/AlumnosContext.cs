@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace ConsolaNetCore.DatabaseFirstModel
+namespace Entidades
 {
     public partial class AlumnosContext : DbContext
     {

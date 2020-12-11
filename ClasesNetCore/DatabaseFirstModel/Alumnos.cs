@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ConsolaNetCore.DatabaseFirstModel
+namespace Entidades
 {
     public partial class Alumnos
     {
