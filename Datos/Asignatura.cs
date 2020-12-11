@@ -136,7 +136,7 @@ namespace Datos
             }
             catch (Exception e)
             {
-                return $"El elemento Asignatura con ID {asignaturaID} no ha sido eliminado debido a excepcion: {e.Message}";
+                return $"El elemento Asignatura con ID {asignaturaID} no ha sido eliminado debido a excepcion: {e}";
             }
         }
     }

@@ -201,7 +201,7 @@ namespace ConsolaNetCore
 
         public static ListadoAsignaturas AgregarDatosListadoAsignatura(ListadoAsignaturas pListadoAsignatura)
         {
-            InformarTodasCarreras();
+            InformarListadoCarreras();
             pListadoAsignatura.ListadoCarrerasId = ValidacionNumerica(mensajeIngreso: "\nIngrese el ID de la carrera a la cual pertenece la asignatura:", mensajeError: "\nEl valor debe ser mayor a 0.", BorrarInformacion: false);
             pListadoAsignatura.Codigo = ValidacionTexto(mensajeIngreso: "\nIngrese el codigo de la asignatura:");
             pListadoAsignatura.Nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de la asignatura:");
@@ -247,33 +247,12 @@ namespace ConsolaNetCore
             return pAlumno;
         }
 
-        public static void AgregarCarrera()
-        {
-            //int cantidad = ValidacionNumerica(mensajeIngreso: "\nCuantas carreras quiere ingresar (1-50):", mensajeError: "\nValor no comprendido entre 1 y 50", minimoValorInput: 1, maximoValorInput: 50);
-            //string devolucionAgregar;
-            //Entidades.Carreras carrera;
-            //for (int i = 0; i < cantidad; i++)
-            //{
-            //    carrera = new Entidades.Carreras();
-            //    carrera = AgregarDatosCarrera(carrera);
-            //    devolucionAgregar = Logica.Carrera.Agregar(carrera);
-            //    if (devolucionAgregar.Contains("agregado"))
-            //    {
-            //        MensajeColor(mensaje: $"\n{devolucionAgregar}");
-            //    }
-            //    else
-            //    {
-            //        MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
-            //    }
-            //}
-        }
-
         public static Entidades.Carreras AgregarDatosCarrera(Entidades.Carreras pCarrera)
         {
             InformarTodosAlumnos();
             pCarrera.AlumnoId = ValidacionNumerica(mensajeIngreso: "\nIngrese el ID del alumno del cual desea agregar la carrera:", minimoValorInput: 1, mensajeError: "\nEl valor debe ser 1 o mayor.", BorrarInformacion: false);
             InformarListadoCarreras();
-            pCarrera.ListadoCarrerasId = ValidacionNumerica(mensajeIngreso: "\nIngrese el ID de la carrera del alumno:", minimoValorInput: 1, mensajeError: "\nEl valor debe ser 1 o mayor.", BorrarInformacion: false);
+            pCarrera.ListadoCarrerasId = ValidacionNumerica(mensajeIngreso: "\nIngrese el ID de la carrera del alumno:", minimoValorInput: 1, maximoValorInput: 12, mensajeError: "\nEl valor debe estar comprendido entre 1 y 12.", BorrarInformacion: false);
             return pCarrera;
         }
 
@@ -304,7 +283,7 @@ namespace ConsolaNetCore
 
             pAsignatura.ListadoAsignaturasId = ValidacionNumerica(mensajeIngreso: "\nIngrese el ID de la asignatura de su alumno: ", mensajeError: $"\nValor no comprendido entre 1 y 109", minimoValorInput: 1, maximoValorInput: 109, BorrarInformacion: false);
 
-            pAsignatura.Comision = ValidacionNumerica(mensajeIngreso: $"\nIngrese la comision de la asignatura {Logica.ListadoAsignatura.ListarUna(pAsignatura.ListadoAsignaturasId).Nombre}: ", mensajeError: "\nIngrese una comision solo con caracteres numericos mayor a 0", minimoValorInput: 1);
+            pAsignatura.Comision = ValidacionNumerica(mensajeIngreso: $"\nIngrese la comision de la asignatura ({Logica.ListadoAsignatura.ListarUna(pAsignatura.ListadoAsignaturasId).Nombre}): ", mensajeError: "\nIngrese una comision solo con caracteres numericos mayor a 0", minimoValorInput: 1);
 
             Console.WriteLine("\nIngrese el horario de entrada de la materia");
 
@@ -819,10 +798,10 @@ namespace ConsolaNetCore
                     Console.Clear();
                 }
                 primeraVez = true;
-                switch (ValidacionNumerica(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas:\n\n1 = Agregar.\n\n2 = Editar.\n\n3 = Eliminar.\n\n4 = Mostrar.\n\n5 = Salir.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 5.", minimoValorInput: 1, maximoValorInput: 5))
+                switch (ValidacionNumerica(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Agregar.\n\n2 = Editar.\n\n3 = Eliminar.\n\n4 = Mostrar.\n\n5 = Salir.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 5.", minimoValorInput: 1, maximoValorInput: 5))
                 {
                     case 1:
-                        switch (ValidacionNumerica(mensajeIngreso: "\nQue desea agregar? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas:\n\n1 = Alumno.\n\n2 = Asignatura.\n\n3 = Carrera.\n\n4 = Facultad.\n\n5 = Asignatura al listado.\n\n6 = Carrera al listado.\n\n7 = Nota.\n\n8 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
+                        switch (ValidacionNumerica(mensajeIngreso: "\nQue desea agregar? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Alumno.\n\n2 = Asignatura.\n\n3 = Carrera.\n\n4 = Facultad.\n\n5 = Asignatura al listado.\n\n6 = Carrera al listado.\n\n7 = Nota.\n\n8 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
                             {
                             case 1:
                                 AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.Alumnos);
@@ -1260,6 +1239,7 @@ namespace ConsolaNetCore
             MensajeColor(mensaje: titulo, color: ConsoleColor.Green);
             return outputIngreso;
         }
+        // TODO Arreglar inclusion de caso en el que se incluya una direccion que toma valor numerico o simbolo al final
         // Linq es mas rapido que usar RegEx https://stackoverflow.com/questions/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp/1181426.
         /// <summary>
         /// Valida el texto ingresado verificando si es nulo, contiene numeros, si empieza o termina con espacio vacio. O si es enteramente espacio vacio.

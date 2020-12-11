@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using Enumeraciones;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,9 +87,13 @@ namespace Datos
                 db.SaveChanges();
                 return $"El alumno con Nombre: {alumno.Nombre} Apellido: {alumno.Apellido} ha sido agregado.";
             }
+            catch (DbUpdateException e)
+            {
+                return $"La asignatura con Nombre: {alumno.Nombre} Apellido: {alumno.Apellido} no ha sido agregado debido a excepcion:\n{e}\n\nIndicando que se realizo una infraccion a una de las restricciones de la tabla. Lea el detalle de la excepcion.";
+            }
             catch (Exception e)
             {
-                return $"El alumno con Nombre: {alumno.Nombre} Apellido: {alumno.Apellido} no ha sido agregado debido a excepcion: {e.Message}";
+                return $"El alumno con Nombre: {alumno.Nombre} Apellido: {alumno.Apellido} no ha sido agregado debido a excepcion: {e}";
             }
         }
 
@@ -124,7 +129,7 @@ namespace Datos
             }
             catch (Exception e)
             {
-                return $"El elemento Alumno con ID {alumnoID} no ha sido eliminado debido a excepcion: {e.Message}";
+                return $"El elemento Alumno con ID {alumnoID} no ha sido eliminado debido a excepcion: {e}";
             }
         }
     }

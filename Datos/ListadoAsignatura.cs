@@ -1,4 +1,5 @@
 ﻿using Entidades;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,9 +90,13 @@ namespace Datos
                 db.SaveChanges();
                 return $"La listadoAsignatura con AlumnoID: {listadoAsignatura.ListadoAsignaturasId} Nombre: {listadoAsignatura.Nombre} ha sido agregado.";
             }
+            catch (DbUpdateException e)
+            {
+                return $"La asignatura con AlumnoID: {listadoAsignatura.ListadoAsignaturasId} Nombre: {listadoAsignatura.Nombre} no ha sido agregado debido a excepcion:\n{e}\n\nIndicando que se realizo una infraccion a una de las restricciones de la tabla. Lea el detalle de la excepcion.";
+            }
             catch (Exception e)
             {
-                return $"La listadoAsignatura con AlumnoID: {listadoAsignatura.ListadoAsignaturasId} Nombre: {listadoAsignatura.Nombre} no ha sido agregado debido a excepcion: {e.Message}";
+                return $"La listadoAsignatura con AlumnoID: {listadoAsignatura.ListadoAsignaturasId} Nombre: {listadoAsignatura.Nombre} no ha sido agregado debido a excepcion: {e}";
             }
         }
 
@@ -123,7 +128,7 @@ namespace Datos
             }
             catch (Exception e)
             {
-                return $"El elemento del ListadoAsignaturas con ID {listadoAsignaturasID} no ha sido eliminado debido a excepcion: {e.Message}";
+                return $"El elemento del ListadoAsignaturas con ID {listadoAsignaturasID} no ha sido eliminado debido a excepcion: {e}";
             }
         }
     }
