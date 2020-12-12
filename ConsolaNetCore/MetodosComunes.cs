@@ -277,5 +277,25 @@ namespace ConsolaNetCore
             return validarIngreso;
         }
 
+        public static void Continuar()
+        {
+            MetodosComunes.MensajeColor(mensaje: "\nPresione una tecla para continuar...", color: ConsoleColor.Yellow);
+            Console.ReadKey(intercept: true);
+            Console.Clear();
+        }
+
+        public static void Bienvenida()
+        {
+            Console.WriteLine("\nBienvenido al Programa de Gestion de Notas de Alumnos\n\nEste programa le permitira ingresar los datos de los alumnos de su clase.\nPermitiendole mantener un registro de los mismos.");
+            Continuar();
+        }
+
+        public static void Salir()
+        {
+            MetodosComunes.MensajeColor(mensaje: "\nFin del programa.", color: ConsoleColor.Magenta);
+            Continuar();
+            System.Environment.Exit(exitCode: 0);
+        }
+
     }
 }
