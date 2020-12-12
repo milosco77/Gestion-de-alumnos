@@ -10,7 +10,6 @@ using System.Text;
 // TODO implementar explicacion correcta de intellisense para los metodos.
 // TODO ingreso de profesores/Ayudante de catedra.
 // TODO implementar manejo de excepciones.
-// TODO cambiar variables a sus variables reducidas en espacio solo cuando empieze a usar DB.
 // TODO Resolver problema de System.NullReferenceException: 'Object reference not set to an instance of an object.' cuando se quiere mostrar parametros null en metodos GET.
 // https://trycatch.me/c-optional-parameters-vs-method-overloading/ por que en projectos publicos es mejor usar sobrecarga de metodos y no parametros opcionales.
 

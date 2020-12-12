@@ -9,15 +9,23 @@ namespace Logica
 #nullable enable
         public static Entidades.Carreras ListarUna(int? carreraID = null, int? alumnoID = null, int? listadoCarrerasID = null)
         {
-            if (carreraID != null)
+            try
             {
-                return Datos.Carrera.ListarUna(carreraID: carreraID);
+                if (carreraID != null)
+                {
+                    return Datos.Carrera.ListarUna(carreraID: carreraID);
+                }
+                else if (alumnoID != null)
+                {
+                    return Datos.Carrera.ListarUna(alumnoID: alumnoID);
+                }
+                return Datos.Carrera.ListarUna(listadoCarrerasID: listadoCarrerasID);
+
             }
-            else if (alumnoID != null)
+            catch (Exception e)
             {
-                return Datos.Carrera.ListarUna(alumnoID: alumnoID);
+                throw new Exception(e.Message, e.InnerException);
             }
-            return Datos.Carrera.ListarUna(listadoCarrerasID: listadoCarrerasID);
         }
         public static List<Entidades.Carreras> ListarVarias(int? carreraID = null, int? alumnoID = null, int? listadoCarrerasID = null)
         {

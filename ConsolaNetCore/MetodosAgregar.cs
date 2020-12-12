@@ -218,12 +218,19 @@ namespace ConsolaNetCore
 
         public static Entidades.Asignaturas AgregarDatosAsignatura(Entidades.Asignaturas pAsignatura)
         {
-            MetodosInformar.InformarTodasCarreras();
+            Entidades.Carreras carrera;
+            do
+            {
+                MetodosInformar.InformarTodasCarreras();
+                pAsignatura.CarreraId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la carrera de su alumno: ", mensajeError: $"\nValor debe ser mayor a 1.", minimoValorInput: 1, borrarInformacion: false);
+                carrera = Logica.Carrera.ListarUna(carreraID: pAsignatura.CarreraId);
+                if (carrera == null)
+                {
+                    MetodosComunes.MensajeColor(mensaje: "\nLa carrera seleccionada no existe.", color: ConsoleColor.Red);
+                }
+            } while (carrera == null);
 
-            pAsignatura.CarreraId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la carrera de su alumno: ", mensajeError: $"\nValor debe ser mayor a 1.", minimoValorInput: 1, borrarInformacion: false);
-            // TODO Atrapar NullReferenceException de todos los metodos GET de todas las clases y atrapar en todos los metodos Agregar de todas las clases DbUpdateException.
-            pAsignatura.AlumnoId = Logica.Carrera.ListarUna(carreraID: pAsignatura.CarreraId).AlumnoId;
-
+            pAsignatura.AlumnoId = carrera.AlumnoId;
             MetodosInformar.InformarListadoAsignaturas();
 
             pAsignatura.ListadoAsignaturasId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la asignatura de su alumno: ", mensajeError: $"\nValor no comprendido entre 1 y 109", minimoValorInput: 1, maximoValorInput: 109, borrarInformacion: false);

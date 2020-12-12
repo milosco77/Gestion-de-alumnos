@@ -13,15 +13,22 @@ namespace Datos
 
         public static Entidades.Carreras ListarUna(int? carreraID = null, int? alumnoID = null, int? listadoCarrerasID = null)
         {
-            if (carreraID != null)
+            try
             {
-                return db.Carreras.Where(c => c.CarreraId == carreraID).SingleOrDefault();
+                if (carreraID != null)
+                {
+                    return db.Carreras.Where(c => c.CarreraId == carreraID).SingleOrDefault();
+                }
+                else if (alumnoID != null)
+                {
+                    return db.Carreras.Where(c => c.AlumnoId == alumnoID).SingleOrDefault();
+                }
+                return db.Carreras.Where(c => c.ListadoCarrerasId == listadoCarrerasID).SingleOrDefault();
             }
-            else if (alumnoID != null)
+            catch (Exception e)
             {
-                return db.Carreras.Where(c => c.AlumnoId == alumnoID).SingleOrDefault();
+                throw new Exception(e.Message, e.InnerException);
             }
-            return db.Carreras.Where(c => c.ListadoCarrerasId == listadoCarrerasID).SingleOrDefault();
         }
 
         public static List<Entidades.Carreras> ListarVarias(int? carreraID = null, int? alumnoID = null, int? listadoCarrerasID = null)
