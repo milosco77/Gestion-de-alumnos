@@ -12,6 +12,7 @@ using System.Text;
 // TODO implementar manejo de excepciones.
 // TODO cambiar variables a sus variables reducidas en espacio solo cuando empieze a usar DB.
 // TODO Resolver problema de System.NullReferenceException: 'Object reference not set to an instance of an object.' cuando se quiere mostrar parametros null en metodos GET.
+// https://trycatch.me/c-optional-parameters-vs-method-overloading/ por que en projectos publicos es mejor usar sobrecarga de metodos y no parametros opcionales.
 
 namespace ConsolaNetCore
 {
@@ -181,11 +182,11 @@ namespace ConsolaNetCore
         {
             InformarTodasAsignaturas();
             pNota.AsignaturaId = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la asignatura de la cual desea agregar la nota:", minimoValorInput: 1, mensajeError: "\nEl valor debe ser 1 o mayor.", borrarInformacion: false);
-            pNota.PrimerParcial = ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del primer parcial (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false, valorNull: true);
-            pNota.PrimerRecuperatorio = ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del primer recuperatorio (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false, valorNull: true);
-            pNota.SegundoParcial = ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del segundo parcial (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false, valorNull: true);
-            pNota.SegundoRecuperatorio = ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del segundo recuperatorio (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false, valorNull: true);
-            pNota.Final = ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del final (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false, valorNull: true);
+            pNota.PrimerParcial = ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del primer parcial (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
+            pNota.PrimerRecuperatorio = ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del primer recuperatorio (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
+            pNota.SegundoParcial = ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del segundo parcial (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
+            pNota.SegundoRecuperatorio = ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del segundo recuperatorio (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
+            pNota.Final = ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del final (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
             return pNota;
         }
 
@@ -195,7 +196,7 @@ namespace ConsolaNetCore
             pListadoCarrera.FacultadId = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la facultad de la carrera", minimoValorInput: 1, maximoValorInput: 13, mensajeError: "\nEl valor debe estar comprendido entre 1 y 13.", borrarInformacion: false);
             pListadoCarrera.Nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de la carrera:");
             pListadoCarrera.Titulo = ValidacionTexto(mensajeIngreso: "\nIngrese el titulo de la carrera:");
-            pListadoCarrera.DuracionEstimadaAnios = ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la duracion estimada en años en formato decimal:", maximoValorInput: 1, mensajeError: "\nEl valor debe ser mayor a 0 y en formato decimal Ej: 5,5");
+            pListadoCarrera.DuracionEstimadaAnios = ValidacionNumericaFloatNull(mensajeIngreso: "\nIngrese la duracion estimada en años en formato decimal o null:", maximoValorInput: 1, mensajeError: "\nEl valor debe ser mayor a 0 y en formato decimal Ej: 5,5 o ser null");
             return pListadoCarrera;
         }
 
@@ -205,9 +206,9 @@ namespace ConsolaNetCore
             pListadoAsignatura.ListadoCarrerasId = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la carrera a la cual pertenece la asignatura:", mensajeError: "\nEl valor debe ser mayor a 0.", borrarInformacion: false);
             pListadoAsignatura.Codigo = ValidacionTexto(mensajeIngreso: "\nIngrese el codigo de la asignatura:");
             pListadoAsignatura.Nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de la asignatura:");
-            pListadoAsignatura.Creditos = (byte)ValidacionNumericaInt(mensajeIngreso: "\nIngrese los creditos de la asignatura:", minimoValorInput: 0, maximoValorInput: 255, mensajeError: "\nEl valor debe estar comprendido entre 0 y 255.");
-            pListadoAsignatura.Horas = (short)ValidacionNumericaInt(mensajeIngreso: "\nIngrese la cantidad de horas de la asignatura:", minimoValorInput: 1, maximoValorInput: 32767, mensajeError: "\nEl valor debe estar comprendido entre 1 y 32767.");
-            pListadoAsignatura.Correlativas = ValidacionTexto(mensajeIngreso: "\nIngrese los codigos de las asignaturas correlativas (ej: 75.10):");
+            pListadoAsignatura.Creditos = (byte)ValidacionNumericaIntNull(mensajeIngreso: "\nIngrese los creditos de la asignatura (0-255/null):", minimoValorInput: 0, maximoValorInput: 255, mensajeError: "\nEl valor debe estar comprendido entre 0 y 255 o ser null.");
+            pListadoAsignatura.Horas = (short)ValidacionNumericaIntNull(mensajeIngreso: "\nIngrese la cantidad de horas de la asignatura (1-32767/null):", minimoValorInput: 1, maximoValorInput: 32767, mensajeError: "\nEl valor debe estar comprendido entre 1 y 32767 o ser null.");
+            pListadoAsignatura.Correlativas = ValidacionTextoNull(mensajeIngreso: "\nIngrese los codigos de las asignaturas correlativas (ej: 75.10/null):");
             pListadoAsignatura.Categoria = ValidacionTexto(mensajeIngreso: "\nIngrese la categoria de la asignatura (ej: Segundo Ciclo):");
             return pListadoAsignatura;
         }
@@ -216,14 +217,14 @@ namespace ConsolaNetCore
         {
             pFacultad.Nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de la facultad:");
             pFacultad.Direccion = ValidacionTexto(mensajeIngreso: "\nIngrese la direccion de la facultad:");
-            pFacultad.Telefono = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el telefono de la facultad:", minimoValorInput: 111111, mensajeError: "\nEl valor debe ser mayor que 111111");
-            pFacultad.DepartamentoAlumnos = ValidacionTexto(mensajeIngreso: "\nIngrese el email del departamento de alumnos de la facultad:");
-            pFacultad.Facebook = ValidacionTexto(mensajeIngreso: "\nIngrese el la pagina web del Facebook de la facultad:");
-            pFacultad.Instagram = ValidacionTexto(mensajeIngreso: "\nIngrese el la pagina web del Instagram de la facultad:");
-            pFacultad.Twitter = ValidacionTexto(mensajeIngreso: "\nIngrese el la pagina web del Twitter de la facultad:");
-            pFacultad.PaginaWeb = ValidacionTexto(mensajeIngreso: "\nIngrese la pagina web de la facultad:");
-            pFacultad.Email = ValidacionTexto(mensajeIngreso: "\nIngrese el email de la facultad:");
-            pFacultad.RecorridoVirtual = ValidacionTexto(mensajeIngreso: "\nIngrese la pagina web del recorrido virtual de la facultad:");
+            pFacultad.Telefono = ValidacionNumericaIntNull(mensajeIngreso: "\nIngrese el telefono de la facultad o null:", minimoValorInput: 111111, mensajeError: "\nEl valor debe ser mayor que 111111");
+            pFacultad.DepartamentoAlumnos = ValidacionTextoNull(mensajeIngreso: "\nIngrese el email del departamento de alumnos de la facultad o null:");
+            pFacultad.Facebook = ValidacionTextoNull(mensajeIngreso: "\nIngrese el la pagina web del Facebook de la facultad o null:");
+            pFacultad.Instagram = ValidacionTextoNull(mensajeIngreso: "\nIngrese el la pagina web del Instagram de la facultad o null:");
+            pFacultad.Twitter = ValidacionTextoNull(mensajeIngreso: "\nIngrese el la pagina web del Twitter de la facultad o null:");
+            pFacultad.PaginaWeb = ValidacionTextoNull(mensajeIngreso: "\nIngrese la pagina web de la facultad o null:");
+            pFacultad.Email = ValidacionTextoNull(mensajeIngreso: "\nIngrese el email de la facultad o null:");
+            pFacultad.RecorridoVirtual = ValidacionTextoNull(mensajeIngreso: "\nIngrese la pagina web del recorrido virtual de la facultad o null:");
             return pFacultad;
         }
 
@@ -601,7 +602,7 @@ namespace ConsolaNetCore
             {
                 foreach (Entidades.Notas nota in notas)
                 {
-                    MensajeColor(mensaje: $"\nNotaID: {nota.NotasId} | AsignaturaID: {nota.AsignaturaId} | Primer parcial: {nota.PrimerParcial} | Primer recuperatorio: {nota.PrimerRecuperatorio} | Segundo parcial: {nota.SegundoParcial} | Segundo recuperatorio: {nota.SegundoRecuperatorio} | Final: {nota.Final}");
+                    MensajeColor(mensaje: $"\nNotaID: {nota.NotasId} | AsignaturaID: {nota.AsignaturaId} | Primer parcial: {(nota.PrimerParcial == null ? "NULL" : nota.PrimerParcial.ToString())} | Primer recuperatorio: {(nota.PrimerRecuperatorio == null ? "NULL" : nota.PrimerRecuperatorio.ToString())} | Segundo parcial: {(nota.SegundoParcial == null ? "NULL" : nota.SegundoParcial.ToString())} | Segundo recuperatorio: {(nota.SegundoRecuperatorio == null ? "NULL" : nota.SegundoRecuperatorio.ToString())} | Final: {(nota.Final == null ? "NULL" : nota.Final.ToString())}");
                 }
             }
         }
@@ -649,7 +650,7 @@ namespace ConsolaNetCore
             {
                 foreach (Entidades.Facultades facultad in facultades)
                 {
-                    MensajeColor(mensaje: $"\nFacultadID: {facultad.FacultadId} | Nombre: {facultad.Nombre} | Direccion: {facultad.Direccion} | Telefono: {facultad.Telefono} | Departamento de Alumnos: {facultad.DepartamentoAlumnos} | Facebook: {facultad.Facebook} | Instagram: {facultad.Instagram} | Twitter: {facultad.Twitter} | Pagina Web: {facultad.PaginaWeb} | Email: {facultad.Email} | Recorrido Virtual: {facultad.RecorridoVirtual}");
+                    MensajeColor(mensaje: $"\nFacultadID: {facultad.FacultadId} | Nombre: {facultad.Nombre} | Direccion: {facultad.Direccion} | Telefono: {(facultad.Telefono == null ? "NULL" : facultad.Telefono.ToString())} | Departamento de Alumnos: {(facultad.DepartamentoAlumnos == null ? "NULL" : facultad.DepartamentoAlumnos.ToString())} | Facebook: {(facultad.Facebook == null ? "NULL" : facultad.Facebook.ToString())} | Instagram: {(facultad.Instagram == null ? "NULL" : facultad.Instagram.ToString())} | Twitter: {(facultad.Twitter == null ? "NULL" : facultad.Twitter.ToString())} | Pagina Web: {(facultad.PaginaWeb == null ? "NULL" : facultad.PaginaWeb.ToString())} | Email: {(facultad.Email == null ? "NULL" : facultad.Email.ToString())} | Recorrido Virtual: {(facultad.RecorridoVirtual == null ? "NULL" : facultad.RecorridoVirtual.ToString())}");
                 }
             }
         }
@@ -668,7 +669,7 @@ namespace ConsolaNetCore
             {
                 foreach (Entidades.ListadoCarreras carrera in carreras)
                 {
-                    MensajeColor(mensaje: $"\nListadoCarrerasID: {carrera.ListadoCarrerasId} | FacultadID: {carrera.FacultadId} | Nombre: {carrera.Nombre} | Titulo: {carrera.Titulo} | Duracion Estimada en Años: {carrera.DuracionEstimadaAnios}");
+                    MensajeColor(mensaje: $"\nListadoCarrerasID: {carrera.ListadoCarrerasId} | FacultadID: {carrera.FacultadId} | Nombre: {carrera.Nombre} | Titulo: {carrera.Titulo} | Duracion Estimada en Años: {(carrera.DuracionEstimadaAnios == null ? "NULL" : carrera.DuracionEstimadaAnios.ToString())}");
                 }
             }
         }
@@ -687,7 +688,7 @@ namespace ConsolaNetCore
             {
                 foreach (Entidades.ListadoAsignaturas asignatura in asignaturas)
                 {
-                    MensajeColor(mensaje: $"\nListadoAsignaturasID: {asignatura.ListadoAsignaturasId} | Codigo: {asignatura.Codigo} | Nombre: {asignatura.Nombre} | Creditos: {asignatura.Creditos} | Horas: {asignatura.Horas} | Correlativas: {asignatura.Correlativas} | Categoria: {asignatura.Categoria} | ListadoCarrerasID: {asignatura.ListadoCarrerasId}");
+                    MensajeColor(mensaje: $"\nListadoAsignaturasID: {asignatura.ListadoAsignaturasId} | Codigo: {asignatura.Codigo} | Nombre: {asignatura.Nombre} | Creditos: {(asignatura.Creditos == null ? "NULL" : asignatura.Creditos.ToString())} | Horas: {(asignatura.Horas == null ? "NULL" : asignatura.Horas.ToString())} | Correlativas: {(asignatura.Correlativas == null ? "NULL" : asignatura.Correlativas.ToString())} | Categoria: {asignatura.Categoria} | ListadoCarrerasID: {asignatura.ListadoCarrerasId}");
                 }
             }
         }
@@ -1154,7 +1155,7 @@ namespace ConsolaNetCore
             return outputIngreso;
         }
 
-        public static int? ValidacionNumericaNullInt(string mensajeIngreso, string mensajeError = "Valor no comprendido entre -2147483648 y 2147483647", ConsoleColor colorError = ConsoleColor.Red, int minimoValorInput = int.MinValue, int maximoValorInput = int.MaxValue, bool borrarInformacion = true, bool valorNull = false)
+        public static int? ValidacionNumericaIntNull(string mensajeIngreso, string mensajeError = "Valor no comprendido entre -2147483648 y 2147483647", ConsoleColor colorError = ConsoleColor.Red, int minimoValorInput = int.MinValue, int maximoValorInput = int.MaxValue, bool borrarInformacion = true, bool valorNull = false)
         {
             string validarIngreso;
             int outputIngreso;
@@ -1183,7 +1184,7 @@ namespace ConsolaNetCore
             return outputIngreso;
         }
 
-        public static float? ValidacionNumericaFloat(string mensajeIngreso, string mensajeError = "Valor no comprendido en 3.40282347E+38", ConsoleColor colorError = ConsoleColor.Red, float minimoValorInput = float.MinValue, float maximoValorInput = float.MaxValue, bool borrarInformacion = true, bool valorNull = false)
+        public static float? ValidacionNumericaFloat(string mensajeIngreso, string mensajeError = "Valor no comprendido en 3.40282347E+38", ConsoleColor colorError = ConsoleColor.Red, float minimoValorInput = float.MinValue, float maximoValorInput = float.MaxValue, bool borrarInformacion = true)
         {
             string validarIngreso;
             float outputIngreso;
@@ -1191,7 +1192,33 @@ namespace ConsolaNetCore
             {
                 Console.WriteLine(mensajeIngreso);
                 validarIngreso = Console.ReadLine();
-                if (validarIngreso == "null" && valorNull == true)
+
+                float.TryParse(s: validarIngreso, result: out outputIngreso);
+                if (outputIngreso <= minimoValorInput || outputIngreso > maximoValorInput)
+                {
+                    if (borrarInformacion)
+                    {
+                        Console.Clear();
+                    }
+                    MensajeColor(mensaje: mensajeError, color: colorError);
+                }
+            } while (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput);
+            if (borrarInformacion)
+            {
+                Console.Clear();
+            }
+            return outputIngreso;
+        }
+
+        public static float? ValidacionNumericaFloatNull(string mensajeIngreso, string mensajeError = "Valor no comprendido en 3.40282347E+38", ConsoleColor colorError = ConsoleColor.Red, float minimoValorInput = float.MinValue, float maximoValorInput = float.MaxValue, bool borrarInformacion = true)
+        {
+            string validarIngreso;
+            float outputIngreso;
+            do
+            {
+                Console.WriteLine(mensajeIngreso);
+                validarIngreso = Console.ReadLine();
+                if (validarIngreso == "null")
                 {
                     return null;
                 }
@@ -1211,6 +1238,7 @@ namespace ConsolaNetCore
             }
             return outputIngreso;
         }
+
         // TODO Arreglar inclusion de caso en el que se incluya una direccion que toma valor numerico o simbolo al final
         // Linq es mas rapido que usar RegEx https://stackoverflow.com/questions/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp/1181426.
         /// <summary>
@@ -1242,7 +1270,33 @@ namespace ConsolaNetCore
             Console.Clear();
             return validarIngreso;
         }
+#nullable enable
+        public static string? ValidacionTextoNull(string mensajeIngreso, string mensajeError = "El valor ingresado esta vacio, empieza o termina con un espacio o contiene un caracter no alfabetico", ConsoleColor colorError = ConsoleColor.Red)
+        {
+            bool invalido;
+            string validarIngreso;
+            do
+            {
+                invalido = false;
+                Console.WriteLine(mensajeIngreso);
+                validarIngreso = Console.ReadLine();
+                if (validarIngreso == "null")
+                {
+                    return null;
+                }
+                if (validarIngreso.All(predicate: char.IsWhiteSpace) || validarIngreso.Any(predicate: char.IsDigit) || validarIngreso.StartsWith(" ") || validarIngreso.EndsWith(" ") || string.IsNullOrEmpty(validarIngreso) || (!validarIngreso.Any(char.IsLetter) && !validarIngreso.Any(char.IsWhiteSpace)))
+                {
+                    Console.Clear();
+                    MensajeColor(mensaje: mensajeError, color: colorError);
+                    invalido = true;
+                }
 
+            } while (invalido == true);
+
+            Console.Clear();
+            return validarIngreso;
+        }
+#nullable disable
         /// <summary>
         /// Valida el texto ingresado verificando si es nulo, contiene numeros, si empieza o termina con espacio vacio. O si es enteramente espacio vacio.
         /// </summary>
