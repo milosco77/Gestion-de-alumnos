@@ -30,7 +30,7 @@ namespace ConsolaNetCore
 
         public static void Continuar()
         {
-            MensajeColor(mensaje: "\nPresione una tecla para continuar...", color: ConsoleColor.Yellow);
+            MetodosComunes.MensajeColor(mensaje: "\nPresione una tecla para continuar...", color: ConsoleColor.Yellow);
             Console.ReadKey(intercept: true);
             Console.Clear();
         }
@@ -43,14 +43,14 @@ namespace ConsolaNetCore
 
         public static void Salir()
         {
-            MensajeColor(mensaje: "\nFin del programa.", color: ConsoleColor.Magenta);
+            MetodosComunes.MensajeColor(mensaje: "\nFin del programa.", color: ConsoleColor.Magenta);
             Continuar();
             System.Environment.Exit(exitCode: 0);
         }
 
         public static void AgregarRegistro(Enumeraciones.Tablas elementoAgregar)
         {
-            int cantidad = ValidacionNumericaInt(mensajeIngreso: $"\nCuantos elementos de {elementoAgregar} quiere ingresar (1-50):", mensajeError: "Valor no comprendido entre 1 y 50", minimoValorInput: 1, maximoValorInput: 50);
+            int cantidad = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nCuantos elementos de {elementoAgregar} quiere ingresar (1-50):", mensajeError: "Valor no comprendido entre 1 y 50", minimoValorInput: 1, maximoValorInput: 50);
             string devolucionAgregar;
             switch (elementoAgregar)
             {
@@ -63,11 +63,11 @@ namespace ConsolaNetCore
                         devolucionAgregar = Logica.Alumno.Agregar(alumno);
                         if (!devolucionAgregar.Contains("no ha sido agregado"))
                         {
-                            MensajeColor(mensaje: $"\n{devolucionAgregar}");
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
                         }
                         else
                         {
-                            MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
                         }
                     }
                     break;
@@ -80,11 +80,11 @@ namespace ConsolaNetCore
                         devolucionAgregar = Logica.Asignatura.Agregar(asignatura);
                         if (!devolucionAgregar.Contains("no ha sido agregado"))
                         {
-                            MensajeColor(mensaje: $"\n{devolucionAgregar}");
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
                         }
                         else
                         {
-                            MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
                         }
                     }
                     break;
@@ -97,11 +97,11 @@ namespace ConsolaNetCore
                         devolucionAgregar = Logica.Carrera.Agregar(carrera);
                         if (!devolucionAgregar.Contains("no ha sido agregado"))
                         {
-                            MensajeColor(mensaje: $"\n{devolucionAgregar}");
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
                         }
                         else
                         {
-                            MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
                         }
                     }
                     break;
@@ -114,11 +114,11 @@ namespace ConsolaNetCore
                         devolucionAgregar = Logica.Facultad.Agregar(facultad);
                         if (!devolucionAgregar.Contains("no ha sido agregado"))
                         {
-                            MensajeColor(mensaje: $"\n{devolucionAgregar}");
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
                         }
                         else
                         {
-                            MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
                         }
                     }
                     break;
@@ -131,11 +131,11 @@ namespace ConsolaNetCore
                         devolucionAgregar = Logica.ListadoAsignatura.Agregar(listadoAsignatura);
                         if (!devolucionAgregar.Contains("no ha sido agregado"))
                         {
-                            MensajeColor(mensaje: $"\n{devolucionAgregar}");
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
                         }
                         else
                         {
-                            MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
                         }
                     }
                     break;
@@ -148,11 +148,11 @@ namespace ConsolaNetCore
                         devolucionAgregar = Logica.ListadoCarrera.Agregar(listadoCarrera);
                         if (!devolucionAgregar.Contains("no ha sido agregado"))
                         {
-                            MensajeColor(mensaje: $"\n{devolucionAgregar}");
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
                         }
                         else
                         {
-                            MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
                         }
                     }
                     break;
@@ -165,11 +165,11 @@ namespace ConsolaNetCore
                         devolucionAgregar = Logica.Nota.Agregar(nota);
                         if (!devolucionAgregar.Contains("no ha sido agregado"))
                         {
-                            MensajeColor(mensaje: $"\n{devolucionAgregar}");
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
                         }
                         else
                         {
-                            MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
                         }
                     }
                     break;
@@ -181,59 +181,59 @@ namespace ConsolaNetCore
         public static Notas AgregarDatosNota(Notas pNota)
         {
             InformarTodasAsignaturas();
-            pNota.AsignaturaId = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la asignatura de la cual desea agregar la nota:", minimoValorInput: 1, mensajeError: "\nEl valor debe ser 1 o mayor.", borrarInformacion: false);
-            pNota.PrimerParcial = ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del primer parcial (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
-            pNota.PrimerRecuperatorio = ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del primer recuperatorio (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
-            pNota.SegundoParcial = ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del segundo parcial (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
-            pNota.SegundoRecuperatorio = ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del segundo recuperatorio (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
-            pNota.Final = ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del final (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
+            pNota.AsignaturaId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la asignatura de la cual desea agregar la nota:", minimoValorInput: 1, mensajeError: "\nEl valor debe ser 1 o mayor.", borrarInformacion: false);
+            pNota.PrimerParcial = MetodosComunes.ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del primer parcial (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
+            pNota.PrimerRecuperatorio = MetodosComunes.ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del primer recuperatorio (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
+            pNota.SegundoParcial = MetodosComunes.ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del segundo parcial (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
+            pNota.SegundoRecuperatorio = MetodosComunes.ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del segundo recuperatorio (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
+            pNota.Final = MetodosComunes.ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del final (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
             return pNota;
         }
 
         public static ListadoCarreras AgregarDatosListadoCarrera(ListadoCarreras pListadoCarrera)
         {
             InformarTodasFacultades();
-            pListadoCarrera.FacultadId = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la facultad de la carrera", minimoValorInput: 1, maximoValorInput: 13, mensajeError: "\nEl valor debe estar comprendido entre 1 y 13.", borrarInformacion: false);
-            pListadoCarrera.Nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de la carrera:");
-            pListadoCarrera.Titulo = ValidacionTexto(mensajeIngreso: "\nIngrese el titulo de la carrera:");
-            pListadoCarrera.DuracionEstimadaAnios = ValidacionNumericaFloatNull(mensajeIngreso: "\nIngrese la duracion estimada en años en formato decimal o null:", maximoValorInput: 1, mensajeError: "\nEl valor debe ser mayor a 0 y en formato decimal Ej: 5,5 o ser null");
+            pListadoCarrera.FacultadId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la facultad de la carrera", minimoValorInput: 1, maximoValorInput: 13, mensajeError: "\nEl valor debe estar comprendido entre 1 y 13.", borrarInformacion: false);
+            pListadoCarrera.Nombre = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de la carrera:");
+            pListadoCarrera.Titulo = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese el titulo de la carrera:");
+            pListadoCarrera.DuracionEstimadaAnios = MetodosComunes.ValidacionNumericaFloatNull(mensajeIngreso: "\nIngrese la duracion estimada en años en formato decimal o null:", maximoValorInput: 1, mensajeError: "\nEl valor debe ser mayor a 0 y en formato decimal Ej: 5,5 o ser null");
             return pListadoCarrera;
         }
 
         public static ListadoAsignaturas AgregarDatosListadoAsignatura(ListadoAsignaturas pListadoAsignatura)
         {
             InformarListadoCarreras();
-            pListadoAsignatura.ListadoCarrerasId = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la carrera a la cual pertenece la asignatura:", mensajeError: "\nEl valor debe ser mayor a 0.", borrarInformacion: false);
-            pListadoAsignatura.Codigo = ValidacionTexto(mensajeIngreso: "\nIngrese el codigo de la asignatura:");
-            pListadoAsignatura.Nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de la asignatura:");
-            pListadoAsignatura.Creditos = (byte)ValidacionNumericaIntNull(mensajeIngreso: "\nIngrese los creditos de la asignatura (0-255/null):", minimoValorInput: 0, maximoValorInput: 255, mensajeError: "\nEl valor debe estar comprendido entre 0 y 255 o ser null.");
-            pListadoAsignatura.Horas = (short)ValidacionNumericaIntNull(mensajeIngreso: "\nIngrese la cantidad de horas de la asignatura (1-32767/null):", minimoValorInput: 1, maximoValorInput: 32767, mensajeError: "\nEl valor debe estar comprendido entre 1 y 32767 o ser null.");
-            pListadoAsignatura.Correlativas = ValidacionTextoNull(mensajeIngreso: "\nIngrese los codigos de las asignaturas correlativas (ej: 75.10/null):");
-            pListadoAsignatura.Categoria = ValidacionTexto(mensajeIngreso: "\nIngrese la categoria de la asignatura (ej: Segundo Ciclo):");
+            pListadoAsignatura.ListadoCarrerasId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la carrera a la cual pertenece la asignatura:", mensajeError: "\nEl valor debe ser mayor a 0.", borrarInformacion: false);
+            pListadoAsignatura.Codigo = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese el codigo de la asignatura:");
+            pListadoAsignatura.Nombre = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de la asignatura:");
+            pListadoAsignatura.Creditos = (byte)MetodosComunes.ValidacionNumericaIntNull(mensajeIngreso: "\nIngrese los creditos de la asignatura (0-255/null):", minimoValorInput: 0, maximoValorInput: 255, mensajeError: "\nEl valor debe estar comprendido entre 0 y 255 o ser null.");
+            pListadoAsignatura.Horas = (short)MetodosComunes.ValidacionNumericaIntNull(mensajeIngreso: "\nIngrese la cantidad de horas de la asignatura (1-32767/null):", minimoValorInput: 1, maximoValorInput: 32767, mensajeError: "\nEl valor debe estar comprendido entre 1 y 32767 o ser null.");
+            pListadoAsignatura.Correlativas = MetodosComunes.ValidacionTextoNull(mensajeIngreso: "\nIngrese los codigos de las asignaturas correlativas (ej: 75.10/null):");
+            pListadoAsignatura.Categoria = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese la categoria de la asignatura (ej: Segundo Ciclo):");
             return pListadoAsignatura;
         }
 
         public static Facultades AgregarDatosFacultad(Facultades pFacultad)
         {
-            pFacultad.Nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de la facultad:");
-            pFacultad.Direccion = ValidacionTexto(mensajeIngreso: "\nIngrese la direccion de la facultad:");
-            pFacultad.Telefono = ValidacionNumericaIntNull(mensajeIngreso: "\nIngrese el telefono de la facultad o null:", minimoValorInput: 111111, mensajeError: "\nEl valor debe ser mayor que 111111");
-            pFacultad.DepartamentoAlumnos = ValidacionTextoNull(mensajeIngreso: "\nIngrese el email del departamento de alumnos de la facultad o null:");
-            pFacultad.Facebook = ValidacionTextoNull(mensajeIngreso: "\nIngrese el la pagina web del Facebook de la facultad o null:");
-            pFacultad.Instagram = ValidacionTextoNull(mensajeIngreso: "\nIngrese el la pagina web del Instagram de la facultad o null:");
-            pFacultad.Twitter = ValidacionTextoNull(mensajeIngreso: "\nIngrese el la pagina web del Twitter de la facultad o null:");
-            pFacultad.PaginaWeb = ValidacionTextoNull(mensajeIngreso: "\nIngrese la pagina web de la facultad o null:");
-            pFacultad.Email = ValidacionTextoNull(mensajeIngreso: "\nIngrese el email de la facultad o null:");
-            pFacultad.RecorridoVirtual = ValidacionTextoNull(mensajeIngreso: "\nIngrese la pagina web del recorrido virtual de la facultad o null:");
+            pFacultad.Nombre = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de la facultad:");
+            pFacultad.Direccion = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese la direccion de la facultad:");
+            pFacultad.Telefono = MetodosComunes.ValidacionNumericaIntNull(mensajeIngreso: "\nIngrese el telefono de la facultad o null:", minimoValorInput: 111111, mensajeError: "\nEl valor debe ser mayor que 111111");
+            pFacultad.DepartamentoAlumnos = MetodosComunes.ValidacionTextoNull(mensajeIngreso: "\nIngrese el email del departamento de alumnos de la facultad o null:");
+            pFacultad.Facebook = MetodosComunes.ValidacionTextoNull(mensajeIngreso: "\nIngrese el la pagina web del Facebook de la facultad o null:");
+            pFacultad.Instagram = MetodosComunes.ValidacionTextoNull(mensajeIngreso: "\nIngrese el la pagina web del Instagram de la facultad o null:");
+            pFacultad.Twitter = MetodosComunes.ValidacionTextoNull(mensajeIngreso: "\nIngrese el la pagina web del Twitter de la facultad o null:");
+            pFacultad.PaginaWeb = MetodosComunes.ValidacionTextoNull(mensajeIngreso: "\nIngrese la pagina web de la facultad o null:");
+            pFacultad.Email = MetodosComunes.ValidacionTextoNull(mensajeIngreso: "\nIngrese el email de la facultad o null:");
+            pFacultad.RecorridoVirtual = MetodosComunes.ValidacionTextoNull(mensajeIngreso: "\nIngrese la pagina web del recorrido virtual de la facultad o null:");
             return pFacultad;
         }
 
         public static Entidades.Alumnos AgregarDatosAlumno(Entidades.Alumnos pAlumno)
         {
-            pAlumno.Nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de su alumno: ", mensajeError: "\nIngrese un nombre solo con caracteres alfabeticos.");
-            pAlumno.Apellido = ValidacionTexto(mensajeIngreso: "\nIngrese el apellido de su alumno: ", mensajeError: "\nIngrese un apellido solo con caracteres alfabeticos.");
-            pAlumno.Edad = (byte)ValidacionNumericaInt(mensajeIngreso: "\nIngrese la edad de su alumno entre 13 y 99 años: ", mensajeError: "\nIngrese una edad solo con caracteres numericos entre 13 y 99.", minimoValorInput: 13, maximoValorInput: 99);
-            pAlumno.Dni = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el DNI de su alumno: ", mensajeError: "\nIngrese un DNI solo con caracteres numericos entre 1 y 99.999.999.", minimoValorInput: 1, maximoValorInput: 99999999);
+            pAlumno.Nombre = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de su alumno: ", mensajeError: "\nIngrese un nombre solo con caracteres alfabeticos.");
+            pAlumno.Apellido = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese el apellido de su alumno: ", mensajeError: "\nIngrese un apellido solo con caracteres alfabeticos.");
+            pAlumno.Edad = (byte)MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese la edad de su alumno entre 13 y 99 años: ", mensajeError: "\nIngrese una edad solo con caracteres numericos entre 13 y 99.", minimoValorInput: 13, maximoValorInput: 99);
+            pAlumno.Dni = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el DNI de su alumno: ", mensajeError: "\nIngrese un DNI solo con caracteres numericos entre 1 y 99.999.999.", minimoValorInput: 1, maximoValorInput: 99999999);
             return pAlumno;
         }
 
@@ -251,9 +251,9 @@ namespace ConsolaNetCore
         public static Entidades.Carreras AgregarDatosCarrera(Entidades.Carreras pCarrera)
         {
             InformarTodosAlumnos();
-            pCarrera.AlumnoId = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID del alumno del cual desea agregar la carrera:", minimoValorInput: 1, mensajeError: "\nEl valor debe ser 1 o mayor.", borrarInformacion: false);
+            pCarrera.AlumnoId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID del alumno del cual desea agregar la carrera:", minimoValorInput: 1, mensajeError: "\nEl valor debe ser 1 o mayor.", borrarInformacion: false);
             InformarListadoCarreras();
-            pCarrera.ListadoCarrerasId = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la carrera del alumno:", minimoValorInput: 1, maximoValorInput: 12, mensajeError: "\nEl valor debe estar comprendido entre 1 y 12.", borrarInformacion: false);
+            pCarrera.ListadoCarrerasId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la carrera del alumno:", minimoValorInput: 1, maximoValorInput: 12, mensajeError: "\nEl valor debe estar comprendido entre 1 y 12.", borrarInformacion: false);
             return pCarrera;
         }
 
@@ -261,33 +261,33 @@ namespace ConsolaNetCore
         {
             InformarTodasCarreras();
 
-            pAsignatura.CarreraId = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la carrera de su alumno: ", mensajeError: $"\nValor debe ser mayor a 1.", minimoValorInput: 1, borrarInformacion: false);
+            pAsignatura.CarreraId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la carrera de su alumno: ", mensajeError: $"\nValor debe ser mayor a 1.", minimoValorInput: 1, borrarInformacion: false);
             // TODO Atrapar NullReferenceException de todos los metodos GET de todas las clases y atrapar en todos los metodos Agregar de todas las clases DbUpdateException.
             pAsignatura.AlumnoId = Logica.Carrera.ListarUna(carreraID: pAsignatura.CarreraId).AlumnoId;
 
             InformarListadoAsignaturas();
 
-            pAsignatura.ListadoAsignaturasId = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la asignatura de su alumno: ", mensajeError: $"\nValor no comprendido entre 1 y 109", minimoValorInput: 1, maximoValorInput: 109, borrarInformacion: false);
+            pAsignatura.ListadoAsignaturasId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la asignatura de su alumno: ", mensajeError: $"\nValor no comprendido entre 1 y 109", minimoValorInput: 1, maximoValorInput: 109, borrarInformacion: false);
 
-            pAsignatura.Comision = ValidacionNumericaInt(mensajeIngreso: $"\nIngrese la comision de la asignatura ({Logica.ListadoAsignatura.ListarUna(pAsignatura.ListadoAsignaturasId).Nombre}): ", mensajeError: "\nIngrese una comision solo con caracteres numericos mayor a 0", minimoValorInput: 1);
+            pAsignatura.Comision = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nIngrese la comision de la asignatura ({Logica.ListadoAsignatura.ListarUna(pAsignatura.ListadoAsignaturasId).Nombre}): ", mensajeError: "\nIngrese una comision solo con caracteres numericos mayor a 0", minimoValorInput: 1);
 
             Console.WriteLine("\nIngrese el horario de entrada de la materia");
 
-            int Horas = ValidacionNumericaInt(mensajeIngreso: "\nIngrese la hora entre 0 y 23:", mensajeError: "\nIngrese un valor entre 0 y 23", minimoValorInput: 0, maximoValorInput: 23);
+            int Horas = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese la hora entre 0 y 23:", mensajeError: "\nIngrese un valor entre 0 y 23", minimoValorInput: 0, maximoValorInput: 23);
 
-            int Minutos = ValidacionNumericaInt(mensajeIngreso: "\nIngrese los minutos entre 0 y 59:", mensajeError: "\nIngrese un valor entre 0 y 59", minimoValorInput: 0, maximoValorInput: 59);
+            int Minutos = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese los minutos entre 0 y 59:", mensajeError: "\nIngrese un valor entre 0 y 59", minimoValorInput: 0, maximoValorInput: 59);
 
             pAsignatura.HorarioEntrada = new TimeSpan(hours: Horas, minutes: Minutos, seconds: 0);
 
             Console.WriteLine("\nIngrese el horario de salida de la materia");
 
-            Horas = ValidacionNumericaInt(mensajeIngreso: "\nIngrese la hora entre 0 y 23:", mensajeError: "\nIngrese un valor entre 0 y 23", minimoValorInput: 0, maximoValorInput: 23);
+            Horas = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese la hora entre 0 y 23:", mensajeError: "\nIngrese un valor entre 0 y 23", minimoValorInput: 0, maximoValorInput: 23);
 
-            Minutos = ValidacionNumericaInt(mensajeIngreso: "\nIngrese los minutos entre 0 y 59:", mensajeError: "\nIngrese un valor entre 0 y 59", minimoValorInput: 0, maximoValorInput: 59);
+            Minutos = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese los minutos entre 0 y 59:", mensajeError: "\nIngrese un valor entre 0 y 59", minimoValorInput: 0, maximoValorInput: 59);
 
             pAsignatura.HorarioSalida = new TimeSpan(hours: Horas, minutes: Minutos, seconds: 0);
 
-            pAsignatura.Dias = ValidacionTexto(mensajeIngreso: "\nIngrese los dias de cursada de la materia (Ej: Lunes-Miercoles-Viernes):");
+            pAsignatura.Dias = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese los dias de cursada de la materia (Ej: Lunes-Miercoles-Viernes):");
             // TODO Mejorar ingreso de dias.
             return pAsignatura;
         }
@@ -364,10 +364,10 @@ namespace ConsolaNetCore
         {
             int id, dni;
             Entidades.Alumnos alumno;
-            switch (ValidacionNumericaInt(mensajeIngreso: "\nIndique por cual tipo de valor quiere buscar el alumno (ID = 1 | DNI = 2)", mensajeError: "\nEl valor no esta dentro de 1 y 2.", minimoValorInput: 1, maximoValorInput: 2))
+            switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIndique por cual tipo de valor quiere buscar el alumno (ID = 1 | DNI = 2)", mensajeError: "\nEl valor no esta dentro de 1 y 2.", minimoValorInput: 1, maximoValorInput: 2))
             {
                 case 1:
-                    id = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el id por el cual quiere buscar:", mensajeError: "El valor no puede ser 0 o menor.", minimoValorInput: 1);
+                    id = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el id por el cual quiere buscar:", mensajeError: "El valor no puede ser 0 o menor.", minimoValorInput: 1);
 
                     alumno = Logica.Alumno.ListarUno(alumnoID: id);
                     Console.WriteLine($"\nEl alumno con id {id} es\n");
@@ -382,7 +382,7 @@ namespace ConsolaNetCore
                     }
                     break;
                 case 2:
-                    dni = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el dni por el cual quiere buscar:", mensajeError: "El valor no puede ser 0 o menor.", minimoValorInput: 1);
+                    dni = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el dni por el cual quiere buscar:", mensajeError: "El valor no puede ser 0 o menor.", minimoValorInput: 1);
 
                     alumno = Logica.Alumno.ListarUno(dni: dni);
                     Console.WriteLine($"\nEl alumno con dni {dni} es\n");
@@ -406,10 +406,10 @@ namespace ConsolaNetCore
             string nombre, apellido;
             int id, edad, dni;
             List<Entidades.Alumnos> alumnos;
-            switch (ValidacionNumericaInt(mensajeIngreso: "\nIndique por cual tipo de valor quiere buscar (ID = 1 | Nombre = 2 | Apellido = 3 | Edad = 4 | DNI = 5)", mensajeError: "\nEl valor no esta dentro de 1 y 6.", minimoValorInput: 1, maximoValorInput: 5))
+            switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIndique por cual tipo de valor quiere buscar (ID = 1 | Nombre = 2 | Apellido = 3 | Edad = 4 | DNI = 5)", mensajeError: "\nEl valor no esta dentro de 1 y 6.", minimoValorInput: 1, maximoValorInput: 5))
             {
                 case 1:
-                    id = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID por el cual quiere buscar:", mensajeError: "El valor no puede ser 0 o menor.", minimoValorInput: 1);
+                    id = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID por el cual quiere buscar:", mensajeError: "El valor no puede ser 0 o menor.", minimoValorInput: 1);
 
                     alumnos = Logica.Alumno.ListarVarios(alumnoID: id);
                     Console.WriteLine($"\nLos alumno con ID {id} son:\n");
@@ -428,7 +428,7 @@ namespace ConsolaNetCore
                     }
                     break;
                 case 2:
-                    nombre = ValidacionTexto(mensajeIngreso: "\nIngrese el nombre por el cual quiere buscar:");
+                    nombre = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese el nombre por el cual quiere buscar:");
 
                     alumnos = Logica.Alumno.ListarVarios(nombre: nombre);
                     Console.WriteLine($"\nLos alumno con nombre {nombre} son:\n");
@@ -447,7 +447,7 @@ namespace ConsolaNetCore
                     }
                     break;
                 case 3:
-                    apellido = ValidacionTexto(mensajeIngreso: "\nIngrese el apellido por el cual quiere buscar:");
+                    apellido = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese el apellido por el cual quiere buscar:");
 
                     alumnos = Logica.Alumno.ListarVarios(apellido: apellido);
                     Console.WriteLine($"\nLos alumno con apellido {apellido} son:\n");
@@ -466,7 +466,7 @@ namespace ConsolaNetCore
                     }
                     break;
                 case 4:
-                    edad = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el edad por el cual quiere buscar:", mensajeError: "El valor no puede ser 12 o menor.", minimoValorInput: 12);
+                    edad = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el edad por el cual quiere buscar:", mensajeError: "El valor no puede ser 12 o menor.", minimoValorInput: 12);
 
                     alumnos = Logica.Alumno.ListarVarios(edad: edad);
                     Console.WriteLine($"\nLos alumno con edad {edad} son:\n");
@@ -486,7 +486,7 @@ namespace ConsolaNetCore
 
                     break;
                 case 5:
-                    dni = ValidacionNumericaInt(mensajeIngreso: "\nIngrese el dni por el cual quiere buscar:", mensajeError: "El valor no puede ser 0 o menor.", minimoValorInput: 1);
+                    dni = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el dni por el cual quiere buscar:", mensajeError: "El valor no puede ser 0 o menor.", minimoValorInput: 1);
 
                     alumnos = Logica.Alumno.ListarVarios(dni: dni);
                     Console.WriteLine($"\nLos alumno con dni {dni} son:\n");
@@ -525,7 +525,7 @@ namespace ConsolaNetCore
                 {
                     Console.WriteLine($"\nAlumno Nº {(contador++)+1}");
 
-                    MensajeColor(mensaje: $"\nID: {alumno.AlumnoId} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.Dni}");
+                    MetodosComunes.MensajeColor(mensaje: $"\nID: {alumno.AlumnoId} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.Dni}");
                 }
             }
         }
@@ -543,7 +543,7 @@ namespace ConsolaNetCore
             Console.WriteLine($"\nAsignaturas del alumno - Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido}:");
             foreach (Entidades.Asignaturas asignatura in asignaturas)
             {
-                MensajeColor(mensaje: $"\nNombre: {Logica.ListadoAsignatura.ListarUna(asignatura.ListadoAsignaturasId).Nombre} | Comision: {asignatura.Comision} | Horario de entrada: {asignatura.HorarioEntrada} | Horario de salida: {asignatura.HorarioSalida} | Dias: {asignatura.Dias}");
+                MetodosComunes.MensajeColor(mensaje: $"\nNombre: {Logica.ListadoAsignatura.ListarUna(asignatura.ListadoAsignaturasId).Nombre} | Comision: {asignatura.Comision} | Horario de entrada: {asignatura.HorarioEntrada} | Horario de salida: {asignatura.HorarioSalida} | Dias: {asignatura.Dias}");
                 InformarUnaNota(asignatura);
             }
 
@@ -556,14 +556,14 @@ namespace ConsolaNetCore
 
             if (asignaturas.Count == 0)
             {
-                MensajeColor(mensaje: "\nLa lista de alumno esta vacia", color: ConsoleColor.Red);
+                MetodosComunes.MensajeColor(mensaje: "\nLa lista de alumno esta vacia", color: ConsoleColor.Red);
                 Continuar();
             }
             else
             {
                 foreach (Entidades.Asignaturas asignatura in asignaturas)
                 {
-                    MensajeColor(mensaje: $"\nAsignaturaID: {asignatura.AsignaturaId} | ListadoAsignaturasID: {asignatura.ListadoAsignaturasId} | AlumnoID: {asignatura.AlumnoId} | CarreraID: {asignatura.CarreraId} | Comision: {asignatura.Comision} | HorarioEntrada: {asignatura.HorarioEntrada} | HorarioSalida: {asignatura.HorarioSalida} | Dias: {asignatura.Dias}");
+                    MetodosComunes.MensajeColor(mensaje: $"\nAsignaturaID: {asignatura.AsignaturaId} | ListadoAsignaturasID: {asignatura.ListadoAsignaturasId} | AlumnoID: {asignatura.AlumnoId} | CarreraID: {asignatura.CarreraId} | Comision: {asignatura.Comision} | HorarioEntrada: {asignatura.HorarioEntrada} | HorarioSalida: {asignatura.HorarioSalida} | Dias: {asignatura.Dias}");
                 }
             }
 
@@ -575,11 +575,11 @@ namespace ConsolaNetCore
             Entidades.Notas nota = Logica.Nota.ListarUna(asignatura.AsignaturaId);
             if (nota == null)
             {
-                MensajeColor(mensaje: "\nNo hay notas para esta asignatura.", color: ConsoleColor.Red);
+                MetodosComunes.MensajeColor(mensaje: "\nNo hay notas para esta asignatura.", color: ConsoleColor.Red);
             }
             else
             {
-                MensajeColor(mensaje: $"\nPrimer parcial: {nota.PrimerParcial} | Primer recuperatorio: {nota.PrimerRecuperatorio} | Segundo parcial: {nota.SegundoParcial} | Segundo recuperatorio: {nota.SegundoRecuperatorio} | Final: {nota.Final}");
+                MetodosComunes.MensajeColor(mensaje: $"\nPrimer parcial: {nota.PrimerParcial} | Primer recuperatorio: {nota.PrimerRecuperatorio} | Segundo parcial: {nota.SegundoParcial} | Segundo recuperatorio: {nota.SegundoRecuperatorio} | Final: {nota.Final}");
             }
         }
 
@@ -595,14 +595,14 @@ namespace ConsolaNetCore
 
             if (notas.Count == 0)
             {
-                MensajeColor(mensaje: "\nLa lista de notas esta vacia", color: ConsoleColor.Red);
+                MetodosComunes.MensajeColor(mensaje: "\nLa lista de notas esta vacia", color: ConsoleColor.Red);
                 Continuar();
             }
             else
             {
                 foreach (Entidades.Notas nota in notas)
                 {
-                    MensajeColor(mensaje: $"\nNotaID: {nota.NotasId} | AsignaturaID: {nota.AsignaturaId} | Primer parcial: {(nota.PrimerParcial == null ? "NULL" : nota.PrimerParcial.ToString())} | Primer recuperatorio: {(nota.PrimerRecuperatorio == null ? "NULL" : nota.PrimerRecuperatorio.ToString())} | Segundo parcial: {(nota.SegundoParcial == null ? "NULL" : nota.SegundoParcial.ToString())} | Segundo recuperatorio: {(nota.SegundoRecuperatorio == null ? "NULL" : nota.SegundoRecuperatorio.ToString())} | Final: {(nota.Final == null ? "NULL" : nota.Final.ToString())}");
+                    MetodosComunes.MensajeColor(mensaje: $"\nNotaID: {nota.NotasId} | AsignaturaID: {nota.AsignaturaId} | Primer parcial: {(nota.PrimerParcial == null ? "NULL" : nota.PrimerParcial.ToString())} | Primer recuperatorio: {(nota.PrimerRecuperatorio == null ? "NULL" : nota.PrimerRecuperatorio.ToString())} | Segundo parcial: {(nota.SegundoParcial == null ? "NULL" : nota.SegundoParcial.ToString())} | Segundo recuperatorio: {(nota.SegundoRecuperatorio == null ? "NULL" : nota.SegundoRecuperatorio.ToString())} | Final: {(nota.Final == null ? "NULL" : nota.Final.ToString())}");
                 }
             }
         }
@@ -624,14 +624,14 @@ namespace ConsolaNetCore
 
             if (carreras.Count == 0)
             {
-                MensajeColor(mensaje: "\nLa lista de carreras esta vacia", color: ConsoleColor.Red);
+                MetodosComunes.MensajeColor(mensaje: "\nLa lista de carreras esta vacia", color: ConsoleColor.Red);
                 Continuar();
             }
             else
             {
                 foreach (Entidades.Carreras carrera in carreras)
                 {
-                    MensajeColor(mensaje: $"\nCarreraID: {carrera.CarreraId} | AlumnoID: {carrera.AlumnoId} | ListadoCarrerasID: {carrera.ListadoCarrerasId}");
+                    MetodosComunes.MensajeColor(mensaje: $"\nCarreraID: {carrera.CarreraId} | AlumnoID: {carrera.AlumnoId} | ListadoCarrerasID: {carrera.ListadoCarrerasId}");
                 }
             }
         }
@@ -643,14 +643,14 @@ namespace ConsolaNetCore
 
             if (facultades.Count == 0)
             {
-                MensajeColor(mensaje: "\nLa lista de facultades esta vacia", color: ConsoleColor.Red);
+                MetodosComunes.MensajeColor(mensaje: "\nLa lista de facultades esta vacia", color: ConsoleColor.Red);
                 Continuar();
             }
             else
             {
                 foreach (Entidades.Facultades facultad in facultades)
                 {
-                    MensajeColor(mensaje: $"\nFacultadID: {facultad.FacultadId} | Nombre: {facultad.Nombre} | Direccion: {facultad.Direccion} | Telefono: {(facultad.Telefono == null ? "NULL" : facultad.Telefono.ToString())} | Departamento de Alumnos: {(facultad.DepartamentoAlumnos == null ? "NULL" : facultad.DepartamentoAlumnos.ToString())} | Facebook: {(facultad.Facebook == null ? "NULL" : facultad.Facebook.ToString())} | Instagram: {(facultad.Instagram == null ? "NULL" : facultad.Instagram.ToString())} | Twitter: {(facultad.Twitter == null ? "NULL" : facultad.Twitter.ToString())} | Pagina Web: {(facultad.PaginaWeb == null ? "NULL" : facultad.PaginaWeb.ToString())} | Email: {(facultad.Email == null ? "NULL" : facultad.Email.ToString())} | Recorrido Virtual: {(facultad.RecorridoVirtual == null ? "NULL" : facultad.RecorridoVirtual.ToString())}");
+                    MetodosComunes.MensajeColor(mensaje: $"\nFacultadID: {facultad.FacultadId} | Nombre: {facultad.Nombre} | Direccion: {facultad.Direccion} | Telefono: {(facultad.Telefono == null ? "NULL" : facultad.Telefono.ToString())} | Departamento de Alumnos: {(facultad.DepartamentoAlumnos == null ? "NULL" : facultad.DepartamentoAlumnos.ToString())} | Facebook: {(facultad.Facebook == null ? "NULL" : facultad.Facebook.ToString())} | Instagram: {(facultad.Instagram == null ? "NULL" : facultad.Instagram.ToString())} | Twitter: {(facultad.Twitter == null ? "NULL" : facultad.Twitter.ToString())} | Pagina Web: {(facultad.PaginaWeb == null ? "NULL" : facultad.PaginaWeb.ToString())} | Email: {(facultad.Email == null ? "NULL" : facultad.Email.ToString())} | Recorrido Virtual: {(facultad.RecorridoVirtual == null ? "NULL" : facultad.RecorridoVirtual.ToString())}");
                 }
             }
         }
@@ -662,14 +662,14 @@ namespace ConsolaNetCore
 
             if (carreras.Count == 0)
             {
-                MensajeColor(mensaje: "\nEl listado de carreras esta vacio", color: ConsoleColor.Red);
+                MetodosComunes.MensajeColor(mensaje: "\nEl listado de carreras esta vacio", color: ConsoleColor.Red);
                 Continuar();
             }
             else
             {
                 foreach (Entidades.ListadoCarreras carrera in carreras)
                 {
-                    MensajeColor(mensaje: $"\nListadoCarrerasID: {carrera.ListadoCarrerasId} | FacultadID: {carrera.FacultadId} | Nombre: {carrera.Nombre} | Titulo: {carrera.Titulo} | Duracion Estimada en Años: {(carrera.DuracionEstimadaAnios == null ? "NULL" : carrera.DuracionEstimadaAnios.ToString())}");
+                    MetodosComunes.MensajeColor(mensaje: $"\nListadoCarrerasID: {carrera.ListadoCarrerasId} | FacultadID: {carrera.FacultadId} | Nombre: {carrera.Nombre} | Titulo: {carrera.Titulo} | Duracion Estimada en Años: {(carrera.DuracionEstimadaAnios == null ? "NULL" : carrera.DuracionEstimadaAnios.ToString())}");
                 }
             }
         }
@@ -681,14 +681,14 @@ namespace ConsolaNetCore
 
             if (asignaturas.Count == 0)
             {
-                MensajeColor(mensaje: "\nEl listado de asignaturas esta vacio", color: ConsoleColor.Red);
+                MetodosComunes.MensajeColor(mensaje: "\nEl listado de asignaturas esta vacio", color: ConsoleColor.Red);
                 Continuar();
             }
             else
             {
                 foreach (Entidades.ListadoAsignaturas asignatura in asignaturas)
                 {
-                    MensajeColor(mensaje: $"\nListadoAsignaturasID: {asignatura.ListadoAsignaturasId} | Codigo: {asignatura.Codigo} | Nombre: {asignatura.Nombre} | Creditos: {(asignatura.Creditos == null ? "NULL" : asignatura.Creditos.ToString())} | Horas: {(asignatura.Horas == null ? "NULL" : asignatura.Horas.ToString())} | Correlativas: {(asignatura.Correlativas == null ? "NULL" : asignatura.Correlativas.ToString())} | Categoria: {asignatura.Categoria} | ListadoCarrerasID: {asignatura.ListadoCarrerasId}");
+                    MetodosComunes.MensajeColor(mensaje: $"\nListadoAsignaturasID: {asignatura.ListadoAsignaturasId} | Codigo: {asignatura.Codigo} | Nombre: {asignatura.Nombre} | Creditos: {(asignatura.Creditos == null ? "NULL" : asignatura.Creditos.ToString())} | Horas: {(asignatura.Horas == null ? "NULL" : asignatura.Horas.ToString())} | Correlativas: {(asignatura.Correlativas == null ? "NULL" : asignatura.Correlativas.ToString())} | Categoria: {asignatura.Categoria} | ListadoCarrerasID: {asignatura.ListadoCarrerasId}");
                 }
             }
         }
@@ -744,10 +744,10 @@ namespace ConsolaNetCore
                     Console.Clear();
                 }
                 primeraVez = true;
-                switch (ValidacionNumericaInt(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Agregar.\n\n2 = Editar.\n\n3 = Eliminar.\n\n4 = Mostrar.\n\n5 = Salir.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 5.", minimoValorInput: 1, maximoValorInput: 5))
+                switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Agregar.\n\n2 = Editar.\n\n3 = Eliminar.\n\n4 = Mostrar.\n\n5 = Salir.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 5.", minimoValorInput: 1, maximoValorInput: 5))
                 {
                     case 1:
-                        switch (ValidacionNumericaInt(mensajeIngreso: "\nQue desea agregar? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Alumno.\n\n2 = Asignatura.\n\n3 = Carrera.\n\n4 = Facultad.\n\n5 = Asignatura al listado.\n\n6 = Carrera al listado.\n\n7 = Nota.\n\n8 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
+                        switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea agregar? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Alumno.\n\n2 = Asignatura.\n\n3 = Carrera.\n\n4 = Facultad.\n\n5 = Asignatura al listado.\n\n6 = Carrera al listado.\n\n7 = Nota.\n\n8 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
                             {
                             case 1:
                                 AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.Alumnos);
@@ -776,7 +776,7 @@ namespace ConsolaNetCore
                         }
                         break;
                     case 2:
-                        switch (ValidacionNumericaInt(mensajeIngreso: "\nQue desea editar? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Alumno.\n\n2 = Asignatura.\n\n3 = Carrera.\n\n4 = Facultad.\n\n5 = Asignatura del listado.\n\n6 = Carrera del listado.\n\n7 = Nota.\n\n8 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
+                        switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea editar? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Alumno.\n\n2 = Asignatura.\n\n3 = Carrera.\n\n4 = Facultad.\n\n5 = Asignatura del listado.\n\n6 = Carrera del listado.\n\n7 = Nota.\n\n8 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
                         {
                             case 1:
                                 EditarAlumno();
@@ -805,7 +805,7 @@ namespace ConsolaNetCore
                         }
                         break;
                     case 3:
-                        switch (ValidacionNumericaInt(mensajeIngreso: "\nQue desea eliminar? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Alumno.\n\n2 = Asignatura.\n\n3 = Carrera.\n\n4 = Facultad.\n\n5 = Asignatura del listado.\n\n6 = Carrera del listado.\n\n7 = Nota.\n\n8 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
+                        switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea eliminar? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Alumno.\n\n2 = Asignatura.\n\n3 = Carrera.\n\n4 = Facultad.\n\n5 = Asignatura del listado.\n\n6 = Carrera del listado.\n\n7 = Nota.\n\n8 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
                         {
                             case 1:
                                 EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Alumnos, tablaAsociada: Enumeraciones.Tablas.Carreras);
@@ -834,7 +834,7 @@ namespace ConsolaNetCore
                         }
                         break;
                     case 4:
-                        switch (ValidacionNumericaInt(mensajeIngreso: "\nQue desea mostrar? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Alumnos.\n\n2 = Asignaturas.\n\n3 = Carreras.\n\n4 = Facultades.\n\n5 = Asignaturas del listado.\n\n6 = Carreras del listado.\n\n7 = Notas.\n\n8 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
+                        switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea mostrar? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Alumnos.\n\n2 = Asignaturas.\n\n3 = Carreras.\n\n4 = Facultades.\n\n5 = Asignaturas del listado.\n\n6 = Carreras del listado.\n\n7 = Notas.\n\n8 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
                         {
                             case 1:
                                 InformarTodosAlumnos();
@@ -908,426 +908,191 @@ namespace ConsolaNetCore
             {
                 case Enumeraciones.Tablas.Alumnos:
                     InformarTodosAlumnos();
-                    ID = ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
+                    ID = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
                     if (tablaAsociada != null)
                     {
-                        MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
+                        MetodosComunes.MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
                     }
-                    alerta = ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
+                    alerta = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
                         devolucionEliminar = Logica.Carrera.Eliminar(ID);
                         if (devolucionEliminar.Contains("borrado"))
                         {
-                            MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
                         }
                         else
                         {
-                            MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
                         }
                         devolucionEliminar = Logica.Alumno.Eliminar(ID);
                         if (devolucionEliminar.Contains("borrado"))
                         {
-                            MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
                         }
                         else
                         {
-                            MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
                         }
                     }
                     else
                     {
-                        MensajeColor(mensaje: "\nHa decidido no borrar el registro.", color: ConsoleColor.Yellow);
+                        MetodosComunes.MensajeColor(mensaje: "\nHa decidido no borrar el registro.", color: ConsoleColor.Yellow);
                     }
                     break;
                 case Enumeraciones.Tablas.Asignaturas:
                     InformarTodasAsignaturas();
-                    ID = ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
+                    ID = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
                     if (tablaAsociada != null)
                     {
-                        MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
+                        MetodosComunes.MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
                     }
-                    alerta = ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
+                    alerta = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
                         devolucionEliminar = Logica.Asignatura.Eliminar(ID);
                         if (devolucionEliminar.Contains("borrado"))
                         {
-                            MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
                         }
                         else
                         {
-                            MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
                         }
                     }
                     else
                     {
-                        MensajeColor(mensaje: "\nHa decidido no borrar el registro.", color: ConsoleColor.Yellow);
+                        MetodosComunes.MensajeColor(mensaje: "\nHa decidido no borrar el registro.", color: ConsoleColor.Yellow);
                     }
                     break;
                 case Enumeraciones.Tablas.Carreras:
                     InformarTodasCarreras();
-                    ID = ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
+                    ID = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
                     if (tablaAsociada != null)
                     {
-                        MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
+                        MetodosComunes.MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
                     }
-                    alerta = ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
+                    alerta = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
                         devolucionEliminar = Logica.Carrera.Eliminar(ID);
                         if (devolucionEliminar.Contains("borrado"))
                         {
-                            MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
                         }
                         else
                         {
-                            MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
                         }
                     }
                     else
                     {
-                        MensajeColor(mensaje: "\nHa decidido no borrar el registro.", color: ConsoleColor.Yellow);
+                        MetodosComunes.MensajeColor(mensaje: "\nHa decidido no borrar el registro.", color: ConsoleColor.Yellow);
                     }
                     break;
                 case Enumeraciones.Tablas.Facultades:
                     InformarTodasFacultades();
-                    ID = ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
+                    ID = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
                                         if (tablaAsociada != null)
                     {
-                        MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
+                        MetodosComunes.MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
                     }
-                    alerta = ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
+                    alerta = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
                         devolucionEliminar = Logica.Facultad.Eliminar(ID);
                         if (devolucionEliminar.Contains("borrado"))
                         {
-                            MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
                         }
                         else
                         {
-                            MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
                         }
                     }
                     else
                     {
-                        MensajeColor(mensaje: "\nHa decidido no borrar el registro.", color: ConsoleColor.Yellow);
+                        MetodosComunes.MensajeColor(mensaje: "\nHa decidido no borrar el registro.", color: ConsoleColor.Yellow);
                     }
                     break;
                 case Enumeraciones.Tablas.ListadoAsignaturas:
                     InformarListadoAsignaturas();
-                    ID = ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
+                    ID = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
                                         if (tablaAsociada != null)
                     {
-                        MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
+                        MetodosComunes.MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
                     }
-                    alerta = ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
+                    alerta = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
                         devolucionEliminar = Logica.ListadoAsignatura.Eliminar(ID);
                         if (devolucionEliminar.Contains("borrado"))
                         {
-                            MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
                         }
                         else
                         {
-                            MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
                         }
                     }
                     else
                     {
-                        MensajeColor(mensaje: "\nHa decidido no borrar el registro.", color: ConsoleColor.Yellow);
+                        MetodosComunes.MensajeColor(mensaje: "\nHa decidido no borrar el registro.", color: ConsoleColor.Yellow);
                     }
                     break;
                 case Enumeraciones.Tablas.ListadoCarreras:
                     InformarListadoCarreras();
-                    ID = ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
+                    ID = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
                                         if (tablaAsociada != null)
                     {
-                        MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
+                        MetodosComunes.MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
                     }
-                    alerta = ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
+                    alerta = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
                         devolucionEliminar = Logica.ListadoCarrera.Eliminar(ID);
                         if (devolucionEliminar.Contains("borrado"))
                         {
-                            MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
                         }
                         else
                         {
-                            MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
                         }
                     }
                     else
                     {
-                        MensajeColor(mensaje: "\nHa decidido no borrar el registro.", color: ConsoleColor.Yellow);
+                        MetodosComunes.MensajeColor(mensaje: "\nHa decidido no borrar el registro.", color: ConsoleColor.Yellow);
                     }
                     break;
                 case Enumeraciones.Tablas.Notas:
                     InformarTodasNotas();
-                    ID = ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
+                    ID = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
                                         if (tablaAsociada != null)
                     {
-                        MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
+                        MetodosComunes.MensajeColor(mensaje: $"\nSe eliminaran los registros asosciado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
                     }
-                    alerta = ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
+                    alerta = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
                         devolucionEliminar = Logica.Nota.Eliminar(ID);
                         if (devolucionEliminar.Contains("borrado"))
                         {
-                            MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
                         }
                         else
                         {
-                            MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
                         }
                     }
                     else
                     {
-                        MensajeColor(mensaje: "\nHa decidido no borrar el registro.", color: ConsoleColor.Yellow);
+                        MetodosComunes.MensajeColor(mensaje: "\nHa decidido no borrar el registro.", color: ConsoleColor.Yellow);
                     }
                     break;
                 default:
                     break;
             }
-        }
-
-        /// <summary>
-        /// Muestra en pantalla el mensaje indicado, le cambia al color deseado y reinicia al valor por defecto de color del texto de consola.
-        /// </summary>
-        /// <param name="mensaje"></param>
-        /// <param name="color"></param>
-        public static void MensajeColor(string mensaje, ConsoleColor color = ConsoleColor.Green)
-        {
-            Console.ForegroundColor = color;
-            Console.WriteLine($"{mensaje}");
-            Console.ResetColor();
-        }
-
-        /// <summary>
-        /// Muestra en pantalla los mensajes indicados, les cambia el color y reinicia el valor por defecto de color del texto de consola.
-        /// </summary>
-        /// <param name="primerMensaje"></param>
-        /// <param name="primerColor"></param>
-        /// <param name="segundoMensaje"></param>
-        /// <param name="segundoColor"></param>
-        public static void MensajeColor(string primerMensaje, string segundoMensaje, ConsoleColor primerColor = ConsoleColor.Green, ConsoleColor segundoColor = ConsoleColor.Green)
-        {
-            Console.ForegroundColor = primerColor;
-            Console.WriteLine($"{primerMensaje}");
-            Console.ForegroundColor = segundoColor;
-            Console.WriteLine($"{segundoMensaje}");
-            Console.ResetColor();
-        }
-        /// <summary>
-        /// Valida si el ingreso es un numero.
-        /// </summary>
-        /// <param name="mensajeIngreso"></param>
-        /// <param name="mensajeError"></param>
-        /// <param name="colorError"></param>
-        /// <param name="maximoValorInput"></param>
-        /// <returns>El valor ingresado por el usuario</returns>
-        public static int ValidacionNumericaInt(string mensajeIngreso, string mensajeError = "Valor no comprendido entre -2147483648 y 2147483647", ConsoleColor colorError = ConsoleColor.Red, int minimoValorInput = int.MinValue, int maximoValorInput = int.MaxValue, bool borrarInformacion = true)
-        {
-            string validarIngreso;
-            int outputIngreso;
-            do
-            {
-                Console.WriteLine(mensajeIngreso);
-                validarIngreso = Console.ReadLine();
-                int.TryParse(s: validarIngreso, result: out outputIngreso);
-                if (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput)
-                {
-                    if (borrarInformacion)
-                    {
-                        Console.Clear();
-                    }
-                    MensajeColor(mensaje: mensajeError, color: colorError);
-                }
-            } while (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput);
-            if (borrarInformacion)
-            {
-                Console.Clear();
-            }
-            return outputIngreso;
-        }
-
-        public static int? ValidacionNumericaIntNull(string mensajeIngreso, string mensajeError = "Valor no comprendido entre -2147483648 y 2147483647", ConsoleColor colorError = ConsoleColor.Red, int minimoValorInput = int.MinValue, int maximoValorInput = int.MaxValue, bool borrarInformacion = true, bool valorNull = false)
-        {
-            string validarIngreso;
-            int outputIngreso;
-            do
-            {
-                Console.WriteLine(mensajeIngreso);
-                validarIngreso = Console.ReadLine();
-                if (validarIngreso == "null" && valorNull == true)
-                {
-                    return null;
-                }
-                int.TryParse(s: validarIngreso, result: out outputIngreso);
-                if (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput)
-                {
-                    if (borrarInformacion)
-                    {
-                        Console.Clear();
-                    }
-                    MensajeColor(mensaje: mensajeError, color: colorError);
-                }
-            } while (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput);
-            if (borrarInformacion)
-            {
-                Console.Clear();
-            }
-            return outputIngreso;
-        }
-
-        public static float? ValidacionNumericaFloat(string mensajeIngreso, string mensajeError = "Valor no comprendido en 3.40282347E+38", ConsoleColor colorError = ConsoleColor.Red, float minimoValorInput = float.MinValue, float maximoValorInput = float.MaxValue, bool borrarInformacion = true)
-        {
-            string validarIngreso;
-            float outputIngreso;
-            do
-            {
-                Console.WriteLine(mensajeIngreso);
-                validarIngreso = Console.ReadLine();
-
-                float.TryParse(s: validarIngreso, result: out outputIngreso);
-                if (outputIngreso <= minimoValorInput || outputIngreso > maximoValorInput)
-                {
-                    if (borrarInformacion)
-                    {
-                        Console.Clear();
-                    }
-                    MensajeColor(mensaje: mensajeError, color: colorError);
-                }
-            } while (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput);
-            if (borrarInformacion)
-            {
-                Console.Clear();
-            }
-            return outputIngreso;
-        }
-
-        public static float? ValidacionNumericaFloatNull(string mensajeIngreso, string mensajeError = "Valor no comprendido en 3.40282347E+38", ConsoleColor colorError = ConsoleColor.Red, float minimoValorInput = float.MinValue, float maximoValorInput = float.MaxValue, bool borrarInformacion = true)
-        {
-            string validarIngreso;
-            float outputIngreso;
-            do
-            {
-                Console.WriteLine(mensajeIngreso);
-                validarIngreso = Console.ReadLine();
-                if (validarIngreso == "null")
-                {
-                    return null;
-                }
-                float.TryParse(s: validarIngreso, result: out outputIngreso);
-                if (outputIngreso <= minimoValorInput || outputIngreso > maximoValorInput)
-                {
-                    if (borrarInformacion)
-                    {
-                        Console.Clear();
-                    }
-                    MensajeColor(mensaje: mensajeError, color: colorError);
-                }
-            } while (outputIngreso < minimoValorInput || outputIngreso > maximoValorInput);
-            if (borrarInformacion)
-            {
-                Console.Clear();
-            }
-            return outputIngreso;
-        }
-
-        // TODO Arreglar inclusion de caso en el que se incluya una direccion que toma valor numerico o simbolo al final
-        // Linq es mas rapido que usar RegEx https://stackoverflow.com/questions/1181419/verifying-that-a-string-contains-only-letters-in-c-sharp/1181426.
-        /// <summary>
-        /// Valida el texto ingresado verificando si es nulo, contiene numeros, si empieza o termina con espacio vacio. O si es enteramente espacio vacio.
-        /// </summary>
-        /// <param name="mensajeIngreso"></param>
-        /// <param name="mensajeError"></param>
-        /// <param name="colorError"></param>
-        /// <returns>El valor ingresado por el usuario</returns>
-        public static string ValidacionTexto(string mensajeIngreso, string mensajeError = "El valor ingresado esta vacio, empieza o termina con un espacio o contiene un caracter no alfabetico", ConsoleColor colorError = ConsoleColor.Red)
-        {
-            bool invalido;
-            string validarIngreso;
-            do
-            {
-                invalido = false;
-                Console.WriteLine(mensajeIngreso);
-                validarIngreso = Console.ReadLine();
-
-                if (validarIngreso.All(predicate: char.IsWhiteSpace) || validarIngreso.Any(predicate: char.IsDigit) || validarIngreso.StartsWith(" ") || validarIngreso.EndsWith(" ") || string.IsNullOrEmpty(validarIngreso) || (!validarIngreso.Any(char.IsLetter) && !validarIngreso.Any(char.IsWhiteSpace)))
-                {
-                    Console.Clear();
-                    MensajeColor(mensaje: mensajeError, color: colorError);
-                    invalido = true;
-                }
-
-            } while (invalido == true);
-
-            Console.Clear();
-            return validarIngreso;
-        }
-#nullable enable
-        public static string? ValidacionTextoNull(string mensajeIngreso, string mensajeError = "El valor ingresado esta vacio, empieza o termina con un espacio o contiene un caracter no alfabetico", ConsoleColor colorError = ConsoleColor.Red)
-        {
-            bool invalido;
-            string validarIngreso;
-            do
-            {
-                invalido = false;
-                Console.WriteLine(mensajeIngreso);
-                validarIngreso = Console.ReadLine();
-                if (validarIngreso == "null")
-                {
-                    return null;
-                }
-                if (validarIngreso.All(predicate: char.IsWhiteSpace) || validarIngreso.Any(predicate: char.IsDigit) || validarIngreso.StartsWith(" ") || validarIngreso.EndsWith(" ") || string.IsNullOrEmpty(validarIngreso) || (!validarIngreso.Any(char.IsLetter) && !validarIngreso.Any(char.IsWhiteSpace)))
-                {
-                    Console.Clear();
-                    MensajeColor(mensaje: mensajeError, color: colorError);
-                    invalido = true;
-                }
-
-            } while (invalido == true);
-
-            Console.Clear();
-            return validarIngreso;
-        }
-#nullable disable
-        /// <summary>
-        /// Valida el texto ingresado verificando si es nulo, contiene numeros, si empieza o termina con espacio vacio. O si es enteramente espacio vacio.
-        /// </summary>
-        /// <param name="mensajeIngreso"></param>
-        /// <param name="mensajeError"></param>
-        /// <param name="titulo"></param>
-        /// <param name="colorError"></param>
-        /// <returns>El valor ingresado por el usuario</returns>
-        public static string ValidacionTexto(string mensajeIngreso, string titulo, string mensajeError = "El valor ingresado esta vacio, empieza o termina con un espacio o contiene un caracter no alfabetico", ConsoleColor colorError = ConsoleColor.Red)
-        {
-            bool invalido;
-            string validarIngreso;
-            do
-            {
-                invalido = false;
-                Console.WriteLine(mensajeIngreso);
-                validarIngreso = Console.ReadLine();
-
-                if (validarIngreso.All(predicate: char.IsWhiteSpace) || validarIngreso.Any(predicate: char.IsDigit) || validarIngreso.StartsWith(" ") || validarIngreso.EndsWith(" ") || string.IsNullOrEmpty(validarIngreso) || (!validarIngreso.Any(char.IsLetter) && !validarIngreso.Any(char.IsWhiteSpace)))
-                {
-                    Console.Clear();
-                    MensajeColor(mensaje: titulo);
-                    MensajeColor(mensaje: mensajeError, color: colorError);
-                    invalido = true;
-                }
-
-            } while (invalido == true);
-
-            Console.Clear();
-            MensajeColor(mensaje: titulo);
-            return validarIngreso;
         }
     }
 }
