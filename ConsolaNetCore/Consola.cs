@@ -348,7 +348,7 @@ namespace ConsolaNetCore
                         {
                             MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
                         }
-                        devolucionEliminar = Logica.ListadoAsignatura.Eliminar(ID);
+                        devolucionEliminar = Logica.Asignatura.Eliminar(ID);
                         if (devolucionEliminar.Contains("borrado"))
                         {
                             MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
