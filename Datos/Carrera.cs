@@ -80,7 +80,7 @@ namespace Datos
         {
             try
             {
-                db.Carreras.Remove(db.Carreras.Where(c => c.AlumnoId == carreraID).SingleOrDefault());
+                db.Carreras.Remove(db.Carreras.Where(c => c.CarreraId == carreraID).SingleOrDefault());
                 db.SaveChanges();
                 return $"El elemento Carrera con ID {carreraID} ha sido borrado correctamente.";
             }

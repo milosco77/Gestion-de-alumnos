@@ -14,122 +14,114 @@ namespace ConsolaNetCore
             switch (elementoAgregar)
             {
                 case Enumeraciones.Tablas.Alumnos:
-                    Entidades.Alumnos alumno;
+                    Entidades.Alumnos alumno = new Entidades.Alumnos();
                     for (int i = 0; i < cantidad; i++)
                     {
-                        alumno = new Entidades.Alumnos();
-                        alumno = AgregarDatosAlumno(alumno);
-                        devolucionAgregar = Logica.Alumno.Agregar(alumno);
-                        if (!devolucionAgregar.Contains("no ha sido agregado"))
+                        do
                         {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
-                        }
-                        else
-                        {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
-                        }
+                            alumno = AgregarDatosAlumno(alumno);
+                            devolucionAgregar = Logica.Alumno.Agregar(alumno);
+                            if (devolucionAgregar.Contains("no ha sido agregado"))
+                            {
+                                MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                            }
+                        } while (devolucionAgregar.Contains("no ha sido agregado"));
+                        MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
                     }
                     break;
                 case Enumeraciones.Tablas.Asignaturas:
-                    Entidades.Asignaturas asignatura;
+                    Entidades.Asignaturas asignatura = new Entidades.Asignaturas(); ;
                     for (int i = 0; i < cantidad; i++)
                     {
-                        asignatura = new Entidades.Asignaturas();
-                        asignatura = AgregarDatosAsignatura(asignatura);
-                        devolucionAgregar = Logica.Asignatura.Agregar(asignatura);
-                        if (!devolucionAgregar.Contains("no ha sido agregado"))
+                        do
                         {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
-                        }
-                        else
-                        {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
-                        }
+                            asignatura = AgregarDatosAsignatura(asignatura);
+                            devolucionAgregar = Logica.Asignatura.Agregar(asignatura);
+                            if (devolucionAgregar.Contains("no ha sido agregado"))
+                            {
+                                MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                            }
+                        } while (devolucionAgregar.Contains("no ha sido agregado"));
+                        MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
                     }
                     break;
                 case Enumeraciones.Tablas.Carreras:
-                    Entidades.Carreras carrera;
+                    Entidades.Carreras carrera = new Carreras();
                     for (int i = 0; i < cantidad; i++)
                     {
-                        carrera = new Entidades.Carreras();
-                        carrera = AgregarDatosCarrera(carrera);
-                        devolucionAgregar = Logica.Carrera.Agregar(carrera);
-                        if (!devolucionAgregar.Contains("no ha sido agregado"))
+                        do
                         {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
-                        }
-                        else
-                        {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
-                        }
+                            carrera = AgregarDatosCarrera(carrera);
+                            devolucionAgregar = Logica.Carrera.Agregar(carrera);
+                            if (devolucionAgregar.Contains("no ha sido agregado"))
+                            {
+                                MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                            }
+                        } while (devolucionAgregar.Contains("no ha sido agregado"));
+                        MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
                     }
                     break;
                 case Enumeraciones.Tablas.Facultades:
-                    Entidades.Facultades facultad;
+                    Entidades.Facultades facultad = new Facultades();
                     for (int i = 0; i < cantidad; i++)
                     {
-                        facultad = new Entidades.Facultades();
-                        facultad = AgregarDatosFacultad(facultad);
-                        devolucionAgregar = Logica.Facultad.Agregar(facultad);
-                        if (!devolucionAgregar.Contains("no ha sido agregado"))
+                        do
                         {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
-                        }
-                        else
-                        {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
-                        }
-                    }
+                            facultad = AgregarDatosFacultad(facultad);
+                            devolucionAgregar = Logica.Facultad.Agregar(facultad);
+                            if (devolucionAgregar.Contains("no ha sido agregado"))
+                            {
+                                MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                            }
+                        } while (devolucionAgregar.Contains("no ha sido agregado"));
+                        MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");                    }
                     break;
                 case Enumeraciones.Tablas.ListadoAsignaturas:
-                    Entidades.ListadoAsignaturas listadoAsignatura;
+                    Entidades.ListadoAsignaturas listadoAsignatura = new ListadoAsignaturas();
                     for (int i = 0; i < cantidad; i++)
                     {
-                        listadoAsignatura = new Entidades.ListadoAsignaturas();
-                        listadoAsignatura = AgregarDatosListadoAsignatura(listadoAsignatura);
-                        devolucionAgregar = Logica.ListadoAsignatura.Agregar(listadoAsignatura);
-                        if (!devolucionAgregar.Contains("no ha sido agregado"))
+                        do
                         {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
-                        }
-                        else
-                        {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
-                        }
+                            listadoAsignatura = AgregarDatosListadoAsignatura(listadoAsignatura);
+                            devolucionAgregar = Logica.ListadoAsignatura.Agregar(listadoAsignatura);
+                            if (devolucionAgregar.Contains("no ha sido agregado"))
+                            {
+                                MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                            }
+                        } while (devolucionAgregar.Contains("no ha sido agregado"));
+                        MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
                     }
                     break;
                 case Enumeraciones.Tablas.ListadoCarreras:
-                    Entidades.ListadoCarreras listadoCarrera;
+                    Entidades.ListadoCarreras listadoCarrera = new ListadoCarreras();
                     for (int i = 0; i < cantidad; i++)
                     {
-                        listadoCarrera = new Entidades.ListadoCarreras();
-                        listadoCarrera = AgregarDatosListadoCarrera(listadoCarrera);
-                        devolucionAgregar = Logica.ListadoCarrera.Agregar(listadoCarrera);
-                        if (!devolucionAgregar.Contains("no ha sido agregado"))
+                        do
                         {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
-                        }
-                        else
-                        {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
-                        }
+                            listadoCarrera = AgregarDatosListadoCarrera(listadoCarrera);
+                            devolucionAgregar = Logica.ListadoCarrera.Agregar(listadoCarrera);
+                            if (devolucionAgregar.Contains("no ha sido agregado"))
+                            {
+                                MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                            }
+                        } while (devolucionAgregar.Contains("no ha sido agregado"));
+                        MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
                     }
                     break;
                 case Enumeraciones.Tablas.Notas:
-                    Entidades.Notas nota;
+                    Entidades.Notas nota = new Notas();
                     for (int i = 0; i < cantidad; i++)
                     {
-                        nota = new Entidades.Notas();
-                        nota = AgregarDatosNota(nota);
-                        devolucionAgregar = Logica.Nota.Agregar(nota);
-                        if (!devolucionAgregar.Contains("no ha sido agregado"))
+                        do
                         {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
-                        }
-                        else
-                        {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
-                        }
+                            nota = AgregarDatosNota(nota);
+                            devolucionAgregar = Logica.Nota.Agregar(nota);
+                            if (devolucionAgregar.Contains("no ha sido agregado"))
+                            {
+                                MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
+                            }
+                        } while (devolucionAgregar.Contains("no ha sido agregado"));
+                        MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}");
                     }
                     break;
                 default:
@@ -233,7 +225,7 @@ namespace ConsolaNetCore
             pAsignatura.AlumnoId = carrera.AlumnoId;
             MetodosInformar.InformarListadoAsignaturas();
 
-            pAsignatura.ListadoAsignaturasId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la asignatura de su alumno: ", mensajeError: $"\nValor no comprendido entre 1 y 109", minimoValorInput: 1, maximoValorInput: 109, borrarInformacion: false);
+            pAsignatura.ListadoAsignaturasId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la asignatura de su alumno: ", mensajeError: $"\nValor debe ser 1 o mayor", minimoValorInput: 1, borrarInformacion: false);
 
             pAsignatura.Comision = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nIngrese la comision de la asignatura ({Logica.ListadoAsignatura.ListarUna(pAsignatura.ListadoAsignaturasId).Nombre}): ", mensajeError: "\nIngrese una comision solo con caracteres numericos mayor a 0", minimoValorInput: 1);
 

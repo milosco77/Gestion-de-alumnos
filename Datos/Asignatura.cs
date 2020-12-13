@@ -122,21 +122,21 @@ namespace Datos
             }
         }
         
-        public static string Eliminar(int asignaturaID)
+        public static string Eliminar(int ID)
         {
             try
             {
-                db.Asignaturas.Remove(db.Asignaturas.Where(a => a.AsignaturaId == asignaturaID).SingleOrDefault());
+                db.Asignaturas.Remove(db.Asignaturas.Where(a => a.ListadoAsignaturasId == ID).SingleOrDefault());
                 db.SaveChanges();
-                return $"El elemento Asignatura con ID {asignaturaID} ha sido borrado correctamente.";
+                return $"El elemento Asignatura con ID {ID} ha sido borrado correctamente.";
             }
             catch (ArgumentNullException e)
             {
-                return $"El elemento Asignatura con ID {asignaturaID} no ha sido eliminado debido a excepcion: {e.Message} que indica que no se encontro el elemento para poder eliminarlo.";
+                return $"El elemento Asignatura con ID {ID} no ha sido eliminado debido a excepcion: {e.Message} que indica que no se encontro el elemento para poder eliminarlo.";
             }
             catch (Exception e)
             {
-                return $"El elemento Asignatura con ID {asignaturaID} no ha sido eliminado debido a excepcion: {e}";
+                return $"El elemento Asignatura con ID {ID} no ha sido eliminado debido a excepcion: {e}";
             }
         }
     }

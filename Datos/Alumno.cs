@@ -114,7 +114,7 @@ namespace Datos
                 Console.WriteLine("\nNo hay resultados con ese ID");
             }
         }
-
+#nullable enable
         public static string Eliminar(int alumnoID)
         {
             try
@@ -132,5 +132,6 @@ namespace Datos
                 return $"El elemento Alumno con ID {alumnoID} no ha sido eliminado debido a excepcion: {e}";
             }
         }
+#nullable disable
     }
 }
