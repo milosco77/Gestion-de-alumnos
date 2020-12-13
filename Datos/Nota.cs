@@ -104,23 +104,54 @@ namespace Datos
             nota.Final = pNota.Final;
             db.SaveChanges();
         }
-
-        public static string Eliminar(int notaID)
+#nullable enable
+        public static string Eliminar(int? notasID = null, int? asignaturasID = null, int? primerParcial = null, int? primerRecuperatorio = null, int? segundoParcial = null, int? segundoRecuperatorio = null, int? final = null)
         {
             try
             {
-                db.Notas.Remove(db.Notas.Where(lc => lc.NotasId == notaID).SingleOrDefault());
+                if (notasID != null)
+                {
+                    db.Notas.Remove(db.Notas.Where(n => n.NotasId == notasID).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Nota con NotasID {notasID} ha sido borrado correctamente.";
+                }
+                else if (primerParcial != null)
+                {
+                    db.Notas.Remove(db.Notas.Where(pp => pp.PrimerParcial == primerParcial).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Nota con Primer Parcial {primerParcial} ha sido borrado correctamente.";
+                }
+                else if (primerRecuperatorio != null)
+                {
+                    db.Notas.Remove(db.Notas.Where(pr => pr.PrimerRecuperatorio == primerRecuperatorio).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Nota con Primer Recuperatorio {primerRecuperatorio} ha sido borrado correctamente.";
+                }
+                else if (segundoParcial != null)
+                {
+                    db.Notas.Remove(db.Notas.Where(sp => sp.SegundoParcial == segundoParcial).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Nota con Segundo Parcial {segundoParcial} ha sido borrado correctamente.";
+                }
+                else if (segundoRecuperatorio != null)
+                {
+                    db.Notas.Remove(db.Notas.Where(sr => sr.SegundoRecuperatorio == segundoRecuperatorio).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Nota con Segundo Recuperatorio {segundoRecuperatorio} ha sido borrado correctamente.";
+                }
+                db.Notas.Remove(db.Notas.Where(f => f.Final == final).SingleOrDefault());
                 db.SaveChanges();
-                return $"El elemento Nota con ID {notaID} ha sido borrado correctamente.";
+                return $"El elemento Nota con Final {final} ha sido borrado correctamente.";
             }
             catch (ArgumentNullException e)
             {
-                return $"El elemento Nota con ID {notaID} no ha sido eliminado debido a excepcion: {e.Message} que indica que no se encontro el elemento para poder eliminarlo.";
+                return $"El elemento Nota con ID {notasID} no ha sido eliminado debido a excepcion: {e.Message} que indica que no se encontro el elemento para poder eliminarlo.";
             }
             catch (Exception e)
             {
-                return $"El elemento Nota con ID {notaID} no ha sido eliminado debido a excepcion: {e}";
+                return $"El elemento Nota con ID {notasID} no ha sido eliminado debido a excepcion: {e}";
             }
         }
+#nullable disable
     }
 }

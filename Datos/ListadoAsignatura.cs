@@ -113,14 +113,56 @@ namespace Datos
             listadoAsignatura.ListadoCarrerasId = pListadoAsignatura.ListadoCarrerasId;
             db.SaveChanges();
         }
-
-        public static string Eliminar(int listadoAsignaturasID)
+#nullable enable
+        public static string Eliminar(int? listadoAsignaturasID = null, string? codigo = null, string? nombre = null, int? creditos = null, int? horas = null, string? correlativas = null, string? categoria = null, int? listadoCarrerasID = null)
         {
             try
             {
-                db.ListadoAsignaturas.Remove(db.ListadoAsignaturas.Where(la => la.ListadoAsignaturasId == listadoAsignaturasID).SingleOrDefault());
+                if (listadoAsignaturasID != null)
+                {
+                    db.ListadoAsignaturas.Remove(db.ListadoAsignaturas.Where(la => la.ListadoAsignaturasId == listadoAsignaturasID).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento del ListadoAsignaturas con ID {listadoAsignaturasID} ha sido borrado correctamente.";
+                }
+                else if (codigo != null)
+                {
+                    db.ListadoAsignaturas.Remove(db.ListadoAsignaturas.Where(c => c.Codigo == codigo).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento del ListadoAsignaturas con Codigo {codigo} ha sido borrado correctamente.";
+                }
+                else if (nombre != null)
+                {
+                    db.ListadoAsignaturas.Remove(db.ListadoAsignaturas.Where(n => n.Nombre == nombre).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento del ListadoAsignaturas con Nombre {nombre} ha sido borrado correctamente.";
+                }
+                else if (creditos != null)
+                {
+                    db.ListadoAsignaturas.Remove(db.ListadoAsignaturas.Where(c => c.Creditos == creditos).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento del ListadoAsignaturas con Creditos {creditos} ha sido borrado correctamente.";
+                }
+                else if (horas != null)
+                {
+                    db.ListadoAsignaturas.Remove(db.ListadoAsignaturas.Where(h => h.Horas == horas).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento del ListadoAsignaturas con Horas {horas} ha sido borrado correctamente.";
+                }
+                else if (correlativas != null)
+                {
+                    db.ListadoAsignaturas.Remove(db.ListadoAsignaturas.Where(c => c.Correlativas == correlativas).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento del ListadoAsignaturas con Correlativas {correlativas} ha sido borrado correctamente.";
+                }
+                else if (categoria != null)
+                {
+                    db.ListadoAsignaturas.Remove(db.ListadoAsignaturas.Where(c => c.Categoria == categoria).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento del ListadoAsignaturas con Categoria {categoria} ha sido borrado correctamente.";
+                }
+                db.ListadoAsignaturas.Remove(db.ListadoAsignaturas.Where(lc => lc.ListadoCarrerasId == listadoCarrerasID).SingleOrDefault());
                 db.SaveChanges();
-                return $"El elemento del ListadoAsignaturas con ID {listadoAsignaturasID} ha sido borrado correctamente.";
+                return $"El elemento del ListadoAsignaturas con ListadoCarrerasID {listadoCarrerasID} ha sido borrado correctamente.";
             }
             catch (ArgumentNullException e)
             {
@@ -131,5 +173,6 @@ namespace Datos
                 return $"El elemento del ListadoAsignaturas con ID {listadoAsignaturasID} no ha sido eliminado debido a excepcion: {e}";
             }
         }
+#nullable disable
     }
 }

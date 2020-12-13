@@ -115,13 +115,37 @@ namespace Datos
             }
         }
 #nullable enable
-        public static string Eliminar(int alumnoID)
+        public static string Eliminar(int? alumnoID = null, string? nombre = null, string? apellido = null, int? edad = null, int? dni = null)
         {
             try
             {
-                db.Alumnos.Remove(db.Alumnos.Where(a => a.AlumnoId == alumnoID).SingleOrDefault());
+                if (alumnoID != null)
+                {
+                    db.Alumnos.Remove(db.Alumnos.Where(a => a.AlumnoId == alumnoID).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Alumno con AlumnoID {alumnoID} ha sido borrado correctamente.";
+                }
+                else if (nombre != null)
+                {
+                    db.Alumnos.Remove(db.Alumnos.Where(n => n.Nombre == nombre).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Alumno con Nombre {nombre} ha sido borrado correctamente.";
+                }
+                else if (apellido != null)
+                {
+                    db.Alumnos.Remove(db.Alumnos.Where(a => a.Apellido == apellido).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Alumno con Apellido {apellido} ha sido borrado correctamente.";
+                }
+                else if (edad != null)
+                {
+                    db.Alumnos.Remove(db.Alumnos.Where(e => e.Edad == edad).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Alumno con Edad {edad} ha sido borrado correctamente.";
+                }
+                db.Alumnos.Remove(db.Alumnos.Where(d => d.Dni == dni).SingleOrDefault());
                 db.SaveChanges();
-                return $"El elemento Alumno con ID {alumnoID} ha sido borrado correctamente.";
+                return $"El elemento Alumno con DNI {dni} ha sido borrado correctamente.";
             }
             catch (ArgumentNullException e)
             {

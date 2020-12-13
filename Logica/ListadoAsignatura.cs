@@ -87,10 +87,39 @@ namespace Logica
         {
             Datos.ListadoAsignatura.Editar(listadoAsignatura);
         }
-
-        public static string Eliminar(int listadoAsignaturaID)
+#nullable enable
+        public static string Eliminar(int? listadoAsignaturasID = null, string? codigo = null, string? nombre = null, int? creditos = null, int? horas = null, string? correlativas = null, string? categoria = null, int? listadoCarrerasID = null)
         {
-            return Datos.ListadoAsignatura.Eliminar(listadoAsignaturaID);
+            if (listadoAsignaturasID != null)
+            {
+                return Datos.ListadoAsignatura.Eliminar(listadoAsignaturasID: listadoAsignaturasID);
+            }
+            else if (codigo != null)
+            {
+                return Datos.ListadoAsignatura.Eliminar(codigo: codigo);
+            }
+            else if (nombre != null)
+            {
+                return Datos.ListadoAsignatura.Eliminar(nombre: nombre);
+            }
+            else if (creditos != null)
+            {
+                return Datos.ListadoAsignatura.Eliminar(creditos: creditos);
+            }
+            else if (horas != null)
+            {
+                return Datos.ListadoAsignatura.Eliminar(horas: horas);
+            }
+            else if (correlativas != null)
+            {
+                return Datos.ListadoAsignatura.Eliminar(correlativas: correlativas);
+            }
+            else if (categoria != null)
+            {
+                return Datos.ListadoAsignatura.Eliminar(categoria: categoria);
+            }
+            return Datos.ListadoAsignatura.Eliminar(listadoCarrerasID: listadoCarrerasID);
         }
+#nullable disable
     }
 }

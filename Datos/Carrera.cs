@@ -75,14 +75,26 @@ namespace Datos
             carrera.ListadoCarrerasId = pCarrera.ListadoCarrerasId;
             db.SaveChanges();
         }
-
-        public static string Eliminar(int carreraID)
+#nullable enable
+        public static string Eliminar(int? carreraID = null, int? alumnoID = null, int? listadoCarrerasID = null)
         {
             try
             {
-                db.Carreras.Remove(db.Carreras.Where(c => c.CarreraId == carreraID).SingleOrDefault());
+                if (carreraID != null)
+                {
+                    db.Carreras.Remove(db.Carreras.Where(c => c.CarreraId == carreraID).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Carrera con CarreraID {carreraID} ha sido borrado correctamente.";
+                }
+                else if (alumnoID != null)
+                {
+                    db.Carreras.Remove(db.Carreras.Where(a => a.AlumnoId == alumnoID).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Carrera con AlumnoID {alumnoID} ha sido borrado correctamente.";
+                }
+                db.Carreras.Remove(db.Carreras.Where(lc => lc.ListadoCarrerasId == listadoCarrerasID).SingleOrDefault());
                 db.SaveChanges();
-                return $"El elemento Carrera con ID {carreraID} ha sido borrado correctamente.";
+                return $"El elemento Carrera con ListadoCarrerasID {listadoCarrerasID} ha sido borrado correctamente.";
             }
             catch (ArgumentNullException e)
             {
@@ -92,6 +104,7 @@ namespace Datos
             {
                 return $"El elemento Carrera con ID {carreraID} no ha sido eliminado debido a excepcion: {e}";
             }
+#nullable disable
         }
     }
 }

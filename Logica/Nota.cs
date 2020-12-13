@@ -79,10 +79,35 @@ namespace Logica
         {
             Datos.Nota.Editar(nota);
         }
-
-        public static string Eliminar(int notaID)
+#nullable enable
+        public static string Eliminar(int? notasID = null, int? asignaturasID = null, int? primerParcial = null, int? primerRecuperatorio = null, int? segundoParcial = null, int? segundoRecuperatorio = null, int? final = null)
         {
-            return Datos.Nota.Eliminar(notaID);
+            if (notasID != null)
+            {
+                return Datos.Nota.Eliminar(notasID: notasID);
+            }
+            else if (asignaturasID != null)
+            {
+                return Datos.Nota.Eliminar(asignaturasID: asignaturasID);
+            }
+            else if (primerParcial != null)
+            {
+                return Datos.Nota.Eliminar(primerParcial: primerParcial);
+            }
+            else if (primerRecuperatorio != null)
+            {
+                return Datos.Nota.Eliminar(primerRecuperatorio: primerRecuperatorio);
+            }
+            else if (segundoParcial != null)
+            {
+                return Datos.Nota.Eliminar(segundoParcial: segundoParcial);
+            }
+            else if (segundoRecuperatorio != null)
+            {
+                return Datos.Nota.Eliminar(segundoRecuperatorio: segundoRecuperatorio);
+            }
+            return Datos.Nota.Eliminar(final: final);
         }
+#nullable disable
     }
 }

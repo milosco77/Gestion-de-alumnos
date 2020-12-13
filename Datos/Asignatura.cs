@@ -121,14 +121,56 @@ namespace Datos
                 Console.WriteLine("\nNo hay resultados con ese ID");
             }
         }
-        
-        public static string Eliminar(int asignaturaID)
+#nullable enable
+        public static string Eliminar(int? asignaturaID = null, int? listadoAsignaturasID = null, int? alumnoID = null, int? carreraID = null, int? comision = null, TimeSpan? horarioEntrada = null, TimeSpan? horarioSalida = null, string? dias = null)
         {
             try
             {
-                db.Asignaturas.Remove(db.Asignaturas.Where(a => a.AsignaturaId == asignaturaID).SingleOrDefault());
+                if (asignaturaID != null)
+                {
+                    db.Asignaturas.Remove(db.Asignaturas.Where(a => a.AsignaturaId == asignaturaID).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Asignatura con AsignaturaID {asignaturaID} ha sido borrado correctamente.";
+                }
+                else if (listadoAsignaturasID != null)
+                {
+                    db.Asignaturas.Remove(db.Asignaturas.Where(la => la.ListadoAsignaturasId == listadoAsignaturasID).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Asignatura con ListadoAsignaturasID {listadoAsignaturasID} ha sido borrado correctamente.";
+                }
+                else if (alumnoID != null)
+                {
+                    db.Asignaturas.Remove(db.Asignaturas.Where(a => a.AlumnoId == alumnoID).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Asignatura con AlumnoID {alumnoID} ha sido borrado correctamente.";
+                }
+                else if (carreraID != null)
+                {
+                    db.Asignaturas.Remove(db.Asignaturas.Where(c => c.CarreraId == carreraID).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Asignatura con CarreraID {carreraID} ha sido borrado correctamente.";
+                }
+                else if (comision != null)
+                {
+                    db.Asignaturas.Remove(db.Asignaturas.Where(c => c.Comision == comision).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Asignatura con Comision {comision} ha sido borrado correctamente.";
+                }
+                else if (horarioEntrada != null)
+                {
+                    db.Asignaturas.Remove(db.Asignaturas.Where(he => he.HorarioEntrada == horarioEntrada).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Asignatura con Horario de Entrada {horarioEntrada} ha sido borrado correctamente.";
+                }
+                else if (horarioSalida != null)
+                {
+                    db.Asignaturas.Remove(db.Asignaturas.Where(hs => hs.HorarioSalida == horarioSalida).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Asignatura con Horario de Salida {horarioSalida} ha sido borrado correctamente.";
+                }
+                db.Asignaturas.Remove(db.Asignaturas.Where(d => d.Dias == dias).SingleOrDefault());
                 db.SaveChanges();
-                return $"El elemento Asignatura con ID {asignaturaID} ha sido borrado correctamente.";
+                return $"El elemento Asignatura con Dias {dias} ha sido borrado correctamente.";
             }
             catch (ArgumentNullException e)
             {
@@ -138,6 +180,7 @@ namespace Datos
             {
                 return $"El elemento Asignatura con ID {asignaturaID} no ha sido eliminado debido a excepcion: {e}";
             }
+#nullable disable
         }
     }
 }

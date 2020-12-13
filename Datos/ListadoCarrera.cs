@@ -86,14 +86,38 @@ namespace Datos
             listadoCarrera.DuracionEstimadaAnios = pListadoCarrera.DuracionEstimadaAnios;
             db.SaveChanges();
         }
-
-        public static string Eliminar(int listadoCarrerasID)
+#nullable enable
+        public static string Eliminar(int? listadoCarrerasID = null, int? facultadID = null, string? nombre = null, string? titulo = null, int? duracionEstimadaAnios = null)
         {
             try
             {
-                db.ListadoCarreras.Remove(db.ListadoCarreras.Where(lc => lc.ListadoCarrerasId == listadoCarrerasID).SingleOrDefault());
+                if (listadoCarrerasID != null)
+                {
+                    db.ListadoCarreras.Remove(db.ListadoCarreras.Where(lc => lc.ListadoCarrerasId == listadoCarrerasID).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento del ListadoCarreras con ID {listadoCarrerasID} ha sido borrado correctamente.";
+                }
+                else if (facultadID != null)
+                {
+                    db.ListadoCarreras.Remove(db.ListadoCarreras.Where(f => f.FacultadId == facultadID).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento del ListadoCarreras con FacultadID {facultadID} ha sido borrado correctamente.";
+                }
+                else if (nombre != null)
+                {
+                    db.ListadoCarreras.Remove(db.ListadoCarreras.Where(n => n.Nombre == nombre).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento del ListadoCarreras con Nombre {nombre} ha sido borrado correctamente.";
+                }
+                else if (titulo != null)
+                {
+                    db.ListadoCarreras.Remove(db.ListadoCarreras.Where(t => t.Titulo == titulo).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento del ListadoCarreras con Titulo {titulo} ha sido borrado correctamente.";
+                }
+                db.ListadoCarreras.Remove(db.ListadoCarreras.Where(dea => dea.DuracionEstimadaAnios == duracionEstimadaAnios).SingleOrDefault());
                 db.SaveChanges();
-                return $"El elemento del ListadoCarreras con ID {listadoCarrerasID} ha sido borrado correctamente.";
+                return $"El elemento del ListadoCarreras con Duracion Estimada en Años {duracionEstimadaAnios} ha sido borrado correctamente.";
             }
             catch (ArgumentNullException e)
             {
@@ -103,6 +127,7 @@ namespace Datos
             {
                 return $"El elemento del ListadoCarreras con ID {listadoCarrerasID} no ha sido eliminado debido a excepcion: {e}";
             }
+#nullable disable
         }
     }
 }

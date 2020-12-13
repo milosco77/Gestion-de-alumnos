@@ -70,10 +70,27 @@ namespace Logica
         {
             Datos.Alumno.Editar(alumno);
         }
-
-        public static string Eliminar(int alumnoID)
+#nullable enable
+        public static string Eliminar(int? alumnoID = null, string? nombre = null, string? apellido = null, int? edad = null, int? dni = null)
         {
-            return Datos.Alumno.Eliminar(alumnoID);
+            if (alumnoID != null)
+            {
+                return Datos.Alumno.Eliminar(alumnoID: alumnoID);
+            }
+            else if (nombre != null)
+            {
+                return Datos.Alumno.Eliminar(nombre: nombre);
+            }
+            else if (apellido != null)
+            {
+                return Datos.Alumno.Eliminar(apellido: apellido);
+            }
+            else if (edad != null)
+            {
+                return Datos.Alumno.Eliminar(edad: edad);
+            }
+            return Datos.Alumno.Eliminar(dni: dni);
         }
+#nullable disable
     }
 }

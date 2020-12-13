@@ -111,10 +111,47 @@ namespace Logica
         {
             Datos.Facultad.Editar(facultad);
         }
-
-        public static string Eliminar(int facultadID)
+#nullable enable
+        public static string Eliminar(int? facultadID = null, string? nombre = null, string? direccion = null, int? telefono = null, string? departamentoAlumnos = null, string? facebook = null, string? instagram = null, string? twitter = null, string? paginaWeb = null, string? email = null, string? recorridoVirtual = null)
         {
-            return Datos.Facultad.Eliminar(facultadID);
+            if (facultadID != null)
+            {
+                return Datos.Facultad.Eliminar(facultadID: facultadID);
+            }
+            else if (direccion != null)
+            {
+                return Datos.Facultad.Eliminar(direccion: direccion);
+            }
+            else if (telefono != null)
+            {
+                return Datos.Facultad.Eliminar(telefono: telefono);
+            }
+            else if (departamentoAlumnos != null)
+            {
+                return Datos.Facultad.Eliminar(departamentoAlumnos: departamentoAlumnos);
+            }
+            else if (facebook != null)
+            {
+                return Datos.Facultad.Eliminar(facebook: facebook);
+            }
+            else if (instagram != null)
+            {
+                return Datos.Facultad.Eliminar(instagram: instagram);
+            }
+            else if (twitter != null)
+            {
+                return Datos.Facultad.Eliminar(twitter: twitter);
+            }
+            else if (paginaWeb != null)
+            {
+                return Datos.Facultad.Eliminar(paginaWeb: paginaWeb);
+            }
+            else if (email != null)
+            {
+                return Datos.Facultad.Eliminar(email: email);
+            }
+            return Datos.Facultad.Eliminar(recorridoVirtual: recorridoVirtual);
         }
+#nullable disable
     }
 }

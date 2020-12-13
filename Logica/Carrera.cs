@@ -54,10 +54,19 @@ namespace Logica
         {
             Datos.Carrera.Editar(carrera);
         }
-
-        public static string Eliminar(int carreraID)
+#nullable enable
+        public static string Eliminar(int? carreraID = null, int? alumnoID = null, int? listadoCarrerasID = null)
         {
-            return Datos.Carrera.Eliminar(carreraID);
+            if (carreraID != null)
+            {
+                return Datos.Carrera.Eliminar(carreraID: carreraID);
+            }
+            else if (alumnoID != null)
+            {
+                return Datos.Carrera.Eliminar(alumnoID: alumnoID);
+            }
+            return Datos.Carrera.Eliminar(listadoCarrerasID: listadoCarrerasID);
         }
+#nullable disable
     }
 }

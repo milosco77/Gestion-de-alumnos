@@ -140,14 +140,74 @@ namespace Datos
             facultad.RecorridoVirtual = pFacultad.RecorridoVirtual;
             db.SaveChanges();
         }
-
-        public static string Eliminar(int facultadID)
+#nullable enable
+        public static string Eliminar(int? facultadID = null, string? nombre = null, string? direccion = null, int? telefono = null, string? departamentoAlumnos = null, string? facebook = null, string? instagram = null, string? twitter = null, string? paginaWeb = null, string? email = null, string? recorridoVirtual = null)
         {
             try
             {
-                db.Facultades.Remove(db.Facultades.Where(f => f.FacultadId == facultadID).SingleOrDefault());
+                if (facultadID != null)
+                {
+                    db.Facultades.Remove(db.Facultades.Where(f => f.FacultadId == facultadID).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Facultad con ID {facultadID} ha sido borrado correctamente.";
+                }
+                else if (nombre != null)
+                {
+                    db.Facultades.Remove(db.Facultades.Where(n => n.Nombre == nombre).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Facultad con Nombre {nombre} ha sido borrado correctamente.";
+                }
+                else if (direccion != null)
+                {
+                    db.Facultades.Remove(db.Facultades.Where(d => d.Direccion == direccion).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Facultad con Direccion {direccion} ha sido borrado correctamente.";
+                }
+                else if (telefono != null)
+                {
+                    db.Facultades.Remove(db.Facultades.Where(t => t.Telefono == telefono).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Facultad con Telefono {telefono} ha sido borrado correctamente.";
+                }
+                else if (departamentoAlumnos != null)
+                {
+                    db.Facultades.Remove(db.Facultades.Where(da => da.DepartamentoAlumnos == departamentoAlumnos).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Facultad con Departamento de Alumnos {departamentoAlumnos} ha sido borrado correctamente.";
+                }
+                else if (facebook != null)
+                {
+                    db.Facultades.Remove(db.Facultades.Where(f => f.Facebook == facebook).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Facultad con Facebook {facebook} ha sido borrado correctamente.";
+                }
+                else if (instagram != null)
+                {
+                    db.Facultades.Remove(db.Facultades.Where(i => i.Instagram == instagram).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Facultad con Instagram {instagram} ha sido borrado correctamente.";
+                }
+                else if (twitter != null)
+                {
+                    db.Facultades.Remove(db.Facultades.Where(t => t.Twitter == twitter).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Facultad con Twitter {twitter} ha sido borrado correctamente.";
+                }
+                else if (paginaWeb != null)
+                {
+                    db.Facultades.Remove(db.Facultades.Where(pw => pw.PaginaWeb == paginaWeb).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Facultad con PaginaWeb {paginaWeb} ha sido borrado correctamente.";
+                }
+                else if (email != null)
+                {
+                    db.Facultades.Remove(db.Facultades.Where(e => e.Email == email).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Facultad con Email {email} ha sido borrado correctamente.";
+                }
+                db.Facultades.Remove(db.Facultades.Where(rv => rv.RecorridoVirtual == recorridoVirtual).SingleOrDefault());
                 db.SaveChanges();
-                return $"El elemento Facultad con ID {facultadID} ha sido borrado correctamente.";
+                return $"El elemento Facultad con RecorridoVirtual {recorridoVirtual} ha sido borrado correctamente.";
             }
             catch (ArgumentNullException e)
             {
@@ -158,5 +218,6 @@ namespace Datos
                 return $"El elemento Facultad con ID {facultadID} no ha sido eliminado debido a excepcion: {e}";
             }
         }
+#nullable disable
     }
 }
