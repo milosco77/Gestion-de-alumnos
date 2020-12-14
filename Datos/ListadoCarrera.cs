@@ -121,11 +121,11 @@ namespace Datos
             }
             catch (ArgumentNullException e)
             {
-                return $"El elemento del ListadoCarreras con ID {listadoCarrerasID} no ha sido eliminado debido a excepcion: {e.Message} que indica que no se encontro el elemento para poder eliminarlo.";
+                return $"El elemento del ListadoCarreras no ha sido eliminado debido a excepcion: {e.Message} que indica que no se encontro el elemento para poder eliminarlo.";
             }
             catch (Exception e)
             {
-                return $"El elemento del ListadoCarreras con ID {listadoCarrerasID} no ha sido eliminado debido a excepcion: {e}";
+                return $"El elemento del ListadoCarreras no ha sido eliminado debido a excepcion: {e}";
             }
 #nullable disable
         }

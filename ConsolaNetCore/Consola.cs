@@ -120,10 +120,10 @@ namespace ConsolaNetCore
                                 EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Alumnos, tablaAsociada: Enumeraciones.Tablas.Carreras);
                                 break;
                             case 2:
-                                EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Asignaturas);
+                                EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Asignaturas, tablaAsociada: Enumeraciones.Tablas.Notas);
                                 break;
                             case 3:
-                                EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Carreras);
+                                EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Carreras, tablaAsociada: Enumeraciones.Tablas.Asignaturas);
                                 break;
                             case 4:
                                 EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Facultades);
@@ -202,7 +202,7 @@ namespace ConsolaNetCore
                     alerta = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
-                        devolucionEliminar = Logica.Carrera.Eliminar(ID);
+                        devolucionEliminar = Logica.Carrera.Eliminar(alumnoID: ID);
                         if (devolucionEliminar.Contains("borrado"))
                         {
                             MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
@@ -243,7 +243,16 @@ namespace ConsolaNetCore
                     alerta = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
-                        devolucionEliminar = Logica.Asignatura.Eliminar(ID);
+                        devolucionEliminar = Logica.Nota.Eliminar(asignaturasID: ID);
+                        if (devolucionEliminar.Contains("borrado"))
+                        {
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                        }
+                        else
+                        {
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                        }
+                        devolucionEliminar = Logica.Asignatura.Eliminar(asignaturaID: ID);
                         if (devolucionEliminar.Contains("borrado"))
                         {
                             MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
@@ -261,6 +270,7 @@ namespace ConsolaNetCore
                 case Enumeraciones.Tablas.Carreras:
                     do
                     {
+                        // TODO resolver problema de que en las tablas Asignaturas y Carreras, que tienen claves primarias compuestas, cuando hay que eliminar por ej: en la tabla Carreras un registro con el ID 2, en la tabla Asignaturas pueden haber mas de un registro con el CarreraID = 2, haciendo que haya que borrar no uno solo sino todos los que tengan el mismo ID.
                         MetodosInformar.InformarTodasCarreras();
                         ID = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
                         if (Logica.Carrera.ListarUna(carreraID: ID) == null)
@@ -270,11 +280,29 @@ namespace ConsolaNetCore
                     } while (Logica.Carrera.ListarUna(carreraID: ID) == null);
                     if (tablaAsociada != null)
                     {
-                        MetodosComunes.MensajeColor(mensaje: $"\nSe eliminaran los registros asociado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
+                        MetodosComunes.MensajeColor(mensaje: $"\nSe eliminaran los registros asociado de la tabla {tablaAsociada} y los de {Enumeraciones.Tablas.Notas} a esta ultima.", color: ConsoleColor.Red);
                     }
                     alerta = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
+                        devolucionEliminar = Logica.Nota.Eliminar(asignaturasID: Logica.Asignatura.ListarUna(carreraID: ID).AsignaturaId);
+                        if (devolucionEliminar.Contains("borrado"))
+                        {
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                        }
+                        else
+                        {
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                        }
+                        devolucionEliminar = Logica.Asignatura.Eliminar(carreraID: ID);
+                        if (devolucionEliminar.Contains("borrado"))
+                        {
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                        }
+                        else
+                        {
+                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                        }
                         devolucionEliminar = Logica.Carrera.Eliminar(ID);
                         if (devolucionEliminar.Contains("borrado"))
                         {

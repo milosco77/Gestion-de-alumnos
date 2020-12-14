@@ -115,6 +115,12 @@ namespace Datos
                     db.SaveChanges();
                     return $"El elemento Nota con NotasID {notasID} ha sido borrado correctamente.";
                 }
+                else if (asignaturasID != null)
+                {
+                    db.Notas.Remove(db.Notas.Where(a => a.AsignaturaId == asignaturasID).SingleOrDefault());
+                    db.SaveChanges();
+                    return $"El elemento Nota con AsignaturasID {asignaturasID} ha sido borrado correctamente.";
+                }
                 else if (primerParcial != null)
                 {
                     db.Notas.Remove(db.Notas.Where(pp => pp.PrimerParcial == primerParcial).SingleOrDefault());
@@ -145,11 +151,11 @@ namespace Datos
             }
             catch (ArgumentNullException e)
             {
-                return $"El elemento Nota con ID {notasID} no ha sido eliminado debido a excepcion: {e.Message} que indica que no se encontro el elemento para poder eliminarlo.";
+                return $"El elemento Nota no ha sido eliminado debido a excepcion: {e.Message} que indica que no se encontro el elemento para poder eliminarlo.";
             }
             catch (Exception e)
             {
-                return $"El elemento Nota con ID {notasID} no ha sido eliminado debido a excepcion: {e}";
+                return $"El elemento Nota no ha sido eliminado debido a excepcion: {e}";
             }
         }
 #nullable disable
