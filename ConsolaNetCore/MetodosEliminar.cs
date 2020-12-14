@@ -97,7 +97,6 @@ namespace ConsolaNetCore
                 case Enumeraciones.Tablas.Carreras:
                     do
                     {
-                        // TODO resolver problema de que en las tablas Asignaturas y Carreras, que tienen claves primarias compuestas, cuando hay que eliminar por ej: en la tabla Carreras un registro con el ID 2, en la tabla Asignaturas pueden haber mas de un registro con el CarreraID = 2, haciendo que haya que borrar no uno solo sino todos los que tengan el mismo ID.
                         MetodosInformar.InformarTodasCarreras();
                         ID = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
                         if (Logica.Carrera.ListarUna(carreraID: ID) == null)
@@ -112,6 +111,7 @@ namespace ConsolaNetCore
                     alerta = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
+                        // TODO resolver problema de que en las tablas Asignaturas y Carreras, que tienen claves primarias compuestas, cuando hay que eliminar por ej: en la tabla Carreras un registro con el ID 2, en la tabla Asignaturas pueden haber mas de un registro con el CarreraID = 2, haciendo que haya que borrar no uno solo sino todos los que tengan el mismo ID.
                         devolucionEliminar = Logica.Nota.Eliminar(asignaturasID: Logica.Asignatura.ListarUna(carreraID: ID).AsignaturaId);
                         if (devolucionEliminar.Contains("borrado"))
                         {

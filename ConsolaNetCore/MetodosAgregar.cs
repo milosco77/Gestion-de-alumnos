@@ -19,6 +19,7 @@ namespace ConsolaNetCore
                     {
                         do
                         {
+                            alumno.AlumnoId = 0;
                             alumno = AgregarDatosAlumno(alumno);
                             devolucionAgregar = Logica.Alumno.Agregar(alumno);
                             if (devolucionAgregar.Contains("no ha sido agregado"))
@@ -35,6 +36,7 @@ namespace ConsolaNetCore
                     {
                         do
                         {
+                            asignatura.AsignaturaId = 0;
                             asignatura = AgregarDatosAsignatura(asignatura);
                             devolucionAgregar = Logica.Asignatura.Agregar(asignatura);
                             if (devolucionAgregar.Contains("no ha sido agregado"))
@@ -51,6 +53,7 @@ namespace ConsolaNetCore
                     {
                         do
                         {
+                            carrera.CarreraId = 0;
                             carrera = AgregarDatosCarrera(carrera);
                             devolucionAgregar = Logica.Carrera.Agregar(carrera);
                             if (devolucionAgregar.Contains("no ha sido agregado"))
@@ -67,6 +70,7 @@ namespace ConsolaNetCore
                     {
                         do
                         {
+                            facultad.FacultadId = 0;
                             facultad = AgregarDatosFacultad(facultad);
                             devolucionAgregar = Logica.Facultad.Agregar(facultad);
                             if (devolucionAgregar.Contains("no ha sido agregado"))
@@ -82,6 +86,7 @@ namespace ConsolaNetCore
                     {
                         do
                         {
+                            listadoAsignatura.ListadoAsignaturasId = 0;
                             listadoAsignatura = AgregarDatosListadoAsignatura(listadoAsignatura);
                             devolucionAgregar = Logica.ListadoAsignatura.Agregar(listadoAsignatura);
                             if (devolucionAgregar.Contains("no ha sido agregado"))
@@ -98,6 +103,7 @@ namespace ConsolaNetCore
                     {
                         do
                         {
+                            listadoCarrera.ListadoCarrerasId = 0;
                             listadoCarrera = AgregarDatosListadoCarrera(listadoCarrera);
                             devolucionAgregar = Logica.ListadoCarrera.Agregar(listadoCarrera);
                             if (devolucionAgregar.Contains("no ha sido agregado"))
@@ -114,6 +120,7 @@ namespace ConsolaNetCore
                     {
                         do
                         {
+                            nota.NotasId = 0;
                             nota = AgregarDatosNota(nota);
                             devolucionAgregar = Logica.Nota.Agregar(nota);
                             if (devolucionAgregar.Contains("no ha sido agregado"))
