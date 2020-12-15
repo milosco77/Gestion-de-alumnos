@@ -9,7 +9,7 @@ namespace ConsolaNetCore
         public static void EliminarRegistro(Enumeraciones.Tablas elementoABorrar, Enumeraciones.Tablas? tablaAsociada = null)
         {
             int ID, alerta;
-            string devolucionEliminar;
+            string devolucionEliminar = "";
             switch (elementoABorrar)
             {
                 case Enumeraciones.Tablas.Alumnos:
@@ -29,14 +29,55 @@ namespace ConsolaNetCore
                     alerta = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
-                        devolucionEliminar = Logica.Carrera.Eliminar(alumnoID: ID);
-                        if (devolucionEliminar.Contains("borrado"))
+                        List<Entidades.Carreras> carreras = Logica.Carrera.ListarVarias(alumnoID: ID);
+                        if (carreras == null)
                         {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                            MetodosComunes.MensajeColor(mensaje: "\nNo hay carreras asociadas.");
                         }
                         else
                         {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                            foreach (Entidades.Carreras carrera in carreras)
+                            {
+                                List<Entidades.Asignaturas> asignaturas = Logica.Asignatura.ListarVarias(carreraID: ID);
+                                if (asignaturas == null)
+                                {
+                                    MetodosComunes.MensajeColor(mensaje: "\nNo hay asignaturas asociadas.");
+                                }
+                                else
+                                {
+                                    foreach (Entidades.Asignaturas asignatura in asignaturas)
+                                    {
+                                        devolucionEliminar = Logica.Nota.Eliminar(asignaturasID: carrera.AlumnoId);
+
+                                        if (devolucionEliminar.Contains("borrado"))
+                                        {
+                                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                                        }
+                                        else
+                                        {
+                                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                                        }
+                                        devolucionEliminar = Logica.Asignatura.Eliminar(asignaturaID: asignatura.AsignaturaId);
+                                        if (devolucionEliminar.Contains("borrado"))
+                                        {
+                                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                                        }
+                                        else
+                                        {
+                                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                                        }
+                                    }
+                                }
+                                devolucionEliminar = Logica.Carrera.Eliminar(alumnoID: ID);
+                                if (devolucionEliminar.Contains("borrado"))
+                                {
+                                    MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                                }
+                                else
+                                {
+                                    MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                                }
+                            }
                         }
                         devolucionEliminar = Logica.Alumno.Eliminar(alumnoID: ID);
                         if (devolucionEliminar.Contains("borrado"))
@@ -70,14 +111,26 @@ namespace ConsolaNetCore
                     alerta = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
                     {
-                        devolucionEliminar = Logica.Nota.Eliminar(asignaturasID: ID);
-                        if (devolucionEliminar.Contains("borrado"))
+                        List<Entidades.Notas> notas = Logica.Nota.ListarVarias(asignaturasID: ID);
+
+                        if (notas == null)
                         {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                            MetodosComunes.MensajeColor(mensaje: "\nNo hay notas asociadas.");
                         }
                         else
                         {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                            foreach (Entidades.Notas nota in notas)
+                            {
+                                devolucionEliminar = Logica.Nota.Eliminar(asignaturasID: ID);
+                                if (devolucionEliminar.Contains("borrado"))
+                                {
+                                    MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                                }
+                                else
+                                {
+                                    MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                                }
+                            }
                         }
                         devolucionEliminar = Logica.Asignatura.Eliminar(asignaturaID: ID);
                         if (devolucionEliminar.Contains("borrado"))
@@ -110,25 +163,36 @@ namespace ConsolaNetCore
                     }
                     alerta = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nEsta seguro de querer eliminar {elementoABorrar} con ID: {ID} (SI = 1 | NO = 0)", minimoValorInput: 0, maximoValorInput: 1, mensajeError: "\nEl valor ingresado debe ser (SI = 1 | NO = 0).");
                     if (alerta == 1)
-                    {
-                        // TODO resolver problema de que en las tablas Asignaturas y Carreras, que tienen claves primarias compuestas, cuando hay que eliminar por ej: en la tabla Carreras un registro con el ID 2, en la tabla Asignaturas pueden haber mas de un registro con el CarreraID = 2, haciendo que haya que borrar no uno solo sino todos los que tengan el mismo ID.
-                        devolucionEliminar = Logica.Nota.Eliminar(asignaturasID: Logica.Asignatura.ListarUna(carreraID: ID).AsignaturaId);
-                        if (devolucionEliminar.Contains("borrado"))
+                    {                        
+                        List<Entidades.Asignaturas> asignaturas = Logica.Asignatura.ListarVarias(carreraID: ID);
+                        if (asignaturas == null)
                         {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                            MetodosComunes.MensajeColor(mensaje: "\nNo hay asignaturas asociadas.");
                         }
                         else
                         {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
-                        }
-                        devolucionEliminar = Logica.Asignatura.Eliminar(carreraID: ID);
-                        if (devolucionEliminar.Contains("borrado"))
-                        {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
-                        }
-                        else
-                        {
-                            MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                            foreach (Entidades.Asignaturas asignatura in asignaturas)
+                            {
+                                devolucionEliminar = Logica.Nota.Eliminar(asignaturasID: asignatura.AsignaturaId);
+
+                                if (devolucionEliminar.Contains("borrado"))
+                                {
+                                    MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                                }
+                                else
+                                {
+                                    MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                                }
+                                devolucionEliminar = Logica.Asignatura.Eliminar(asignaturaID: asignatura.AsignaturaId);
+                                if (devolucionEliminar.Contains("borrado"))
+                                {
+                                    MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
+                                }
+                                else
+                                {
+                                    MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}", color: ConsoleColor.Red);
+                                }
+                            }
                         }
                         devolucionEliminar = Logica.Carrera.Eliminar(ID);
                         if (devolucionEliminar.Contains("borrado"))

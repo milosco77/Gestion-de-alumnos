@@ -138,8 +138,17 @@ namespace ConsolaNetCore
         // TODO Desglosar que nota agregar si primer parcial, segundo, recuperatorio, etc.
         public static Notas AgregarDatosNota(Notas pNota)
         {
-            MetodosInformar.InformarTodasAsignaturas();
-            pNota.AsignaturaId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la asignatura de la cual desea agregar la nota:", minimoValorInput: 1, mensajeError: "\nEl valor debe ser 1 o mayor.", borrarInformacion: false);
+            Entidades.Asignaturas asignatura;
+            do
+            {
+                MetodosInformar.InformarTodasAsignaturas();
+                pNota.AsignaturaId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la asignatura de la cual desea agregar la nota:", minimoValorInput: 1, mensajeError: "\nEl valor debe ser 1 o mayor.", borrarInformacion: false);
+                asignatura = Logica.Asignatura.ListarUna(pNota.AsignaturaId);
+                if (asignatura == null)
+                {
+                    MetodosComunes.MensajeColor(mensaje: "\nLa nota seleccionada no existe.", color: ConsoleColor.Red);
+                }
+            } while (asignatura == null);
             pNota.PrimerParcial = MetodosComunes.ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del primer parcial (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
             pNota.PrimerRecuperatorio = MetodosComunes.ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del primer recuperatorio (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
             pNota.SegundoParcial = MetodosComunes.ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del segundo parcial (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
@@ -150,8 +159,17 @@ namespace ConsolaNetCore
 
         public static ListadoCarreras AgregarDatosListadoCarrera(ListadoCarreras pListadoCarrera)
         {
-            MetodosInformar.InformarTodasFacultades();
-            pListadoCarrera.FacultadId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la facultad de la carrera", minimoValorInput: 1, maximoValorInput: 13, mensajeError: "\nEl valor debe estar comprendido entre 1 y 13.", borrarInformacion: false);
+            Entidades.Facultades facultad;
+            do
+            {
+                MetodosInformar.InformarTodasFacultades();
+                pListadoCarrera.FacultadId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la facultad de la carrera", minimoValorInput: 1, maximoValorInput: 13, mensajeError: "\nEl valor debe estar comprendido entre 1 y 13.", borrarInformacion: false);
+                facultad = Logica.Facultad.ListarUna(pListadoCarrera.FacultadId);
+                if (facultad == null)
+                {
+                    MetodosComunes.MensajeColor(mensaje: "\nLa facultad seleccionada del listado no existe.", color: ConsoleColor.Red);
+                }
+            } while (facultad == null);
             pListadoCarrera.Nombre = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de la carrera:");
             pListadoCarrera.Titulo = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese el titulo de la carrera:");
             pListadoCarrera.DuracionEstimadaAnios = MetodosComunes.ValidacionNumericaFloatNull(mensajeIngreso: "\nIngrese la duracion estimada en años en formato decimal o null:", maximoValorInput: 1, mensajeError: "\nEl valor debe ser mayor a 0 y en formato decimal Ej: 5,5 o ser null");
@@ -160,8 +178,18 @@ namespace ConsolaNetCore
 
         public static ListadoAsignaturas AgregarDatosListadoAsignatura(ListadoAsignaturas pListadoAsignatura)
         {
-            MetodosInformar.InformarListadoCarreras();
-            pListadoAsignatura.ListadoCarrerasId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la carrera a la cual pertenece la asignatura:", mensajeError: "\nEl valor debe ser mayor a 0.", borrarInformacion: false);
+            Entidades.ListadoCarreras listadoCarrera;
+            do
+            {
+                MetodosInformar.InformarListadoCarreras();
+                pListadoAsignatura.ListadoCarrerasId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la carrera a la cual pertenece la asignatura:", mensajeError: "\nEl valor debe ser mayor a 0.", borrarInformacion: false);
+                listadoCarrera = Logica.ListadoCarrera.ListarUna(pListadoAsignatura.ListadoCarrerasId);
+                if (listadoCarrera == null)
+                {
+                    MetodosComunes.MensajeColor(mensaje: "\nLa carrera seleccionada del listado no existe.", color: ConsoleColor.Red);
+                }
+            } while (listadoCarrera == null);
+            
             pListadoAsignatura.Codigo = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese el codigo de la asignatura:");
             pListadoAsignatura.Nombre = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese el nombre de la asignatura:");
             pListadoAsignatura.Creditos = (byte)MetodosComunes.ValidacionNumericaIntNull(mensajeIngreso: "\nIngrese los creditos de la asignatura (0-255/null):", minimoValorInput: 0, maximoValorInput: 255, mensajeError: "\nEl valor debe estar comprendido entre 0 y 255 o ser null.");
@@ -208,8 +236,17 @@ namespace ConsolaNetCore
 
         public static Entidades.Carreras AgregarDatosCarrera(Entidades.Carreras pCarrera)
         {
-            MetodosInformar.InformarTodosAlumnos();
-            pCarrera.AlumnoId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID del alumno del cual desea agregar la carrera:", minimoValorInput: 1, mensajeError: "\nEl valor debe ser 1 o mayor.", borrarInformacion: false);
+            Entidades.Alumnos alumno;
+            do
+            {
+                MetodosInformar.InformarTodosAlumnos();
+                pCarrera.AlumnoId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID del alumno del cual desea agregar la carrera:", minimoValorInput: 1, mensajeError: "\nEl valor debe ser 1 o mayor.", borrarInformacion: false);
+                alumno = Logica.Alumno.ListarUno(alumnoID: pCarrera.AlumnoId);
+                if (alumno == null)
+                {
+                    MetodosComunes.MensajeColor(mensaje: "\nEl alumno seleccionado no existe.", color: ConsoleColor.Red);
+                }
+            } while (alumno == null);
             MetodosInformar.InformarListadoCarreras();
             pCarrera.ListadoCarrerasId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la carrera del alumno:", minimoValorInput: 1, maximoValorInput: 12, mensajeError: "\nEl valor debe estar comprendido entre 1 y 12.", borrarInformacion: false);
             return pCarrera;
@@ -275,21 +312,5 @@ namespace ConsolaNetCore
             //}
             return pNotas;
         }
-
-        public static void AgregarFacultad()
-        {
-
-        }
-
-        public static void AgregarAsignaturaListado()
-        {
-
-        }
-
-        public static void AgregarCarreraListado()
-        {
-
-        }
-
     }
 }
