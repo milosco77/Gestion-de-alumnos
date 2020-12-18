@@ -158,7 +158,6 @@ namespace ConsolaNetCore
 
         public static void InformarTodosAlumnos()
         {
-            int contador = 0;
             List<Entidades.Alumnos> alumnos = Logica.Alumno.ListarTodos();
             Console.WriteLine("\nTodos los alumnos:");
             if (alumnos.Count == 0)
@@ -170,8 +169,6 @@ namespace ConsolaNetCore
             {
                 foreach (Entidades.Alumnos alumno in Logica.Alumno.ListarTodos())
                 {
-                    Console.WriteLine($"\nAlumno Nº {(contador++) + 1}");
-
                     MetodosComunes.MensajeColor(mensaje: $"\nID: {alumno.AlumnoId} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.Dni}");
                 }
             }

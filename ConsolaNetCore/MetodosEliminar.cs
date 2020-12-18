@@ -9,7 +9,7 @@ namespace ConsolaNetCore
         public static void EliminarRegistro(Enumeraciones.Tablas elementoABorrar, Enumeraciones.Tablas? tablaAsociada = null)
         {
             int ID, alerta;
-            string devolucionEliminar = "";
+            string devolucionEliminar;
             switch (elementoABorrar)
             {
                 case Enumeraciones.Tablas.Alumnos:
@@ -38,7 +38,7 @@ namespace ConsolaNetCore
                         {
                             foreach (Entidades.Carreras carrera in carreras)
                             {
-                                List<Entidades.Asignaturas> asignaturas = Logica.Asignatura.ListarVarias(carreraID: ID);
+                                List<Entidades.Asignaturas> asignaturas = Logica.Asignatura.ListarVarias(carreraID: carrera.CarreraId);
                                 if (asignaturas == null)
                                 {
                                     MetodosComunes.MensajeColor(mensaje: "\nNo hay asignaturas asociadas.");
@@ -47,7 +47,7 @@ namespace ConsolaNetCore
                                 {
                                     foreach (Entidades.Asignaturas asignatura in asignaturas)
                                     {
-                                        devolucionEliminar = Logica.Nota.Eliminar(asignaturasID: carrera.AlumnoId);
+                                        devolucionEliminar = Logica.Nota.Eliminar(asignaturasID: asignatura.AsignaturaId);
 
                                         if (devolucionEliminar.Contains("borrado"))
                                         {
@@ -68,7 +68,7 @@ namespace ConsolaNetCore
                                         }
                                     }
                                 }
-                                devolucionEliminar = Logica.Carrera.Eliminar(alumnoID: ID);
+                                devolucionEliminar = Logica.Carrera.Eliminar(carreraID: carrera.CarreraId);
                                 if (devolucionEliminar.Contains("borrado"))
                                 {
                                     MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEliminar}");
