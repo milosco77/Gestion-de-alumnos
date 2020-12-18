@@ -103,7 +103,7 @@ namespace Datos
 #nullable disable
         public static List<Entidades.Facultades> ListarTodas()
         {
-            return db.Facultades.ToList();
+            return db.Facultades.OrderBy(f => f.FacultadId).ToList();
         }
 
         public static string Agregar(Entidades.Facultades facultad)

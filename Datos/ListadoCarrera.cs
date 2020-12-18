@@ -55,7 +55,7 @@ namespace Datos
 #nullable disable
         public static List<Entidades.ListadoCarreras> ListarTodas()
         {
-            return db.ListadoCarreras.ToList();
+            return db.ListadoCarreras.OrderBy(lc => lc.ListadoCarrerasId).ToList();
         }
 
         public static string Agregar(Entidades.ListadoCarreras listadoCarrera)

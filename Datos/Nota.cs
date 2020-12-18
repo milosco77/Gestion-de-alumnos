@@ -71,7 +71,7 @@ namespace Datos
 #nullable disable
         public static List<Entidades.Notas> ListarTodas()
         {
-            return db.Notas.ToList();
+            return db.Notas.OrderBy(n => n.NotasId).ToList();
         }
 
         public static string Agregar(Entidades.Notas nota)

@@ -79,7 +79,7 @@ namespace Datos
 #nullable disable
         public static List<Entidades.ListadoAsignaturas> ListarTodas()
         {
-            return db.ListadoAsignaturas.ToList();
+            return db.ListadoAsignaturas.OrderBy(la => la.ListadoAsignaturasId).ToList();
         }
 
         public static string Agregar(Entidades.ListadoAsignaturas listadoAsignatura)

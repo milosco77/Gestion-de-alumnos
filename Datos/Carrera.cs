@@ -46,7 +46,7 @@ namespace Datos
 
         public static List<Entidades.Carreras> ListarTodas()
         {
-            return db.Carreras.ToList();
+            return db.Carreras.OrderBy(c => c.CarreraId).ToList();
         }
 
         public static string Agregar(Entidades.Carreras carrera)

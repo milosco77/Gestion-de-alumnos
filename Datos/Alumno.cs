@@ -76,7 +76,7 @@ namespace Datos
 #nullable disable
         public static List<Entidades.Alumnos> ListarTodos()
         {
-            return db.Alumnos.ToList();
+            return db.Alumnos.OrderBy(a => a.AlumnoId).ToList();
         }
 
         public static string Agregar(Entidades.Alumnos alumno)

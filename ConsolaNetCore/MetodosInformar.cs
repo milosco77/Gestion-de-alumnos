@@ -159,14 +159,14 @@ namespace ConsolaNetCore
         public static int InformarTodosAlumnos()
         {
             List<Entidades.Alumnos> alumnos = Logica.Alumno.ListarTodos();
-            Console.WriteLine("\nTodos los alumnos:");
             if (alumnos.Count == 0)
             {
                 return alumnos.Count;
             }
             else
             {
-                foreach (Entidades.Alumnos alumno in Logica.Alumno.ListarTodos())
+                Console.WriteLine("\nTodos los alumnos:");
+                foreach (Entidades.Alumnos alumno in alumnos)
                 {
                     MetodosComunes.MensajeColor(mensaje: $"\nID: {alumno.AlumnoId} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.Dni}");
                 }
@@ -195,14 +195,13 @@ namespace ConsolaNetCore
         public static int InformarTodasAsignaturas()
         {
             List<Entidades.Asignaturas> asignaturas = Logica.Asignatura.ListarTodas();
-            Console.WriteLine("\nTodos las asignaturas:");
-
             if (asignaturas.Count == 0)
             {
                 return asignaturas.Count;
             }
             else
             {
+                Console.WriteLine("\nTodos las asignaturas:");
                 foreach (Entidades.Asignaturas asignatura in asignaturas)
                 {
                     MetodosComunes.MensajeColor(mensaje: $"\nAsignaturaID: {asignatura.AsignaturaId} | ListadoAsignaturasID: {asignatura.ListadoAsignaturasId} | AlumnoID: {asignatura.AlumnoId} | CarreraID: {asignatura.CarreraId} | Comision: {asignatura.Comision} | HorarioEntrada: {asignatura.HorarioEntrada} | HorarioSalida: {asignatura.HorarioSalida} | Dias: {asignatura.Dias}");
@@ -233,14 +232,13 @@ namespace ConsolaNetCore
         public static int InformarTodasNotas()
         {
             List<Entidades.Notas> notas = Logica.Nota.ListarTodas();
-            Console.WriteLine("\nTodos las notas:");
-
             if (notas.Count == 0)
             {
                 return notas.Count;
             }
             else
             {
+                Console.WriteLine("\nTodos las notas:");
                 foreach (Entidades.Notas nota in notas)
                 {
                     MetodosComunes.MensajeColor(mensaje: $"\nNotaID: {nota.NotasId} | AsignaturaID: {nota.AsignaturaId} | Primer parcial: {(nota.PrimerParcial == null ? "NULL" : nota.PrimerParcial.ToString())} | Primer recuperatorio: {(nota.PrimerRecuperatorio == null ? "NULL" : nota.PrimerRecuperatorio.ToString())} | Segundo parcial: {(nota.SegundoParcial == null ? "NULL" : nota.SegundoParcial.ToString())} | Segundo recuperatorio: {(nota.SegundoRecuperatorio == null ? "NULL" : nota.SegundoRecuperatorio.ToString())} | Final: {(nota.Final == null ? "NULL" : nota.Final.ToString())}");
@@ -262,14 +260,13 @@ namespace ConsolaNetCore
         public static int InformarTodasCarreras()
         {
             List<Entidades.Carreras> carreras = Logica.Carrera.ListarTodas();
-            Console.WriteLine("\nTodos las carreras:");
-
             if (carreras.Count == 0)
             {
                 return carreras.Count;
             }
             else
             {
+                Console.WriteLine("\nTodos las carreras:");
                 foreach (Entidades.Carreras carrera in carreras)
                 {
                     MetodosComunes.MensajeColor(mensaje: $"\nCarreraID: {carrera.CarreraId} | AlumnoID: {carrera.AlumnoId} | ListadoCarrerasID: {carrera.ListadoCarrerasId}");
@@ -281,14 +278,13 @@ namespace ConsolaNetCore
         public static int InformarTodasFacultades()
         {
             List<Entidades.Facultades> facultades = Logica.Facultad.ListarTodas();
-            Console.WriteLine("\nTodos las facultades:");
-
             if (facultades.Count == 0)
             {
                 return facultades.Count;
             }
             else
             {
+                Console.WriteLine("\nTodos las facultades:");
                 foreach (Entidades.Facultades facultad in facultades)
                 {
                     MetodosComunes.MensajeColor(mensaje: $"\nFacultadID: {facultad.FacultadId} | Nombre: {facultad.Nombre} | Direccion: {facultad.Direccion} | Telefono: {(facultad.Telefono == null ? "NULL" : facultad.Telefono.ToString())} | Departamento de Alumnos: {(facultad.DepartamentoAlumnos == null ? "NULL" : facultad.DepartamentoAlumnos.ToString())} | Facebook: {(facultad.Facebook == null ? "NULL" : facultad.Facebook.ToString())} | Instagram: {(facultad.Instagram == null ? "NULL" : facultad.Instagram.ToString())} | Twitter: {(facultad.Twitter == null ? "NULL" : facultad.Twitter.ToString())} | Pagina Web: {(facultad.PaginaWeb == null ? "NULL" : facultad.PaginaWeb.ToString())} | Email: {(facultad.Email == null ? "NULL" : facultad.Email.ToString())} | Recorrido Virtual: {(facultad.RecorridoVirtual == null ? "NULL" : facultad.RecorridoVirtual.ToString())}");
@@ -300,14 +296,13 @@ namespace ConsolaNetCore
         public static int InformarListadoCarreras()
         {
             List<Entidades.ListadoCarreras> carreras = Logica.ListadoCarrera.ListarTodas();
-            Console.WriteLine("\nListado de carreras:");
-
             if (carreras.Count == 0)
             {
                 return carreras.Count;
             }
             else
             {
+                Console.WriteLine("\nListado de carreras:");
                 foreach (Entidades.ListadoCarreras carrera in carreras)
                 {
                     MetodosComunes.MensajeColor(mensaje: $"\nListadoCarrerasID: {carrera.ListadoCarrerasId} | FacultadID: {carrera.FacultadId} | Nombre: {carrera.Nombre} | Titulo: {carrera.Titulo} | Duracion Estimada en Años: {(carrera.DuracionEstimadaAnios == null ? "NULL" : carrera.DuracionEstimadaAnios.ToString())}");
@@ -319,14 +314,13 @@ namespace ConsolaNetCore
         public static int InformarListadoAsignaturas()
         {
             List<Entidades.ListadoAsignaturas> asignaturas = Logica.ListadoAsignatura.ListarTodas();
-            Console.WriteLine("\nListado de asignaturas:");
-
             if (asignaturas.Count == 0)
             {
                 return asignaturas.Count;
             }
             else
             {
+                Console.WriteLine("\nListado de asignaturas:");
                 foreach (Entidades.ListadoAsignaturas asignatura in asignaturas)
                 {
                     MetodosComunes.MensajeColor(mensaje: $"\nListadoAsignaturasID: {asignatura.ListadoAsignaturasId} | Codigo: {asignatura.Codigo} | Nombre: {asignatura.Nombre} | Creditos: {(asignatura.Creditos == null ? "NULL" : asignatura.Creditos.ToString())} | Horas: {(asignatura.Horas == null ? "NULL" : asignatura.Horas.ToString())} | Correlativas: {(asignatura.Correlativas == null ? "NULL" : asignatura.Correlativas.ToString())} | Categoria: {asignatura.Categoria} | ListadoCarrerasID: {asignatura.ListadoCarrerasId}");
