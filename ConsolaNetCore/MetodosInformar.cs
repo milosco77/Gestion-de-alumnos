@@ -156,14 +156,13 @@ namespace ConsolaNetCore
             }
         }
 
-        public static void InformarTodosAlumnos()
+        public static int InformarTodosAlumnos()
         {
             List<Entidades.Alumnos> alumnos = Logica.Alumno.ListarTodos();
             Console.WriteLine("\nTodos los alumnos:");
             if (alumnos.Count == 0)
             {
-                Console.WriteLine("La lista de alumno esta vacia");
-                MetodosComunes.Continuar();
+                return alumnos.Count;
             }
             else
             {
@@ -171,6 +170,7 @@ namespace ConsolaNetCore
                 {
                     MetodosComunes.MensajeColor(mensaje: $"\nID: {alumno.AlumnoId} | Nombre: {alumno.Nombre} | Apellido: {alumno.Apellido} | Edad: {alumno.Edad} | DNI: {alumno.Dni}");
                 }
+                return alumnos.Count;
             }
         }
 
@@ -192,15 +192,14 @@ namespace ConsolaNetCore
 
         }
 
-        public static void InformarTodasAsignaturas()
+        public static int InformarTodasAsignaturas()
         {
             List<Entidades.Asignaturas> asignaturas = Logica.Asignatura.ListarTodas();
             Console.WriteLine("\nTodos las asignaturas:");
 
             if (asignaturas.Count == 0)
             {
-                MetodosComunes.MensajeColor(mensaje: "\nLa lista de alumno esta vacia", color: ConsoleColor.Red);
-                MetodosComunes.Continuar();
+                return asignaturas.Count;
             }
             else
             {
@@ -208,8 +207,8 @@ namespace ConsolaNetCore
                 {
                     MetodosComunes.MensajeColor(mensaje: $"\nAsignaturaID: {asignatura.AsignaturaId} | ListadoAsignaturasID: {asignatura.ListadoAsignaturasId} | AlumnoID: {asignatura.AlumnoId} | CarreraID: {asignatura.CarreraId} | Comision: {asignatura.Comision} | HorarioEntrada: {asignatura.HorarioEntrada} | HorarioSalida: {asignatura.HorarioSalida} | Dias: {asignatura.Dias}");
                 }
+                return asignaturas.Count;
             }
-
         }
 
         public static void InformarUnaNota(Entidades.Asignaturas asignatura)
@@ -231,15 +230,14 @@ namespace ConsolaNetCore
             throw new NotImplementedException();
         }
 
-        public static void InformarTodasNotas()
+        public static int InformarTodasNotas()
         {
             List<Entidades.Notas> notas = Logica.Nota.ListarTodas();
             Console.WriteLine("\nTodos las notas:");
 
             if (notas.Count == 0)
             {
-                MetodosComunes.MensajeColor(mensaje: "\nLa lista de notas esta vacia", color: ConsoleColor.Red);
-                MetodosComunes.Continuar();
+                return notas.Count;
             }
             else
             {
@@ -247,6 +245,7 @@ namespace ConsolaNetCore
                 {
                     MetodosComunes.MensajeColor(mensaje: $"\nNotaID: {nota.NotasId} | AsignaturaID: {nota.AsignaturaId} | Primer parcial: {(nota.PrimerParcial == null ? "NULL" : nota.PrimerParcial.ToString())} | Primer recuperatorio: {(nota.PrimerRecuperatorio == null ? "NULL" : nota.PrimerRecuperatorio.ToString())} | Segundo parcial: {(nota.SegundoParcial == null ? "NULL" : nota.SegundoParcial.ToString())} | Segundo recuperatorio: {(nota.SegundoRecuperatorio == null ? "NULL" : nota.SegundoRecuperatorio.ToString())} | Final: {(nota.Final == null ? "NULL" : nota.Final.ToString())}");
                 }
+                return notas.Count;
             }
         }
 
@@ -260,15 +259,14 @@ namespace ConsolaNetCore
             throw new NotImplementedException();
         }
 
-        public static void InformarTodasCarreras()
+        public static int InformarTodasCarreras()
         {
             List<Entidades.Carreras> carreras = Logica.Carrera.ListarTodas();
             Console.WriteLine("\nTodos las carreras:");
 
             if (carreras.Count == 0)
             {
-                MetodosComunes.MensajeColor(mensaje: "\nLa lista de carreras esta vacia", color: ConsoleColor.Red);
-                MetodosComunes.Continuar();
+                return carreras.Count;
             }
             else
             {
@@ -276,18 +274,18 @@ namespace ConsolaNetCore
                 {
                     MetodosComunes.MensajeColor(mensaje: $"\nCarreraID: {carrera.CarreraId} | AlumnoID: {carrera.AlumnoId} | ListadoCarrerasID: {carrera.ListadoCarrerasId}");
                 }
+                return carreras.Count;
             }
         }
 
-        public static void InformarTodasFacultades()
+        public static int InformarTodasFacultades()
         {
             List<Entidades.Facultades> facultades = Logica.Facultad.ListarTodas();
             Console.WriteLine("\nTodos las facultades:");
 
             if (facultades.Count == 0)
             {
-                MetodosComunes.MensajeColor(mensaje: "\nLa lista de facultades esta vacia", color: ConsoleColor.Red);
-                MetodosComunes.Continuar();
+                return facultades.Count;
             }
             else
             {
@@ -295,18 +293,18 @@ namespace ConsolaNetCore
                 {
                     MetodosComunes.MensajeColor(mensaje: $"\nFacultadID: {facultad.FacultadId} | Nombre: {facultad.Nombre} | Direccion: {facultad.Direccion} | Telefono: {(facultad.Telefono == null ? "NULL" : facultad.Telefono.ToString())} | Departamento de Alumnos: {(facultad.DepartamentoAlumnos == null ? "NULL" : facultad.DepartamentoAlumnos.ToString())} | Facebook: {(facultad.Facebook == null ? "NULL" : facultad.Facebook.ToString())} | Instagram: {(facultad.Instagram == null ? "NULL" : facultad.Instagram.ToString())} | Twitter: {(facultad.Twitter == null ? "NULL" : facultad.Twitter.ToString())} | Pagina Web: {(facultad.PaginaWeb == null ? "NULL" : facultad.PaginaWeb.ToString())} | Email: {(facultad.Email == null ? "NULL" : facultad.Email.ToString())} | Recorrido Virtual: {(facultad.RecorridoVirtual == null ? "NULL" : facultad.RecorridoVirtual.ToString())}");
                 }
+                return facultades.Count;
             }
         }
 
-        public static void InformarListadoCarreras()
+        public static int InformarListadoCarreras()
         {
             List<Entidades.ListadoCarreras> carreras = Logica.ListadoCarrera.ListarTodas();
             Console.WriteLine("\nListado de carreras:");
 
             if (carreras.Count == 0)
             {
-                MetodosComunes.MensajeColor(mensaje: "\nEl listado de carreras esta vacio", color: ConsoleColor.Red);
-                MetodosComunes.Continuar();
+                return carreras.Count;
             }
             else
             {
@@ -314,18 +312,18 @@ namespace ConsolaNetCore
                 {
                     MetodosComunes.MensajeColor(mensaje: $"\nListadoCarrerasID: {carrera.ListadoCarrerasId} | FacultadID: {carrera.FacultadId} | Nombre: {carrera.Nombre} | Titulo: {carrera.Titulo} | Duracion Estimada en Años: {(carrera.DuracionEstimadaAnios == null ? "NULL" : carrera.DuracionEstimadaAnios.ToString())}");
                 }
+                return carreras.Count;
             }
         }
 
-        public static void InformarListadoAsignaturas()
+        public static int InformarListadoAsignaturas()
         {
             List<Entidades.ListadoAsignaturas> asignaturas = Logica.ListadoAsignatura.ListarTodas();
             Console.WriteLine("\nListado de asignaturas:");
 
             if (asignaturas.Count == 0)
             {
-                MetodosComunes.MensajeColor(mensaje: "\nEl listado de asignaturas esta vacio", color: ConsoleColor.Red);
-                MetodosComunes.Continuar();
+                return asignaturas.Count;
             }
             else
             {
@@ -333,9 +331,8 @@ namespace ConsolaNetCore
                 {
                     MetodosComunes.MensajeColor(mensaje: $"\nListadoAsignaturasID: {asignatura.ListadoAsignaturasId} | Codigo: {asignatura.Codigo} | Nombre: {asignatura.Nombre} | Creditos: {(asignatura.Creditos == null ? "NULL" : asignatura.Creditos.ToString())} | Horas: {(asignatura.Horas == null ? "NULL" : asignatura.Horas.ToString())} | Correlativas: {(asignatura.Correlativas == null ? "NULL" : asignatura.Correlativas.ToString())} | Categoria: {asignatura.Categoria} | ListadoCarrerasID: {asignatura.ListadoCarrerasId}");
                 }
+                return asignaturas.Count;
             }
         }
-
-
     }
 }

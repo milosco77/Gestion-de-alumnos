@@ -146,25 +146,25 @@ namespace ConsolaNetCore
                         switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea mostrar? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Alumnos.\n\n2 = Asignaturas.\n\n3 = Carreras.\n\n4 = Facultades.\n\n5 = Asignaturas del listado.\n\n6 = Carreras del listado.\n\n7 = Notas.\n\n8 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
                         {
                             case 1:
-                                MetodosInformar.InformarTodosAlumnos();
+                                if (MetodosInformar.InformarTodosAlumnos() == 0) MetodosComunes.MensajeColor(mensaje: "\nLa lista de alumnos esta vacia", color: ConsoleColor.Red);
                                 break;
                             case 2:
-                                MetodosInformar.InformarTodasAsignaturas();
+                                if (MetodosInformar.InformarTodasAsignaturas() == 0) MetodosComunes.MensajeColor(mensaje: "\nLa lista de asignaturas esta vacia", color: ConsoleColor.Red);
                                 break;
                             case 3:
-                                MetodosInformar.InformarTodasCarreras();
+                                if (MetodosInformar.InformarTodasCarreras() == 0) MetodosComunes.MensajeColor(mensaje: "\nLa lista de carreras esta vacia", color: ConsoleColor.Red);
                                 break;
                             case 4:
-                                MetodosInformar.InformarTodasFacultades();
+                                if (MetodosInformar.InformarTodasFacultades() == 0) MetodosComunes.MensajeColor(mensaje: "\nLa lista de facultades esta vacia", color: ConsoleColor.Red);
                                 break;
                             case 5:
-                                MetodosInformar.InformarListadoAsignaturas();
+                                if (MetodosInformar.InformarListadoAsignaturas() == 0) MetodosComunes.MensajeColor(mensaje: "\nEl listado de asignaturas esta vacio", color: ConsoleColor.Red);
                                 break;
                             case 6:
-                                MetodosInformar.InformarListadoCarreras();
+                                if (MetodosInformar.InformarListadoCarreras() == 0) MetodosComunes.MensajeColor(mensaje: "\nEl listado de carreras esta vacio", color: ConsoleColor.Red);
                                 break;
                             case 7:
-                                MetodosInformar.InformarTodasNotas();
+                                if (MetodosInformar.InformarTodasNotas() == 0) MetodosComunes.MensajeColor(mensaje: "\nLa lista de notas esta vacia", color: ConsoleColor.Red);
                                 break;
                             default:
                                 primeraVez = false;
