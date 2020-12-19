@@ -107,9 +107,9 @@ namespace Logica
             return Datos.Facultad.Agregar(facultad);
         }
 
-        public static void Editar(Entidades.Facultades facultad)
+        public static string Editar(Entidades.Facultades facultad)
         {
-            Datos.Facultad.Editar(facultad);
+            return Datos.Facultad.Editar(facultad);
         }
 #nullable enable
         public static string Eliminar(int? facultadID = null, string? nombre = null, string? direccion = null, int? telefono = null, string? departamentoAlumnos = null, string? facebook = null, string? instagram = null, string? twitter = null, string? paginaWeb = null, string? email = null, string? recorridoVirtual = null)

@@ -100,26 +100,30 @@ namespace Datos
             }
         }
 
-        public static void Editar(Entidades.Asignaturas pAsignatura)
+        public static string Editar(Entidades.Asignaturas pAsignatura)
         {
             Entidades.Asignaturas asignatura = db.Asignaturas.Where(a => a.AsignaturaId == pAsignatura.AsignaturaId).SingleOrDefault();
-
             if (asignatura != null)
             {
-                asignatura.AsignaturaId = pAsignatura.AsignaturaId;
-                asignatura.ListadoAsignaturasId = pAsignatura.ListadoAsignaturasId;
-                asignatura.AlumnoId = pAsignatura.AlumnoId;
-                asignatura.CarreraId = pAsignatura.CarreraId;
-                asignatura.Comision = pAsignatura.Comision;
-                asignatura.HorarioEntrada = pAsignatura.HorarioEntrada;
-                asignatura.HorarioSalida = pAsignatura.HorarioSalida;
-                asignatura.Dias = pAsignatura.Dias;
-                db.SaveChanges();
+                try
+                {
+                    asignatura.AsignaturaId = pAsignatura.AsignaturaId;
+                    asignatura.ListadoAsignaturasId = pAsignatura.ListadoAsignaturasId;
+                    asignatura.AlumnoId = pAsignatura.AlumnoId;
+                    asignatura.CarreraId = pAsignatura.CarreraId;
+                    asignatura.Comision = pAsignatura.Comision;
+                    asignatura.HorarioEntrada = pAsignatura.HorarioEntrada;
+                    asignatura.HorarioSalida = pAsignatura.HorarioSalida;
+                    asignatura.Dias = pAsignatura.Dias;
+                    db.SaveChanges();
+                    return "Editado correctamente.";
+                }
+                catch (Exception e)
+                {
+                    return $"No editado debido a {e.Message} | {e.InnerException}";
+                }
             }
-            else
-            {
-                Console.WriteLine("\nNo hay resultados con ese ID");
-            }
+            return "La asignatura no existe";
         }
 #nullable enable
         public static string Eliminar(int? asignaturaID = null, int? listadoAsignaturasID = null, int? alumnoID = null, int? carreraID = null, int? comision = null, TimeSpan? horarioEntrada = null, TimeSpan? horarioSalida = null, string? dias = null)

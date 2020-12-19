@@ -67,13 +67,25 @@ namespace Datos
             }
         }
 
-        public static void Editar(Entidades.Carreras pCarrera)
+        public static string Editar(Entidades.Carreras pCarrera)
         {
             Entidades.Carreras carrera = db.Carreras.Where(c => c.CarreraId == pCarrera.CarreraId).SingleOrDefault();
-            carrera.CarreraId = pCarrera.CarreraId;
-            carrera.AlumnoId = pCarrera.AlumnoId;
-            carrera.ListadoCarrerasId = pCarrera.ListadoCarrerasId;
-            db.SaveChanges();
+            if (carrera != null)
+            {
+                try
+                {
+                    carrera.CarreraId = pCarrera.CarreraId;
+                    carrera.AlumnoId = pCarrera.AlumnoId;
+                    carrera.ListadoCarrerasId = pCarrera.ListadoCarrerasId;
+                    db.SaveChanges();
+                    return "Editado correctamente.";
+                }
+                catch (Exception e)
+                {
+                    return $"No editado debido a {e.Message} | {e.InnerException}";
+                }
+            }
+            return "La carrera no existe";
         }
 #nullable enable
         public static string Eliminar(int? carreraID = null, int? alumnoID = null, int? listadoCarrerasID = null)

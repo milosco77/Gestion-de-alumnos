@@ -50,9 +50,9 @@ namespace Logica
             return Datos.Carrera.Agregar(carrera);
         }
 
-        public static void Editar(Entidades.Carreras carrera)
+        public static string Editar(Entidades.Carreras carrera)
         {
-            Datos.Carrera.Editar(carrera);
+            return Datos.Carrera.Editar(carrera);
         }
 #nullable enable
         public static string Eliminar(int? carreraID = null, int? alumnoID = null, int? listadoCarrerasID = null)

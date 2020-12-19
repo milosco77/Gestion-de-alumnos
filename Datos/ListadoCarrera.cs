@@ -76,15 +76,27 @@ namespace Datos
             }
         }
 
-        public static void Editar(Entidades.ListadoCarreras pListadoCarrera)
+        public static string Editar(Entidades.ListadoCarreras pListadoCarrera)
         {
             Entidades.ListadoCarreras listadoCarrera = db.ListadoCarreras.Where(lc => lc.ListadoCarrerasId == pListadoCarrera.ListadoCarrerasId).SingleOrDefault();
-            listadoCarrera.ListadoCarrerasId = pListadoCarrera.ListadoCarrerasId;
-            listadoCarrera.FacultadId = pListadoCarrera.FacultadId;
-            listadoCarrera.Nombre = pListadoCarrera.Nombre;
-            listadoCarrera.Titulo = pListadoCarrera.Titulo;
-            listadoCarrera.DuracionEstimadaAnios = pListadoCarrera.DuracionEstimadaAnios;
-            db.SaveChanges();
+            if (listadoCarrera != null)
+            {
+                try
+                {
+                    listadoCarrera.ListadoCarrerasId = pListadoCarrera.ListadoCarrerasId;
+                    listadoCarrera.FacultadId = pListadoCarrera.FacultadId;
+                    listadoCarrera.Nombre = pListadoCarrera.Nombre;
+                    listadoCarrera.Titulo = pListadoCarrera.Titulo;
+                    listadoCarrera.DuracionEstimadaAnios = pListadoCarrera.DuracionEstimadaAnios;
+                    db.SaveChanges();
+                    return "Editado correctamente.";
+                }
+                catch (Exception e)
+                {
+                    return $"No editado debido a {e.Message} | {e.InnerException}";
+                }
+            }
+            return "La carrera del listado no existe";
         }
 #nullable enable
         public static string Eliminar(int? listadoCarrerasID = null, int? facultadID = null, string? nombre = null, string? titulo = null, int? duracionEstimadaAnios = null)

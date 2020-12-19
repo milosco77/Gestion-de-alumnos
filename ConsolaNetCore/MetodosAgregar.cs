@@ -223,17 +223,6 @@ namespace ConsolaNetCore
             return pAlumno;
         }
 
-        // Se crea nueva entidad de alumno dentro del metodo para evitar que mande un id que no corresponde causando una excepcion.
-        public static Entidades.Alumnos ModificarDatosAlumno(Entidades.Alumnos pAlumno = null)
-        {
-            if (pAlumno != null)
-            {
-                pAlumno = AgregarDatosAlumno(pAlumno);
-            }
-
-            return pAlumno;
-        }
-
         public static Entidades.Carreras AgregarDatosCarrera(Entidades.Carreras pCarrera)
         {
             Entidades.Alumnos alumno;
@@ -292,25 +281,6 @@ namespace ConsolaNetCore
             pAsignatura.Dias = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nIngrese los dias de cursada de la materia (Ej: Lunes-Miercoles-Viernes):");
             // TODO Mejorar ingreso de dias.
             return pAsignatura;
-        }
-
-        public static Entidades.Asignaturas ModificarDatosAsignatura(int alumnoID, Entidades.Asignaturas pAsignatura)
-        {
-            if (pAsignatura != null)
-            {
-                pAsignatura = AgregarDatosAsignatura(pAsignatura);
-            }
-            return pAsignatura;
-        }
-
-        public static Entidades.Notas ModificarDatosNotas(Entidades.Notas pNotas = null, Entidades.Asignaturas pAsignatura = null)
-        {
-
-            //if (pNotas != null)
-            //{
-            //    pNotas = AgregarDatosNotas(pNotas, pAsignatura);
-            //}
-            return pNotas;
         }
     }
 }

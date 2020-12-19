@@ -97,22 +97,26 @@ namespace Datos
             }
         }
 
-        public static void Editar(Entidades.Alumnos alumno)
+        public static string Editar(Entidades.Alumnos alumno)
         {
             Entidades.Alumnos unAlumno = db.Alumnos.Where(a => a.AlumnoId == alumno.AlumnoId).SingleOrDefault();
-
             if (unAlumno != null)
             {
-                unAlumno.Nombre = alumno.Nombre;
-                unAlumno.Apellido = alumno.Apellido;
-                unAlumno.Edad = alumno.Edad;
-                unAlumno.Dni = alumno.Dni;
-                db.SaveChanges();
+                try
+                {
+                    unAlumno.Nombre = alumno.Nombre;
+                    unAlumno.Apellido = alumno.Apellido;
+                    unAlumno.Edad = alumno.Edad;
+                    unAlumno.Dni = alumno.Dni;
+                    db.SaveChanges();
+                    return "Editado correctamente.";
+                }
+                catch (Exception e)
+                {
+                    return $"No editado debido a {e.Message} | {e.InnerException}";
+                }
             }
-            else
-            {
-                Console.WriteLine("\nNo hay resultados con ese ID");
-            }
+            return "El alumno no existe";
         }
 #nullable enable
         public static string Eliminar(int? alumnoID = null, string? nombre = null, string? apellido = null, int? edad = null, int? dni = null)

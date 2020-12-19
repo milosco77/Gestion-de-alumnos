@@ -66,9 +66,9 @@ namespace Logica
             return Datos.Alumno.Agregar(alumno);
         }
 
-        public static void Editar(Entidades.Alumnos alumno)
+        public static string Editar(Entidades.Alumnos alumno)
         {
-            Datos.Alumno.Editar(alumno);
+            return Datos.Alumno.Editar(alumno);
         }
 #nullable enable
         public static string Eliminar(int? alumnoID = null, string? nombre = null, string? apellido = null, int? edad = null, int? dni = null)

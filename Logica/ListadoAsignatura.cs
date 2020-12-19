@@ -83,9 +83,9 @@ namespace Logica
             return Datos.ListadoAsignatura.Agregar(listadoAsignatura);
         }
 
-        public static void Editar(Entidades.ListadoAsignaturas listadoAsignatura)
+        public static string Editar(Entidades.ListadoAsignaturas listadoAsignatura)
         {
-            Datos.ListadoAsignatura.Editar(listadoAsignatura);
+            return Datos.ListadoAsignatura.Editar(listadoAsignatura);
         }
 #nullable enable
         public static string Eliminar(int? listadoAsignaturasID = null, string? codigo = null, string? nombre = null, int? creditos = null, int? horas = null, string? correlativas = null, string? categoria = null, int? listadoCarrerasID = null)

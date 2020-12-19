@@ -124,21 +124,33 @@ namespace Datos
             }
         }
 
-        public static void Editar(Entidades.Facultades pFacultad)
+        public static string Editar(Entidades.Facultades pFacultad)
         {
             Entidades.Facultades facultad = db.Facultades.Where(f => f.FacultadId == pFacultad.FacultadId).SingleOrDefault();
-            facultad.FacultadId = pFacultad.FacultadId;
-            facultad.Nombre = pFacultad.Nombre;
-            facultad.Direccion = pFacultad.Direccion;
-            facultad.Telefono = pFacultad.Telefono;
-            facultad.DepartamentoAlumnos = pFacultad.DepartamentoAlumnos;
-            facultad.Facebook = pFacultad.Facebook;
-            facultad.Instagram = pFacultad.Instagram;
-            facultad.Twitter = pFacultad.Twitter;
-            facultad.PaginaWeb = pFacultad.PaginaWeb;
-            facultad.Email = pFacultad.Email;
-            facultad.RecorridoVirtual = pFacultad.RecorridoVirtual;
-            db.SaveChanges();
+            if (facultad != null)
+            {
+                try
+                {
+                    facultad.FacultadId = pFacultad.FacultadId;
+                    facultad.Nombre = pFacultad.Nombre;
+                    facultad.Direccion = pFacultad.Direccion;
+                    facultad.Telefono = pFacultad.Telefono;
+                    facultad.DepartamentoAlumnos = pFacultad.DepartamentoAlumnos;
+                    facultad.Facebook = pFacultad.Facebook;
+                    facultad.Instagram = pFacultad.Instagram;
+                    facultad.Twitter = pFacultad.Twitter;
+                    facultad.PaginaWeb = pFacultad.PaginaWeb;
+                    facultad.Email = pFacultad.Email;
+                    facultad.RecorridoVirtual = pFacultad.RecorridoVirtual;
+                    db.SaveChanges();
+                    return "Editado correctamente.";
+                }
+                catch (Exception e)
+                {
+                    return $"No editado debido a {e.Message} | {e.InnerException}";
+                }
+            }
+            return "La facultad no existe";
         }
 #nullable enable
         public static string Eliminar(int? facultadID = null, string? nombre = null, string? direccion = null, int? telefono = null, string? departamentoAlumnos = null, string? facebook = null, string? instagram = null, string? twitter = null, string? paginaWeb = null, string? email = null, string? recorridoVirtual = null)

@@ -75,9 +75,9 @@ namespace Logica
             return Datos.Nota.Agregar(nota);
         }
 
-        public static void Editar(Entidades.Notas nota)
+        public static string Editar(Entidades.Notas nota)
         {
-            Datos.Nota.Editar(nota);
+            return Datos.Nota.Editar(nota);
         }
 #nullable enable
         public static string Eliminar(int? notasID = null, int? asignaturasID = null, int? primerParcial = null, int? primerRecuperatorio = null, int? segundoParcial = null, int? segundoRecuperatorio = null, int? final = null)

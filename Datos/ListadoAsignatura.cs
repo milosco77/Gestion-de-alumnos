@@ -100,18 +100,30 @@ namespace Datos
             }
         }
 
-        public static void Editar(Entidades.ListadoAsignaturas pListadoAsignatura)
+        public static string Editar(Entidades.ListadoAsignaturas pListadoAsignatura)
         {
             Entidades.ListadoAsignaturas listadoAsignatura = db.ListadoAsignaturas.Where(la => la.ListadoAsignaturasId == pListadoAsignatura.ListadoAsignaturasId).SingleOrDefault();
-            listadoAsignatura.ListadoAsignaturasId = pListadoAsignatura.ListadoAsignaturasId;
-            listadoAsignatura.Codigo = pListadoAsignatura.Codigo;
-            listadoAsignatura.Nombre = pListadoAsignatura.Nombre;
-            listadoAsignatura.Creditos = pListadoAsignatura.Creditos;
-            listadoAsignatura.Horas = pListadoAsignatura.Horas;
-            listadoAsignatura.Correlativas = pListadoAsignatura.Correlativas;
-            listadoAsignatura.Categoria = pListadoAsignatura.Categoria;
-            listadoAsignatura.ListadoCarrerasId = pListadoAsignatura.ListadoCarrerasId;
-            db.SaveChanges();
+            if (listadoAsignatura != null)
+            {
+                try
+                {
+                    listadoAsignatura.ListadoAsignaturasId = pListadoAsignatura.ListadoAsignaturasId;
+                    listadoAsignatura.Codigo = pListadoAsignatura.Codigo;
+                    listadoAsignatura.Nombre = pListadoAsignatura.Nombre;
+                    listadoAsignatura.Creditos = pListadoAsignatura.Creditos;
+                    listadoAsignatura.Horas = pListadoAsignatura.Horas;
+                    listadoAsignatura.Correlativas = pListadoAsignatura.Correlativas;
+                    listadoAsignatura.Categoria = pListadoAsignatura.Categoria;
+                    listadoAsignatura.ListadoCarrerasId = pListadoAsignatura.ListadoCarrerasId;
+                    db.SaveChanges();
+                    return "Editado correctamente.";
+                }
+                catch (Exception e)
+                {
+                    return $"No editado debido a {e.Message} | {e.InnerException}";
+                }
+            }
+            return "La asignatura del listado no existe";
         }
 #nullable enable
         public static string Eliminar(int? listadoAsignaturasID = null, string? codigo = null, string? nombre = null, int? creditos = null, int? horas = null, string? correlativas = null, string? categoria = null, int? listadoCarrerasID = null)

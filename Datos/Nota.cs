@@ -92,17 +92,29 @@ namespace Datos
             }
         }
 
-        public static void Editar(Entidades.Notas pNota)
+        public static string Editar(Entidades.Notas pNota)
         {
             Entidades.Notas nota = db.Notas.Where(n => n.NotasId == pNota.NotasId).SingleOrDefault();
-            nota.NotasId = pNota.NotasId;
-            nota.AsignaturaId = pNota.AsignaturaId;
-            nota.PrimerParcial = pNota.PrimerParcial;
-            nota.PrimerRecuperatorio = pNota.PrimerRecuperatorio;
-            nota.SegundoParcial = pNota.SegundoParcial;
-            nota.SegundoRecuperatorio = pNota.SegundoRecuperatorio;
-            nota.Final = pNota.Final;
-            db.SaveChanges();
+            if (nota != null)
+            {
+                try
+                {
+                    nota.NotasId = pNota.NotasId;
+                    nota.AsignaturaId = pNota.AsignaturaId;
+                    nota.PrimerParcial = pNota.PrimerParcial;
+                    nota.PrimerRecuperatorio = pNota.PrimerRecuperatorio;
+                    nota.SegundoParcial = pNota.SegundoParcial;
+                    nota.SegundoRecuperatorio = pNota.SegundoRecuperatorio;
+                    nota.Final = pNota.Final;
+                    db.SaveChanges();
+                    return "Editado correctamente.";
+                }
+                catch (Exception e)
+                {
+                    return $"No editado debido a {e.Message} | {e.InnerException}";
+                }
+            }
+            return "La nota no existe";
         }
 #nullable enable
         public static string Eliminar(int? notasID = null, int? asignaturasID = null, int? primerParcial = null, int? primerRecuperatorio = null, int? segundoParcial = null, int? segundoRecuperatorio = null, int? final = null)
