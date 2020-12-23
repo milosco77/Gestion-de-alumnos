@@ -226,6 +226,7 @@ namespace ConsolaNetCore
         public static Entidades.Carreras AgregarDatosCarrera(Entidades.Carreras pCarrera)
         {
             Entidades.Alumnos alumno;
+            Entidades.ListadoCarreras listadoCarrera;
             do
             {
                 MetodosInformar.InformarTodosAlumnos();
@@ -236,8 +237,17 @@ namespace ConsolaNetCore
                     MetodosComunes.MensajeColor(mensaje: "\nEl alumno seleccionado no existe.", color: ConsoleColor.Red);
                 }
             } while (alumno == null);
-            MetodosInformar.InformarListadoCarreras();
-            pCarrera.ListadoCarrerasId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la carrera del alumno:", minimoValorInput: 1, maximoValorInput: 12, mensajeError: "\nEl valor debe estar comprendido entre 1 y 12.", borrarInformacion: false);
+            do
+            {
+                MetodosInformar.InformarListadoCarreras();
+                pCarrera.ListadoCarrerasId = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nIngrese el ID de la carrera del alumno:", minimoValorInput: 1, maximoValorInput: 12, mensajeError: "\nEl valor debe estar comprendido entre 1 y 12.", borrarInformacion: false);
+                listadoCarrera = Logica.ListadoCarrera.ListarUna(listadoCarrerasID: pCarrera.ListadoCarrerasId);
+                if (listadoCarrera == null)
+                {
+                    MetodosComunes.MensajeColor(mensaje: "\nLa carrera del listado seleccionado no existe.", color: ConsoleColor.Red);
+                }
+            } while (listadoCarrera == null);
+            
             return pCarrera;
         }
 

@@ -53,31 +53,22 @@ namespace ConsolaNetCore
                     Console.Clear();
                 }
                 primeraVez = true;
-                switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Agregar.\n\n2 = Editar.\n\n3 = Eliminar.\n\n4 = Mostrar todos.\n\n5 = Salir.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 5.", minimoValorInput: 1, maximoValorInput: 5))
+                switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada:\n\n1 = Alumnos.\n\n2 = Asignaturas.\n\n3 = Carreras.\n\n4 = Facultades.\n\n5 = Asignaturas del listado.\n\n6 = Carreras del listado.\n\n7 = Notas.\n\n8 = Salir.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
                 {
                     case 1:
-                        switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea agregar? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Alumno.\n\n2 = Asignatura.\n\n3 = Carrera.\n\n4 = Facultad.\n\n5 = Asignatura al listado.\n\n6 = Carrera al listado.\n\n7 = Nota.\n\n8 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
-                            {
+                        switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada:\n\n1 = Agregar.\n\n2 = Editar.\n\n3 = Eliminar.\n\n4 = Mostrar todos.\n\n5 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 5.", minimoValorInput: 1, maximoValorInput: 5))
+                        {
                             case 1:
                                 MetodosAgregar.AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.Alumnos);
                                 break;
                             case 2:
-                                MetodosAgregar.AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.Asignaturas);
+                                MetodosEditar.EditarAlumno();
                                 break;
                             case 3:
-                                MetodosAgregar.AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.Carreras);
+                                MetodosEliminar.EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Alumnos, tablaAsociada: Enumeraciones.Tablas.Carreras);
                                 break;
                             case 4:
-                                MetodosAgregar.AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.Facultades);
-                                break;
-                            case 5:
-                                MetodosAgregar.AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.ListadoAsignaturas);
-                                break;
-                            case 6:
-                                MetodosAgregar.AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.ListadoCarreras);
-                                break;
-                            case 7:
-                                MetodosAgregar.AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.Notas);
+                                if (MetodosInformar.InformarTodosAlumnos() == 0) MetodosComunes.MensajeColor(mensaje: "\nLa lista de alumnos esta vacia", color: ConsoleColor.Red);
                                 break;
                             default:
                                 primeraVez = false;
@@ -85,28 +76,19 @@ namespace ConsolaNetCore
                         }
                         break;
                     case 2:
-                        switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea editar? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Alumno.\n\n2 = Asignatura.\n\n3 = Carrera.\n\n4 = Facultad.\n\n5 = Asignatura del listado.\n\n6 = Carrera del listado.\n\n7 = Nota.\n\n8 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
+                        switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada:\n\n1 = Agregar.\n\n2 = Editar.\n\n3 = Eliminar.\n\n4 = Mostrar todos.\n\n5 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 5.", minimoValorInput: 1, maximoValorInput: 5))
                         {
                             case 1:
-                                MetodosEditar.EditarAlumno();
+                                MetodosAgregar.AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.Asignaturas);
                                 break;
                             case 2:
                                 MetodosEditar.EditarAsignatura();
                                 break;
                             case 3:
-                                MetodosEditar.EditarCarrera();
+                                MetodosEliminar.EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Asignaturas, tablaAsociada: Enumeraciones.Tablas.Notas);
                                 break;
                             case 4:
-                                MetodosEditar.EditarFacultad();
-                                break;
-                            case 5:
-                                MetodosEditar.EditarAsignaturaListado();
-                                break;
-                            case 6:
-                                MetodosEditar.EditarCarreraListado();
-                                break;
-                            case 7:
-                                MetodosEditar.EditarNota();
+                                if (MetodosInformar.InformarTodasAsignaturas() == 0) MetodosComunes.MensajeColor(mensaje: "\nLa lista de asignaturas esta vacia", color: ConsoleColor.Red);
                                 break;
                             default:
                                 primeraVez = false;
@@ -114,28 +96,19 @@ namespace ConsolaNetCore
                         }
                         break;
                     case 3:
-                        switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea eliminar? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Alumno.\n\n2 = Asignatura.\n\n3 = Carrera.\n\n4 = Facultad.\n\n5 = Asignatura del listado.\n\n6 = Carrera del listado.\n\n7 = Nota.\n\n8 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
+                        switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada:\n\n1 = Agregar.\n\n2 = Editar.\n\n3 = Eliminar.\n\n4 = Mostrar todos.\n\n5 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 5.", minimoValorInput: 1, maximoValorInput: 5))
                         {
                             case 1:
-                                MetodosEliminar.EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Alumnos, tablaAsociada: Enumeraciones.Tablas.Carreras);
+                                MetodosAgregar.AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.Carreras);
                                 break;
                             case 2:
-                                MetodosEliminar.EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Asignaturas, tablaAsociada: Enumeraciones.Tablas.Notas);
+                                MetodosEditar.EditarCarrera();
                                 break;
                             case 3:
                                 MetodosEliminar.EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Carreras, tablaAsociada: Enumeraciones.Tablas.Asignaturas);
                                 break;
                             case 4:
-                                MetodosEliminar.EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Facultades);
-                                break;
-                            case 5:
-                                MetodosEliminar.EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.ListadoAsignaturas, tablaAsociada: Enumeraciones.Tablas.Asignaturas);
-                                break;
-                            case 6:
-                                MetodosEliminar.EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.ListadoCarreras);
-                                break;
-                            case 7:
-                                MetodosEliminar.EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Notas);
+                                if (MetodosInformar.InformarTodasCarreras() == 0) MetodosComunes.MensajeColor(mensaje: "\nLa lista de carreras esta vacia", color: ConsoleColor.Red);
                                 break;
                             default:
                                 primeraVez = false;
@@ -143,27 +116,78 @@ namespace ConsolaNetCore
                         }
                         break;
                     case 4:
-                        switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea mostrar? Elija la opcion deseada para realizar con:\nAlumnos | Asignatura | Carreras | Facultades | Listado de asignaturas | Listado de carreras | Notas\n\n1 = Alumnos.\n\n2 = Asignaturas.\n\n3 = Carreras.\n\n4 = Facultades.\n\n5 = Asignaturas del listado.\n\n6 = Carreras del listado.\n\n7 = Notas.\n\n8 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 8.", minimoValorInput: 1, maximoValorInput: 8))
+                        switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada:\n\n1 = Agregar.\n\n2 = Editar.\n\n3 = Eliminar.\n\n4 = Mostrar todos.\n\n5 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 5.", minimoValorInput: 1, maximoValorInput: 5))
                         {
                             case 1:
-                                if (MetodosInformar.InformarTodosAlumnos() == 0) MetodosComunes.MensajeColor(mensaje: "\nLa lista de alumnos esta vacia", color: ConsoleColor.Red);
+                                MetodosAgregar.AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.Facultades);
                                 break;
                             case 2:
-                                if (MetodosInformar.InformarTodasAsignaturas() == 0) MetodosComunes.MensajeColor(mensaje: "\nLa lista de asignaturas esta vacia", color: ConsoleColor.Red);
+                                MetodosEditar.EditarFacultad();
                                 break;
                             case 3:
-                                if (MetodosInformar.InformarTodasCarreras() == 0) MetodosComunes.MensajeColor(mensaje: "\nLa lista de carreras esta vacia", color: ConsoleColor.Red);
+                                MetodosEliminar.EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Facultades);
                                 break;
                             case 4:
                                 if (MetodosInformar.InformarTodasFacultades() == 0) MetodosComunes.MensajeColor(mensaje: "\nLa lista de facultades esta vacia", color: ConsoleColor.Red);
                                 break;
-                            case 5:
+                            default:
+                                primeraVez = false;
+                                break;
+                        }
+                        break;
+                    case 5:
+                        switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada:\n\n1 = Agregar.\n\n2 = Editar.\n\n3 = Eliminar.\n\n4 = Mostrar todos.\n\n5 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 5.", minimoValorInput: 1, maximoValorInput: 5))
+                        {
+                            case 1:
+                                MetodosAgregar.AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.ListadoAsignaturas);
+                                break;
+                            case 2:
+                                MetodosEditar.EditarListadoAsignatura();
+                                break;
+                            case 3:
+                                MetodosEliminar.EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.ListadoAsignaturas, tablaAsociada: Enumeraciones.Tablas.Asignaturas);
+                                break;
+                            case 4:
                                 if (MetodosInformar.InformarListadoAsignaturas() == 0) MetodosComunes.MensajeColor(mensaje: "\nEl listado de asignaturas esta vacio", color: ConsoleColor.Red);
                                 break;
-                            case 6:
+                            default:
+                                primeraVez = false;
+                                break;
+                        }
+                        break;
+                    case 6:
+                        switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada:\n\n1 = Agregar.\n\n2 = Editar.\n\n3 = Eliminar.\n\n4 = Mostrar todos.\n\n5 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 5.", minimoValorInput: 1, maximoValorInput: 5))
+                        {
+                            case 1:
+                                MetodosAgregar.AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.ListadoCarreras);
+                                break;
+                            case 2:
+                                MetodosEditar.EditarListadoCarrera();
+                                break;
+                            case 3:
+                                MetodosEliminar.EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.ListadoCarreras);
+                                break;
+                            case 4:
                                 if (MetodosInformar.InformarListadoCarreras() == 0) MetodosComunes.MensajeColor(mensaje: "\nEl listado de carreras esta vacio", color: ConsoleColor.Red);
                                 break;
-                            case 7:
+                            default:
+                                primeraVez = false;
+                                break;
+                        }
+                        break;
+                    case 7:
+                        switch (MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nQue desea hacer? Elija la opcion deseada:\n\n1 = Agregar.\n\n2 = Editar.\n\n3 = Eliminar.\n\n4 = Mostrar todos.\n\n5 = Volver al menu anterior.\n\n---\n", mensajeError: "El valor ingresado no esta comprendido entre 1 y 5.", minimoValorInput: 1, maximoValorInput: 5))
+                        {
+                            case 1:
+                                MetodosAgregar.AgregarRegistro(elementoAgregar: Enumeraciones.Tablas.Notas);
+                                break;
+                            case 2:
+                                MetodosEditar.EditarNota();
+                                break;
+                            case 3:
+                                MetodosEliminar.EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Notas);
+                                break;
+                            case 4:
                                 if (MetodosInformar.InformarTodasNotas() == 0) MetodosComunes.MensajeColor(mensaje: "\nLa lista de notas esta vacia", color: ConsoleColor.Red);
                                 break;
                             default:
