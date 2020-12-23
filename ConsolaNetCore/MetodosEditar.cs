@@ -8,19 +8,20 @@ namespace ConsolaNetCore
     {
         public static void EditarAlumno()
         {
-            int cantidad = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nCuantos alumnos quiere editar (1-50):", mensajeError: "Valor no comprendido entre 1 y 50", minimoValorInput: 1, maximoValorInput: 50);
-            Entidades.Alumnos alumno;
-            int ID;
-            string devolucionEditar;
-            for (int i = 0; i < cantidad; i++)
+            if (Logica.Alumno.ListarTodos().Count == 0)
             {
-                if (MetodosInformar.InformarTodosAlumnos() == 0)
+                MetodosComunes.MensajeColor(mensaje: "\nLa lista de Alumnos esta vacia.", color: ConsoleColor.Red);
+                MetodosComunes.Continuar();
+            }
+            else
+            {
+                int cantidad = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nCuantos alumnos quiere editar (1-50):", mensajeError: "Valor no comprendido entre 1 y 50", minimoValorInput: 1, maximoValorInput: 50);
+                Entidades.Alumnos alumno;
+                int ID;
+                string devolucionEditar;
+                for (int i = 0; i < cantidad; i++)
                 {
-                    MetodosComunes.MensajeColor(mensaje: "\nLa lista de Alumnos esta vacia", color: ConsoleColor.Red);
-                    MetodosComunes.Continuar();
-                }
-                else
-                {
+                    MetodosInformar.InformarTodosAlumnos();
                     do
                     {
                         ID = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del Alumno a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
@@ -53,25 +54,25 @@ namespace ConsolaNetCore
 
         public static void EditarAsignatura()
         {
-            int cantidad = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nCuantas asignaturas quiere editar (1-50):", mensajeError: "Valor no comprendido entre 1 y 50", minimoValorInput: 1, maximoValorInput: 50);
-            Entidades.Asignaturas asignatura;
-            Entidades.ListadoAsignaturas listadoAsignatura;
-            Entidades.Alumnos alumno;
-            Entidades.Carreras carrera;
-            int ID, horas, minutos;
-            string devolucionEditar;
-            for (int i = 0; i < cantidad; i++)
+            if (Logica.Asignatura.ListarTodas().Count == 0)
             {
-                if (MetodosInformar.InformarTodasAsignaturas() == 0)
-                {
-                    MetodosComunes.MensajeColor(mensaje: "\nLa lista de Asignaturas esta vacia", color: ConsoleColor.Red);
-                    MetodosComunes.Continuar();
-                }
-                else
+                MetodosComunes.MensajeColor(mensaje: "\nLa lista de Asignaturas esta vacia", color: ConsoleColor.Red);
+                MetodosComunes.Continuar();
+            }
+            else
+            {
+                int cantidad = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nCuantas asignaturas quiere editar (1-50):", mensajeError: "Valor no comprendido entre 1 y 50", minimoValorInput: 1, maximoValorInput: 50);
+                Entidades.Asignaturas asignatura;
+                Entidades.ListadoAsignaturas listadoAsignatura;
+                Entidades.Alumnos alumno;
+                Entidades.Carreras carrera;
+                int ID, horas, minutos;
+                string devolucionEditar;
+                for (int i = 0; i < cantidad; i++)
                 {
                     do
                     {
-                        ID = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID de la Asignatura a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
+                        ID = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID de la Asignatura a editar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
                         asignatura = Logica.Asignatura.ListarUna(asignaturaID: ID);
                         if (asignatura == null)
                         {
@@ -163,7 +164,6 @@ namespace ConsolaNetCore
                                 }
                             }
                         }
-
                     }
                 }
             }
@@ -171,7 +171,54 @@ namespace ConsolaNetCore
 
         public static void EditarNota()
         {
-            throw new NotImplementedException();
+            if (Logica.Nota.ListarTodas().Count == 0)
+            {
+                MetodosComunes.MensajeColor(mensaje: "\nLa lista de Notas esta vacia.", color: ConsoleColor.Red);
+                MetodosComunes.Continuar();
+            }
+            else
+            {
+                int cantidad = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nCuantas notas quiere editar (1-50):", mensajeError: "Valor no comprendido entre 1 y 50", minimoValorInput: 1, maximoValorInput: 50);
+                int ID;
+                string devolucionEditar;
+                Entidades.Notas nota;
+                for (int i = 0; i < cantidad; i++)
+                {
+                    do
+                    {
+                        MetodosInformar.InformarTodasNotas();
+                        ID = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: "\nElija el ID de la nota de la cual desea editar:", minimoValorInput: 1, mensajeError: "\nEl valor debe ser 1 o mayor.", borrarInformacion: false);
+                        nota = Logica.Nota.ListarUna(notasID: ID);
+                        if (nota == null)
+                        {
+                            MetodosComunes.MensajeColor(mensaje: "\nLa nota seleccionada no existe.", color: ConsoleColor.Red);
+                        }
+                    } while (nota == null);
+                    MetodosComunes.MensajeColor(mensaje: $"\nAnterior nota del Primer Parcial: {(nota.PrimerParcial == null ? "NULL" : nota.PrimerParcial.ToString())}");
+                    nota.PrimerParcial = MetodosComunes.ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del primer parcial (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
+
+                    MetodosComunes.MensajeColor(mensaje: $"\nAnterior nota del Primer recuperatorio: {(nota.PrimerRecuperatorio == null ? "NULL" : nota.PrimerRecuperatorio.ToString())}");
+                    nota.PrimerRecuperatorio = MetodosComunes.ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del primer recuperatorio (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
+
+                    MetodosComunes.MensajeColor(mensaje: $"\nAnterior nota del Segundo Parcial: {(nota.SegundoParcial == null ? "NULL" : nota.SegundoParcial.ToString())}");
+                    nota.SegundoParcial = MetodosComunes.ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del segundo parcial (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
+
+                    MetodosComunes.MensajeColor(mensaje: $"\nAnterior nota del Segundo recuperatorio: {(nota.SegundoRecuperatorio == null ? "NULL" : nota.SegundoRecuperatorio.ToString())}");
+                    nota.SegundoRecuperatorio = MetodosComunes.ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del segundo recuperatorio (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
+
+                    MetodosComunes.MensajeColor(mensaje: $"\nAnterior nota del Final: {(nota.Final == null ? "NULL" : nota.Final.ToString())}");
+                    nota.Final = MetodosComunes.ValidacionNumericaFloat(mensajeIngreso: "\nIngrese la nota del final (1-10/null) Ej: 5,5:", minimoValorInput: 0, maximoValorInput: 10, mensajeError: "\nEl valor debe estar comprendido entre 1 a 10 o ser null.", borrarInformacion: false);
+                    devolucionEditar = Logica.Nota.Editar(nota);
+                    if (devolucionEditar.Contains("correctamente"))
+                    {
+                        MetodosComunes.MensajeColor(mensaje: $"\nLa nota con ID: {nota.NotasId} de la asignatura con ID: {nota.AsignaturaId}");
+                    }
+                    else
+                    {
+                        MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEditar}", color: ConsoleColor.Red);
+                    }
+                }
+            }
         }
 
         public static void EditarCarreraListado()
