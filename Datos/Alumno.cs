@@ -10,7 +10,6 @@ using System.Text;
 // alt+shift+ ` para elegir todas las coincidencias editar.incluirsimbolosdeinsercionentodaslascoincidencias
 // TODO Hacer toda la capa de datos.
 // TODO Poner correctamente scope de las propiedades de las clases.
-// TODO Hacer todos los metodos de la capa de datos.
 // TODO Implementar validacion en la capa de datos.
 // TODO Implementar SQLite.
 // Para mapear base de datos

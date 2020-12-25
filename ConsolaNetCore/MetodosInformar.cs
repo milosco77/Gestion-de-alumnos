@@ -6,7 +6,7 @@ namespace ConsolaNetCore
 {
     public static class MetodosInformar
     {
-        // TODO Continuar desglose de metodos informar, ordenar listados por en orden ascendente por ID.
+        // TODO Terminar desglose y desarrollo de metodos informar.
         public static void InformarUnAlumno()
         {
             int id, dni;

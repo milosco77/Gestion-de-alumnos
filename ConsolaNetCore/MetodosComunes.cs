@@ -276,23 +276,29 @@ namespace ConsolaNetCore
             MensajeColor(mensaje: titulo);
             return validarIngreso;
         }
-
-        public static void Continuar()
+        /// <summary>
+        /// Muestra un mensaje y genera una espera para presionar una tecla.
+        /// </summary>
+        public static void Continuar(string mensaje = "Presione una tecla para continuar...")
         {
-            MetodosComunes.MensajeColor(mensaje: "\nPresione una tecla para continuar...", color: ConsoleColor.Yellow);
+            MensajeColor(mensaje: $"\n{mensaje}", color: ConsoleColor.Yellow);
             Console.ReadKey(intercept: true);
             Console.Clear();
         }
-
+        /// <summary>
+        /// Mensaje de bienvenida del programa.
+        /// </summary>
         public static void Bienvenida()
         {
             Console.WriteLine("\nBienvenido al Programa de Gestion de Notas de Alumnos\n\nEste programa le permitira ingresar los datos de los alumnos de su clase.\nPermitiendole mantener un registro de los mismos.");
             Continuar();
         }
-
+        /// <summary>
+        /// Muestra un mensaje, genera una espera para presionar una tecla y termina la ejecucion del programa.
+        /// </summary>
         public static void Salir()
         {
-            MetodosComunes.MensajeColor(mensaje: "\nFin del programa.", color: ConsoleColor.Magenta);
+            MensajeColor(mensaje: "\nFin del programa.", color: ConsoleColor.Magenta);
             Continuar();
             System.Environment.Exit(exitCode: 0);
         }

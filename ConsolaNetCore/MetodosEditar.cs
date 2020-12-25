@@ -221,7 +221,6 @@ namespace ConsolaNetCore
                 }
             }
         }
-
         public static void EditarListadoCarrera()
         {
             if (Logica.ListadoCarrera.ListarTodas().Count == 0)
@@ -283,7 +282,6 @@ namespace ConsolaNetCore
             }
 
         }
-
         public static void EditarListadoAsignatura()
         {
             if (Logica.ListadoAsignatura.ListarTodas().Count == 0)

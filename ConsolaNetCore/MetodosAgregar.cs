@@ -135,7 +135,6 @@ namespace ConsolaNetCore
                     break;
             }
         }
-        // TODO Desglosar que nota agregar si primer parcial, segundo, recuperatorio, etc.
         public static Notas AgregarDatosNota(Notas pNota)
         {
             Entidades.Asignaturas asignatura;
