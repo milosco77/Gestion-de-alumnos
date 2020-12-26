@@ -67,7 +67,7 @@ namespace ConsolaNetCore
                 Entidades.Alumnos alumno;
                 Entidades.Carreras carrera;
                 int ID, horas, minutos;
-                string devolucionEditar;
+                string devolucionEditar, devolucionAgregar;
                 for (int i = 0; i < cantidad; i++)
                 {
                     do
@@ -80,6 +80,7 @@ namespace ConsolaNetCore
                             MetodosComunes.MensajeColor(mensaje: "\nLa Asignatura no existe.", color: ConsoleColor.Red);
                         }
                     } while (asignatura == null);
+                    MetodosEliminar.EliminarRegistro(elementoABorrar: Enumeraciones.Tablas.Asignaturas, tablaAsociada: Enumeraciones.Tablas.Notas, id: ID);
                     if (MetodosInformar.InformarListadoAsignaturas() == 0)
                     {
                         MetodosComunes.MensajeColor(mensaje: "\nEl listado de Asignaturas esta vacio. Se debe tener al menos una asignatura en la tabla ListadoAsignaturas.", color: ConsoleColor.Red);
@@ -153,16 +154,21 @@ namespace ConsolaNetCore
                                 asignatura.HorarioSalida = new TimeSpan(hours: horas, minutes: minutos, seconds: 0);
                                 MetodosComunes.MensajeColor(mensaje: $"\nAnteriores Dias: {asignatura.Dias}");
                                 asignatura.Dias = MetodosComunes.ValidacionTexto(mensajeIngreso: "\nNuevos Dias:", mensajeError: "\nEl valor debe estar comprendido en Lunes-Martes-Miercoles-Jueves-Viernes-Sabado-Domingo");
-
-                                devolucionEditar = Logica.Asignatura.Editar(asignatura);
-                                if (devolucionEditar.Contains("correctamente"))
+                                asignatura.AsignaturaId = 0;
+                                devolucionAgregar = Logica.Asignatura.Agregar(asignatura);
+                                if (devolucionAgregar.Contains("no ha sido agregado"))
                                 {
-                                    MetodosComunes.MensajeColor(mensaje: $"\nLa asignatura con ID: {asignatura.AsignaturaId} AlumnoID: {asignatura.AlumnoId} Comision: {asignatura.Comision} ha sido editaado correctamente.");
+                                    MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
                                 }
-                                else
-                                {
-                                    MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEditar}", color: ConsoleColor.Red);
-                                }
+                                //devolucionEditar = Logica.Asignatura.Editar(asignatura);
+                                //if (devolucionEditar.Contains("correctamente"))
+                                //{
+                                //    MetodosComunes.MensajeColor(mensaje: $"\nLa asignatura con ID: {asignatura.AsignaturaId} AlumnoID: {asignatura.AlumnoId} Comision: {asignatura.Comision} ha sido editaado correctamente.");
+                                //}
+                                //else
+                                //{
+                                //    MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEditar}", color: ConsoleColor.Red);
+                                //}
                             }
                         }
                     }

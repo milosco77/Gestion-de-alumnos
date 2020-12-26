@@ -6,9 +6,9 @@ namespace ConsolaNetCore
 {
     public static class MetodosEliminar
     {
-        public static void EliminarRegistro(Enumeraciones.Tablas elementoABorrar, Enumeraciones.Tablas? tablaAsociada = null)
+        public static void EliminarRegistro(Enumeraciones.Tablas elementoABorrar, Enumeraciones.Tablas? tablaAsociada = null, int? id = null)
         {
-            int ID, alerta;
+            int? ID, alerta;
             string devolucionEliminar;
             switch (elementoABorrar)
             {
@@ -107,14 +107,21 @@ namespace ConsolaNetCore
                     }
                     else
                     {
-                        do
+                        if (id == null)
                         {
-                            ID = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
-                            if (Logica.Asignatura.ListarUna(asignaturaID: ID) == null)
+                            do
                             {
-                                MetodosComunes.MensajeColor(mensaje: "\nLa asignatura no existe.", color: ConsoleColor.Red);
-                            }
-                        } while (Logica.Asignatura.ListarUna(asignaturaID: ID) == null);
+                                ID = MetodosComunes.ValidacionNumericaInt(mensajeIngreso: $"\nElija el ID del elemento {elementoABorrar} a eliminar:", mensajeError: "\nEl ID no puede ser 0 o menor.", minimoValorInput: 1, borrarInformacion: false);
+                                if (Logica.Asignatura.ListarUna(asignaturaID: ID) == null)
+                                {
+                                    MetodosComunes.MensajeColor(mensaje: "\nLa asignatura no existe.", color: ConsoleColor.Red);
+                                }
+                            } while (Logica.Asignatura.ListarUna(asignaturaID: ID) == null);
+                        }
+                        else
+                        {
+                            ID = id;
+                        }
                         if (tablaAsociada != null)
                         {
                             MetodosComunes.MensajeColor(mensaje: $"\nSe eliminaran los registros asociado de la tabla {tablaAsociada}.", color: ConsoleColor.Red);
