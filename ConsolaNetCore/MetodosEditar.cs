@@ -67,7 +67,7 @@ namespace ConsolaNetCore
                 Entidades.Alumnos alumno;
                 Entidades.Carreras carrera;
                 int ID, horas, minutos;
-                string devolucionEditar, devolucionAgregar;
+                string devolucionAgregar;
                 for (int i = 0; i < cantidad; i++)
                 {
                     do
@@ -160,15 +160,6 @@ namespace ConsolaNetCore
                                 {
                                     MetodosComunes.MensajeColor(mensaje: $"\n{devolucionAgregar}", color: ConsoleColor.Red);
                                 }
-                                //devolucionEditar = Logica.Asignatura.Editar(asignatura);
-                                //if (devolucionEditar.Contains("correctamente"))
-                                //{
-                                //    MetodosComunes.MensajeColor(mensaje: $"\nLa asignatura con ID: {asignatura.AsignaturaId} AlumnoID: {asignatura.AlumnoId} Comision: {asignatura.Comision} ha sido editaado correctamente.");
-                                //}
-                                //else
-                                //{
-                                //    MetodosComunes.MensajeColor(mensaje: $"\n{devolucionEditar}", color: ConsoleColor.Red);
-                                //}
                             }
                         }
                     }
