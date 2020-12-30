@@ -23,6 +23,11 @@ namespace MVCCore.Controllers
             return View();
         }
 
+        public IActionResult Ayuda()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
