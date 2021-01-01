@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Entidades
+namespace MVCCore.DatabaseFirstModel
 {
-    public partial class Notas
+    public partial class Nota
     {
         public int NotasId { get; set; }
         public int AsignaturaId { get; set; }
@@ -15,6 +15,6 @@ namespace Entidades
         public double? SegundoRecuperatorio { get; set; }
         public double? Final { get; set; }
 
-        public virtual Asignaturas Asignatura { get; set; }
+        public virtual Asignatura Asignatura { get; set; }
     }
 }

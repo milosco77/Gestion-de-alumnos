@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Entidades
+namespace MVCCore.DatabaseFirstModel
 {
-    public partial class Facultades
+    public partial class Facultade
     {
-        public Facultades()
+        public Facultade()
         {
-            ListadoCarreras = new HashSet<ListadoCarreras>();
+            ListadoCarreras = new HashSet<ListadoCarrera>();
         }
 
         public int FacultadId { get; set; }
@@ -24,6 +24,6 @@ namespace Entidades
         public string Email { get; set; }
         public string RecorridoVirtual { get; set; }
 
-        public virtual ICollection<ListadoCarreras> ListadoCarreras { get; set; }
+        public virtual ICollection<ListadoCarrera> ListadoCarreras { get; set; }
     }
 }

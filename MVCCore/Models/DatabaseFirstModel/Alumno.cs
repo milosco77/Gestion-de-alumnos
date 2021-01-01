@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Entidades
+namespace MVCCore.DatabaseFirstModel
 {
-    public partial class Alumnos
+    public partial class Alumno
     {
-        public Alumnos()
+        public Alumno()
         {
-            Carreras = new HashSet<Carreras>();
+            Carreras = new HashSet<Carrera>();
         }
 
         public int AlumnoId { get; set; }
@@ -18,6 +18,6 @@ namespace Entidades
         public byte Edad { get; set; }
         public int Dni { get; set; }
 
-        public virtual ICollection<Carreras> Carreras { get; set; }
+        public virtual ICollection<Carrera> Carreras { get; set; }
     }
 }

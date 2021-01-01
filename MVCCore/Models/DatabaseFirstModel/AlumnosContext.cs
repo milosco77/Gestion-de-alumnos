@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace Entidades
+namespace MVCCore.DatabaseFirstModel
 {
     public partial class AlumnosContext : DbContext
     {
@@ -17,18 +17,19 @@ namespace Entidades
         {
         }
 
-        public virtual DbSet<Alumnos> Alumnos { get; set; }
-        public virtual DbSet<Asignaturas> Asignaturas { get; set; }
-        public virtual DbSet<Carreras> Carreras { get; set; }
-        public virtual DbSet<Facultades> Facultades { get; set; }
-        public virtual DbSet<ListadoAsignaturas> ListadoAsignaturas { get; set; }
-        public virtual DbSet<ListadoCarreras> ListadoCarreras { get; set; }
-        public virtual DbSet<Notas> Notas { get; set; }
+        public virtual DbSet<Alumno> Alumnos { get; set; }
+        public virtual DbSet<Asignatura> Asignaturas { get; set; }
+        public virtual DbSet<Carrera> Carreras { get; set; }
+        public virtual DbSet<Facultade> Facultades { get; set; }
+        public virtual DbSet<ListadoAsignatura> ListadoAsignaturas { get; set; }
+        public virtual DbSet<ListadoCarrera> ListadoCarreras { get; set; }
+        public virtual DbSet<Nota> Notas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=.\\SQLExpress;Database=Alumnos;Trusted_Connection=True;");
             }
         }
@@ -37,7 +38,7 @@ namespace Entidades
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
 
-            modelBuilder.Entity<Alumnos>(entity =>
+            modelBuilder.Entity<Alumno>(entity =>
             {
                 entity.Property(e => e.AlumnoId).HasColumnName("AlumnoID");
 
@@ -52,7 +53,7 @@ namespace Entidades
                     .HasMaxLength(50);
             });
 
-            modelBuilder.Entity<Asignaturas>(entity =>
+            modelBuilder.Entity<Asignatura>(entity =>
             {
                 entity.HasKey(e => new { e.ListadoAsignaturasId, e.AlumnoId })
                     .HasName("PK_Asignaturas_1");
@@ -88,7 +89,7 @@ namespace Entidades
                     .HasForeignKey(d => d.ListadoAsignaturasId);
             });
 
-            modelBuilder.Entity<Carreras>(entity =>
+            modelBuilder.Entity<Carrera>(entity =>
             {
                 entity.HasKey(e => new { e.AlumnoId, e.ListadoCarrerasId })
                     .HasName("PK_Carreras_2");
@@ -115,7 +116,7 @@ namespace Entidades
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
-            modelBuilder.Entity<Facultades>(entity =>
+            modelBuilder.Entity<Facultade>(entity =>
             {
                 entity.HasKey(e => e.FacultadId);
 
@@ -126,7 +127,7 @@ namespace Entidades
                 entity.Property(e => e.Nombre).IsRequired();
             });
 
-            modelBuilder.Entity<ListadoAsignaturas>(entity =>
+            modelBuilder.Entity<ListadoAsignatura>(entity =>
             {
                 entity.HasKey(e => e.ListadoAsignaturasId)
                     .HasName("PK_Materia");
@@ -152,7 +153,7 @@ namespace Entidades
                     .HasConstraintName("FK_ListadoAsignaturas_Carrera_ListadoCarrerasID");
             });
 
-            modelBuilder.Entity<ListadoCarreras>(entity =>
+            modelBuilder.Entity<ListadoCarrera>(entity =>
             {
                 entity.HasKey(e => e.ListadoCarrerasId)
                     .HasName("PK_Carreras");
@@ -175,7 +176,7 @@ namespace Entidades
                     .HasConstraintName("FK_Carreras_Facultades_FacultadID");
             });
 
-            modelBuilder.Entity<Notas>(entity =>
+            modelBuilder.Entity<Nota>(entity =>
             {
                 entity.HasKey(e => e.NotasId);
 
