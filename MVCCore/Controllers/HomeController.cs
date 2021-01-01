@@ -22,7 +22,17 @@ namespace MVCCore.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public IActionResult Alumnos()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public IActionResult Alumnos(string a)
+        {
+            return View();
+        }
         public IActionResult Ayuda()
         {
             return View();
