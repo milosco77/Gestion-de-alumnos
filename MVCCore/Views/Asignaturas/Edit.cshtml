@@ -1,0 +1,60 @@
+﻿@model MVCCore.DatabaseFirstModel.Asignatura
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Asignatura</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AsignaturaId" class="control-label"></label>
+                <input asp-for="AsignaturaId" class="form-control" />
+                <span asp-validation-for="AsignaturaId" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="ListadoAsignaturasId" />
+            <input type="hidden" asp-for="AlumnoId" />
+            <div class="form-group">
+                <label asp-for="CarreraId" class="control-label"></label>
+                <select asp-for="CarreraId" class="form-control" asp-items="ViewBag.CarreraId"></select>
+                <span asp-validation-for="CarreraId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Comision" class="control-label"></label>
+                <input asp-for="Comision" class="form-control" />
+                <span asp-validation-for="Comision" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HorarioEntrada" class="control-label"></label>
+                <input asp-for="HorarioEntrada" class="form-control" />
+                <span asp-validation-for="HorarioEntrada" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HorarioSalida" class="control-label"></label>
+                <input asp-for="HorarioSalida" class="form-control" />
+                <span asp-validation-for="HorarioSalida" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Dias" class="control-label"></label>
+                <input asp-for="Dias" class="form-control" />
+                <span asp-validation-for="Dias" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

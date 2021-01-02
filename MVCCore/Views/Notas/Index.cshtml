@@ -1,0 +1,80 @@
+﻿@model IEnumerable<MVCCore.DatabaseFirstModel.Nota>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NotasId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrimerParcial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrimerRecuperatorio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SegundoParcial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SegundoRecuperatorio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Final)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Asignatura)
+            </th>
+            <th>
+                AlumnoID
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NotasId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrimerParcial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrimerRecuperatorio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SegundoParcial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SegundoRecuperatorio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Final)
+            </td>
+            <td>
+                @using (MVCCore.DatabaseFirstModel.AlumnosContext db = new MVCCore.DatabaseFirstModel.AlumnosContext())
+                {
+                    @Html.DisplayFor(modelItem => db.ListadoAsignaturas.Where(la => la.ListadoAsignaturasId == item.Asignatura.ListadoAsignaturasId).SingleOrDefault().Nombre);
+                }
+            </td>
+            <td>
+                @item.Asignatura.AlumnoId
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.NotasId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.NotasId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.NotasId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
