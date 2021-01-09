@@ -19,4 +19,4 @@ Pueden hacerlo a mi correo miloscordoba@gmail.com.
     
 ### ¿Quien mantiene y contribuye el proyecto?
     
-Por el momento, el unico que mantiene y contribuye en el proyecto es el creador: Milos Cordoba - miloscordoba@gmail.com. - @milosco77
+Por el momento, el unico que mantiene y contribuye en el proyecto es el creador: [Milos Cordoba](https://github.com/milosco77) - miloscordoba@gmail.com.
