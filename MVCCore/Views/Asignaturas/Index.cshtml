@@ -1,13 +1,13 @@
-﻿@model IEnumerable<MVCCore.DatabaseFirstModel.Asignatura>
+﻿@model IEnumerable<MVCCore.DatabaseFirstModel.Asignaturas>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Inicio";
 }
 
-<h1>Index</h1>
+<h1>Inicio</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear Nuevo</a>
 </p>
 <table class="table">
     <thead>
@@ -28,10 +28,13 @@
                 @Html.DisplayNameFor(model => model.Dias)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Alumno)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Carrera)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ListadoAsignaturasId)
+                @Html.DisplayNameFor(model => model.ListadoAsignaturas)
             </th>
             <th></th>
         </tr>
@@ -55,15 +58,18 @@
                 @Html.DisplayFor(modelItem => item.Dias)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Alumno.Apellido)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Carrera.CarreraId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ListadoAsignaturas.Nombre)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Editar", "Edit", new { id = item.ListadoAsignaturasId, alumnoID = item.AlumnoId }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.ListadoAsignaturasId, alumnoID = item.AlumnoId }) |
+                @Html.ActionLink("Borrar", "Delete", new { id = item.ListadoAsignaturasId, alumnoID = item.AlumnoId })
             </td>
         </tr>
 }

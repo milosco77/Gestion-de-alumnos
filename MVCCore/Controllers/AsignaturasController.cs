@@ -21,7 +21,7 @@ namespace MVCCore.Controllers
         // GET: Asignaturas
         public async Task<IActionResult> Index()
         {
-            var alumnosContext = _context.Asignaturas.Include(a => a.Carrera).Include(a => a.ListadoAsignaturas);
+            var alumnosContext = _context.Asignaturas.Include(a => a.Alumno).Include(a => a.Carrera).Include(a => a.ListadoAsignaturas);
             return View(await alumnosContext.ToListAsync());
         }
 
@@ -33,23 +33,25 @@ namespace MVCCore.Controllers
                 return NotFound();
             }
 
-            var asignatura = await _context.Asignaturas
+            var asignaturas = await _context.Asignaturas
+                .Include(a => a.Alumno)
                 .Include(a => a.Carrera)
                 .Include(a => a.ListadoAsignaturas)
                 .FirstOrDefaultAsync(m => m.ListadoAsignaturasId == id);
-            if (asignatura == null)
+            if (asignaturas == null)
             {
                 return NotFound();
             }
 
-            return View(asignatura);
+            return View(asignaturas);
         }
 
         // GET: Asignaturas/Create
         public IActionResult Create()
         {
+            ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "AlumnoId", "Apellido");
             ViewData["CarreraId"] = new SelectList(_context.Carreras, "CarreraId", "CarreraId");
-            ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Categoria");
+            ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Nombre");
             return View();
         }
 
@@ -58,35 +60,37 @@ namespace MVCCore.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AsignaturaId,ListadoAsignaturasId,AlumnoId,CarreraId,Comision,HorarioEntrada,HorarioSalida,Dias")] Asignatura asignatura)
+        public async Task<IActionResult> Create([Bind("AsignaturaId,ListadoAsignaturasId,AlumnoId,CarreraId,Comision,HorarioEntrada,HorarioSalida,Dias")] Asignaturas asignaturas)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(asignatura);
+                _context.Add(asignaturas);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarreraId"] = new SelectList(_context.Carreras, "CarreraId", "CarreraId", asignatura.CarreraId);
-            ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Categoria", asignatura.ListadoAsignaturasId);
-            return View(asignatura);
+            ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "AlumnoId", "Apellido", asignaturas.AlumnoId);
+            ViewData["CarreraId"] = new SelectList(_context.Carreras, "CarreraId", "CarreraId", asignaturas.CarreraId);
+            ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Categoria", asignaturas.ListadoAsignaturasId);
+            return View(asignaturas);
         }
 
         // GET: Asignaturas/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, int alumnoID)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var asignatura = await _context.Asignaturas.FindAsync(id);
-            if (asignatura == null)
+            var asignaturas = await _context.Asignaturas.FindAsync(id, alumnoID);
+            if (asignaturas == null)
             {
                 return NotFound();
             }
-            ViewData["CarreraId"] = new SelectList(_context.Carreras, "CarreraId", "CarreraId", asignatura.CarreraId);
-            ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Categoria", asignatura.ListadoAsignaturasId);
-            return View(asignatura);
+            ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "AlumnoId", "Apellido", asignaturas.AlumnoId);
+            ViewData["CarreraId"] = new SelectList(_context.Carreras, "CarreraId", "CarreraId", asignaturas.CarreraId);
+            ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Categoria", asignaturas.ListadoAsignaturasId);
+            return View(asignaturas);
         }
 
         // POST: Asignaturas/Edit/5
@@ -94,9 +98,9 @@ namespace MVCCore.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AsignaturaId,ListadoAsignaturasId,AlumnoId,CarreraId,Comision,HorarioEntrada,HorarioSalida,Dias")] Asignatura asignatura)
+        public async Task<IActionResult> Edit(int id, [Bind("AsignaturaId,ListadoAsignaturasId,AlumnoId,CarreraId,Comision,HorarioEntrada,HorarioSalida,Dias")] Asignaturas asignaturas)
         {
-            if (id != asignatura.ListadoAsignaturasId)
+            if (id != asignaturas.ListadoAsignaturasId)
             {
                 return NotFound();
             }
@@ -105,12 +109,12 @@ namespace MVCCore.Controllers
             {
                 try
                 {
-                    _context.Update(asignatura);
+                    _context.Update(asignaturas);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AsignaturaExists(asignatura.ListadoAsignaturasId))
+                    if (!AsignaturasExists(asignaturas.ListadoAsignaturasId))
                     {
                         return NotFound();
                     }
@@ -121,9 +125,10 @@ namespace MVCCore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarreraId"] = new SelectList(_context.Carreras, "CarreraId", "CarreraId", asignatura.CarreraId);
-            ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Categoria", asignatura.ListadoAsignaturasId);
-            return View(asignatura);
+            ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "AlumnoId", "Apellido", asignaturas.AlumnoId);
+            ViewData["CarreraId"] = new SelectList(_context.Carreras, "CarreraId", "CarreraId", asignaturas.CarreraId);
+            ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Categoria", asignaturas.ListadoAsignaturasId);
+            return View(asignaturas);
         }
 
         // GET: Asignaturas/Delete/5
@@ -134,16 +139,17 @@ namespace MVCCore.Controllers
                 return NotFound();
             }
 
-            var asignatura = await _context.Asignaturas
+            var asignaturas = await _context.Asignaturas
+                .Include(a => a.Alumno)
                 .Include(a => a.Carrera)
                 .Include(a => a.ListadoAsignaturas)
                 .FirstOrDefaultAsync(m => m.ListadoAsignaturasId == id);
-            if (asignatura == null)
+            if (asignaturas == null)
             {
                 return NotFound();
             }
 
-            return View(asignatura);
+            return View(asignaturas);
         }
 
         // POST: Asignaturas/Delete/5
@@ -151,13 +157,13 @@ namespace MVCCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var asignatura = await _context.Asignaturas.FindAsync(id);
-            _context.Asignaturas.Remove(asignatura);
+            var asignaturas = await _context.Asignaturas.FindAsync(id);
+            _context.Asignaturas.Remove(asignaturas);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AsignaturaExists(int id)
+        private bool AsignaturasExists(int id)
         {
             return _context.Asignaturas.Any(e => e.ListadoAsignaturasId == id);
         }

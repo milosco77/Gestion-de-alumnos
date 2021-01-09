@@ -17,13 +17,13 @@ namespace MVCCore.DatabaseFirstModel
         {
         }
 
-        public virtual DbSet<Alumno> Alumnos { get; set; }
-        public virtual DbSet<Asignatura> Asignaturas { get; set; }
-        public virtual DbSet<Carrera> Carreras { get; set; }
-        public virtual DbSet<Facultade> Facultades { get; set; }
-        public virtual DbSet<ListadoAsignatura> ListadoAsignaturas { get; set; }
-        public virtual DbSet<ListadoCarrera> ListadoCarreras { get; set; }
-        public virtual DbSet<Nota> Notas { get; set; }
+        public virtual DbSet<Alumnos> Alumnos { get; set; }
+        public virtual DbSet<Asignaturas> Asignaturas { get; set; }
+        public virtual DbSet<Carreras> Carreras { get; set; }
+        public virtual DbSet<Facultades> Facultades { get; set; }
+        public virtual DbSet<ListadoAsignaturas> ListadoAsignaturas { get; set; }
+        public virtual DbSet<ListadoCarreras> ListadoCarreras { get; set; }
+        public virtual DbSet<Notas> Notas { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -38,8 +38,10 @@ namespace MVCCore.DatabaseFirstModel
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
 
-            modelBuilder.Entity<Alumno>(entity =>
+            modelBuilder.Entity<Alumnos>(entity =>
             {
+                entity.HasKey(e => e.AlumnoId);
+
                 entity.Property(e => e.AlumnoId).HasColumnName("AlumnoID");
 
                 entity.Property(e => e.Apellido)
@@ -53,7 +55,7 @@ namespace MVCCore.DatabaseFirstModel
                     .HasMaxLength(50);
             });
 
-            modelBuilder.Entity<Asignatura>(entity =>
+            modelBuilder.Entity<Asignaturas>(entity =>
             {
                 entity.HasKey(e => new { e.ListadoAsignaturasId, e.AlumnoId })
                     .HasName("PK_Asignaturas_1");
@@ -79,6 +81,11 @@ namespace MVCCore.DatabaseFirstModel
 
                 entity.Property(e => e.HorarioSalida).HasColumnType("time(0)");
 
+                entity.HasOne(d => d.Alumno)
+                    .WithMany(p => p.Asignaturas)
+                    .HasForeignKey(d => d.AlumnoId)
+                    .OnDelete(DeleteBehavior.ClientSetNull);
+
                 entity.HasOne(d => d.Carrera)
                     .WithMany(p => p.Asignaturas)
                     .HasPrincipalKey(p => p.CarreraId)
@@ -89,7 +96,7 @@ namespace MVCCore.DatabaseFirstModel
                     .HasForeignKey(d => d.ListadoAsignaturasId);
             });
 
-            modelBuilder.Entity<Carrera>(entity =>
+            modelBuilder.Entity<Carreras>(entity =>
             {
                 entity.HasKey(e => new { e.AlumnoId, e.ListadoCarrerasId })
                     .HasName("PK_Carreras_2");
@@ -116,7 +123,7 @@ namespace MVCCore.DatabaseFirstModel
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
-            modelBuilder.Entity<Facultade>(entity =>
+            modelBuilder.Entity<Facultades>(entity =>
             {
                 entity.HasKey(e => e.FacultadId);
 
@@ -127,7 +134,7 @@ namespace MVCCore.DatabaseFirstModel
                 entity.Property(e => e.Nombre).IsRequired();
             });
 
-            modelBuilder.Entity<ListadoAsignatura>(entity =>
+            modelBuilder.Entity<ListadoAsignaturas>(entity =>
             {
                 entity.HasKey(e => e.ListadoAsignaturasId)
                     .HasName("PK_Materia");
@@ -149,11 +156,10 @@ namespace MVCCore.DatabaseFirstModel
                 entity.HasOne(d => d.ListadoCarreras)
                     .WithMany(p => p.ListadoAsignaturas)
                     .HasForeignKey(d => d.ListadoCarrerasId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ListadoAsignaturas_Carrera_ListadoCarrerasID");
+                    .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
-            modelBuilder.Entity<ListadoCarrera>(entity =>
+            modelBuilder.Entity<ListadoCarreras>(entity =>
             {
                 entity.HasKey(e => e.ListadoCarrerasId)
                     .HasName("PK_Carreras");
@@ -172,11 +178,10 @@ namespace MVCCore.DatabaseFirstModel
 
                 entity.HasOne(d => d.Facultad)
                     .WithMany(p => p.ListadoCarreras)
-                    .HasForeignKey(d => d.FacultadId)
-                    .HasConstraintName("FK_Carreras_Facultades_FacultadID");
+                    .HasForeignKey(d => d.FacultadId);
             });
 
-            modelBuilder.Entity<Nota>(entity =>
+            modelBuilder.Entity<Notas>(entity =>
             {
                 entity.HasKey(e => e.NotasId);
 

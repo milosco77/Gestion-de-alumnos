@@ -18,13 +18,13 @@ namespace MVCCore.Controllers
             _context = context;
         }
 
-        // GET: Alumnoes
+        // GET: Alumnos
         public async Task<IActionResult> Index()
         {
             return View(await _context.Alumnos.ToListAsync());
         }
 
-        // GET: Alumnoes/Details/5
+        // GET: Alumnos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace MVCCore.Controllers
                 return NotFound();
             }
 
-            var alumno = await _context.Alumnos
+            var alumnos = await _context.Alumnos
                 .FirstOrDefaultAsync(m => m.AlumnoId == id);
-            if (alumno == null)
+            if (alumnos == null)
             {
                 return NotFound();
             }
 
-            return View(alumno);
+            return View(alumnos);
         }
 
-        // GET: Alumnoes/Create
+        // GET: Alumnos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Alumnoes/Create
+        // POST: Alumnos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AlumnoId,Nombre,Apellido,Edad,Dni")] Alumno alumno)
+        public async Task<IActionResult> Create([Bind("AlumnoId,Nombre,Apellido,Edad,Dni")] Alumnos alumnos)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(alumno);
+                _context.Add(alumnos);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(alumno);
+            return View(alumnos);
         }
 
-        // GET: Alumnoes/Edit/5
+        // GET: Alumnos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace MVCCore.Controllers
                 return NotFound();
             }
 
-            var alumno = await _context.Alumnos.FindAsync(id);
-            if (alumno == null)
+            var alumnos = await _context.Alumnos.FindAsync(id);
+            if (alumnos == null)
             {
                 return NotFound();
             }
-            return View(alumno);
+            return View(alumnos);
         }
 
-        // POST: Alumnoes/Edit/5
+        // POST: Alumnos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AlumnoId,Nombre,Apellido,Edad,Dni")] Alumno alumno)
+        public async Task<IActionResult> Edit(int id, [Bind("AlumnoId,Nombre,Apellido,Edad,Dni")] Alumnos alumnos)
         {
-            if (id != alumno.AlumnoId)
+            if (id != alumnos.AlumnoId)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace MVCCore.Controllers
             {
                 try
                 {
-                    _context.Update(alumno);
+                    _context.Update(alumnos);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AlumnoExists(alumno.AlumnoId))
+                    if (!AlumnosExists(alumnos.AlumnoId))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace MVCCore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(alumno);
+            return View(alumnos);
         }
 
-        // GET: Alumnoes/Delete/5
+        // GET: Alumnos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,28 +123,28 @@ namespace MVCCore.Controllers
                 return NotFound();
             }
 
-            var alumno = await _context.Alumnos
+            var alumnos = await _context.Alumnos
                 .FirstOrDefaultAsync(m => m.AlumnoId == id);
-            if (alumno == null)
+            if (alumnos == null)
             {
                 return NotFound();
             }
 
-            return View(alumno);
+            return View(alumnos);
         }
 
-        // POST: Alumnoes/Delete/5
+        // POST: Alumnos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var alumno = await _context.Alumnos.FindAsync(id);
-            _context.Alumnos.Remove(alumno);
+            var alumnos = await _context.Alumnos.FindAsync(id);
+            _context.Alumnos.Remove(alumnos);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AlumnoExists(int id)
+        private bool AlumnosExists(int id)
         {
             return _context.Alumnos.Any(e => e.AlumnoId == id);
         }
