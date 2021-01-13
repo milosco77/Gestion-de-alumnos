@@ -114,8 +114,7 @@ namespace MVCCore.DatabaseFirstModel
 
                 entity.HasOne(d => d.Alumno)
                     .WithMany(p => p.Carreras)
-                    .HasForeignKey(d => d.AlumnoId)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                    .HasForeignKey(d => d.AlumnoId);
 
                 entity.HasOne(d => d.ListadoCarreras)
                     .WithMany(p => p.Carreras)
@@ -192,8 +191,7 @@ namespace MVCCore.DatabaseFirstModel
                 entity.HasOne(d => d.Asignatura)
                     .WithMany(p => p.Nota)
                     .HasPrincipalKey(p => p.AsignaturaId)
-                    .HasForeignKey(d => d.AsignaturaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                    .HasForeignKey(d => d.AsignaturaId);
             });
 
             OnModelCreatingPartial(modelBuilder);
