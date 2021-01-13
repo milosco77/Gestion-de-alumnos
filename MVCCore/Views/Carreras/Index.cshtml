@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<MVCCore.DatabaseFirstModel.Carreras>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Inicio";
 }
 
-<h1>Index</h1>
+<h1>Inicio</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear Nuevo</a>
 </p>
 <table class="table">
     <thead>
@@ -37,9 +37,9 @@
                 @Html.DisplayFor(modelItem => item.ListadoCarreras.Nombre)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Editar", "Edit", new { id = item.AlumnoId, ListadoCarrerasId = item.ListadoCarrerasId }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.AlumnoId, ListadoCarrerasId = item.ListadoCarrerasId }) |
+                @Html.ActionLink("Borrar", "Delete", new { id = item.AlumnoId, ListadoCarrerasId = item.ListadoCarrerasId })
             </td>
         </tr>
 }

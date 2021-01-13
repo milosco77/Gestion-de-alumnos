@@ -1,10 +1,10 @@
 ﻿@model MVCCore.DatabaseFirstModel.Carreras
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles";
 }
 
-<h1>Details</h1>
+<h1>Detalles</h1>
 
 <div>
     <h4>Carreras</h4>
@@ -31,6 +31,6 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.AlumnoId, ListadoCarrerasId = Model.ListadoCarrerasId }) |
+    <a asp-action="Index">Volver al listado</a>
 </div>

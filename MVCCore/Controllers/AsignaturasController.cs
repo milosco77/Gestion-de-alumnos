@@ -75,14 +75,14 @@ namespace MVCCore.Controllers
         }
 
         // GET: Asignaturas/Edit/5
-        public async Task<IActionResult> Edit(int? id, int alumnoID)
+        public async Task<IActionResult> Edit(int? id, int? alumnoId)
         {
-            if (id == null)
+            if (id == null || alumnoId == null)
             {
                 return NotFound();
             }
 
-            var asignaturas = await _context.Asignaturas.FindAsync(id, alumnoID);
+            var asignaturas = await _context.Asignaturas.FindAsync(id, alumnoId);
             if (asignaturas == null)
             {
                 return NotFound();

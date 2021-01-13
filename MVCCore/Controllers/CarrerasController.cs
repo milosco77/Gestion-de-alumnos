@@ -72,14 +72,14 @@ namespace MVCCore.Controllers
         }
 
         // GET: Carreras/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, int? listadoCarrerasId)
         {
-            if (id == null)
+            if (id == null || listadoCarrerasId == null)
             {
                 return NotFound();
             }
 
-            var carreras = await _context.Carreras.FindAsync(id);
+            var carreras = await _context.Carreras.FindAsync(id, listadoCarrerasId);
             if (carreras == null)
             {
                 return NotFound();
@@ -149,9 +149,9 @@ namespace MVCCore.Controllers
         // POST: Carreras/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, int listadoCarrerasId)
         {
-            var carreras = await _context.Carreras.FindAsync(id);
+            var carreras = await _context.Carreras.FindAsync(id, listadoCarrerasId);
             _context.Carreras.Remove(carreras);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
