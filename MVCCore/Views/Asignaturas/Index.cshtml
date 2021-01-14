@@ -49,19 +49,32 @@
                 @Html.DisplayFor(modelItem => item.Comision)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HorarioEntrada)
+                @{
+                    string horarioEntradaCortado = item.HorarioEntrada.ToString().Remove(5);
+                    @Html.DisplayFor(modelItem => horarioEntradaCortado)
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HorarioSalida)
+                @{
+                    string horarioSalidaCortado = item.HorarioSalida.ToString().Remove(5);
+                    @Html.DisplayFor(modelItem => horarioSalidaCortado)
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Dias)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Alumno.Apellido)
+                @{ 
+                    string nombreCompleto = $"{item.Alumno.Nombre} {item.Alumno.Apellido}";
+                    @Html.DisplayFor(modelItem => nombreCompleto)
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Carrera.CarreraId)
+                @using (var context = new MVCCore.DatabaseFirstModel.AlumnosContext())
+                {
+                    var carrera = context.ListadoCarreras.Find(item.Carrera.ListadoCarrerasId).Nombre;
+                    @Html.DisplayFor(modelItem => carrera)
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ListadoAsignaturas.Nombre)

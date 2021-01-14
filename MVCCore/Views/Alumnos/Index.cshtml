@@ -43,8 +43,11 @@
                 @Html.DisplayFor(modelItem => item.Apellido)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Edad)
-            </td>
+                @{
+                    string edad = $"{item.Edad} años";
+                    @Html.DisplayFor(modelItem => edad)
+                }
+                    </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Dni)
             </td>
