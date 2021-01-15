@@ -127,7 +127,7 @@ namespace MVCCore.Controllers
             }
             ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "AlumnoId", "Apellido", asignaturas.AlumnoId);
             ViewData["CarreraId"] = new SelectList(_context.Carreras, "CarreraId", "CarreraId", asignaturas.CarreraId);
-            ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Categoria", asignaturas.ListadoAsignaturasId);
+            ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Nombre", asignaturas.ListadoAsignaturasId);
             return View(asignaturas);
         }
 

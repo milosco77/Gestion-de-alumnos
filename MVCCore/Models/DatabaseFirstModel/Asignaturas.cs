@@ -21,6 +21,7 @@ namespace MVCCore.DatabaseFirstModel
         public int AlumnoId { get; set; }
         [Required(ErrorMessage = "El campo {0} no puede estar vacio."), DisplayName("Carrera")]
         public int CarreraId { get; set; }
+        [Required(ErrorMessage = "El campo {0} no puede estar vacio.")]
         public int Comision { get; set; }
         [Required(ErrorMessage = "El campo {0} no puede estar vacio."), DisplayName("Horario entrada")]
         public TimeSpan HorarioEntrada { get; set; }
@@ -30,7 +31,7 @@ namespace MVCCore.DatabaseFirstModel
 
         public virtual Alumnos Alumno { get; set; }
         public virtual Carreras Carrera { get; set; }
-        [Required(ErrorMessage = "El campo {0} no puede estar vacio."), DisplayName("Asignatura")]
+        [DisplayName("Asignatura")]
         public virtual ListadoAsignaturas ListadoAsignaturas { get; set; }
         public virtual ICollection<Notas> Nota { get; set; }
     }
