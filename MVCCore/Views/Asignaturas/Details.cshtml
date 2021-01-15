@@ -52,7 +52,7 @@
         <dd class="col-sm-10">
             @using (var context = new MVCCore.DatabaseFirstModel.AlumnosContext())
             {
-                var carrera = context.ListadoCarreras.Find(item.Carrera.ListadoCarrerasId).Nombre;
+                var carrera = context.ListadoCarreras.Find(Model.Carrera.ListadoCarrerasId).Nombre;
                 @Html.DisplayFor(modelItem => carrera)
             }
         </dd>
