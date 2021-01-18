@@ -1,4 +1,4 @@
-# Program de gestion de alumnos
+# Gestion de alumnos
 Aplicacion de gestion de alumnos en multiples plataformas.
 
 ### ¿Que hace el proyecto?
