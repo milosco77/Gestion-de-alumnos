@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -12,11 +13,11 @@ namespace MVCCore.DatabaseFirstModel
         {
             Asignaturas = new HashSet<Asignaturas>();
         }
-        [DisplayName("ID")]
+        [Required(ErrorMessage = "El campo {0} no puede estar vacio."), DisplayName("ID")]
         public int CarreraId { get; set; }
-        [DisplayName("Alumno")]
+        [Required(ErrorMessage = "El campo {0} no puede estar vacio."), DisplayName("Alumno")]
         public int AlumnoId { get; set; }
-        [DisplayName("Carrera del listado")]
+        [Required(ErrorMessage = "El campo {0} no puede estar vacio."), DisplayName("Carrera del listado")]
         public int ListadoCarrerasId { get; set; }
 
         public virtual Alumnos Alumno { get; set; }

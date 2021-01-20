@@ -14,7 +14,7 @@ namespace MVCCore.DatabaseFirstModel
             Asignaturas = new HashSet<Asignaturas>();
             Carreras = new HashSet<Carreras>();
         }
-        [DisplayName("ID")]
+        [Required(ErrorMessage = "El campo {0} no puede estar vacio."), DisplayName("ID")]
         public int AlumnoId { get; set; }
         [Required(ErrorMessage = "El campo {0} no puede estar vacio."), StringLength(50, ErrorMessage = "El campo {0} no puede superar los 50 caracteres.")]
         public string Nombre { get; set; }

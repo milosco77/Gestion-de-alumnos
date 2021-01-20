@@ -48,7 +48,12 @@ namespace MVCCore.Controllers
         // GET: Carreras/Create
         public IActionResult Create()
         {
-            ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "AlumnoId", "Apellido");
+            var alumnos = _context.Alumnos.Select(a => new
+            {
+                a.AlumnoId,
+                nombreCompleto = $"{a.Nombre} {a.Apellido}"
+            });
+            ViewData["AlumnoId"] = new SelectList(alumnos, "AlumnoId", "nombreCompleto");
             ViewData["ListadoCarrerasId"] = new SelectList(_context.ListadoCarreras, "ListadoCarrerasId", "Nombre");
             return View();
         }
@@ -84,7 +89,13 @@ namespace MVCCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "AlumnoId", "Apellido", carreras.AlumnoId);
+            var alumnos = _context.Alumnos.Select(a => new
+            {
+                a.AlumnoId,
+                nombreCompleto = $"{a.Nombre} {a.Apellido}"
+            });
+
+            ViewData["AlumnoId"] = new SelectList(alumnos, "AlumnoId", "nombreCompleto", carreras.AlumnoId);
             ViewData["ListadoCarrerasId"] = new SelectList(_context.ListadoCarreras, "ListadoCarrerasId", "Nombre", carreras.ListadoCarrerasId);
             return View(carreras);
         }

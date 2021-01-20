@@ -49,8 +49,19 @@ namespace MVCCore.Controllers
         // GET: Asignaturas/Create
         public IActionResult Create()
         {
-            ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "AlumnoId", "Apellido");
-            ViewData["CarreraId"] = new SelectList(_context.Carreras, "CarreraId", "CarreraId");
+            var alumnos = _context.Alumnos.Select(a => new
+            {
+                a.AlumnoId,
+                nombreCompleto = $"{a.Nombre} {a.Apellido}"
+            });
+
+            var carreras = _context.Carreras.Select(c => new
+            {
+                c.CarreraId,
+                carreraNombreApellido = $"{_context.ListadoCarreras.Where(lc => lc.ListadoCarrerasId == c.ListadoCarrerasId).SingleOrDefault().Nombre} - {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Nombre} {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Apellido}"
+            });
+            ViewData["AlumnoId"] = new SelectList(alumnos, "AlumnoId", "nombreCompleto");
+            ViewData["CarreraId"] = new SelectList(carreras, "CarreraId", "carreraNombreApellido");
             ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Nombre");
             return View();
         }
@@ -87,8 +98,21 @@ namespace MVCCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "AlumnoId", "Apellido", asignaturas.AlumnoId);
-            ViewData["CarreraId"] = new SelectList(_context.Carreras, "CarreraId", "CarreraId", asignaturas.CarreraId);
+
+            var alumnos = _context.Alumnos.Select(a => new
+            {
+                a.AlumnoId,
+                nombreCompleto = $"{a.Nombre} {a.Apellido}"
+            });
+
+            var carreras = _context.Carreras.Select(c => new
+            {
+                c.CarreraId,
+                carreraNombreApellido = $"{_context.ListadoCarreras.Where( lc => lc.ListadoCarrerasId == c.ListadoCarrerasId).SingleOrDefault().Nombre} - {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Nombre} {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Apellido}"
+            });
+
+            ViewData["AlumnoId"] = new SelectList(alumnos, "AlumnoId", "nombreCompleto", asignaturas.AlumnoId);
+            ViewData["CarreraId"] = new SelectList(carreras, "CarreraId", "carreraNombreApellido", asignaturas.CarreraId);
             ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Categoria", asignaturas.ListadoAsignaturasId);
             return View(asignaturas);
         }
