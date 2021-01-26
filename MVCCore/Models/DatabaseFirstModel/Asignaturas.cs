@@ -21,7 +21,7 @@ namespace MVCCore.DatabaseFirstModel
         public int AlumnoId { get; set; }
         [Required(ErrorMessage = "El campo {0} no puede estar vacio."), DisplayName("Carrera")]
         public int CarreraId { get; set; }
-        [Required(ErrorMessage = "El campo {0} no puede estar vacio.")]
+        [Required(ErrorMessage = "El campo {0} no puede estar vacio."), Range(1,999999, ErrorMessage = "El campo {0} debe estar comprendido entre {1} a {2}.")]
         public int Comision { get; set; }
         [Required(ErrorMessage = "El campo {0} no puede estar vacio."), DisplayName("Horario entrada")]
         public TimeSpan HorarioEntrada { get; set; }
