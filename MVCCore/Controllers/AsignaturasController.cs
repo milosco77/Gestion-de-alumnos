@@ -71,10 +71,26 @@ namespace MVCCore.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AsignaturaId,ListadoAsignaturasId,AlumnoId,CarreraId,Comision,HorarioEntrada,HorarioSalida,Dias")] Asignaturas asignaturas)
+        public async Task<IActionResult> Create([Bind("AsignaturaId,ListadoAsignaturasId,AlumnoId,CarreraId,Comision,HorarioEntrada,HorarioSalida,Dias")] Asignaturas asignaturas, string[] Dias)
         {
             if (ModelState.IsValid)
             {
+                for (int i = 0; i < Dias.Length; i++)
+                {
+                    if (Dias[i] != "false")
+                    {
+                        asignaturas.Dias = null;
+                        asignaturas.Dias += Dias[i] + "-";
+                    }
+                    if (i == (Dias.Length - 1))
+                    {
+
+                    }
+                    if (asignaturas.Dias.EndsWith("-"))
+                    {
+
+                    }
+                }
                 _context.Add(asignaturas);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
