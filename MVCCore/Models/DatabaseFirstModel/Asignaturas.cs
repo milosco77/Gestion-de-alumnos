@@ -27,6 +27,7 @@ namespace MVCCore.DatabaseFirstModel
         public TimeSpan HorarioEntrada { get; set; }
         [Required(ErrorMessage = "El campo {0} no puede estar vacio."), DisplayName("Horario salida")]
         public TimeSpan HorarioSalida { get; set; }
+        [Required(ErrorMessage = "Debe seleccionar como minimo un dia.")]
         public string Dias { get; set; }
 
         public virtual Alumnos Alumno { get; set; }
