@@ -75,21 +75,17 @@ namespace MVCCore.Controllers
         {
             if (ModelState.IsValid)
             {
+                asignaturas.Dias = null;
                 for (int i = 0; i < Dias.Length; i++)
                 {
                     if (Dias[i] != "false")
                     {
-                        asignaturas.Dias = null;
                         asignaturas.Dias += Dias[i] + "-";
                     }
-                    if (i == (Dias.Length - 1))
-                    {
-
-                    }
-                    if (asignaturas.Dias.EndsWith("-"))
-                    {
-
-                    }
+                }
+                if (asignaturas.Dias.EndsWith("-"))
+                {
+                    asignaturas.Dias = asignaturas.Dias.Remove(asignaturas.Dias.Length - 1);
                 }
                 _context.Add(asignaturas);
                 await _context.SaveChangesAsync();

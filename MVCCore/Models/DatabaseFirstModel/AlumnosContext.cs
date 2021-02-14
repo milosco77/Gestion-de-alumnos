@@ -61,7 +61,7 @@ namespace MVCCore.DatabaseFirstModel
 
             modelBuilder.Entity<Asignaturas>(entity =>
             {
-                entity.HasKey(e => new { e.ListadoAsignaturasId, e.AlumnoId })
+                entity.HasKey(e => new { e.AsignaturaId, e.ListadoAsignaturasId, e.AlumnoId })
                     .HasName("PK_Asignaturas_1");
 
                 entity.HasIndex(e => e.AsignaturaId, "UK_Asignaturas")
