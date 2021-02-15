@@ -12,15 +12,6 @@ using System.Text;
 // TODO Poner correctamente scope de las propiedades de las clases.
 // TODO Implementar validacion en la capa de datos.
 // TODO Implementar SQLite.
-// Para mapear base de datos
-// Scaffold-DbContext "Server=.\SQLExpress;Database=Alumnos;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DatabaseFirstModel
-// select * from Alumnos;
-// select * from Asignaturas;
-// select * from ListadoAsignaturas;
-// select * from Carreras;
-// select * from ListadoCarreras;
-// select * from Facultades;
-// select * from Notas;
 
 namespace Datos
 {

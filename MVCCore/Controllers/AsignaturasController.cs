@@ -52,13 +52,13 @@ namespace MVCCore.Controllers
             var alumnos = _context.Alumnos.Select(a => new
             {
                 a.AlumnoId,
-                nombreCompleto = $"{a.Nombre} {a.Apellido}"
+                nombreCompleto = $"ID {a.AlumnoId} - {a.Nombre} {a.Apellido}"
             });
 
             var carreras = _context.Carreras.Select(c => new
             {
                 c.CarreraId,
-                carreraNombreApellido = $"{_context.ListadoCarreras.Where(lc => lc.ListadoCarrerasId == c.ListadoCarrerasId).SingleOrDefault().Nombre} - {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Nombre} {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Apellido}"
+                carreraNombreApellido = $"{_context.ListadoCarreras.Where(lc => lc.ListadoCarrerasId == c.ListadoCarrerasId).SingleOrDefault().Nombre} - ID {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().AlumnoId} {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Nombre} {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Apellido}"
             });
             ViewData["AlumnoId"] = new SelectList(alumnos, "AlumnoId", "nombreCompleto");
             ViewData["CarreraId"] = new SelectList(carreras, "CarreraId", "carreraNombreApellido");
@@ -99,7 +99,7 @@ namespace MVCCore.Controllers
             var alumnos = _context.Alumnos.Select(a => new
             {
                 a.AlumnoId,
-                nombreCompleto = $"{a.Nombre} {a.Apellido}"
+                nombreCompleto = $"ID {a.AlumnoId} - {a.Nombre} {a.Apellido}"
             });
 
             var carreras = _context.Carreras.Select(c => new

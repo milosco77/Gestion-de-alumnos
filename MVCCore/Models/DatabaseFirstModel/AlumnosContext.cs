@@ -1,4 +1,14 @@
-﻿using System;
+﻿// Para mapear base de datos
+// Scaffold-DbContext "Server=.\SQLExpress;Database=Alumnos;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DatabaseFirstModel
+// select * from Alumnos;
+// select * from Asignaturas;
+// select * from ListadoAsignaturas;
+// select * from Carreras;
+// select * from ListadoCarreras;
+// select * from Facultades;
+// select * from Notas;
+
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 

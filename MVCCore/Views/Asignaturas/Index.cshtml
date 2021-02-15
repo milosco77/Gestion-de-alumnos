@@ -64,10 +64,8 @@
                 @Html.DisplayFor(modelItem => item.Dias)
             </td>
             <td>
-                @{ 
-                    string nombreCompleto = $"{item.Alumno.Nombre} {item.Alumno.Apellido}";
-                    @Html.DisplayFor(modelItem => nombreCompleto)
-                }
+                @{ string nombreCompleto = $"{item.Alumno.Nombre} {item.Alumno.Apellido}";}
+                @Html.DisplayFor(modelItem => nombreCompleto)
             </td>
             <td>
                 @using (var context = new MVCCore.DatabaseFirstModel.AlumnosContext())
