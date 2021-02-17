@@ -78,9 +78,9 @@
                 @Html.DisplayFor(modelItem => item.ListadoAsignaturas.Nombre)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.ListadoAsignaturasId, alumnoID = item.AlumnoId }) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.ListadoAsignaturasId, alumnoID = item.AlumnoId }) |
-                @Html.ActionLink("Borrar", "Delete", new { id = item.ListadoAsignaturasId, alumnoID = item.AlumnoId })
+                @Html.ActionLink("Editar", "Edit", new { id = item.AsignaturaId, listadoAsignaturasId = item.ListadoAsignaturasId, alumnoID = item.AlumnoId }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.AsignaturaId, alumnoID = item.AlumnoId }) |
+                @Html.ActionLink("Borrar", "Delete", new { id = item.AsignaturaId, alumnoID = item.AlumnoId })
             </td>
         </tr>
 }

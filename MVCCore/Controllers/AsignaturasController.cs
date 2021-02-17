@@ -114,14 +114,14 @@ namespace MVCCore.Controllers
         }
 
         // GET: Asignaturas/Edit/5
-        public async Task<IActionResult> Edit(int? id, int? alumnoId)
+        public async Task<IActionResult> Edit(int? id, int? listadoAsignaturasId, int? alumnoId)
         {
-            if (id == null || alumnoId == null)
+            if (id == null || alumnoId == null || listadoAsignaturasId == null)
             {
                 return NotFound();
             }
 
-            var asignaturas = await _context.Asignaturas.FindAsync(id, alumnoId);
+            var asignaturas = await _context.Asignaturas.FindAsync(id, listadoAsignaturasId, alumnoId);
             if (asignaturas == null)
             {
                 return NotFound();
@@ -130,7 +130,7 @@ namespace MVCCore.Controllers
             var alumnos = _context.Alumnos.Select(a => new
             {
                 a.AlumnoId,
-                nombreCompleto = $"{a.Nombre} {a.Apellido}"
+                nombreCompleto = $"ID {a.AlumnoId} - {a.Nombre} {a.Apellido}"
             });
 
             var carreras = _context.Carreras.Select(c => new
@@ -141,7 +141,7 @@ namespace MVCCore.Controllers
 
             ViewData["AlumnoId"] = new SelectList(alumnos, "AlumnoId", "nombreCompleto", asignaturas.AlumnoId);
             ViewData["CarreraId"] = new SelectList(carreras, "CarreraId", "carreraNombreApellido", asignaturas.CarreraId);
-            ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Categoria", asignaturas.ListadoAsignaturasId);
+            ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Nombre", asignaturas.ListadoAsignaturasId);
             return View(asignaturas);
         }
 
@@ -150,15 +150,33 @@ namespace MVCCore.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AsignaturaId,ListadoAsignaturasId,AlumnoId,CarreraId,Comision,HorarioEntrada,HorarioSalida,Dias")] Asignaturas asignaturas)
+        public async Task<IActionResult> Edit(int id, [Bind("AsignaturaId,ListadoAsignaturasId,AlumnoId,CarreraId,Comision,HorarioEntrada,HorarioSalida,Dias")] Asignaturas asignaturas, string[] Dias)
         {
-            if (id != asignaturas.ListadoAsignaturasId)
+            if (id != asignaturas.AsignaturaId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                asignaturas.Dias = null;
+                for (int i = 0; i < Dias.Length; i++)
+                {
+                    if (Dias[i] == null)
+                    {
+                        Dias[i] = "false";
+                    }
+
+                    if (Dias[i] != "false")
+                    {
+                        asignaturas.Dias += Dias[i] + "-";
+                    }
+                }
+                if (asignaturas.Dias.EndsWith("-"))
+                {
+                    asignaturas.Dias = asignaturas.Dias.Remove(asignaturas.Dias.Length - 1);
+                }
+
                 try
                 {
                     _context.Update(asignaturas);
@@ -166,7 +184,7 @@ namespace MVCCore.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AsignaturasExists(asignaturas.ListadoAsignaturasId))
+                    if (!AsignaturasExists(asignaturas.AsignaturaId))
                     {
                         return NotFound();
                     }
@@ -217,7 +235,7 @@ namespace MVCCore.Controllers
 
         private bool AsignaturasExists(int id)
         {
-            return _context.Asignaturas.Any(e => e.ListadoAsignaturasId == id);
+            return _context.Asignaturas.Any(e => e.AsignaturaId == id);
         }
     }
 }
