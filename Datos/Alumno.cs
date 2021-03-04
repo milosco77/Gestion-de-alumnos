@@ -8,8 +8,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 
 // alt+shift+ ` para elegir todas las coincidencias editar.incluirsimbolosdeinsercionentodaslascoincidencias
-// TODO Hacer toda la capa de datos.
-// TODO Poner correctamente scope de las propiedades de las clases.
 // TODO Implementar validacion en la capa de datos.
 // TODO Implementar SQLite.
 
