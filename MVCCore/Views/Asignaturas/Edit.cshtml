@@ -48,32 +48,49 @@
             <label asp-for="Dias" class="control-label"></label>
             <div class="btn-group">
                 <div class="form-check form-check-inline">
-                    <input asp-for="Dias[0]" class="form-check-input" type="checkbox" id="lunes" name="Dias" value="Lunes">
+                    <input asp-for="Dias" class="form-check-input" type="checkbox" id="lunes" name="Dias" value="Lunes">
                     <label asp-for="Dias" class="form-check-label" for="lunes">Lunes</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input asp-for="Dias[1]" class="form-check-input" type="checkbox" id="martes" name="Dias" value="Martes">
+                    <input asp-for="Dias" class="form-check-input" type="checkbox" id="martes" name="Dias" value="Martes">
                     <label asp-for="Dias" class="form-check-label" for="martes">Martes</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input asp-for="Dias[2]" class="form-check-input" type="checkbox" id="miercoles" name="Dias" value="Miercoles">
+                    <input asp-for="Dias" class="form-check-input" type="checkbox" id="miercoles" name="Dias" value="Miercoles">
                     <label asp-for="Dias" class="form-check-label" for="miercoles">Miercoles</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input asp-for="Dias[3]" class="form-check-input" type="checkbox" id="jueves" name="Dias" value="Jueves">
+                    <input asp-for="Dias" class="form-check-input" type="checkbox" id="jueves" name="Dias" value="Jueves">
                     <label asp-for="Dias" class="form-check-label" for="jueves">Jueves</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input asp-for="Dias[4]" class="form-check-input" type="checkbox" id="viernes" name="Dias" value="Viernes">
+                    <input asp-for="Dias" class="form-check-input" type="checkbox" id="viernes" name="Dias" value="Viernes">
                     <label asp-for="Dias" class="form-check-label" for="viernes">Viernes</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input asp-for="Dias[5]" class="form-check-input" type="checkbox" id="sabado" name="Dias" value="Sabado">
+                    <input asp-for="Dias" class="form-check-input" type="checkbox" id="sabado" name="Dias" value="Sabado">
                     <label asp-for="Dias" class="form-check-label" for="sabado">Sabado</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input asp-for="Dias[6]" class="form-check-input" type="checkbox" id="domingo" name="Dias" value="Domingo">
+                    <input asp-for="Dias" class="form-check-input" type="checkbox" id="domingo" name="Dias" value="Domingo">
                     <label asp-for="Dias" class="form-check-label" for="domingo">Domingo</label>
+                </div>
+            </div>
+            <div class="btn-group">
+                <div class="form-check form-check-inline">
+                    @Html.CheckBoxFor(m => m.CBDias)
+                </div>
+                <div class="form-check form-check-inline">
+                </div>
+                <div class="form-check form-check-inline">
+                </div>
+                <div class="form-check form-check-inline">
+                </div>
+                <div class="form-check form-check-inline">
+                </div>
+                <div class="form-check form-check-inline">
+                </div>
+                <div class="form-check form-check-inline">
                 </div>
             </div>
             <div class="form-group">
