@@ -7,6 +7,9 @@
 // select * from ListadoCarreras;
 // select * from Facultades;
 // select * from Notas;
+// select * from Cursada;
+// select * from Dias;
+
 
 using System;
 using Microsoft.EntityFrameworkCore;
