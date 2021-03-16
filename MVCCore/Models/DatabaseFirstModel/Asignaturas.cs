@@ -29,7 +29,6 @@ namespace MVCCore.DatabaseFirstModel
         public TimeSpan HorarioSalida { get; set; }
         [Required(ErrorMessage = "Debe seleccionar como minimo un dia.")]
         public string Dias { get; set; }
-        public bool CBDias { get; set; }
 
         public virtual Alumnos Alumno { get; set; }
         public virtual Carreras Carrera { get; set; }

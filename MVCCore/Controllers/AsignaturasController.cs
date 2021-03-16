@@ -116,7 +116,7 @@ namespace MVCCore.Controllers
         // GET: Asignaturas/Edit/5
         public async Task<IActionResult> Edit(int? id, int? listadoAsignaturasId, int? alumnoId)
         {
-            bool[] Dias = new bool[6];
+            bool[] Dias = new bool[7];
             if (id == null || alumnoId == null || listadoAsignaturasId == null)
             {
                 return NotFound();
@@ -147,30 +147,31 @@ namespace MVCCore.Controllers
             {
                 Dias[0] = true;
             }
-            else if (asignaturas.Dias.Contains("Martes") == true)
+            if (asignaturas.Dias.Contains("Martes") == true)
             {
                 Dias[1] = true;
             }
-            else if (asignaturas.Dias.Contains("Miercoles") == true)
+            if (asignaturas.Dias.Contains("Miercoles") == true)
             {
                 Dias[2] = true;
             }
-            else if (asignaturas.Dias.Contains("Jueves") == true)
+            if (asignaturas.Dias.Contains("Jueves") == true)
             {
                 Dias[3] = true;
             }
-            else if (asignaturas.Dias.Contains("Viernes") == true)
+            if (asignaturas.Dias.Contains("Viernes") == true)
             {
                 Dias[4] = true;
             }
-            else if (asignaturas.Dias.Contains("Sabado") == true)
+            if (asignaturas.Dias.Contains("Sabado") == true)
             {
                 Dias[5] = true;
             }
-            else if (asignaturas.Dias.Contains("Domingo") == true)
+            if (asignaturas.Dias.Contains("Domingo") == true)
             {
                 Dias[6] = true;
             }
+            ViewBag.Dias = Dias;
             return View(asignaturas);
         }
 
@@ -181,11 +182,12 @@ namespace MVCCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("AsignaturaId,ListadoAsignaturasId,AlumnoId,CarreraId,Comision,HorarioEntrada,HorarioSalida,Dias")] Asignaturas asignaturas, string[] Dias)
         {
+            // TODO Capturar Null y verificacion de datos.
             if (id != asignaturas.AsignaturaId)
             {
                 return NotFound();
             }
-
+            
             if (ModelState.IsValid)
             {
                 asignaturas.Dias = null;
