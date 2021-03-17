@@ -37,7 +37,7 @@ namespace MVCCore.Controllers
                 .Include(a => a.Alumno)
                 .Include(a => a.Carrera)
                 .Include(a => a.ListadoAsignaturas)
-                .FirstOrDefaultAsync(m => m.ListadoAsignaturasId == id);
+                .FirstOrDefaultAsync(m => m.AsignaturaId == id);
             if (asignaturas == null)
             {
                 return NotFound();
@@ -182,12 +182,10 @@ namespace MVCCore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("AsignaturaId,ListadoAsignaturasId,AlumnoId,CarreraId,Comision,HorarioEntrada,HorarioSalida,Dias")] Asignaturas asignaturas, string[] Dias)
         {
-            // TODO Capturar Null y verificacion de datos.
             if (id != asignaturas.AsignaturaId)
             {
                 return NotFound();
             }
-            
             if (ModelState.IsValid)
             {
                 asignaturas.Dias = null;
@@ -244,7 +242,7 @@ namespace MVCCore.Controllers
                 .Include(a => a.Alumno)
                 .Include(a => a.Carrera)
                 .Include(a => a.ListadoAsignaturas)
-                .FirstOrDefaultAsync(m => m.ListadoAsignaturasId == id);
+                .FirstOrDefaultAsync(m => m.AsignaturaId == id);
             if (asignaturas == null)
             {
                 return NotFound();
@@ -256,9 +254,9 @@ namespace MVCCore.Controllers
         // POST: Asignaturas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int asignaturaId, int listadoAsignaturasId, int alumnoId)
         {
-            var asignaturas = await _context.Asignaturas.FindAsync(id);
+            var asignaturas = await _context.Asignaturas.FindAsync(asignaturaId, listadoAsignaturasId, alumnoId);
             _context.Asignaturas.Remove(asignaturas);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

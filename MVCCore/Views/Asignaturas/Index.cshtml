@@ -16,6 +16,15 @@
                 @Html.DisplayNameFor(model => model.AsignaturaId)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Alumno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ListadoAsignaturas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Carrera)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Comision)
             </th>
             <th>
@@ -27,15 +36,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Dias)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Alumno)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Carrera)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ListadoAsignaturas)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -44,6 +44,20 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.AsignaturaId)
+            </td>
+            <td>
+                @{ string nombreCompleto = $"{item.Alumno.Nombre} {item.Alumno.Apellido}";}
+                @Html.DisplayFor(modelItem => nombreCompleto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ListadoAsignaturas.Nombre)
+            </td>
+            <td>
+                @using (var context = new MVCCore.DatabaseFirstModel.AlumnosContext())
+                {
+                    var carrera = context.ListadoCarreras.Find(item.Carrera.ListadoCarrerasId).Nombre;
+                    @Html.DisplayFor(modelItem => carrera)
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Comision)
@@ -62,20 +76,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Dias)
-            </td>
-            <td>
-                @{ string nombreCompleto = $"{item.Alumno.Nombre} {item.Alumno.Apellido}";}
-                @Html.DisplayFor(modelItem => nombreCompleto)
-            </td>
-            <td>
-                @using (var context = new MVCCore.DatabaseFirstModel.AlumnosContext())
-                {
-                    var carrera = context.ListadoCarreras.Find(item.Carrera.ListadoCarrerasId).Nombre;
-                    @Html.DisplayFor(modelItem => carrera)
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ListadoAsignaturas.Nombre)
             </td>
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.AsignaturaId, listadoAsignaturasId = item.ListadoAsignaturasId, alumnoID = item.AlumnoId }) |

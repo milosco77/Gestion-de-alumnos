@@ -76,6 +76,10 @@
                     <label class="form-check-label" for="domingo">Domingo</label>
                 </div>
             </div>
+            <div class="form-group">
+                <input asp-for="Dias" class="form-control" hidden value="" />
+                <span asp-validation-for="Dias" class="text-danger"></span>
+            </div>
             <script type="text/javascript">
                 let cbLunes = document.getElementById("lunes");
                 @if (ViewBag.Dias[0] == true) {
@@ -107,10 +111,6 @@
                 }
             </script>
             <div class="form-group">
-                <span asp-validation-for="Dias" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </form>
@@ -120,6 +120,7 @@
 <div>
     <a asp-action="Index">Volver al listado</a>
 </div>
+@*@Html.ValidationMessage("Dias")*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -11,50 +11,26 @@
     <h4>Asignaturas</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.AsignaturaId)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.AsignaturaId)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Comision)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Comision)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HorarioEntrada)
-        </dt>
-        <dd class="col-sm-10">
-            @{
-                string horarioEntradaCortado = Model.HorarioEntrada.ToString().Remove(5);
-                @Html.DisplayFor(modelItem => horarioEntradaCortado)
-            }
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HorarioSalida)
-        </dt>
-        <dd class="col-sm-10">
-            @{
-                string horarioSalidaCortado = Model.HorarioSalida.ToString().Remove(5);
-                @Html.DisplayFor(modelItem => horarioSalidaCortado)
-            }
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Dias)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Dias)
-        </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Alumno)
         </dt>
         <dd class="col-sm-10">
             @{ string nombreCompleto = $"{Model.Alumno.Nombre} {Model.Alumno.Apellido}";}
             @Html.DisplayFor(modelItem => nombreCompleto)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ListadoAsignaturas)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ListadoAsignaturas.Nombre)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Carrera)
         </dt>
         <dd class="col-sm-10">
@@ -64,15 +40,40 @@
                 @Html.DisplayFor(modelItem => carrera)
             }
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ListadoAsignaturas)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Comision)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ListadoAsignaturas.Nombre)
-        </dd class>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Comision)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HorarioEntrada)
+        </dt>
+        <dd class="col-sm-10">
+            @{
+                string horarioEntradaCortado = Model.HorarioEntrada.ToString().Remove(5);
+                @Html.DisplayFor(modelItem => horarioEntradaCortado)
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HorarioSalida)
+        </dt>
+        <dd class="col-sm-10">
+            @{
+                string horarioSalidaCortado = Model.HorarioSalida.ToString().Remove(5);
+                @Html.DisplayFor(modelItem => horarioSalidaCortado)
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Dias)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Dias)
+        </dd>
     </dl>
     
     <form asp-action="Delete">
+        <input type="hidden" asp-for="AsignaturaId" />
         <input type="hidden" asp-for="ListadoAsignaturasId" />
         <input type="hidden" asp-for="AlumnoId" />
         <input type="submit" value="Borrar" class="btn btn-danger" /> |
