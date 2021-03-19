@@ -71,7 +71,12 @@ namespace MVCCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "AlumnoId", "Apellido", carreras.AlumnoId);
+            var alumnos = _context.Alumnos.Select(a => new
+            {
+                a.AlumnoId,
+                nombreCompleto = $"{a.Nombre} {a.Apellido}"
+            });
+            ViewData["AlumnoId"] = new SelectList(alumnos, "AlumnoId", "nombreCompleto", carreras.AlumnoId);
             ViewData["ListadoCarrerasId"] = new SelectList(_context.ListadoCarreras, "ListadoCarrerasId", "Nombre", carreras.ListadoCarrerasId);
             return View(carreras);
         }
@@ -94,7 +99,6 @@ namespace MVCCore.Controllers
                 a.AlumnoId,
                 nombreCompleto = $"{a.Nombre} {a.Apellido}"
             });
-
             ViewData["AlumnoId"] = new SelectList(alumnos, "AlumnoId", "nombreCompleto", carreras.AlumnoId);
             ViewData["ListadoCarrerasId"] = new SelectList(_context.ListadoCarreras, "ListadoCarrerasId", "Nombre", carreras.ListadoCarrerasId);
             return View(carreras);
@@ -132,7 +136,12 @@ namespace MVCCore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "AlumnoId", "Apellido", carreras.AlumnoId);
+            var alumnos = _context.Alumnos.Select(a => new
+            {
+                a.AlumnoId,
+                nombreCompleto = $"{a.Nombre} {a.Apellido}"
+            });
+            ViewData["AlumnoId"] = new SelectList(alumnos, "AlumnoId", "nombreCompleto", carreras.AlumnoId);
             ViewData["ListadoCarrerasId"] = new SelectList(_context.ListadoCarreras, "ListadoCarrerasId", "Nombre", carreras.ListadoCarrerasId);
             return View(carreras);
         }

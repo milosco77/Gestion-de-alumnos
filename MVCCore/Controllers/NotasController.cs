@@ -13,6 +13,7 @@ namespace MVCCore.Controllers
     {
         private readonly AlumnosContext _context;
 
+
         public NotasController(AlumnosContext context)
         {
             _context = context;
@@ -47,7 +48,12 @@ namespace MVCCore.Controllers
         // GET: Notas/Create
         public IActionResult Create()
         {
-            ViewData["AsignaturaId"] = new SelectList(_context.Asignaturas, "AsignaturaId", "Dias");
+            var asignaturas = _context.Asignaturas.Select(asig => new
+            {
+                asig.AsignaturaId,
+                asignaturaNombreApellido = $"ID {asig.AsignaturaId} - {_context.ListadoAsignaturas.Where(la => la.ListadoAsignaturasId == asig.ListadoAsignaturasId).SingleOrDefault().Nombre} - {_context.Alumnos.Where(a => a.AlumnoId == asig.AlumnoId).SingleOrDefault().Nombre} {_context.Alumnos.Where(a => a.AlumnoId == asig.AlumnoId).SingleOrDefault().Apellido} - ID {_context.Alumnos.Where(a => a.AlumnoId == asig.AlumnoId).SingleOrDefault().AlumnoId}"
+            });
+            ViewData["AsignaturaId"] = new SelectList(asignaturas, "AsignaturaId", "asignaturaNombreApellido");
             return View();
         }
 
@@ -64,7 +70,12 @@ namespace MVCCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AsignaturaId"] = new SelectList(_context.Asignaturas, "AsignaturaId", "Dias", notas.AsignaturaId);
+            var asignaturas = _context.Asignaturas.Select(asig => new
+            {
+                asig.AsignaturaId,
+                asignaturaNombreApellido = $"ID {asig.AsignaturaId} - {_context.ListadoAsignaturas.Where(la => la.ListadoAsignaturasId == asig.ListadoAsignaturasId).SingleOrDefault().Nombre} - {_context.Alumnos.Where(a => a.AlumnoId == asig.AlumnoId).SingleOrDefault().Nombre} {_context.Alumnos.Where(a => a.AlumnoId == asig.AlumnoId).SingleOrDefault().Apellido} - ID {_context.Alumnos.Where(a => a.AlumnoId == asig.AlumnoId).SingleOrDefault().AlumnoId}"
+            });
+            ViewData["AsignaturaId"] = new SelectList(asignaturas, "AsignaturaId", "asignaturaNombreApellido", notas.AsignaturaId);
             return View(notas);
         }
 
@@ -81,7 +92,12 @@ namespace MVCCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["AsignaturaId"] = new SelectList(_context.Asignaturas, "AsignaturaId", "Dias", notas.AsignaturaId);
+            var asignaturas = _context.Asignaturas.Select(asig => new
+            {
+                asig.AsignaturaId,
+                asignaturaNombreApellido = $"ID {asig.AsignaturaId} - {_context.ListadoAsignaturas.Where(la => la.ListadoAsignaturasId == asig.ListadoAsignaturasId).SingleOrDefault().Nombre} - {_context.Alumnos.Where(a => a.AlumnoId == asig.AlumnoId).SingleOrDefault().Nombre} {_context.Alumnos.Where(a => a.AlumnoId == asig.AlumnoId).SingleOrDefault().Apellido} - ID {_context.Alumnos.Where(a => a.AlumnoId == asig.AlumnoId).SingleOrDefault().AlumnoId}"
+            });
+            ViewData["AsignaturaId"] = new SelectList(asignaturas, "AsignaturaId", "asignaturaNombreApellido", notas.AsignaturaId);
             return View(notas);
         }
 
@@ -117,7 +133,12 @@ namespace MVCCore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AsignaturaId"] = new SelectList(_context.Asignaturas, "AsignaturaId", "Dias", notas.AsignaturaId);
+            var asignaturas = _context.Asignaturas.Select(asig => new
+            {
+                asig.AsignaturaId,
+                asignaturaNombreApellido = $"ID {asig.AsignaturaId} - {_context.ListadoAsignaturas.Where(la => la.ListadoAsignaturasId == asig.ListadoAsignaturasId).SingleOrDefault().Nombre} - {_context.Alumnos.Where(a => a.AlumnoId == asig.AlumnoId).SingleOrDefault().Nombre} {_context.Alumnos.Where(a => a.AlumnoId == asig.AlumnoId).SingleOrDefault().Apellido} - ID {_context.Alumnos.Where(a => a.AlumnoId == asig.AlumnoId).SingleOrDefault().AlumnoId}"
+            });
+            ViewData["AsignaturaId"] = new SelectList(asignaturas, "AsignaturaId", "asignaturaNombreApellido", notas.AsignaturaId);
             return View(notas);
         }
 

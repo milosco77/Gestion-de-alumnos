@@ -1,10 +1,10 @@
 ﻿@model MVCCore.DatabaseFirstModel.Notas
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
 }
 
-<h1>Editar</h1>
+<h0>Editar</h0>
 
 <h4>Notas</h4>
 <hr />
@@ -12,7 +12,12 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="NotasId" />
+            <div class="form-group">
+                <label asp-for="NotasId" class="control-label"></label>
+                <input asp-for="NotasId" class="form-control" disabled />
+                <input asp-for="NotasId" class="form-control" hidden />
+                <span asp-validation-for="NotasId" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="AsignaturaId" class="control-label"></label>
                 <select asp-for="AsignaturaId" class="form-control" asp-items="ViewBag.AsignaturaId"></select>
@@ -20,27 +25,27 @@
             </div>
             <div class="form-group">
                 <label asp-for="PrimerParcial" class="control-label"></label>
-                <input asp-for="PrimerParcial" class="form-control" />
+                <input asp-for="PrimerParcial" class="form-control" placeholder="##" min="0" max="10" />
                 <span asp-validation-for="PrimerParcial" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PrimerRecuperatorio" class="control-label"></label>
-                <input asp-for="PrimerRecuperatorio" class="form-control" />
+                <input asp-for="PrimerRecuperatorio" class="form-control" placeholder="##" min="0" max="10" />
                 <span asp-validation-for="PrimerRecuperatorio" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SegundoParcial" class="control-label"></label>
-                <input asp-for="SegundoParcial" class="form-control" />
+                <input asp-for="SegundoParcial" class="form-control" placeholder="##" min="0" max="10" />
                 <span asp-validation-for="SegundoParcial" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SegundoRecuperatorio" class="control-label"></label>
-                <input asp-for="SegundoRecuperatorio" class="form-control" />
+                <input asp-for="SegundoRecuperatorio" class="form-control" placeholder="##" min="0" max="10" />
                 <span asp-validation-for="SegundoRecuperatorio" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Final" class="control-label"></label>
-                <input asp-for="Final" class="form-control" />
+                <input asp-for="Final" class="form-control" placeholder="##" min="0" max="10" />
                 <span asp-validation-for="Final" class="text-danger"></span>
             </div>
             <div class="form-group">

@@ -14,35 +14,39 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="AsignaturaId" class="control-label"></label>
-                <input asp-for="AsignaturaId" class="form-control" readonly />
+                <input asp-for="AsignaturaId" class="form-control" disabled />
+                <input asp-for="AsignaturaId" class="form-control" hidden />
                 <span asp-validation-for="AsignaturaId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ListadoAsignaturasId" class="control-label"></label>
-                <select asp-for="ListadoAsignaturasId" class="form-control" readonly asp-items="ViewBag.ListadoAsignaturasId"></select>
+                <select asp-for="ListadoAsignaturasId" class="form-control" disabled asp-items="ViewBag.ListadoAsignaturasId"></select>
+                <select asp-for="ListadoAsignaturasId" class="form-control" hidden asp-items="ViewBag.ListadoAsignaturasId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="AlumnoId" class="control-label"></label>
-                <select asp-for="AlumnoId" class="form-control" readonly asp-items="ViewBag.AlumnoId"></select>
+                <select asp-for="AlumnoId" class="form-control" disabled asp-items="ViewBag.AlumnoId"></select>
+                <select asp-for="AlumnoId" class="form-control" hidden asp-items="ViewBag.AlumnoId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="CarreraId" class="control-label"></label>
-                <select asp-for="CarreraId" class="form-control" readonly asp-items="ViewBag.CarreraId"></select>
+                <select asp-for="CarreraId" class="form-control" disabled asp-items="ViewBag.CarreraId"></select>
+                <select asp-for="CarreraId" class="form-control" hidden asp-items="ViewBag.CarreraId"></select>
                 <span asp-validation-for="CarreraId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Comision" class="control-label"></label>
-                <input asp-for="Comision" class="form-control" />
+                <input asp-for="Comision" class="form-control" type="number" placeholder="######" min="1" max="999999" />
                 <span asp-validation-for="Comision" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="HorarioEntrada" class="control-label"></label>
-                <input asp-for="HorarioEntrada" class="form-control" />
+                <input asp-for="HorarioEntrada" type="time" class="form-control" />
                 <span asp-validation-for="HorarioEntrada" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="HorarioSalida" class="control-label"></label>
-                <input asp-for="HorarioSalida" class="form-control" />
+                <input asp-for="HorarioSalida" type="time" class="form-control" />
                 <span asp-validation-for="HorarioSalida" class="text-danger"></span>
             </div>
             <label asp-for="Dias" class="control-label"></label>

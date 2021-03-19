@@ -1,12 +1,12 @@
 ﻿@model MVCCore.DatabaseFirstModel.ListadoAsignaturas
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear";
 }
 
-<h1>Create</h1>
+<h1>Crear</h1>
 
-<h4>ListadoAsignaturas</h4>
+<h4>Listado de Asignaturas</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -18,43 +18,43 @@
             </div>
             <div class="form-group">
                 <label asp-for="Codigo" class="control-label"></label>
-                <input asp-for="Codigo" class="form-control" />
+                <input asp-for="Codigo" class="form-control" placeholder="##.##" />
                 <span asp-validation-for="Codigo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
+                <input asp-for="Nombre" class="form-control" placeholder="Nombre" />
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Creditos" class="control-label"></label>
-                <input asp-for="Creditos" class="form-control" />
+                <input asp-for="Creditos" class="form-control" type="number" placeholder="###" min="1" max="999" />
                 <span asp-validation-for="Creditos" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Horas" class="control-label"></label>
-                <input asp-for="Horas" class="form-control" />
+                <input asp-for="Horas" class="form-control" type="number" placeholder="#####" min="1" max="99999" />
                 <span asp-validation-for="Horas" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Correlativas" class="control-label"></label>
-                <input asp-for="Correlativas" class="form-control" />
+                <input asp-for="Correlativas" class="form-control" placeholder="Correlativas" />
                 <span asp-validation-for="Correlativas" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Categoria" class="control-label"></label>
-                <input asp-for="Categoria" class="form-control" />
+                <input asp-for="Categoria" class="form-control" placeholder="Categoria" />
                 <span asp-validation-for="Categoria" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Crear" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver al listado</a>
 </div>
 
 @section Scripts {

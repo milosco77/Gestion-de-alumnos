@@ -1,19 +1,22 @@
 ﻿@model IEnumerable<MVCCore.DatabaseFirstModel.Notas>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Inicio";
 }
 
-<h1>Index</h1>
+<h1>Notas</h1>
 
 <p>
-    <a asp-action="Create">Crear Nuevo</a>
+    <a asp-action="Create">Crear Nueva</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.NotasId)
+            </th>
+            <th>
+                Alumno
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Asignatura)
@@ -45,8 +48,16 @@
             <td>
                 @using (var context = new MVCCore.DatabaseFirstModel.AlumnosContext())
                 {
-                    var notas = context.ListadoAsignaturas.Find(item.AsignaturaId).Nombre;
-                    @Html.DisplayFor(modelItem => notas)
+                    var alumno = context.Alumnos.Find(context.Asignaturas.Where(a => a.AsignaturaId == item.AsignaturaId).FirstOrDefault().AlumnoId);
+                    string nombreYapellido = $"{alumno.Nombre} {alumno.Apellido}";
+                    @Html.DisplayFor(modelItem => nombreYapellido)
+                }
+            </td>
+            <td>
+                @using (var context = new MVCCore.DatabaseFirstModel.AlumnosContext())
+                {
+                    var asignatura = context.ListadoAsignaturas.Find(context.Asignaturas.Where(a => a.AsignaturaId == item.AsignaturaId).FirstOrDefault().ListadoAsignaturasId).Nombre;
+                    @Html.DisplayFor(modelItem => asignatura)
                 }
             </td>
             <td>

@@ -1,7 +1,7 @@
 ﻿@model MVCCore.DatabaseFirstModel.Notas
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles";
 }
 
 <h1>Detalles</h1>
@@ -10,41 +10,63 @@
     <h4>Notas</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PrimerParcial)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NotasId)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PrimerParcial)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NotasId)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PrimerRecuperatorio)
+
+        <dt class="col-sm-2">
+            Alumno
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PrimerRecuperatorio)
+        <dd class="col-sm-10">
+            @using (var context = new MVCCore.DatabaseFirstModel.AlumnosContext())
+            {
+                var alumno = context.Alumnos.Find(context.Asignaturas.Where(a => a.AsignaturaId == Model.AsignaturaId).FirstOrDefault().AlumnoId);
+                string nombreYapellido = $"{alumno.Nombre} {alumno.Apellido}";
+                @Html.DisplayFor(modelItem => nombreYapellido)
+            }
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SegundoParcial)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SegundoParcial)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SegundoRecuperatorio)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SegundoRecuperatorio)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Final)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Final)
-        </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Asignatura)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Asignatura.Dias)
+        <dd class="col-sm-10">
+            @using (var context = new MVCCore.DatabaseFirstModel.AlumnosContext())
+            {
+                var notas = context.ListadoAsignaturas.Find(Model.AsignaturaId).Nombre;
+                @Html.DisplayFor(modelItem => notas)
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PrimerParcial)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PrimerParcial)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PrimerRecuperatorio)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PrimerRecuperatorio)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SegundoParcial)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SegundoParcial)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SegundoRecuperatorio)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SegundoRecuperatorio)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Final)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Final)
         </dd>
     </dl>
 </div>

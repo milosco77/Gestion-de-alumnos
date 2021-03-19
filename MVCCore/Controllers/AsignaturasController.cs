@@ -54,11 +54,10 @@ namespace MVCCore.Controllers
                 a.AlumnoId,
                 nombreCompleto = $"ID {a.AlumnoId} - {a.Nombre} {a.Apellido}"
             });
-
             var carreras = _context.Carreras.Select(c => new
             {
                 c.CarreraId,
-                carreraNombreApellido = $"{_context.ListadoCarreras.Where(lc => lc.ListadoCarrerasId == c.ListadoCarrerasId).SingleOrDefault().Nombre} - ID {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().AlumnoId} {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Nombre} {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Apellido}"
+                carreraNombreApellido = $"{_context.ListadoCarreras.Where(lc => lc.ListadoCarrerasId == c.ListadoCarrerasId).SingleOrDefault().Nombre} - {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Nombre} {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Apellido} - ID {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().AlumnoId}"
             });
             ViewData["AlumnoId"] = new SelectList(alumnos, "AlumnoId", "nombreCompleto");
             ViewData["CarreraId"] = new SelectList(carreras, "CarreraId", "carreraNombreApellido");
@@ -101,13 +100,12 @@ namespace MVCCore.Controllers
                 a.AlumnoId,
                 nombreCompleto = $"ID {a.AlumnoId} - {a.Nombre} {a.Apellido}"
             });
-
             var carreras = _context.Carreras.Select(c => new
             {
                 c.CarreraId,
-                carreraNombreApellido = $"{_context.ListadoCarreras.Where(lc => lc.ListadoCarrerasId == c.ListadoCarrerasId).SingleOrDefault().Nombre} - {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Nombre} {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Apellido}"
+                carreraNombreApellido = $"{_context.ListadoCarreras.Where(lc => lc.ListadoCarrerasId == c.ListadoCarrerasId).SingleOrDefault().Nombre} - {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Nombre} {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Apellido} - ID {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().AlumnoId}"
             });
-            ViewData["AlumnoId"] = new SelectList(alumnos, "AlumnoId", "nombreCompleto");
+            ViewData["AlumnoId"] = new SelectList(alumnos, "AlumnoId", "nombreCompleto", asignaturas.AlumnoId);
             ViewData["CarreraId"] = new SelectList(carreras, "CarreraId", "carreraNombreApellido");
             ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Nombre");
             return View(asignaturas);
@@ -128,21 +126,6 @@ namespace MVCCore.Controllers
                 return NotFound();
             }
 
-            var alumnos = _context.Alumnos.Select(a => new
-            {
-                a.AlumnoId,
-                nombreCompleto = $"ID {a.AlumnoId} - {a.Nombre} {a.Apellido}"
-            });
-
-            var carreras = _context.Carreras.Select(c => new
-            {
-                c.CarreraId,
-                carreraNombreApellido = $"{_context.ListadoCarreras.Where( lc => lc.ListadoCarrerasId == c.ListadoCarrerasId).SingleOrDefault().Nombre} - {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Nombre} {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Apellido}"
-            });
-
-            ViewData["AlumnoId"] = new SelectList(alumnos, "AlumnoId", "nombreCompleto", asignaturas.AlumnoId);
-            ViewData["CarreraId"] = new SelectList(carreras, "CarreraId", "carreraNombreApellido", asignaturas.CarreraId);
-            ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Nombre", asignaturas.ListadoAsignaturasId);
             if (asignaturas.Dias.Contains("Lunes") == true)
             {
                 Dias[0] = true;
@@ -171,7 +154,21 @@ namespace MVCCore.Controllers
             {
                 Dias[6] = true;
             }
+            var alumnos = _context.Alumnos.Select(a => new
+            {
+                a.AlumnoId,
+                nombreCompleto = $"ID {a.AlumnoId} - {a.Nombre} {a.Apellido}"
+            });
+            var carreras = _context.Carreras.Select(c => new
+            {
+                c.CarreraId,
+                carreraNombreApellido = $"{_context.ListadoCarreras.Where(lc => lc.ListadoCarrerasId == c.ListadoCarrerasId).SingleOrDefault().Nombre} - {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Nombre} {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Apellido} - ID {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().AlumnoId}"
+            });
             ViewBag.Dias = Dias;
+            ViewData["AlumnoId"] = new SelectList(alumnos, "AlumnoId", "nombreCompleto", asignaturas.AlumnoId);
+            ViewData["CarreraId"] = new SelectList(carreras, "CarreraId", "carreraNombreApellido", asignaturas.CarreraId);
+            ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Nombre", asignaturas.ListadoAsignaturasId);
+
             return View(asignaturas);
         }
 
@@ -224,8 +221,18 @@ namespace MVCCore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AlumnoId"] = new SelectList(_context.Alumnos, "AlumnoId", "Apellido", asignaturas.AlumnoId);
-            ViewData["CarreraId"] = new SelectList(_context.Carreras, "CarreraId", "CarreraId", asignaturas.CarreraId);
+            var alumnos = _context.Alumnos.Select(a => new
+            {
+                a.AlumnoId,
+                nombreCompleto = $"ID {a.AlumnoId} - {a.Nombre} {a.Apellido}"
+            });
+            var carreras = _context.Carreras.Select(c => new
+            {
+                c.CarreraId,
+                carreraNombreApellido = $"{_context.ListadoCarreras.Where(lc => lc.ListadoCarrerasId == c.ListadoCarrerasId).SingleOrDefault().Nombre} - {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Nombre} {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().Apellido} - ID {_context.Alumnos.Where(a => a.AlumnoId == c.AlumnoId).SingleOrDefault().AlumnoId}"
+            });
+            ViewData["AlumnoId"] = new SelectList(alumnos, "AlumnoId", "nombreCompleto", asignaturas.AlumnoId);
+            ViewData["CarreraId"] = new SelectList(carreras, "CarreraId", "carreraNombreApellido", asignaturas.CarreraId);
             ViewData["ListadoAsignaturasId"] = new SelectList(_context.ListadoAsignaturas, "ListadoAsignaturasId", "Nombre", asignaturas.ListadoAsignaturasId);
             return View(asignaturas);
         }
