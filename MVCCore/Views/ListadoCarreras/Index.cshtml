@@ -1,17 +1,20 @@
 ﻿@model IEnumerable<MVCCore.DatabaseFirstModel.ListadoCarreras>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Listado de Carreras";
 }
 
-<h1>Index</h1>
+<h1>Listado de Carreras</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear Nuevo</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ListadoCarrerasId)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
@@ -31,21 +34,24 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.ListadoCarrerasId)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Titulo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DuracionEstimadaAnios)
+                @Html.DisplayFor(modelItem => item.DuracionEstimadaAnios) años
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Facultad.Direccion)
+                @Html.DisplayFor(modelItem => item.Facultad.Nombre)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ListadoCarrerasId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ListadoCarrerasId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ListadoCarrerasId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ListadoCarrerasId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.ListadoCarrerasId">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.ListadoCarrerasId">Borrar</a>
             </td>
         </tr>
 }

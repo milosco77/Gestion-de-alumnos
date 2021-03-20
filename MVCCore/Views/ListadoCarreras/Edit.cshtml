@@ -1,18 +1,23 @@
 ﻿@model MVCCore.DatabaseFirstModel.ListadoCarreras
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar registro del listado de carreras";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
-<h4>ListadoCarreras</h4>
+<h4>Listado de Carreras</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ListadoCarrerasId" />
+            <div class="form-group">
+                <label asp-for="ListadoCarrerasId" class="control-label"></label>
+                <input asp-for="ListadoCarrerasId" class="form-control" disabled />
+                <input asp-for="ListadoCarrerasId" class="form-control" hidden />
+                <span asp-validation-for="ListadoCarrerasId" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="FacultadId" class="control-label"></label>
                 <select asp-for="FacultadId" class="form-control" asp-items="ViewBag.FacultadId"></select>
@@ -20,28 +25,28 @@
             </div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
+                <input asp-for="Nombre" class="form-control" placeholder="Nombre" />
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Titulo" class="control-label"></label>
-                <input asp-for="Titulo" class="form-control" />
+                <input asp-for="Titulo" class="form-control" placeholder="Titulo" />
                 <span asp-validation-for="Titulo" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DuracionEstimadaAnios" class="control-label"></label>
-                <input asp-for="DuracionEstimadaAnios" class="form-control" />
+                <input asp-for="DuracionEstimadaAnios" type="number" class="form-control" placeholder="##" min="0" max="20" />
                 <span asp-validation-for="DuracionEstimadaAnios" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver al listado</a>
 </div>
 
 @section Scripts {

@@ -1,17 +1,20 @@
 ﻿@model IEnumerable<MVCCore.DatabaseFirstModel.Facultades>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Facultades";
 }
 
-<h1>Index</h1>
+<h1>Facultades</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear Nueva</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FacultadId)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
@@ -49,6 +52,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.FacultadId)
+            </td>
+            
+            <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
             <td>
@@ -58,7 +65,7 @@
                 @Html.DisplayFor(modelItem => item.Telefono)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DepartamentoAlumnos)
+                @Html.DisplayFor(modelItem => item.DepartamentoAlumnos) 
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Facebook)
@@ -67,7 +74,7 @@
                 @Html.DisplayFor(modelItem => item.Instagram)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Twitter)
+                @Html.DisplayFor(modelItem => item.Twitter) 
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PaginaWeb)
@@ -76,12 +83,12 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RecorridoVirtual)
+                @Html.DisplayFor(modelItem => item.RecorridoVirtual) 
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.FacultadId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FacultadId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FacultadId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.FacultadId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.FacultadId">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.FacultadId">Borrar</a>
             </td>
         </tr>
 }

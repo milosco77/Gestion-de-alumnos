@@ -47,7 +47,7 @@ namespace MVCCore.Controllers
         // GET: ListadoCarreras/Create
         public IActionResult Create()
         {
-            ViewData["FacultadId"] = new SelectList(_context.Facultades, "FacultadId", "Direccion");
+            ViewData["FacultadId"] = new SelectList(_context.Facultades, "FacultadId", "Nombre");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace MVCCore.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["FacultadId"] = new SelectList(_context.Facultades, "FacultadId", "Direccion", listadoCarreras.FacultadId);
+            ViewData["FacultadId"] = new SelectList(_context.Facultades, "FacultadId", "Nombre", listadoCarreras.FacultadId);
             return View(listadoCarreras);
         }
 
@@ -81,7 +81,7 @@ namespace MVCCore.Controllers
             {
                 return NotFound();
             }
-            ViewData["FacultadId"] = new SelectList(_context.Facultades, "FacultadId", "Direccion", listadoCarreras.FacultadId);
+            ViewData["FacultadId"] = new SelectList(_context.Facultades, "FacultadId", "Nombre", listadoCarreras.FacultadId);
             return View(listadoCarreras);
         }
 
@@ -117,7 +117,7 @@ namespace MVCCore.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["FacultadId"] = new SelectList(_context.Facultades, "FacultadId", "Direccion", listadoCarreras.FacultadId);
+            ViewData["FacultadId"] = new SelectList(_context.Facultades, "FacultadId", "Nombre", listadoCarreras.FacultadId);
             return View(listadoCarreras);
         }
 

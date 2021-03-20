@@ -1,10 +1,10 @@
 ﻿@model MVCCore.DatabaseFirstModel.Facultades
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar facultad";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
 <h4>Facultades</h4>
 <hr />
@@ -12,66 +12,71 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="FacultadId" />
+            <div class="form-group">
+                <label asp-for="FacultadId" class="control-label"></label>
+                <input asp-for="FacultadId" class="form-control" disabled />
+                <input asp-for="FacultadId" class="form-control" hidden />
+                <span asp-validation-for="FacultadId" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
+                <input asp-for="Nombre" class="form-control" placeholder="Nombre" />
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Direccion" class="control-label"></label>
-                <input asp-for="Direccion" class="form-control" />
+                <input asp-for="Direccion" class="form-control" placeholder="Direccion" />
                 <span asp-validation-for="Direccion" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Telefono" class="control-label"></label>
-                <input asp-for="Telefono" class="form-control" />
+                <input asp-for="Telefono" class="form-control" type="tel" placeholder="########" />
                 <span asp-validation-for="Telefono" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DepartamentoAlumnos" class="control-label"></label>
-                <input asp-for="DepartamentoAlumnos" class="form-control" />
+                <input asp-for="DepartamentoAlumnos" class="form-control" type="email" placeholder="mail@@dominio.com" />
                 <span asp-validation-for="DepartamentoAlumnos" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Facebook" class="control-label"></label>
-                <input asp-for="Facebook" class="form-control" />
+                <input asp-for="Facebook" class="form-control" type="url" placeholder="html://www.abcd.com" />
                 <span asp-validation-for="Facebook" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Instagram" class="control-label"></label>
-                <input asp-for="Instagram" class="form-control" />
+                <input asp-for="Instagram" class="form-control" type="url" placeholder="html://www.abcd.com" />
                 <span asp-validation-for="Instagram" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Twitter" class="control-label"></label>
-                <input asp-for="Twitter" class="form-control" />
+                <input asp-for="Twitter" class="form-control" type="url" placeholder="html://www.abcd.com" />
                 <span asp-validation-for="Twitter" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PaginaWeb" class="control-label"></label>
-                <input asp-for="PaginaWeb" class="form-control" />
+                <input asp-for="PaginaWeb" class="form-control" type="url" placeholder="html://www.abcd.com" />
                 <span asp-validation-for="PaginaWeb" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <input asp-for="Email" class="form-control" type="email" placeholder="mail@@dominio.com" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="RecorridoVirtual" class="control-label"></label>
-                <input asp-for="RecorridoVirtual" class="form-control" />
+                <input asp-for="RecorridoVirtual" class="form-control" type="url" placeholder="html://www.abcd.com" />
                 <span asp-validation-for="RecorridoVirtual" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver al listado</a>
 </div>
 
 @section Scripts {

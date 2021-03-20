@@ -1,42 +1,48 @@
 ﻿@model MVCCore.DatabaseFirstModel.ListadoCarreras
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles de un registro del listado de carreras";
 }
 
-<h1>Details</h1>
+<h1>Detalles</h1>
 
 <div>
-    <h4>ListadoCarreras</h4>
+    <h4>Listado de Carreras</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ListadoCarrerasId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ListadoCarrerasId)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Nombre)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nombre)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Titulo)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Titulo)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.DuracionEstimadaAnios)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DuracionEstimadaAnios)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DuracionEstimadaAnios) años
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Facultad)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Facultad.Direccion)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Facultad.Nombre)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ListadoCarrerasId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.ListadoCarrerasId">Editar</a> |
+    <a asp-action="Index">Volver al listado</a>
 </div>
