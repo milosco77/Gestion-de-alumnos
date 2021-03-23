@@ -1,9 +1,10 @@
 # Gestion de alumnos
-Aplicacion de gestion de alumnos en multiples plataformas.
+Aplicacion de gestion de alumnos en multiples plataformas con .NET Core.
+--EN DESARROLLO--
 
 ### ¿Que hace el proyecto?
     
-El proyecto se encarga de proporcionar una herramienta con distintos tipos de Front-End, que permita la gestion de alumnos a nivel de una clase o asignatura.
+El proyecto se encarga de proporcionar una herramienta con distintos tipos de Front-End, que permita la gestion de alumnos sus carreras, asignaturas y notas.
     
 ### ¿Por que este proyecto es util?
     
@@ -11,7 +12,11 @@ Este proyecto es util por que permite interactuar y visibilizar los datos del al
     
 ### ¿Como los usuarios pueden empezar con este proyecto?
     
-Los usuarios que deseen usar este proyecto pueden hacerlo clonando el repositorio y posteriormente compilando la solucion eligiendo el Front-End que mas se acomode a su necesidad.
+Los usuarios que deseen usar este proyecto pueden hacerlo clonando el repositorio, creando la base de datos con el [BackUp](Base de datos/Alumnos.bak) o [Script](Base de datos/AlumnosDB.sql) y posteriormente compilando la solucion eligiendo el Front-End que mas se acomode a su necesidad.
+Por el momento Front-End disponiblies:
+- Consola
+- Web (MVC)
+--EN DESARROLLO--
     
 ### ¿Donde los usuarios pueden obtener ayuda con este proyecto?
     
