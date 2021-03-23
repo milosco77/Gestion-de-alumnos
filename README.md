@@ -12,11 +12,10 @@ Este proyecto es util por que permite interactuar y visibilizar los datos del al
     
 ### ¿Como los usuarios pueden empezar con este proyecto?
     
-Los usuarios que deseen usar este proyecto pueden hacerlo clonando el repositorio, creando la base de datos con el [BackUp](Base de datos/Alumnos.bak) o [Script](Base de datos/AlumnosDB.sql) y posteriormente compilando la solucion eligiendo el Front-End que mas se acomode a su necesidad.
-Por el momento Front-End disponiblies:
+Los usuarios que deseen usar este proyecto pueden hacerlo clonando el repositorio, creando la base de datos con el [BackUp](https://github.com/milosco77/Gestion-de-alumnos/blob/dev/Base%20de%20datos/Alumnos.bak) o [Script](https://github.com/milosco77/Gestion-de-alumnos/blob/dev/Base%20de%20datos/AlumnosDB.sql) y posteriormente compilando la solucion eligiendo el Front-End que mas se acomode a su necesidad.
+Por el momento Front-End disponiblies (en desarrollo):
 - Consola
 - Web (MVC)
---EN DESARROLLO--
     
 ### ¿Donde los usuarios pueden obtener ayuda con este proyecto?
     
