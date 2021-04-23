@@ -30,7 +30,7 @@ namespace MVCCore.DatabaseFirstModel
         public string Twitter { get; set; }
         [Url(ErrorMessage = "La URL no es correcta.")]
         public string PaginaWeb { get; set; }
-        [EmailAddress(ErrorMessage = "La direccion de mail no es correcta.")]
+        [DisplayName("Pagina web"), EmailAddress(ErrorMessage = "La direccion de mail no es correcta.")]
         public string Email { get; set; }
         [DisplayName("Recorrido virtual"), Url(ErrorMessage = "La URL no es correcta.")]
         public string RecorridoVirtual { get; set; }
