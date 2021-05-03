@@ -1,7 +1,11 @@
 # Gestion de alumnos
 Aplicacion de gestion de alumnos en multiples plataformas con .NET Core.
+
 --EN DESARROLLO--
 
+---EN PAUSA---
+
+---SE DESGLOSARA EL PROYECTO PARA CREAR PROYECTOS MAS PEQUEÑOS---
 ### ¿Que hace el proyecto?
     
 El proyecto se encarga de proporcionar una herramienta con distintos tipos de Front-End, que permita la gestion de alumnos sus carreras, asignaturas y notas.
